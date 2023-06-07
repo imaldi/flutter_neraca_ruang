@@ -82,26 +82,70 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         drawer: Drawer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              DrawerHeader(
-                  child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(Icons.dehaze),
-                ],
-              )),
-              DrawerContent(),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  "Copyright © PT. Semesta Teknologi Indonesia",
-                  style: Theme.of(context).textTheme.bodySmall,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DrawerHeader(
+                    margin: EdgeInsets.all(0),
+                    decoration: BoxDecoration(
+                        border: Border.all(style: BorderStyle.none)),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(Icons.dehaze),
+                      ],
+                    )),
+                DrawerContent(),
+                SizedBox(
+                  height: 2 * extra,
                 ),
-              ),
-            ],
+                Container(
+                  padding: EdgeInsets.all(big),
+                  margin: EdgeInsets.symmetric(vertical: big),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(huge))),
+                  child: Text("Masuk / Daftar"),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/images/icon_facebook.png"),
+                          Image.asset("assets/images/icon_ig.png"),
+                          Image.asset("assets/images/icon_twitter.png"),
+                          Image.asset("assets/images/icon_tiktok.png"),
+                          Image.asset("assets/images/icon_youtube.png"),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        "neracaruang@neracaruang.com",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(decoration: TextDecoration.underline),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        "Copyright © PT. Semesta Teknologi Indonesia",
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         body: SingleChildScrollView(
