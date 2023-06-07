@@ -51,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
           TabMenuItem("DISKUSI"),
         ],
       );
+  ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -112,13 +113,169 @@ class _MyHomePageState extends State<MyHomePage> {
                     constraints: BoxConstraints(maxHeight: 250),
                     child: Row(
                       children: [
+                        Image.asset("assets/images/sliding_1.png"),
                         Image.asset("assets/images/dashboard_2.png"),
-                        Image.asset("assets/images/sliding_1.png")
                       ]
                           .map((e) => Container(
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: medium),
                                 constraints: BoxConstraints(
+                                    minWidth: MediaQuery.of(context)
+                                                .orientation ==
+                                            Orientation.portrait
+                                        ? MediaQuery.of(context).size.width
+                                        : MediaQuery.of(context).size.height,
+                                    maxWidth: MediaQuery.of(context)
+                                                .orientation ==
+                                            Orientation.portrait
+                                        ? MediaQuery.of(context).size.width
+                                        : MediaQuery.of(context).size.height),
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: e,
+                                ),
+                              ))
+                          .toList(),
+                    ),
+                  )),
+              Icon(Icons.mail),
+              Text(
+                "20 TAHUN OTONOMI DAERAH",
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                  "Era desentralisasi telah mendorong kepala daerah berinovasi dalam mengembangkan wilayah mereka untuk."),
+              Image.asset("assets/images/neraca_ruang.png"),
+              Icon(Icons.play_arrow),
+              Text(
+                "PLANOLOGI MENGGUGAT (EPISODE 2 : MEMBERI MANFAAT ATAU MENGUNDANG BENCANA?)",
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.center,
+              ),
+              Text("Ini Isi Sinopsis Video"),
+              SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    constraints: BoxConstraints(maxHeight: 250),
+                    child: Row(
+                      children: [
+                        Image.asset("assets/images/sliding_1.png"),
+                        Image.asset("assets/images/dashboard_3.png"),
+                      ]
+                          .map((e) => Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: medium),
+                                constraints: BoxConstraints(
+                                    minWidth: MediaQuery.of(context)
+                                                .orientation ==
+                                            Orientation.portrait
+                                        ? MediaQuery.of(context).size.width
+                                        : MediaQuery.of(context).size.height,
+                                    maxWidth: MediaQuery.of(context)
+                                                .orientation ==
+                                            Orientation.portrait
+                                        ? MediaQuery.of(context).size.width
+                                        : MediaQuery.of(context).size.height),
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: e,
+                                ),
+                              ))
+                          .toList(),
+                    ),
+                  )),
+              Icon(Icons.camera),
+              Text("Institut Teknlogi Denpasar, 23 Mei 2023"),
+              Text(
+                "ARISAN 6301: PARIWISATA NUSANTARA",
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.center,
+              ),
+              SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    constraints: BoxConstraints(maxHeight: 250),
+                    child: Row(
+                      children: [
+                        Image.asset("assets/images/sliding_1.png"),
+                        Image.asset("assets/images/dashboard_3.png"),
+                      ]
+                          .map((e) => Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: medium),
+                                constraints: BoxConstraints(
+                                    minWidth: MediaQuery.of(context)
+                                                .orientation ==
+                                            Orientation.portrait
+                                        ? MediaQuery.of(context).size.width
+                                        : MediaQuery.of(context).size.height,
+                                    maxWidth: MediaQuery.of(context)
+                                                .orientation ==
+                                            Orientation.portrait
+                                        ? MediaQuery.of(context).size.width
+                                        : MediaQuery.of(context).size.height),
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: e,
+                                ),
+                              ))
+                          .toList(),
+                    ),
+                  )),
+              Icon(Icons.mail),
+              Text(
+                "APAKAH INDONESIA SUDAH MENJALANKAN OTONOMI DAERAH DENGAN BAIK?",
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                  "Diskusi hangat mengenai pandangan masyarakat terhadap penerapan otonomi daerah di masa kini."),
+              SizedBox(
+                height: extra,
+              ),
+              Text(
+                "IKUTI KAMI",
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.center,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.add),
+                  Icon(Icons.ac_unit),
+                  Icon(Icons.access_alarm),
+                  Icon(Icons.add_chart_outlined),
+                  Icon(Icons.mail),
+                ],
+              ),
+              Text(
+                "Email",
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                "aldiirsanmajid@gmail.com",
+                style: TextStyle(decoration: TextDecoration.underline),
+                textAlign: TextAlign.center,
+              ),
+              SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    constraints: BoxConstraints(maxHeight: 250),
+                    child: Row(
+                      children: [
+                        Image.asset("assets/images/sliding_1.png"),
+                        Image.asset("assets/images/dashboard_3.png"),
+                      ]
+                          .map((e) => Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: medium),
+                                constraints: BoxConstraints(
+                                    minWidth: MediaQuery.of(context)
+                                                .orientation ==
+                                            Orientation.portrait
+                                        ? MediaQuery.of(context).size.width
+                                        : MediaQuery.of(context).size.height,
                                     maxWidth: MediaQuery.of(context)
                                                 .orientation ==
                                             Orientation.portrait
