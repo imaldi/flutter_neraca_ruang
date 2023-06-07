@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/tab_menu_item.dart';
 
+import 'core/consts/colors.dart';
 import 'core/consts/sizes.dart';
 
 void main() {
@@ -18,11 +19,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: TextTheme(
+            headlineSmall: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: const Color(titleColorText),
+                fontWeight: FontWeight.bold),
+            bodyMedium: TextStyle(color: Colors.grey),
+            bodySmall: TextStyle(color: Color(titleColorText))),
         appBarTheme: Theme.of(context).appBarTheme.copyWith(
             backgroundColor: Colors.white,
             titleTextStyle: TextStyle(color: Colors.black),
-            iconTheme: IconThemeData(color: Colors.black),
-            actionsIconTheme: IconThemeData(color: Colors.black)),
+            iconTheme: IconThemeData(color: Color(appBarIconColor)),
+            actionsIconTheme: IconThemeData(color: Color(appBarIconColor))),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -59,12 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title:
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-            Text("NERACA "),
-            Icon(Icons.add),
-            Text(" RUANG"),
-          ]),
+          title: Center(
+              child: Image.asset("assets/images/nr_logo_horizontal.png")),
           bottom: PreferredSize(
             preferredSize: _tabBar.preferredSize,
             child: ColoredBox(color: Colors.blue, child: _tabBar),
@@ -87,26 +90,41 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               Image.asset("assets/images/dashboard_1.png"),
-              Icon(Icons.newspaper),
-              const Text(
-                'Anita Basudara (nama editor) 26/05/2023, 12:00 WIB',
+              Padding(
+                padding: const EdgeInsets.all(medium),
+                child: Column(
+                  children: [
+                    Icon(Icons.newspaper),
+                    Text(
+                      'Anita Basudara (nama editor) 26/05/2023, 12:00 WIB',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    Text(
+                      'PEMKOT DENPASAR LUNCURKAN REDITIA GUNA PERLUASAN DIGITALISASI DAERAH',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    const Text(
+                        "Pemerintah Kota (Pemkot) Denpasar kini memiliki Renon Digital Area (Reditia). Inovasi ini bertujuan untuk mempercepat dan memperluas digitalisasi pajak...."),
+                  ],
+                ),
               ),
-              Text(
-                'PEMKOT DENPASAR LUNCURKAN REDITIA GUNA PERLUASAN DIGITALISASI DAERAH',
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
-              ),
-              const Text(
-                  "Pemerintah Kota (Pemkot) Denpasar kini memiliki Renon Digital Area (Reditia). Inovasi ini bertujuan untuk mempercepat dan memperluas digitalisasi pajak...."),
               Image.asset("assets/images/dashboard_2.png"),
-              Icon(Icons.notes),
-              Text(
-                "PARADOKS DESENTRALISASI : CUMA 4 PERSEN TAPI DAPAT SETENGAH",
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(medium),
+                child: Column(
+                  children: [
+                    Icon(Icons.notes),
+                    Text(
+                      "PARADOKS DESENTRALISASI : CUMA 4 PERSEN TAPI DAPAT SETENGAH",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                        "Sebagian realisasi anggaran yang ditransfer pemerintah pusat ke daerah (propinsi, kota, maupun kabupaten), merupakan dana bagi hasil (DBH). Sumber pendapat yang menjadi hak konstitusi mereka. Maka, selain pendapatan asli daerah (PAD), otonomi fiskal yang 'murni' merupakan kemampuan masing-masing mereka, juga dicerminkan tingkat perolehan DBH-nya."),
+                  ],
+                ),
               ),
-              Text(
-                  "Sebagian realisasi anggaran yang ditransfer pemerintah pusat ke daerah (propinsi, kota, maupun kabupaten), merupakan dana bagi hasil (DBH). Sumber pendapat yang menjadi hak konstitusi mereka. Maka, selain pendapatan asli daerah (PAD), otonomi fiskal yang 'murni' merupakan kemampuan masing-masing mereka, juga dicerminkan tingkat perolehan DBH-nya."),
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Container(
@@ -138,22 +156,36 @@ class _MyHomePageState extends State<MyHomePage> {
                           .toList(),
                     ),
                   )),
-              Icon(Icons.mail),
-              Text(
-                "20 TAHUN OTONOMI DAERAH",
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(medium),
+                child: Column(
+                  children: [
+                    Icon(Icons.mail),
+                    Text(
+                      "20 TAHUN OTONOMI DAERAH",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                        "Era desentralisasi telah mendorong kepala daerah berinovasi dalam mengembangkan wilayah mereka untuk."),
+                  ],
+                ),
               ),
-              Text(
-                  "Era desentralisasi telah mendorong kepala daerah berinovasi dalam mengembangkan wilayah mereka untuk."),
               Image.asset("assets/images/neraca_ruang.png"),
-              Icon(Icons.play_arrow),
-              Text(
-                "PLANOLOGI MENGGUGAT (EPISODE 2 : MEMBERI MANFAAT ATAU MENGUNDANG BENCANA?)",
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(medium),
+                child: Column(
+                  children: [
+                    Icon(Icons.play_arrow),
+                    Text(
+                      "PLANOLOGI MENGGUGAT (EPISODE 2 : MEMBERI MANFAAT ATAU MENGUNDANG BENCANA?)",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text("Ini Isi Sinopsis Video"),
+                  ],
+                ),
               ),
-              Text("Ini Isi Sinopsis Video"),
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Container(
@@ -185,12 +217,19 @@ class _MyHomePageState extends State<MyHomePage> {
                           .toList(),
                     ),
                   )),
-              Icon(Icons.camera),
-              Text("Institut Teknlogi Denpasar, 23 Mei 2023"),
-              Text(
-                "ARISAN 6301: PARIWISATA NUSANTARA",
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(medium),
+                child: Column(
+                  children: [
+                    Icon(Icons.camera),
+                    Text("Institut Teknlogi Denpasar, 23 Mei 2023"),
+                    Text(
+                      "ARISAN 6301: PARIWISATA NUSANTARA",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -223,14 +262,21 @@ class _MyHomePageState extends State<MyHomePage> {
                           .toList(),
                     ),
                   )),
-              Icon(Icons.mail),
-              Text(
-                "APAKAH INDONESIA SUDAH MENJALANKAN OTONOMI DAERAH DENGAN BAIK?",
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(medium),
+                child: Column(
+                  children: [
+                    Icon(Icons.mail),
+                    Text(
+                      "APAKAH INDONESIA SUDAH MENJALANKAN OTONOMI DAERAH DENGAN BAIK?",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                        "Diskusi hangat mengenai pandangan masyarakat terhadap penerapan otonomi daerah di masa kini."),
+                  ],
+                ),
               ),
-              Text(
-                  "Diskusi hangat mengenai pandangan masyarakat terhadap penerapan otonomi daerah di masa kini."),
               SizedBox(
                 height: extra,
               ),
