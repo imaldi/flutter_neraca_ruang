@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/drawer_content.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/scrollable_horizontal_image.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/tab_menu_item.dart';
 
 import 'core/consts/colors.dart';
@@ -156,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    const Icon(Icons.newspaper),
+                    Image.asset("assets/images/icon_kabar1.png"),
                     Text(
                       'Anita Basudara (nama editor) 26/05/2023, 12:00 WIB',
                       style: Theme.of(context).textTheme.bodySmall,
@@ -187,37 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      Image.asset("assets/images/sliding_1.png"),
-                      Image.asset("assets/images/dashboard_2.png"),
-                    ]
-                        .map((e) => Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: medium),
-                              constraints: BoxConstraints(
-                                  maxHeight: 250,
-                                  minWidth:
-                                      MediaQuery.of(context).orientation ==
-                                              Orientation.portrait
-                                          ? MediaQuery.of(context).size.width
-                                          : MediaQuery.of(context).size.height,
-                                  maxWidth:
-                                      MediaQuery.of(context).orientation ==
-                                              Orientation.portrait
-                                          ? MediaQuery.of(context).size.width
-                                          : MediaQuery.of(context).size.height),
-                              child: SizedBox.expand(
-                                child: FittedBox(
-                                  fit: BoxFit.cover,
-                                  child: e,
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                  )),
+              const ScrollableHorizontalImage(),
               Padding(
                 padding: const EdgeInsets.all(medium),
                 child: Column(
@@ -248,39 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    constraints: const BoxConstraints(maxHeight: 250),
-                    child: Row(
-                      children: [
-                        Image.asset("assets/images/sliding_1.png"),
-                        Image.asset("assets/images/dashboard_3.png"),
-                      ]
-                          .map((e) => Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: medium),
-                                constraints: BoxConstraints(
-                                    minWidth: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width
-                                        : MediaQuery.of(context).size.height,
-                                    maxWidth: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width
-                                        : MediaQuery.of(context).size.height),
-                                child: SizedBox.expand(
-                                  child: FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: e,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                  )),
+              const ScrollableHorizontalImage(),
               Padding(
                 padding: const EdgeInsets.all(medium),
                 child: Column(
@@ -295,39 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    constraints: const BoxConstraints(maxHeight: 250),
-                    child: Row(
-                      children: [
-                        Image.asset("assets/images/sliding_1.png"),
-                        Image.asset("assets/images/dashboard_3.png"),
-                      ]
-                          .map((e) => Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: medium),
-                                constraints: BoxConstraints(
-                                    minWidth: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width
-                                        : MediaQuery.of(context).size.height,
-                                    maxWidth: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width
-                                        : MediaQuery.of(context).size.height),
-                                child: SizedBox.expand(
-                                  child: FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: e,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                  )),
+              const ScrollableHorizontalImage(),
               Padding(
                 padding: const EdgeInsets.all(medium),
                 child: Column(
@@ -351,58 +258,35 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.add),
-                  Icon(Icons.ac_unit),
-                  Icon(Icons.access_alarm),
-                  Icon(Icons.add_chart_outlined),
-                  Icon(Icons.mail),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset("assets/images/icon_facebook.png"),
+                        Image.asset("assets/images/icon_ig.png"),
+                        Image.asset("assets/images/icon_twitter.png"),
+                        Image.asset("assets/images/icon_tiktok.png"),
+                        Image.asset("assets/images/icon_youtube.png"),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Text(
+                      "neracaruang@neracaruang.com",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(decoration: TextDecoration.underline),
+                    ),
+                  ),
                 ],
               ),
-              const Text(
-                "Email",
-                textAlign: TextAlign.center,
-              ),
-              const Text(
-                "aldiirsanmajid@gmail.com",
-                style: TextStyle(decoration: TextDecoration.underline),
-                textAlign: TextAlign.center,
-              ),
-              SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    constraints: const BoxConstraints(maxHeight: 250),
-                    child: Row(
-                      children: [
-                        Image.asset("assets/images/sliding_1.png"),
-                        Image.asset("assets/images/dashboard_3.png"),
-                      ]
-                          .map((e) => Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: medium),
-                                constraints: BoxConstraints(
-                                    minWidth: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width
-                                        : MediaQuery.of(context).size.height,
-                                    maxWidth: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width
-                                        : MediaQuery.of(context).size.height),
-                                child: SizedBox.expand(
-                                  child: FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: e,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                  )),
+              const ScrollableHorizontalImage(),
             ],
           ),
         ), // This trailing comma makes auto-formatting nicer for build methods.
