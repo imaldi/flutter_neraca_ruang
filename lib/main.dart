@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/drawer_content.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/tab_menu_item.dart';
 
 import 'core/consts/colors.dart';
@@ -23,13 +24,14 @@ class MyApp extends StatelessWidget {
             headlineSmall: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 color: const Color(titleColorText),
                 fontWeight: FontWeight.bold),
-            bodyMedium: TextStyle(color: Colors.grey),
-            bodySmall: TextStyle(color: Color(titleColorText))),
+            bodyMedium: const TextStyle(color: Colors.grey),
+            bodySmall: const TextStyle(color: Color(titleColorText))),
         appBarTheme: Theme.of(context).appBarTheme.copyWith(
             backgroundColor: Colors.white,
-            titleTextStyle: TextStyle(color: Colors.black),
-            iconTheme: IconThemeData(color: Color(appBarIconColor)),
-            actionsIconTheme: IconThemeData(color: Color(appBarIconColor))),
+            titleTextStyle: const TextStyle(color: Colors.black),
+            iconTheme: const IconThemeData(color: Color(appBarIconColor)),
+            actionsIconTheme:
+                const IconThemeData(color: Color(appBarIconColor))),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -46,7 +48,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TabBar get _tabBar => TabBar(
+  TabBar get _tabBar => const TabBar(
         isScrollable: true,
         indicatorColor: Colors.transparent,
         tabs: [
@@ -81,8 +83,24 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         drawer: Drawer(
           child: Column(
-            children: const [
-              DrawerHeader(child: Text("Hi This is drawer header")),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              DrawerHeader(
+                  child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(Icons.dehaze),
+                ],
+              )),
+              DrawerContent(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                  "Copyright © PT. Semesta Teknologi Indonesia",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
             ],
           ),
         ),
@@ -94,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    Icon(Icons.newspaper),
+                    const Icon(Icons.newspaper),
                     Text(
                       'Anita Basudara (nama editor) 26/05/2023, 12:00 WIB',
                       style: Theme.of(context).textTheme.bodySmall,
@@ -114,59 +132,59 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    Icon(Icons.notes),
+                    const Icon(Icons.notes),
                     Text(
                       "PARADOKS DESENTRALISASI : CUMA 4 PERSEN TAPI DAPAT SETENGAH",
                       style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
-                    Text(
+                    const Text(
                         "Sebagian realisasi anggaran yang ditransfer pemerintah pusat ke daerah (propinsi, kota, maupun kabupaten), merupakan dana bagi hasil (DBH). Sumber pendapat yang menjadi hak konstitusi mereka. Maka, selain pendapatan asli daerah (PAD), otonomi fiskal yang 'murni' merupakan kemampuan masing-masing mereka, juga dicerminkan tingkat perolehan DBH-nya."),
                   ],
                 ),
               ),
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Container(
-                    constraints: BoxConstraints(maxHeight: 250),
-                    child: Row(
-                      children: [
-                        Image.asset("assets/images/sliding_1.png"),
-                        Image.asset("assets/images/dashboard_2.png"),
-                      ]
-                          .map((e) => Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: medium),
-                                constraints: BoxConstraints(
-                                    minWidth: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width
-                                        : MediaQuery.of(context).size.height,
-                                    maxWidth: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width
-                                        : MediaQuery.of(context).size.height),
+                  child: Row(
+                    children: [
+                      Image.asset("assets/images/sliding_1.png"),
+                      Image.asset("assets/images/dashboard_2.png"),
+                    ]
+                        .map((e) => Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: medium),
+                              constraints: BoxConstraints(
+                                  maxHeight: 250,
+                                  minWidth:
+                                      MediaQuery.of(context).orientation ==
+                                              Orientation.portrait
+                                          ? MediaQuery.of(context).size.width
+                                          : MediaQuery.of(context).size.height,
+                                  maxWidth:
+                                      MediaQuery.of(context).orientation ==
+                                              Orientation.portrait
+                                          ? MediaQuery.of(context).size.width
+                                          : MediaQuery.of(context).size.height),
+                              child: SizedBox.expand(
                                 child: FittedBox(
-                                  fit: BoxFit.contain,
+                                  fit: BoxFit.cover,
                                   child: e,
                                 ),
-                              ))
-                          .toList(),
-                    ),
+                              ),
+                            ))
+                        .toList(),
                   )),
               Padding(
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    Icon(Icons.mail),
+                    const Icon(Icons.mail),
                     Text(
                       "20 TAHUN OTONOMI DAERAH",
                       style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
-                    Text(
+                    const Text(
                         "Era desentralisasi telah mendorong kepala daerah berinovasi dalam mengembangkan wilayah mereka untuk."),
                   ],
                 ),
@@ -176,20 +194,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    Icon(Icons.play_arrow),
+                    const Icon(Icons.play_arrow),
                     Text(
                       "PLANOLOGI MENGGUGAT (EPISODE 2 : MEMBERI MANFAAT ATAU MENGUNDANG BENCANA?)",
                       style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
-                    Text("Ini Isi Sinopsis Video"),
+                    const Text("Ini Isi Sinopsis Video"),
                   ],
                 ),
               ),
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Container(
-                    constraints: BoxConstraints(maxHeight: 250),
+                    constraints: const BoxConstraints(maxHeight: 250),
                     child: Row(
                       children: [
                         Image.asset("assets/images/sliding_1.png"),
@@ -209,9 +227,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Orientation.portrait
                                         ? MediaQuery.of(context).size.width
                                         : MediaQuery.of(context).size.height),
-                                child: FittedBox(
-                                  fit: BoxFit.contain,
-                                  child: e,
+                                child: SizedBox.expand(
+                                  child: FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: e,
+                                  ),
                                 ),
                               ))
                           .toList(),
@@ -221,8 +241,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    Icon(Icons.camera),
-                    Text("Institut Teknlogi Denpasar, 23 Mei 2023"),
+                    const Icon(Icons.camera),
+                    const Text("Institut Teknlogi Denpasar, 23 Mei 2023"),
                     Text(
                       "ARISAN 6301: PARIWISATA NUSANTARA",
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -234,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Container(
-                    constraints: BoxConstraints(maxHeight: 250),
+                    constraints: const BoxConstraints(maxHeight: 250),
                     child: Row(
                       children: [
                         Image.asset("assets/images/sliding_1.png"),
@@ -254,9 +274,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Orientation.portrait
                                         ? MediaQuery.of(context).size.width
                                         : MediaQuery.of(context).size.height),
-                                child: FittedBox(
-                                  fit: BoxFit.contain,
-                                  child: e,
+                                child: SizedBox.expand(
+                                  child: FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: e,
+                                  ),
                                 ),
                               ))
                           .toList(),
@@ -266,18 +288,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    Icon(Icons.mail),
+                    const Icon(Icons.mail),
                     Text(
                       "APAKAH INDONESIA SUDAH MENJALANKAN OTONOMI DAERAH DENGAN BAIK?",
                       style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
-                    Text(
+                    const Text(
                         "Diskusi hangat mengenai pandangan masyarakat terhadap penerapan otonomi daerah di masa kini."),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: extra,
               ),
               Text(
@@ -287,7 +309,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.add),
                   Icon(Icons.ac_unit),
                   Icon(Icons.access_alarm),
@@ -295,11 +317,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   Icon(Icons.mail),
                 ],
               ),
-              Text(
+              const Text(
                 "Email",
                 textAlign: TextAlign.center,
               ),
-              Text(
+              const Text(
                 "aldiirsanmajid@gmail.com",
                 style: TextStyle(decoration: TextDecoration.underline),
                 textAlign: TextAlign.center,
@@ -307,7 +329,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Container(
-                    constraints: BoxConstraints(maxHeight: 250),
+                    constraints: const BoxConstraints(maxHeight: 250),
                     child: Row(
                       children: [
                         Image.asset("assets/images/sliding_1.png"),
@@ -327,9 +349,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Orientation.portrait
                                         ? MediaQuery.of(context).size.width
                                         : MediaQuery.of(context).size.height),
-                                child: FittedBox(
-                                  fit: BoxFit.contain,
-                                  child: e,
+                                child: SizedBox.expand(
+                                  child: FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: e,
+                                  ),
                                 ),
                               ))
                           .toList(),
