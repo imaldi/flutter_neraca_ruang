@@ -106,7 +106,10 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                   ),
                 ),
                 searchMatchFn: (item, searchValue) {
-                  return (item.value.toString().contains(searchValue));
+                  return (item.value
+                      .toString()
+                      .toLowerCase()
+                      .contains(searchValue));
                 },
               ),
               //This to clear the search value when you close the menu
