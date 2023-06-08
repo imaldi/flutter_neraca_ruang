@@ -177,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    const Icon(Icons.notes),
+                    Image.asset("assets/images/icon_kabar1.png"),
                     Text(
                       "PARADOKS DESENTRALISASI : CUMA 4 PERSEN TAPI DAPAT SETENGAH",
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -193,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    const Icon(Icons.mail),
+                    Image.asset("assets/images/icon_kabar1.png"),
                     Text(
                       "20 TAHUN OTONOMI DAERAH",
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    const Icon(Icons.play_arrow),
+                    Image.asset("assets/images/icon_kabar1.png"),
                     Text(
                       "PLANOLOGI MENGGUGAT (EPISODE 2 : MEMBERI MANFAAT ATAU MENGUNDANG BENCANA?)",
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -224,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    const Icon(Icons.camera),
+                    Image.asset("assets/images/icon_kabar1.png"),
                     const Text("Institut Teknlogi Denpasar, 23 Mei 2023"),
                     Text(
                       "ARISAN 6301: PARIWISATA NUSANTARA",
@@ -239,7 +239,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(medium),
                 child: Column(
                   children: [
-                    const Icon(Icons.mail),
+                    Image.asset("assets/images/icon_kabar1.png"),
                     Text(
                       "APAKAH INDONESIA SUDAH MENJALANKAN OTONOMI DAERAH DENGAN BAIK?",
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -289,6 +289,22 @@ class _MyHomePageState extends State<MyHomePage> {
               const ScrollableHorizontalImage(),
             ],
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              label: "",
+              icon: Image.asset("assets/images/kons.png"),
+            ),
+            BottomNavigationBarItem(
+              label: "",
+              icon: Image.asset("assets/images/mada.png"),
+            ),
+            BottomNavigationBarItem(
+              label: "",
+              icon: Image.asset("assets/images/oto.png"),
+            ),
+          ],
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
