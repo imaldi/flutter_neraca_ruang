@@ -15,28 +15,10 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    LandingRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const LandingPage(),
-      );
-    },
     KabarRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const KabarPage(),
-      );
-    },
-    JurnalRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const JurnalPage(),
-      );
-    },
-    InfografisRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const InfografisPage(),
       );
     },
     AlbumFotoRoute.name: (routeData) {
@@ -45,27 +27,31 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AlbumFotoPage(),
       );
     },
+    LandingRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const LandingPage(),
+      );
+    },
+    JurnalRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const JurnalPage(),
+      );
+    },
     VideoRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const VideoPage(),
       );
     },
+    InfografisRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const InfografisPage(),
+      );
+    },
   };
-}
-
-/// generated route for
-/// [LandingPage]
-class LandingRoute extends PageRouteInfo<void> {
-  const LandingRoute({List<PageRouteInfo>? children})
-      : super(
-          LandingRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'LandingRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -78,34 +64,6 @@ class KabarRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'KabarRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [JurnalPage]
-class JurnalRoute extends PageRouteInfo<void> {
-  const JurnalRoute({List<PageRouteInfo>? children})
-      : super(
-          JurnalRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'JurnalRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [InfografisPage]
-class InfografisRoute extends PageRouteInfo<void> {
-  const InfografisRoute({List<PageRouteInfo>? children})
-      : super(
-          InfografisRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'InfografisRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -125,6 +83,34 @@ class AlbumFotoRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LandingPage]
+class LandingRoute extends PageRouteInfo<void> {
+  const LandingRoute({List<PageRouteInfo>? children})
+      : super(
+          LandingRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LandingRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [JurnalPage]
+class JurnalRoute extends PageRouteInfo<void> {
+  const JurnalRoute({List<PageRouteInfo>? children})
+      : super(
+          JurnalRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'JurnalRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [VideoPage]
 class VideoRoute extends PageRouteInfo<void> {
   const VideoRoute({List<PageRouteInfo>? children})
@@ -134,6 +120,20 @@ class VideoRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'VideoRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [InfografisPage]
+class InfografisRoute extends PageRouteInfo<void> {
+  const InfografisRoute({List<PageRouteInfo>? children})
+      : super(
+          InfografisRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'InfografisRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neraca_ruang/presentation/widgets/drawer_content.dart';
-import 'package:flutter_neraca_ruang/presentation/widgets/scrollable_horizontal_image.dart';
-import 'package:flutter_neraca_ruang/presentation/widgets/tab_menu_item.dart';
+import 'package:flutter_neraca_ruang/assets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/consts/colors.dart';
-import 'core/consts/sizes.dart';
 import 'core/router/app_router.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   final _appRouter = AppRouter();
+  var tes = Assets.assets_images_dashboard_1_png;
 
   // This widget is the root of your application.
   @override

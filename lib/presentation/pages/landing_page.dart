@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/sizes.dart';
 import '../widgets/drawer_content.dart';
@@ -7,15 +8,14 @@ import '../widgets/scrollable_horizontal_image.dart';
 import '../widgets/tab_menu_item.dart';
 
 @RoutePage()
-class LandingPage extends StatefulWidget {
+class LandingPage extends ConsumerStatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _LandingPageState createState() => _LandingPageState();
+  LandingPageState createState() => LandingPageState();
 }
 
-class _LandingPageState extends State<LandingPage> {
+class LandingPageState extends ConsumerState<LandingPage> {
   TabBar get _tabBar => const TabBar(
         isScrollable: true,
         indicatorColor: Colors.transparent,
@@ -28,7 +28,9 @@ class _LandingPageState extends State<LandingPage> {
           TabMenuItem("DISKUSI"),
         ],
       );
+
   ScrollController scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
