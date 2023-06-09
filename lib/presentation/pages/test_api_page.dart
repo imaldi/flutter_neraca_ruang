@@ -24,6 +24,7 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
   @override
   Widget build(BuildContext context) {
     var fotoTerbaru = ref.watch(fotoProvider);
+    var dataDashboard = ref.watch(dashBoardProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text("Halow"),
@@ -31,15 +32,30 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
       body: Container(
         padding: const EdgeInsets.all(32.0),
         child: Center(
-          child: fotoTerbaru.when(
-              data: (foto) {
-                return Text(foto.toString());
-              },
-              error: (err, stack) {
-                return Text("Ada Error");
-              },
-              loading: () => const CircularProgressIndicator()),
-        ),
+            child: dataDashboard.when(
+                data: (data) {
+                  return ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (c, i) {
+                        return Card(
+                          child: Text(data[i].toJson().toString()),
+                        );
+                      });
+                },
+                error: (e, s) {
+                  Text("Error Brih");
+                },
+                loading: () => const CircularProgressIndicator())
+
+            // fotoTerbaru.when(
+            //     data: (foto) {
+            //       return Text(foto.toJson().toString());
+            //     },
+            //     error: (err, stack) {
+            //       return Text("Ada Error");
+            //     },
+            //     loading: () => const CircularProgressIndicator()),
+            ),
       ),
     );
   }

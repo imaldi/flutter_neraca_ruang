@@ -17,12 +17,29 @@ import '../../../data/models/dashboard_response.dart';
 final userTokenProvider = StateProvider<String>((ref) =>
     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc");
 
-final repositoryProvider = Provider(Repository.new);
-var fotoProvider = FutureProvider.autoDispose<Datum>((ref) async {
+final repositoryProvider = Provider((ref) => Repository(ref));
+var kabarProvider = FutureProvider<Datum>((ref) async {
   final repo = ref.watch(repositoryProvider);
-  final response = await repo.fetchDatum();
+  final response = await repo.fetchDatum(DatumType.kabar.toString());
   final fotoDatum = response.data?.data?.first ?? Datum();
   return fotoDatum;
+});
+
+var fotoProvider = FutureProvider<Datum>((ref) async {
+  final repo = ref.watch(repositoryProvider);
+  final response = await repo.fetchDatum(DatumType.foto.toString());
+  final fotoDatum = response.data?.data?.first ?? Datum();
+  return fotoDatum;
+});
+
+// FIXME: ini masih salah, belum pakai family (tapi kyknya udah bisa aja kok)
+var dashBoardProvider = FutureProvider<List<Datum>>((ref) async {
+  var kabar = await ref.watch(kabarProvider.future);
+  var foto = await ref.watch(fotoProvider.future);
+  var theList = <Datum>[]
+    ..add(kabar)
+    ..add(foto);
+  return Future<List<Datum>>(() => theList);
 });
 
 class Repository {
@@ -30,12 +47,12 @@ class Repository {
 
   final Ref ref;
 
-  Future<DashboardResponse> fetchDatum() async {
+  Future<DashboardResponse> fetchDatum(String tipe) async {
     String token = ref.read(userTokenProvider);
 
     var url =
         Uri.https("neracaruang-api.binerapps.co.id", "/api/portal/content", {
-      'tipe': 'foto',
+      'tipe': tipe,
     });
 
     final response = await http.get(url, headers: {
