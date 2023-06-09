@@ -2,7 +2,8 @@ enum DatumType {
   kabar("kabar"),
   jurnal("jurnal"),
   infografis("infografis"),
-  video("video");
+  video("video"),
+  foto("foto");
 
   final String datumString;
   const DatumType(this.datumString);

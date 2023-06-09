@@ -21,6 +21,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const KabarPage(),
       );
     },
+    TestApiRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const TestApiPage(),
+      );
+    },
     AlbumFotoRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -64,6 +70,20 @@ class KabarRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'KabarRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TestApiPage]
+class TestApiRoute extends PageRouteInfo<void> {
+  const TestApiRoute({List<PageRouteInfo>? children})
+      : super(
+          TestApiRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TestApiRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
