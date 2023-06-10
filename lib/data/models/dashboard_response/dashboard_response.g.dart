@@ -22,37 +22,37 @@ Map<String, dynamic> _$$_DashboardResponseToJson(
     };
 
 _$_Data _$$_DataFromJson(Map<String, dynamic> json) => _$_Data(
-      currentPage: json['currentPage'] as int?,
+      currentPage: json['current_page'] as int?,
       data: (json['data'] as List<dynamic>?)
           ?.map((e) => Datum.fromJson(e as Map<String, dynamic>))
           .toList(),
-      firstPageUrl: json['firstPageUrl'] as String?,
+      firstPageUrl: json['first_page_url'] as String?,
       from: json['from'] as int?,
-      lastPage: json['lastPage'] as int?,
-      lastPageUrl: json['lastPageUrl'] as String?,
+      lastPage: json['last_page'] as int?,
+      lastPageUrl: json['last_page_url'] as String?,
       links: (json['links'] as List<dynamic>?)
           ?.map((e) => Link.fromJson(e as Map<String, dynamic>))
           .toList(),
-      nextPageUrl: json['nextPageUrl'],
+      nextPageUrl: json['next_page_url'] as String?,
       path: json['path'] as String?,
-      perPage: json['perPage'] as int?,
-      prevPageUrl: json['prevPageUrl'],
+      perPage: json['per_page'] as int?,
+      prevPageUrl: json['prev_page_url'] as String?,
       to: json['to'] as int?,
       total: json['total'] as int?,
     );
 
 Map<String, dynamic> _$$_DataToJson(_$_Data instance) => <String, dynamic>{
-      'currentPage': instance.currentPage,
+      'current_page': instance.currentPage,
       'data': instance.data,
-      'firstPageUrl': instance.firstPageUrl,
+      'first_page_url': instance.firstPageUrl,
       'from': instance.from,
-      'lastPage': instance.lastPage,
-      'lastPageUrl': instance.lastPageUrl,
+      'last_page': instance.lastPage,
+      'last_page_url': instance.lastPageUrl,
       'links': instance.links,
-      'nextPageUrl': instance.nextPageUrl,
+      'next_page_url': instance.nextPageUrl,
       'path': instance.path,
-      'perPage': instance.perPage,
-      'prevPageUrl': instance.prevPageUrl,
+      'per_page': instance.perPage,
+      'prev_page_url': instance.prevPageUrl,
       'to': instance.to,
       'total': instance.total,
     };
@@ -63,51 +63,47 @@ _$_Datum _$$_DatumFromJson(Map<String, dynamic> json) => _$_Datum(
       slug: json['slug'] as String?,
       keterangan: json['keterangan'] as String?,
       tipe: json['tipe'] as String?,
-      kategoriId: json['kategoriId'],
-      kategoriName: json['kategoriName'] as String?,
-      sourceId: json['sourceId'] as int?,
-      sourceName: json['sourceName'] as String?,
-      sourceUrl: json['sourceUrl'] as String?,
-      sourceDate: json['sourceDate'],
-      propinsiId: json['propinsiId'] as int?,
-      kotaId: json['kotaId'] as int?,
-      propinsiName: json['propinsiName'] as String?,
-      kotaName: json['kotaName'] as String?,
-      tagsPihak: json['tagsPihak'] == null
+      kategoriId: json['kategori_id'] as int?,
+      kategoriName: json['kategori_name'] as String?,
+      sourceId: json['source_id'] as int?,
+      sourceName: json['source_name'] as String?,
+      sourceUrl: json['source_url'] as String?,
+      sourceDate: json['source_date'],
+      propinsiId: json['propinsi_id'] as int?,
+      kotaId: json['kota_id'] as int?,
+      propinsiName: json['propinsi_name'] as String?,
+      kotaName: json['kota_name'] as String?,
+      tagsPihak: json['tags_pihak'] == null
           ? null
-          : Tags.fromJson(json['tagsPihak'] as Map<String, dynamic>),
-      tagsTopik: json['tagsTopik'] == null
+          : Tags.fromJson(json['tags_pihak'] as Map<String, dynamic>),
+      tagsTopik: json['tags_topik'] == null
           ? null
-          : Tags.fromJson(json['tagsTopik'] as Map<String, dynamic>),
-      tagsOtonomi: json['tagsOtonomi'] == null
+          : Tags.fromJson(json['tags_topik'] as Map<String, dynamic>),
+      tagsOtonomi: json['tags_otonomi'] == null
           ? null
-          : Tags.fromJson(json['tagsOtonomi'] as Map<String, dynamic>),
-      totalRead: json['totalRead'] as int?,
-      totalLike: json['totalLike'] as int?,
-      totalShared: json['totalShared'],
+          : Tags.fromJson(json['tags_otonomi'] as Map<String, dynamic>),
+      totalRead: json['total_read'] as int?,
+      totalLike: json['total_like'] as int?,
+      totalShared: json['total_shared'] as int?,
       domain: json['domain'] as String?,
-      fullPath: json['fullPath'] as String?,
-      fileUpload: json['fileUpload'] as String?,
-      thumbPath: json['thumbPath'] as String?,
-      videoUrl: json['videoUrl'],
-      thumbnail: json['thumbnail'],
+      fullPath: json['full_path'] as String?,
+      fileUpload: json['file_upload'] as String?,
+      thumbPath: json['thumb_path'] as String?,
+      videoUrl: json['video_url'] as String?,
+      thumbnail: json['thumbnail'] as String?,
       images: json['images'] as String?,
-      activeAt: json['activeAt'] == null
+      activeAt: json['active_at'] == null
           ? null
-          : DateTime.parse(json['activeAt'] as String),
-      activeBy: json['activeBy'] as String?,
-      publishAt: json['publishAt'] == null
+          : DateTime.parse(json['active_at'] as String),
+      activeBy: json['active_by'] as String?,
+      publishAt: json['publish_at'] == null
           ? null
-          : DateTime.parse(json['publishAt'] as String),
-      publishBy: json['publishBy'] == null
+          : DateTime.parse(json['publish_at'] as String),
+      publishBy: json['publish_by'] as String?,
+      deletedAt: json['deleted_at'] == null
           ? null
-          : DateTime.parse(json['publishBy'] as String),
-      deletedAt: json['deletedAt'] == null
-          ? null
-          : DateTime.parse(json['deletedAt'] as String),
-      deletedBy: json['deletedBy'] == null
-          ? null
-          : DateTime.parse(json['deletedBy'] as String),
+          : DateTime.parse(json['deleted_at'] as String),
+      deletedBy: json['deleted_by'] as String?,
     );
 
 Map<String, dynamic> _$$_DatumToJson(_$_Datum instance) => <String, dynamic>{
@@ -116,56 +112,50 @@ Map<String, dynamic> _$$_DatumToJson(_$_Datum instance) => <String, dynamic>{
       'slug': instance.slug,
       'keterangan': instance.keterangan,
       'tipe': instance.tipe,
-      'kategoriId': instance.kategoriId,
-      'kategoriName': instance.kategoriName,
-      'sourceId': instance.sourceId,
-      'sourceName': instance.sourceName,
-      'sourceUrl': instance.sourceUrl,
-      'sourceDate': instance.sourceDate,
-      'propinsiId': instance.propinsiId,
-      'kotaId': instance.kotaId,
-      'propinsiName': instance.propinsiName,
-      'kotaName': instance.kotaName,
-      'tagsPihak': instance.tagsPihak,
-      'tagsTopik': instance.tagsTopik,
-      'tagsOtonomi': instance.tagsOtonomi,
-      'totalRead': instance.totalRead,
-      'totalLike': instance.totalLike,
-      'totalShared': instance.totalShared,
+      'kategori_id': instance.kategoriId,
+      'kategori_name': instance.kategoriName,
+      'source_id': instance.sourceId,
+      'source_name': instance.sourceName,
+      'source_url': instance.sourceUrl,
+      'source_date': instance.sourceDate,
+      'propinsi_id': instance.propinsiId,
+      'kota_id': instance.kotaId,
+      'propinsi_name': instance.propinsiName,
+      'kota_name': instance.kotaName,
+      'tags_pihak': instance.tagsPihak,
+      'tags_topik': instance.tagsTopik,
+      'tags_otonomi': instance.tagsOtonomi,
+      'total_read': instance.totalRead,
+      'total_like': instance.totalLike,
+      'total_shared': instance.totalShared,
       'domain': instance.domain,
-      'fullPath': instance.fullPath,
-      'fileUpload': instance.fileUpload,
-      'thumbPath': instance.thumbPath,
-      'videoUrl': instance.videoUrl,
+      'full_path': instance.fullPath,
+      'file_upload': instance.fileUpload,
+      'thumb_path': instance.thumbPath,
+      'video_url': instance.videoUrl,
       'thumbnail': instance.thumbnail,
       'images': instance.images,
-      'activeAt': instance.activeAt?.toIso8601String(),
-      'activeBy': instance.activeBy,
-      'publishAt': instance.publishAt?.toIso8601String(),
-      'publishBy': instance.publishBy?.toIso8601String(),
-      'deletedAt': instance.deletedAt?.toIso8601String(),
-      'deletedBy': instance.deletedBy?.toIso8601String(),
+      'active_at': instance.activeAt?.toIso8601String(),
+      'active_by': instance.activeBy,
+      'publish_at': instance.publishAt?.toIso8601String(),
+      'publish_by': instance.publishBy,
+      'deleted_at': instance.deletedAt?.toIso8601String(),
+      'deleted_by': instance.deletedBy,
     };
 
 _$_Tags _$$_TagsFromJson(Map<String, dynamic> json) => _$_Tags(
-      tagsId: json['tagsId'] as int?,
-      tagsName: json['tagsName'] as String?,
-      tagsIcon: json['tagsIcon'] as String?,
-      tagsTipe: $enumDecodeNullable(_$TagsTipeEnumMap, json['tagsTipe']),
+      tagsId: json['tags_id'] as int?,
+      tagsName: json['tags_name'] as String?,
+      tagsIcon: json['tags_icon'] as String?,
+      tagsTipe: json['tags_tipe'] as String?,
     );
 
 Map<String, dynamic> _$$_TagsToJson(_$_Tags instance) => <String, dynamic>{
-      'tagsId': instance.tagsId,
-      'tagsName': instance.tagsName,
-      'tagsIcon': instance.tagsIcon,
-      'tagsTipe': _$TagsTipeEnumMap[instance.tagsTipe],
+      'tags_id': instance.tagsId,
+      'tags_name': instance.tagsName,
+      'tags_icon': instance.tagsIcon,
+      'tags_tipe': instance.tagsTipe,
     };
-
-const _$TagsTipeEnumMap = {
-  TagsTipe.OTONOMI: 'OTONOMI',
-  TagsTipe.PIHAK_TERKAIT: 'PIHAK_TERKAIT',
-  TagsTipe.TOPIK: 'TOPIK',
-};
 
 _$_Link _$$_LinkFromJson(Map<String, dynamic> json) => _$_Link(
       url: json['url'] as String?,

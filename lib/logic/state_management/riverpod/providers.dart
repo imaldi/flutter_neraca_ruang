@@ -25,23 +25,52 @@ final simpleDashboardRepositoryProvider =
 var kabarProvider = FutureProvider<Datum>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchDatum(DatumType.kabar.toString());
-  final fotoDatum = response.data?.data?.first ?? Datum();
-  return fotoDatum;
+  final datum = response.data?.data?.first ?? Datum();
+  return datum;
 });
 
+var jurnalProvider = FutureProvider<Datum>((ref) async {
+  final repo = ref.watch(repositoryProvider);
+  final response = await repo.fetchDatum(DatumType.jurnal.toString());
+  final datum = response.data?.data?.first ?? Datum();
+  return datum;
+});
+
+var infografisProvider = FutureProvider<Datum>((ref) async {
+  final repo = ref.watch(repositoryProvider);
+  final response = await repo.fetchDatum(DatumType.infografis.toString());
+  final datum = response.data?.data?.first ?? Datum();
+  return datum;
+});
+
+var videoProvider = FutureProvider<Datum>((ref) async {
+  final repo = ref.watch(repositoryProvider);
+  final response = await repo.fetchDatum(DatumType.video.toString());
+  final datum = response.data?.data?.first ?? Datum();
+  return datum;
+});
 var fotoProvider = FutureProvider<Datum>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchDatum(DatumType.foto.toString());
-  final fotoDatum = response.data?.data?.first ?? Datum();
-  return fotoDatum;
+  final datum = response.data?.data?.first ?? Datum();
+  return datum;
 });
 
 // FIXME: ini masih salah, belum pakai family (tapi kyknya udah bisa aja kok)
 var dashBoardProvider = FutureProvider<List<Datum>>((ref) async {
-  final repo = ref.watch(simpleDashboardRepositoryProvider);
-  final response = await repo.fetchDatum();
-  var theList = response.data ?? <Datum>[];
-  return Future<List<Datum>>(() => theList);
+  var kabar = await ref.watch(kabarProvider.future);
+  var jurnal = await ref.watch(jurnalProvider.future);
+  var infografis = await ref.watch(infografisProvider.future);
+  var foto = await ref.watch(fotoProvider.future);
+  var video = await ref.watch(videoProvider.future);
+  var theList = <Datum>[]
+    ..add(kabar)
+    ..add(jurnal)
+    ..add(infografis)
+    ..add(video)
+    ..add(foto);
+  print("Dashboard Result: ${theList.toString()}");
+  return await Future<List<Datum>>(() => theList);
 });
 
 class SimpleDashboardRepository {

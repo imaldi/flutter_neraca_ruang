@@ -191,17 +191,24 @@ Data _$DataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Data {
+  @JsonKey(name: "current_page")
   int? get currentPage => throw _privateConstructorUsedError;
   List<Datum>? get data => throw _privateConstructorUsedError;
+  @JsonKey(name: "first_page_url")
   String? get firstPageUrl => throw _privateConstructorUsedError;
   int? get from => throw _privateConstructorUsedError;
+  @JsonKey(name: "last_page")
   int? get lastPage => throw _privateConstructorUsedError;
+  @JsonKey(name: "last_page_url")
   String? get lastPageUrl => throw _privateConstructorUsedError;
   List<Link>? get links => throw _privateConstructorUsedError;
-  dynamic get nextPageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: "next_page_url")
+  String? get nextPageUrl => throw _privateConstructorUsedError;
   String? get path => throw _privateConstructorUsedError;
+  @JsonKey(name: "per_page")
   int? get perPage => throw _privateConstructorUsedError;
-  dynamic get prevPageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: "prev_page_url")
+  String? get prevPageUrl => throw _privateConstructorUsedError;
   int? get to => throw _privateConstructorUsedError;
   int? get total => throw _privateConstructorUsedError;
 
@@ -216,17 +223,17 @@ abstract class $DataCopyWith<$Res> {
       _$DataCopyWithImpl<$Res, Data>;
   @useResult
   $Res call(
-      {int? currentPage,
+      {@JsonKey(name: "current_page") int? currentPage,
       List<Datum>? data,
-      String? firstPageUrl,
+      @JsonKey(name: "first_page_url") String? firstPageUrl,
       int? from,
-      int? lastPage,
-      String? lastPageUrl,
+      @JsonKey(name: "last_page") int? lastPage,
+      @JsonKey(name: "last_page_url") String? lastPageUrl,
       List<Link>? links,
-      dynamic nextPageUrl,
+      @JsonKey(name: "next_page_url") String? nextPageUrl,
       String? path,
-      int? perPage,
-      dynamic prevPageUrl,
+      @JsonKey(name: "per_page") int? perPage,
+      @JsonKey(name: "prev_page_url") String? prevPageUrl,
       int? to,
       int? total});
 }
@@ -290,7 +297,7 @@ class _$DataCopyWithImpl<$Res, $Val extends Data>
       nextPageUrl: freezed == nextPageUrl
           ? _value.nextPageUrl
           : nextPageUrl // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       path: freezed == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
@@ -302,7 +309,7 @@ class _$DataCopyWithImpl<$Res, $Val extends Data>
       prevPageUrl: freezed == prevPageUrl
           ? _value.prevPageUrl
           : prevPageUrl // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       to: freezed == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
@@ -322,17 +329,17 @@ abstract class _$$_DataCopyWith<$Res> implements $DataCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? currentPage,
+      {@JsonKey(name: "current_page") int? currentPage,
       List<Datum>? data,
-      String? firstPageUrl,
+      @JsonKey(name: "first_page_url") String? firstPageUrl,
       int? from,
-      int? lastPage,
-      String? lastPageUrl,
+      @JsonKey(name: "last_page") int? lastPage,
+      @JsonKey(name: "last_page_url") String? lastPageUrl,
       List<Link>? links,
-      dynamic nextPageUrl,
+      @JsonKey(name: "next_page_url") String? nextPageUrl,
       String? path,
-      int? perPage,
-      dynamic prevPageUrl,
+      @JsonKey(name: "per_page") int? perPage,
+      @JsonKey(name: "prev_page_url") String? prevPageUrl,
       int? to,
       int? total});
 }
@@ -392,7 +399,7 @@ class __$$_DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res, _$_Data>
       nextPageUrl: freezed == nextPageUrl
           ? _value.nextPageUrl
           : nextPageUrl // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       path: freezed == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
@@ -404,7 +411,7 @@ class __$$_DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res, _$_Data>
       prevPageUrl: freezed == prevPageUrl
           ? _value.prevPageUrl
           : prevPageUrl // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       to: freezed == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
@@ -421,17 +428,17 @@ class __$$_DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res, _$_Data>
 @JsonSerializable()
 class _$_Data implements _Data {
   const _$_Data(
-      {this.currentPage,
+      {@JsonKey(name: "current_page") this.currentPage,
       final List<Datum>? data,
-      this.firstPageUrl,
+      @JsonKey(name: "first_page_url") this.firstPageUrl,
       this.from,
-      this.lastPage,
-      this.lastPageUrl,
+      @JsonKey(name: "last_page") this.lastPage,
+      @JsonKey(name: "last_page_url") this.lastPageUrl,
       final List<Link>? links,
-      this.nextPageUrl,
+      @JsonKey(name: "next_page_url") this.nextPageUrl,
       this.path,
-      this.perPage,
-      this.prevPageUrl,
+      @JsonKey(name: "per_page") this.perPage,
+      @JsonKey(name: "prev_page_url") this.prevPageUrl,
       this.to,
       this.total})
       : _data = data,
@@ -440,6 +447,7 @@ class _$_Data implements _Data {
   factory _$_Data.fromJson(Map<String, dynamic> json) => _$$_DataFromJson(json);
 
   @override
+  @JsonKey(name: "current_page")
   final int? currentPage;
   final List<Datum>? _data;
   @override
@@ -452,12 +460,15 @@ class _$_Data implements _Data {
   }
 
   @override
+  @JsonKey(name: "first_page_url")
   final String? firstPageUrl;
   @override
   final int? from;
   @override
+  @JsonKey(name: "last_page")
   final int? lastPage;
   @override
+  @JsonKey(name: "last_page_url")
   final String? lastPageUrl;
   final List<Link>? _links;
   @override
@@ -470,13 +481,16 @@ class _$_Data implements _Data {
   }
 
   @override
-  final dynamic nextPageUrl;
+  @JsonKey(name: "next_page_url")
+  final String? nextPageUrl;
   @override
   final String? path;
   @override
+  @JsonKey(name: "per_page")
   final int? perPage;
   @override
-  final dynamic prevPageUrl;
+  @JsonKey(name: "prev_page_url")
+  final String? prevPageUrl;
   @override
   final int? to;
   @override
@@ -503,12 +517,12 @@ class _$_Data implements _Data {
             (identical(other.lastPageUrl, lastPageUrl) ||
                 other.lastPageUrl == lastPageUrl) &&
             const DeepCollectionEquality().equals(other._links, _links) &&
-            const DeepCollectionEquality()
-                .equals(other.nextPageUrl, nextPageUrl) &&
+            (identical(other.nextPageUrl, nextPageUrl) ||
+                other.nextPageUrl == nextPageUrl) &&
             (identical(other.path, path) || other.path == path) &&
             (identical(other.perPage, perPage) || other.perPage == perPage) &&
-            const DeepCollectionEquality()
-                .equals(other.prevPageUrl, prevPageUrl) &&
+            (identical(other.prevPageUrl, prevPageUrl) ||
+                other.prevPageUrl == prevPageUrl) &&
             (identical(other.to, to) || other.to == to) &&
             (identical(other.total, total) || other.total == total));
   }
@@ -524,10 +538,10 @@ class _$_Data implements _Data {
       lastPage,
       lastPageUrl,
       const DeepCollectionEquality().hash(_links),
-      const DeepCollectionEquality().hash(nextPageUrl),
+      nextPageUrl,
       path,
       perPage,
-      const DeepCollectionEquality().hash(prevPageUrl),
+      prevPageUrl,
       to,
       total);
 
@@ -547,44 +561,51 @@ class _$_Data implements _Data {
 
 abstract class _Data implements Data {
   const factory _Data(
-      {final int? currentPage,
+      {@JsonKey(name: "current_page") final int? currentPage,
       final List<Datum>? data,
-      final String? firstPageUrl,
+      @JsonKey(name: "first_page_url") final String? firstPageUrl,
       final int? from,
-      final int? lastPage,
-      final String? lastPageUrl,
+      @JsonKey(name: "last_page") final int? lastPage,
+      @JsonKey(name: "last_page_url") final String? lastPageUrl,
       final List<Link>? links,
-      final dynamic nextPageUrl,
+      @JsonKey(name: "next_page_url") final String? nextPageUrl,
       final String? path,
-      final int? perPage,
-      final dynamic prevPageUrl,
+      @JsonKey(name: "per_page") final int? perPage,
+      @JsonKey(name: "prev_page_url") final String? prevPageUrl,
       final int? to,
       final int? total}) = _$_Data;
 
   factory _Data.fromJson(Map<String, dynamic> json) = _$_Data.fromJson;
 
   @override
+  @JsonKey(name: "current_page")
   int? get currentPage;
   @override
   List<Datum>? get data;
   @override
+  @JsonKey(name: "first_page_url")
   String? get firstPageUrl;
   @override
   int? get from;
   @override
+  @JsonKey(name: "last_page")
   int? get lastPage;
   @override
+  @JsonKey(name: "last_page_url")
   String? get lastPageUrl;
   @override
   List<Link>? get links;
   @override
-  dynamic get nextPageUrl;
+  @JsonKey(name: "next_page_url")
+  String? get nextPageUrl;
   @override
   String? get path;
   @override
+  @JsonKey(name: "per_page")
   int? get perPage;
   @override
-  dynamic get prevPageUrl;
+  @JsonKey(name: "prev_page_url")
+  String? get prevPageUrl;
   @override
   int? get to;
   @override
@@ -605,35 +626,61 @@ mixin _$Datum {
   String? get slug => throw _privateConstructorUsedError;
   String? get keterangan => throw _privateConstructorUsedError;
   String? get tipe => throw _privateConstructorUsedError;
-  dynamic get kategoriId => throw _privateConstructorUsedError;
+  @JsonKey(name: "kategori_id")
+  int? get kategoriId => throw _privateConstructorUsedError;
+  @JsonKey(name: "kategori_name")
   String? get kategoriName => throw _privateConstructorUsedError;
+  @JsonKey(name: "source_id")
   int? get sourceId => throw _privateConstructorUsedError;
+  @JsonKey(name: "source_name")
   String? get sourceName => throw _privateConstructorUsedError;
+  @JsonKey(name: "source_url")
   String? get sourceUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: "source_date")
   dynamic get sourceDate => throw _privateConstructorUsedError;
+  @JsonKey(name: "propinsi_id")
   int? get propinsiId => throw _privateConstructorUsedError;
+  @JsonKey(name: "kota_id")
   int? get kotaId => throw _privateConstructorUsedError;
+  @JsonKey(name: "propinsi_name")
   String? get propinsiName => throw _privateConstructorUsedError;
+  @JsonKey(name: "kota_name")
   String? get kotaName => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_pihak")
   Tags? get tagsPihak => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_topik")
   Tags? get tagsTopik => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_otonomi")
   Tags? get tagsOtonomi => throw _privateConstructorUsedError;
+  @JsonKey(name: "total_read")
   int? get totalRead => throw _privateConstructorUsedError;
+  @JsonKey(name: "total_like")
   int? get totalLike => throw _privateConstructorUsedError;
-  dynamic get totalShared => throw _privateConstructorUsedError;
+  @JsonKey(name: "total_shared")
+  int? get totalShared => throw _privateConstructorUsedError;
   String? get domain => throw _privateConstructorUsedError;
+  @JsonKey(name: "full_path")
   String? get fullPath => throw _privateConstructorUsedError;
+  @JsonKey(name: "file_upload")
   String? get fileUpload => throw _privateConstructorUsedError;
+  @JsonKey(name: "thumb_path")
   String? get thumbPath => throw _privateConstructorUsedError;
-  dynamic get videoUrl => throw _privateConstructorUsedError;
-  dynamic get thumbnail => throw _privateConstructorUsedError;
+  @JsonKey(name: "video_url")
+  String? get videoUrl => throw _privateConstructorUsedError;
+  String? get thumbnail => throw _privateConstructorUsedError;
   String? get images => throw _privateConstructorUsedError;
+  @JsonKey(name: "active_at")
   DateTime? get activeAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "active_by")
   String? get activeBy => throw _privateConstructorUsedError;
+  @JsonKey(name: "publish_at")
   DateTime? get publishAt => throw _privateConstructorUsedError;
-  DateTime? get publishBy => throw _privateConstructorUsedError;
+  @JsonKey(name: "publish_by")
+  String? get publishBy => throw _privateConstructorUsedError;
+  @JsonKey(name: "deleted_at")
   DateTime? get deletedAt => throw _privateConstructorUsedError;
-  DateTime? get deletedBy => throw _privateConstructorUsedError;
+  @JsonKey(name: "deleted_by")
+  String? get deletedBy => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -651,35 +698,35 @@ abstract class $DatumCopyWith<$Res> {
       String? slug,
       String? keterangan,
       String? tipe,
-      dynamic kategoriId,
-      String? kategoriName,
-      int? sourceId,
-      String? sourceName,
-      String? sourceUrl,
-      dynamic sourceDate,
-      int? propinsiId,
-      int? kotaId,
-      String? propinsiName,
-      String? kotaName,
-      Tags? tagsPihak,
-      Tags? tagsTopik,
-      Tags? tagsOtonomi,
-      int? totalRead,
-      int? totalLike,
-      dynamic totalShared,
+      @JsonKey(name: "kategori_id") int? kategoriId,
+      @JsonKey(name: "kategori_name") String? kategoriName,
+      @JsonKey(name: "source_id") int? sourceId,
+      @JsonKey(name: "source_name") String? sourceName,
+      @JsonKey(name: "source_url") String? sourceUrl,
+      @JsonKey(name: "source_date") dynamic sourceDate,
+      @JsonKey(name: "propinsi_id") int? propinsiId,
+      @JsonKey(name: "kota_id") int? kotaId,
+      @JsonKey(name: "propinsi_name") String? propinsiName,
+      @JsonKey(name: "kota_name") String? kotaName,
+      @JsonKey(name: "tags_pihak") Tags? tagsPihak,
+      @JsonKey(name: "tags_topik") Tags? tagsTopik,
+      @JsonKey(name: "tags_otonomi") Tags? tagsOtonomi,
+      @JsonKey(name: "total_read") int? totalRead,
+      @JsonKey(name: "total_like") int? totalLike,
+      @JsonKey(name: "total_shared") int? totalShared,
       String? domain,
-      String? fullPath,
-      String? fileUpload,
-      String? thumbPath,
-      dynamic videoUrl,
-      dynamic thumbnail,
+      @JsonKey(name: "full_path") String? fullPath,
+      @JsonKey(name: "file_upload") String? fileUpload,
+      @JsonKey(name: "thumb_path") String? thumbPath,
+      @JsonKey(name: "video_url") String? videoUrl,
+      String? thumbnail,
       String? images,
-      DateTime? activeAt,
-      String? activeBy,
-      DateTime? publishAt,
-      DateTime? publishBy,
-      DateTime? deletedAt,
-      DateTime? deletedBy});
+      @JsonKey(name: "active_at") DateTime? activeAt,
+      @JsonKey(name: "active_by") String? activeBy,
+      @JsonKey(name: "publish_at") DateTime? publishAt,
+      @JsonKey(name: "publish_by") String? publishBy,
+      @JsonKey(name: "deleted_at") DateTime? deletedAt,
+      @JsonKey(name: "deleted_by") String? deletedBy});
 
   $TagsCopyWith<$Res>? get tagsPihak;
   $TagsCopyWith<$Res>? get tagsTopik;
@@ -758,7 +805,7 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
       kategoriId: freezed == kategoriId
           ? _value.kategoriId
           : kategoriId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as int?,
       kategoriName: freezed == kategoriName
           ? _value.kategoriName
           : kategoriName // ignore: cast_nullable_to_non_nullable
@@ -818,7 +865,7 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
       totalShared: freezed == totalShared
           ? _value.totalShared
           : totalShared // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as int?,
       domain: freezed == domain
           ? _value.domain
           : domain // ignore: cast_nullable_to_non_nullable
@@ -838,11 +885,11 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
       videoUrl: freezed == videoUrl
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       thumbnail: freezed == thumbnail
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       images: freezed == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -862,7 +909,7 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
       publishBy: freezed == publishBy
           ? _value.publishBy
           : publishBy // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -870,7 +917,7 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
       deletedBy: freezed == deletedBy
           ? _value.deletedBy
           : deletedBy // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
     ) as $Val);
   }
 
@@ -923,35 +970,35 @@ abstract class _$$_DatumCopyWith<$Res> implements $DatumCopyWith<$Res> {
       String? slug,
       String? keterangan,
       String? tipe,
-      dynamic kategoriId,
-      String? kategoriName,
-      int? sourceId,
-      String? sourceName,
-      String? sourceUrl,
-      dynamic sourceDate,
-      int? propinsiId,
-      int? kotaId,
-      String? propinsiName,
-      String? kotaName,
-      Tags? tagsPihak,
-      Tags? tagsTopik,
-      Tags? tagsOtonomi,
-      int? totalRead,
-      int? totalLike,
-      dynamic totalShared,
+      @JsonKey(name: "kategori_id") int? kategoriId,
+      @JsonKey(name: "kategori_name") String? kategoriName,
+      @JsonKey(name: "source_id") int? sourceId,
+      @JsonKey(name: "source_name") String? sourceName,
+      @JsonKey(name: "source_url") String? sourceUrl,
+      @JsonKey(name: "source_date") dynamic sourceDate,
+      @JsonKey(name: "propinsi_id") int? propinsiId,
+      @JsonKey(name: "kota_id") int? kotaId,
+      @JsonKey(name: "propinsi_name") String? propinsiName,
+      @JsonKey(name: "kota_name") String? kotaName,
+      @JsonKey(name: "tags_pihak") Tags? tagsPihak,
+      @JsonKey(name: "tags_topik") Tags? tagsTopik,
+      @JsonKey(name: "tags_otonomi") Tags? tagsOtonomi,
+      @JsonKey(name: "total_read") int? totalRead,
+      @JsonKey(name: "total_like") int? totalLike,
+      @JsonKey(name: "total_shared") int? totalShared,
       String? domain,
-      String? fullPath,
-      String? fileUpload,
-      String? thumbPath,
-      dynamic videoUrl,
-      dynamic thumbnail,
+      @JsonKey(name: "full_path") String? fullPath,
+      @JsonKey(name: "file_upload") String? fileUpload,
+      @JsonKey(name: "thumb_path") String? thumbPath,
+      @JsonKey(name: "video_url") String? videoUrl,
+      String? thumbnail,
       String? images,
-      DateTime? activeAt,
-      String? activeBy,
-      DateTime? publishAt,
-      DateTime? publishBy,
-      DateTime? deletedAt,
-      DateTime? deletedBy});
+      @JsonKey(name: "active_at") DateTime? activeAt,
+      @JsonKey(name: "active_by") String? activeBy,
+      @JsonKey(name: "publish_at") DateTime? publishAt,
+      @JsonKey(name: "publish_by") String? publishBy,
+      @JsonKey(name: "deleted_at") DateTime? deletedAt,
+      @JsonKey(name: "deleted_by") String? deletedBy});
 
   @override
   $TagsCopyWith<$Res>? get tagsPihak;
@@ -1029,7 +1076,7 @@ class __$$_DatumCopyWithImpl<$Res> extends _$DatumCopyWithImpl<$Res, _$_Datum>
       kategoriId: freezed == kategoriId
           ? _value.kategoriId
           : kategoriId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as int?,
       kategoriName: freezed == kategoriName
           ? _value.kategoriName
           : kategoriName // ignore: cast_nullable_to_non_nullable
@@ -1089,7 +1136,7 @@ class __$$_DatumCopyWithImpl<$Res> extends _$DatumCopyWithImpl<$Res, _$_Datum>
       totalShared: freezed == totalShared
           ? _value.totalShared
           : totalShared // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as int?,
       domain: freezed == domain
           ? _value.domain
           : domain // ignore: cast_nullable_to_non_nullable
@@ -1109,11 +1156,11 @@ class __$$_DatumCopyWithImpl<$Res> extends _$DatumCopyWithImpl<$Res, _$_Datum>
       videoUrl: freezed == videoUrl
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       thumbnail: freezed == thumbnail
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       images: freezed == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -1133,7 +1180,7 @@ class __$$_DatumCopyWithImpl<$Res> extends _$DatumCopyWithImpl<$Res, _$_Datum>
       publishBy: freezed == publishBy
           ? _value.publishBy
           : publishBy // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
@@ -1141,7 +1188,7 @@ class __$$_DatumCopyWithImpl<$Res> extends _$DatumCopyWithImpl<$Res, _$_Datum>
       deletedBy: freezed == deletedBy
           ? _value.deletedBy
           : deletedBy // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
     ));
   }
 }
@@ -1155,35 +1202,35 @@ class _$_Datum implements _Datum {
       this.slug,
       this.keterangan,
       this.tipe,
-      this.kategoriId,
-      this.kategoriName,
-      this.sourceId,
-      this.sourceName,
-      this.sourceUrl,
-      this.sourceDate,
-      this.propinsiId,
-      this.kotaId,
-      this.propinsiName,
-      this.kotaName,
-      this.tagsPihak,
-      this.tagsTopik,
-      this.tagsOtonomi,
-      this.totalRead,
-      this.totalLike,
-      this.totalShared,
+      @JsonKey(name: "kategori_id") this.kategoriId,
+      @JsonKey(name: "kategori_name") this.kategoriName,
+      @JsonKey(name: "source_id") this.sourceId,
+      @JsonKey(name: "source_name") this.sourceName,
+      @JsonKey(name: "source_url") this.sourceUrl,
+      @JsonKey(name: "source_date") this.sourceDate,
+      @JsonKey(name: "propinsi_id") this.propinsiId,
+      @JsonKey(name: "kota_id") this.kotaId,
+      @JsonKey(name: "propinsi_name") this.propinsiName,
+      @JsonKey(name: "kota_name") this.kotaName,
+      @JsonKey(name: "tags_pihak") this.tagsPihak,
+      @JsonKey(name: "tags_topik") this.tagsTopik,
+      @JsonKey(name: "tags_otonomi") this.tagsOtonomi,
+      @JsonKey(name: "total_read") this.totalRead,
+      @JsonKey(name: "total_like") this.totalLike,
+      @JsonKey(name: "total_shared") this.totalShared,
       this.domain,
-      this.fullPath,
-      this.fileUpload,
-      this.thumbPath,
-      this.videoUrl,
+      @JsonKey(name: "full_path") this.fullPath,
+      @JsonKey(name: "file_upload") this.fileUpload,
+      @JsonKey(name: "thumb_path") this.thumbPath,
+      @JsonKey(name: "video_url") this.videoUrl,
       this.thumbnail,
       this.images,
-      this.activeAt,
-      this.activeBy,
-      this.publishAt,
-      this.publishBy,
-      this.deletedAt,
-      this.deletedBy});
+      @JsonKey(name: "active_at") this.activeAt,
+      @JsonKey(name: "active_by") this.activeBy,
+      @JsonKey(name: "publish_at") this.publishAt,
+      @JsonKey(name: "publish_by") this.publishBy,
+      @JsonKey(name: "deleted_at") this.deletedAt,
+      @JsonKey(name: "deleted_by") this.deletedBy});
 
   factory _$_Datum.fromJson(Map<String, dynamic> json) =>
       _$$_DatumFromJson(json);
@@ -1199,63 +1246,89 @@ class _$_Datum implements _Datum {
   @override
   final String? tipe;
   @override
-  final dynamic kategoriId;
+  @JsonKey(name: "kategori_id")
+  final int? kategoriId;
   @override
+  @JsonKey(name: "kategori_name")
   final String? kategoriName;
   @override
+  @JsonKey(name: "source_id")
   final int? sourceId;
   @override
+  @JsonKey(name: "source_name")
   final String? sourceName;
   @override
+  @JsonKey(name: "source_url")
   final String? sourceUrl;
   @override
+  @JsonKey(name: "source_date")
   final dynamic sourceDate;
   @override
+  @JsonKey(name: "propinsi_id")
   final int? propinsiId;
   @override
+  @JsonKey(name: "kota_id")
   final int? kotaId;
   @override
+  @JsonKey(name: "propinsi_name")
   final String? propinsiName;
   @override
+  @JsonKey(name: "kota_name")
   final String? kotaName;
   @override
+  @JsonKey(name: "tags_pihak")
   final Tags? tagsPihak;
   @override
+  @JsonKey(name: "tags_topik")
   final Tags? tagsTopik;
   @override
+  @JsonKey(name: "tags_otonomi")
   final Tags? tagsOtonomi;
   @override
+  @JsonKey(name: "total_read")
   final int? totalRead;
   @override
+  @JsonKey(name: "total_like")
   final int? totalLike;
   @override
-  final dynamic totalShared;
+  @JsonKey(name: "total_shared")
+  final int? totalShared;
   @override
   final String? domain;
   @override
+  @JsonKey(name: "full_path")
   final String? fullPath;
   @override
+  @JsonKey(name: "file_upload")
   final String? fileUpload;
   @override
+  @JsonKey(name: "thumb_path")
   final String? thumbPath;
   @override
-  final dynamic videoUrl;
+  @JsonKey(name: "video_url")
+  final String? videoUrl;
   @override
-  final dynamic thumbnail;
+  final String? thumbnail;
   @override
   final String? images;
   @override
+  @JsonKey(name: "active_at")
   final DateTime? activeAt;
   @override
+  @JsonKey(name: "active_by")
   final String? activeBy;
   @override
+  @JsonKey(name: "publish_at")
   final DateTime? publishAt;
   @override
-  final DateTime? publishBy;
+  @JsonKey(name: "publish_by")
+  final String? publishBy;
   @override
+  @JsonKey(name: "deleted_at")
   final DateTime? deletedAt;
   @override
-  final DateTime? deletedBy;
+  @JsonKey(name: "deleted_by")
+  final String? deletedBy;
 
   @override
   String toString() {
@@ -1273,8 +1346,8 @@ class _$_Datum implements _Datum {
             (identical(other.keterangan, keterangan) ||
                 other.keterangan == keterangan) &&
             (identical(other.tipe, tipe) || other.tipe == tipe) &&
-            const DeepCollectionEquality()
-                .equals(other.kategoriId, kategoriId) &&
+            (identical(other.kategoriId, kategoriId) ||
+                other.kategoriId == kategoriId) &&
             (identical(other.kategoriName, kategoriName) ||
                 other.kategoriName == kategoriName) &&
             (identical(other.sourceId, sourceId) ||
@@ -1302,8 +1375,8 @@ class _$_Datum implements _Datum {
                 other.totalRead == totalRead) &&
             (identical(other.totalLike, totalLike) ||
                 other.totalLike == totalLike) &&
-            const DeepCollectionEquality()
-                .equals(other.totalShared, totalShared) &&
+            (identical(other.totalShared, totalShared) ||
+                other.totalShared == totalShared) &&
             (identical(other.domain, domain) || other.domain == domain) &&
             (identical(other.fullPath, fullPath) ||
                 other.fullPath == fullPath) &&
@@ -1311,8 +1384,10 @@ class _$_Datum implements _Datum {
                 other.fileUpload == fileUpload) &&
             (identical(other.thumbPath, thumbPath) ||
                 other.thumbPath == thumbPath) &&
-            const DeepCollectionEquality().equals(other.videoUrl, videoUrl) &&
-            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
+            (identical(other.videoUrl, videoUrl) ||
+                other.videoUrl == videoUrl) &&
+            (identical(other.thumbnail, thumbnail) ||
+                other.thumbnail == thumbnail) &&
             (identical(other.images, images) || other.images == images) &&
             (identical(other.activeAt, activeAt) ||
                 other.activeAt == activeAt) &&
@@ -1337,7 +1412,7 @@ class _$_Datum implements _Datum {
         slug,
         keterangan,
         tipe,
-        const DeepCollectionEquality().hash(kategoriId),
+        kategoriId,
         kategoriName,
         sourceId,
         sourceName,
@@ -1352,13 +1427,13 @@ class _$_Datum implements _Datum {
         tagsOtonomi,
         totalRead,
         totalLike,
-        const DeepCollectionEquality().hash(totalShared),
+        totalShared,
         domain,
         fullPath,
         fileUpload,
         thumbPath,
-        const DeepCollectionEquality().hash(videoUrl),
-        const DeepCollectionEquality().hash(thumbnail),
+        videoUrl,
+        thumbnail,
         images,
         activeAt,
         activeBy,
@@ -1389,35 +1464,35 @@ abstract class _Datum implements Datum {
       final String? slug,
       final String? keterangan,
       final String? tipe,
-      final dynamic kategoriId,
-      final String? kategoriName,
-      final int? sourceId,
-      final String? sourceName,
-      final String? sourceUrl,
-      final dynamic sourceDate,
-      final int? propinsiId,
-      final int? kotaId,
-      final String? propinsiName,
-      final String? kotaName,
-      final Tags? tagsPihak,
-      final Tags? tagsTopik,
-      final Tags? tagsOtonomi,
-      final int? totalRead,
-      final int? totalLike,
-      final dynamic totalShared,
+      @JsonKey(name: "kategori_id") final int? kategoriId,
+      @JsonKey(name: "kategori_name") final String? kategoriName,
+      @JsonKey(name: "source_id") final int? sourceId,
+      @JsonKey(name: "source_name") final String? sourceName,
+      @JsonKey(name: "source_url") final String? sourceUrl,
+      @JsonKey(name: "source_date") final dynamic sourceDate,
+      @JsonKey(name: "propinsi_id") final int? propinsiId,
+      @JsonKey(name: "kota_id") final int? kotaId,
+      @JsonKey(name: "propinsi_name") final String? propinsiName,
+      @JsonKey(name: "kota_name") final String? kotaName,
+      @JsonKey(name: "tags_pihak") final Tags? tagsPihak,
+      @JsonKey(name: "tags_topik") final Tags? tagsTopik,
+      @JsonKey(name: "tags_otonomi") final Tags? tagsOtonomi,
+      @JsonKey(name: "total_read") final int? totalRead,
+      @JsonKey(name: "total_like") final int? totalLike,
+      @JsonKey(name: "total_shared") final int? totalShared,
       final String? domain,
-      final String? fullPath,
-      final String? fileUpload,
-      final String? thumbPath,
-      final dynamic videoUrl,
-      final dynamic thumbnail,
+      @JsonKey(name: "full_path") final String? fullPath,
+      @JsonKey(name: "file_upload") final String? fileUpload,
+      @JsonKey(name: "thumb_path") final String? thumbPath,
+      @JsonKey(name: "video_url") final String? videoUrl,
+      final String? thumbnail,
       final String? images,
-      final DateTime? activeAt,
-      final String? activeBy,
-      final DateTime? publishAt,
-      final DateTime? publishBy,
-      final DateTime? deletedAt,
-      final DateTime? deletedBy}) = _$_Datum;
+      @JsonKey(name: "active_at") final DateTime? activeAt,
+      @JsonKey(name: "active_by") final String? activeBy,
+      @JsonKey(name: "publish_at") final DateTime? publishAt,
+      @JsonKey(name: "publish_by") final String? publishBy,
+      @JsonKey(name: "deleted_at") final DateTime? deletedAt,
+      @JsonKey(name: "deleted_by") final String? deletedBy}) = _$_Datum;
 
   factory _Datum.fromJson(Map<String, dynamic> json) = _$_Datum.fromJson;
 
@@ -1432,63 +1507,89 @@ abstract class _Datum implements Datum {
   @override
   String? get tipe;
   @override
-  dynamic get kategoriId;
+  @JsonKey(name: "kategori_id")
+  int? get kategoriId;
   @override
+  @JsonKey(name: "kategori_name")
   String? get kategoriName;
   @override
+  @JsonKey(name: "source_id")
   int? get sourceId;
   @override
+  @JsonKey(name: "source_name")
   String? get sourceName;
   @override
+  @JsonKey(name: "source_url")
   String? get sourceUrl;
   @override
+  @JsonKey(name: "source_date")
   dynamic get sourceDate;
   @override
+  @JsonKey(name: "propinsi_id")
   int? get propinsiId;
   @override
+  @JsonKey(name: "kota_id")
   int? get kotaId;
   @override
+  @JsonKey(name: "propinsi_name")
   String? get propinsiName;
   @override
+  @JsonKey(name: "kota_name")
   String? get kotaName;
   @override
+  @JsonKey(name: "tags_pihak")
   Tags? get tagsPihak;
   @override
+  @JsonKey(name: "tags_topik")
   Tags? get tagsTopik;
   @override
+  @JsonKey(name: "tags_otonomi")
   Tags? get tagsOtonomi;
   @override
+  @JsonKey(name: "total_read")
   int? get totalRead;
   @override
+  @JsonKey(name: "total_like")
   int? get totalLike;
   @override
-  dynamic get totalShared;
+  @JsonKey(name: "total_shared")
+  int? get totalShared;
   @override
   String? get domain;
   @override
+  @JsonKey(name: "full_path")
   String? get fullPath;
   @override
+  @JsonKey(name: "file_upload")
   String? get fileUpload;
   @override
+  @JsonKey(name: "thumb_path")
   String? get thumbPath;
   @override
-  dynamic get videoUrl;
+  @JsonKey(name: "video_url")
+  String? get videoUrl;
   @override
-  dynamic get thumbnail;
+  String? get thumbnail;
   @override
   String? get images;
   @override
+  @JsonKey(name: "active_at")
   DateTime? get activeAt;
   @override
+  @JsonKey(name: "active_by")
   String? get activeBy;
   @override
+  @JsonKey(name: "publish_at")
   DateTime? get publishAt;
   @override
-  DateTime? get publishBy;
+  @JsonKey(name: "publish_by")
+  String? get publishBy;
   @override
+  @JsonKey(name: "deleted_at")
   DateTime? get deletedAt;
   @override
-  DateTime? get deletedBy;
+  @JsonKey(name: "deleted_by")
+  String? get deletedBy;
   @override
   @JsonKey(ignore: true)
   _$$_DatumCopyWith<_$_Datum> get copyWith =>
@@ -1501,10 +1602,14 @@ Tags _$TagsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Tags {
+  @JsonKey(name: "tags_id")
   int? get tagsId => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_name")
   String? get tagsName => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_icon")
   String? get tagsIcon => throw _privateConstructorUsedError;
-  TagsTipe? get tagsTipe => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_tipe")
+  String? get tagsTipe => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1517,7 +1622,10 @@ abstract class $TagsCopyWith<$Res> {
       _$TagsCopyWithImpl<$Res, Tags>;
   @useResult
   $Res call(
-      {int? tagsId, String? tagsName, String? tagsIcon, TagsTipe? tagsTipe});
+      {@JsonKey(name: "tags_id") int? tagsId,
+      @JsonKey(name: "tags_name") String? tagsName,
+      @JsonKey(name: "tags_icon") String? tagsIcon,
+      @JsonKey(name: "tags_tipe") String? tagsTipe});
 }
 
 /// @nodoc
@@ -1554,7 +1662,7 @@ class _$TagsCopyWithImpl<$Res, $Val extends Tags>
       tagsTipe: freezed == tagsTipe
           ? _value.tagsTipe
           : tagsTipe // ignore: cast_nullable_to_non_nullable
-              as TagsTipe?,
+              as String?,
     ) as $Val);
   }
 }
@@ -1566,7 +1674,10 @@ abstract class _$$_TagsCopyWith<$Res> implements $TagsCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? tagsId, String? tagsName, String? tagsIcon, TagsTipe? tagsTipe});
+      {@JsonKey(name: "tags_id") int? tagsId,
+      @JsonKey(name: "tags_name") String? tagsName,
+      @JsonKey(name: "tags_icon") String? tagsIcon,
+      @JsonKey(name: "tags_tipe") String? tagsTipe});
 }
 
 /// @nodoc
@@ -1599,7 +1710,7 @@ class __$$_TagsCopyWithImpl<$Res> extends _$TagsCopyWithImpl<$Res, _$_Tags>
       tagsTipe: freezed == tagsTipe
           ? _value.tagsTipe
           : tagsTipe // ignore: cast_nullable_to_non_nullable
-              as TagsTipe?,
+              as String?,
     ));
   }
 }
@@ -1607,18 +1718,26 @@ class __$$_TagsCopyWithImpl<$Res> extends _$TagsCopyWithImpl<$Res, _$_Tags>
 /// @nodoc
 @JsonSerializable()
 class _$_Tags implements _Tags {
-  const _$_Tags({this.tagsId, this.tagsName, this.tagsIcon, this.tagsTipe});
+  const _$_Tags(
+      {@JsonKey(name: "tags_id") this.tagsId,
+      @JsonKey(name: "tags_name") this.tagsName,
+      @JsonKey(name: "tags_icon") this.tagsIcon,
+      @JsonKey(name: "tags_tipe") this.tagsTipe});
 
   factory _$_Tags.fromJson(Map<String, dynamic> json) => _$$_TagsFromJson(json);
 
   @override
+  @JsonKey(name: "tags_id")
   final int? tagsId;
   @override
+  @JsonKey(name: "tags_name")
   final String? tagsName;
   @override
+  @JsonKey(name: "tags_icon")
   final String? tagsIcon;
   @override
-  final TagsTipe? tagsTipe;
+  @JsonKey(name: "tags_tipe")
+  final String? tagsTipe;
 
   @override
   String toString() {
@@ -1660,21 +1779,25 @@ class _$_Tags implements _Tags {
 
 abstract class _Tags implements Tags {
   const factory _Tags(
-      {final int? tagsId,
-      final String? tagsName,
-      final String? tagsIcon,
-      final TagsTipe? tagsTipe}) = _$_Tags;
+      {@JsonKey(name: "tags_id") final int? tagsId,
+      @JsonKey(name: "tags_name") final String? tagsName,
+      @JsonKey(name: "tags_icon") final String? tagsIcon,
+      @JsonKey(name: "tags_tipe") final String? tagsTipe}) = _$_Tags;
 
   factory _Tags.fromJson(Map<String, dynamic> json) = _$_Tags.fromJson;
 
   @override
+  @JsonKey(name: "tags_id")
   int? get tagsId;
   @override
+  @JsonKey(name: "tags_name")
   String? get tagsName;
   @override
+  @JsonKey(name: "tags_icon")
   String? get tagsIcon;
   @override
-  TagsTipe? get tagsTipe;
+  @JsonKey(name: "tags_tipe")
+  String? get tagsTipe;
   @override
   @JsonKey(ignore: true)
   _$$_TagsCopyWith<_$_Tags> get copyWith => throw _privateConstructorUsedError;
