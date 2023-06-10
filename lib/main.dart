@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neraca_ruang/assets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/consts/colors.dart';
@@ -12,7 +11,6 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   final _appRouter = AppRouter();
-  var tes = Assets.assets_images_dashboard_1_png;
 
   // This widget is the root of your application.
   @override

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/consts/assets.dart';
 import '../../core/consts/sizes.dart';
+import '../../core/consts/urls.dart';
 import '../widgets/drawer_content.dart';
 import '../widgets/scrollable_horizontal_image.dart';
 import '../widgets/tab_menu_item.dart';
@@ -143,7 +145,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
             /// Ini dashboard
             SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.all(32.0),
+            // padding: const EdgeInsets.all(32.0),
             child: Center(
                 child: dataDashboard.when(
                     data: (data) {
@@ -161,108 +163,204 @@ class LandingPageState extends ConsumerState<LandingPage> {
                       //     });
                       return Column(
                         children: [
-                          Image.asset("assets/images/dashboard_1.png"),
+                          Container(
+                            margin: const EdgeInsets.only(bottom: extra),
+                            constraints: BoxConstraints(
+                              maxHeight: 200,
+                              minWidth: MediaQuery.of(context).size.width,
+                            ),
+                            child: Image.network(
+                              "https://$contentUrl/${data.first.images}" ?? "",
+                              fit: BoxFit.cover,
+                              errorBuilder: (bc, o, st) {
+                                return Text(data.first.images ?? "");
+                              },
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(medium),
                             child: Column(
                               children: [
-                                Image.asset("assets/images/icon_kabar1.png"),
+                                Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child: Image.asset(iconKabar)),
                                 Text(
-                                  'Anita Basudara (nama editor) 26/05/2023, 12:00 WIB',
+                                  '${data.first.sourceName} 26/05/2023, 12:00 WIB',
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                                 Text(
-                                  'PEMKOT DENPASAR LUNCURKAN REDITIA GUNA PERLUASAN DIGITALISASI DAERAH',
+                                  '${data.first.judul}',
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text("${data.first.keterangan}"),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: extra),
+                            constraints: BoxConstraints(
+                              maxHeight: 200,
+                              minWidth: MediaQuery.of(context).size.width,
+                            ),
+                            child: Image.network(
+                              "https://$contentUrl/${data[1].images}" ?? "",
+                              fit: BoxFit.cover,
+                              errorBuilder: (bc, o, st) {
+                                return Text(data[1].images ?? "");
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(medium),
+                            child: Column(
+                              children: [
+                                Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child: Image.asset(iconJurnal)),
+                                Text(
+                                  "${data[1].judul}",
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text("${data[1].keterangan}"),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: extra),
+                            constraints: BoxConstraints(
+                              maxHeight: 200,
+                              minWidth: MediaQuery.of(context).size.width,
+                            ),
+                            child: Image.network(
+                              "https://$contentUrl/${data[2].images}" ?? "",
+                              fit: BoxFit.cover,
+                              errorBuilder: (bc, o, st) {
+                                return Text(data[2].images ?? "");
+                              },
+                            ),
+                          ),
+                          // const ScrollableHorizontalImage(),
+                          Padding(
+                            padding: const EdgeInsets.all(medium),
+                            child: Column(
+                              children: [
+                                Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child:
+                                        Image.asset(iconInfografisSementara)),
+                                Text(
+                                  "${data[2].judul}",
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text("${data[2].keterangan}"),
+                              ],
+                            ),
+                          ),
+                          // Image.asset("assets/images/neraca_ruang.png"),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: extra),
+                            constraints: BoxConstraints(
+                              maxHeight: 200,
+                              minWidth: MediaQuery.of(context).size.width,
+                            ),
+                            child: Image.network(
+                              "https://$thumbnailUrl/${data[3].thumbnail}",
+                              fit: BoxFit.cover,
+                              errorBuilder: (bc, o, st) {
+                                return Text(data[3].thumbnail ?? "");
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(medium),
+                            child: Column(
+                              children: [
+                                Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child: Image.asset(iconVideo)),
+                                Text(
+                                  "${data[3].judul}",
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text("${data[3].keterangan}"),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: extra),
+                            constraints: BoxConstraints(
+                              maxHeight: 200,
+                              minWidth: MediaQuery.of(context).size.width,
+                            ),
+                            child: Image.network(
+                              "https://$contentUrl/${data[4].images}" ?? "",
+                              fit: BoxFit.cover,
+                              errorBuilder: (bc, o, st) {
+                                return Text(data[4].images ?? "");
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(medium),
+                            child: Column(
+                              children: [
+                                Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child: Image.asset(iconFoto)),
+                                Text(
+                                    "${data[4].sourceName ?? "Tidak ada Sumber"}, ${data[4].sourceDate ?? "Tidak ada tanggal Sumber"}"),
+                                Text(
+                                  "${data[4].judul}",
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: extra),
+                            constraints: BoxConstraints(
+                              maxHeight: 200,
+                              minWidth: MediaQuery.of(context).size.width,
+                            ),
+                            child: Image.network(
+                              "https://$contentUrl/${data[4].images}" ?? "",
+                              fit: BoxFit.cover,
+                              errorBuilder: (bc, o, st) {
+                                return Text(data[4].images ?? "");
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(medium),
+                            child: Column(
+                              children: [
+                                Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child: Image.asset(iconForum)),
+                                Text(
+                                  "APAKAH INDONESIA SUDAH MENJALANKAN OTONOMI DAERAH DENGAN BAIK? (STATIS, BELUM DARI API)",
                                   style:
                                       Theme.of(context).textTheme.headlineSmall,
                                   textAlign: TextAlign.center,
                                 ),
                                 const Text(
-                                    "Pemerintah Kota (Pemkot) Denpasar kini memiliki Renon Digital Area (Reditia). Inovasi ini bertujuan untuk mempercepat dan memperluas digitalisasi pajak...."),
-                              ],
-                            ),
-                          ),
-                          Image.asset("assets/images/dashboard_2.png"),
-                          Padding(
-                            padding: const EdgeInsets.all(medium),
-                            child: Column(
-                              children: [
-                                Image.asset("assets/images/icon_kabar1.png"),
-                                Text(
-                                  "PARADOKS DESENTRALISASI : CUMA 4 PERSEN TAPI DAPAT SETENGAH",
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const Text(
-                                    "Sebagian realisasi anggaran yang ditransfer pemerintah pusat ke daerah (propinsi, kota, maupun kabupaten), merupakan dana bagi hasil (DBH). Sumber pendapat yang menjadi hak konstitusi mereka. Maka, selain pendapatan asli daerah (PAD), otonomi fiskal yang 'murni' merupakan kemampuan masing-masing mereka, juga dicerminkan tingkat perolehan DBH-nya."),
-                              ],
-                            ),
-                          ),
-                          const ScrollableHorizontalImage(),
-                          Padding(
-                            padding: const EdgeInsets.all(medium),
-                            child: Column(
-                              children: [
-                                Image.asset("assets/images/icon_kabar1.png"),
-                                Text(
-                                  "20 TAHUN OTONOMI DAERAH",
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const Text(
-                                    "Era desentralisasi telah mendorong kepala daerah berinovasi dalam mengembangkan wilayah mereka untuk."),
-                              ],
-                            ),
-                          ),
-                          Image.asset("assets/images/neraca_ruang.png"),
-                          Padding(
-                            padding: const EdgeInsets.all(medium),
-                            child: Column(
-                              children: [
-                                Image.asset("assets/images/icon_kabar1.png"),
-                                Text(
-                                  "PLANOLOGI MENGGUGAT (EPISODE 2 : MEMBERI MANFAAT ATAU MENGUNDANG BENCANA?)",
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const Text("Ini Isi Sinopsis Video"),
-                              ],
-                            ),
-                          ),
-                          const ScrollableHorizontalImage(),
-                          Padding(
-                            padding: const EdgeInsets.all(medium),
-                            child: Column(
-                              children: [
-                                Image.asset("assets/images/icon_kabar1.png"),
-                                const Text(
-                                    "Institut Teknlogi Denpasar, 23 Mei 2023"),
-                                Text(
-                                  "ARISAN 6301: PARIWISATA NUSANTARA",
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const ScrollableHorizontalImage(),
-                          Padding(
-                            padding: const EdgeInsets.all(medium),
-                            child: Column(
-                              children: [
-                                Image.asset("assets/images/icon_kabar1.png"),
-                                Text(
-                                  "APAKAH INDONESIA SUDAH MENJALANKAN OTONOMI DAERAH DENGAN BAIK?",
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const Text(
-                                    "Diskusi hangat mengenai pandangan masyarakat terhadap penerapan otonomi daerah di masa kini."),
+                                    "Diskusi hangat mengenai pandangan masyarakat terhadap penerapan otonomi daerah di masa kini. (STATIS, BELUM DARI API)"),
                               ],
                             ),
                           ),
