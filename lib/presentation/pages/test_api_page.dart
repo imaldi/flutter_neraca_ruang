@@ -38,7 +38,12 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
                       itemCount: data.length,
                       itemBuilder: (c, i) {
                         return Card(
-                          child: Text(data[i].toJson().toString()),
+                          child: Column(
+                            children: [
+                              Text("Data ke: ${i + 1}"),
+                              Text(data[i].toJson().toString()),
+                            ],
+                          ),
                         );
                       });
                 },

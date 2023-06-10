@@ -87,10 +87,30 @@ class Tags with _$Tags {
     int? tagsId,
     String? tagsName,
     String? tagsIcon,
-    String? tagsTipe,
+    TagsTipe? tagsTipe,
   }) = _Tags;
 
   factory Tags.fromJson(Map<String, dynamic> json) => _$TagsFromJson(json);
+}
+
+enum TagsTipe { OTONOMI, PIHAK_TERKAIT, TOPIK }
+
+final tagsTipeValues = EnumValues({
+  "otonomi": TagsTipe.OTONOMI,
+  "pihak-terkait": TagsTipe.PIHAK_TERKAIT,
+  "topik": TagsTipe.TOPIK
+});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }
 
 @freezed

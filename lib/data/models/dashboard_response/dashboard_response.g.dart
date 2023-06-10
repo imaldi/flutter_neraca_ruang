@@ -151,15 +151,21 @@ _$_Tags _$$_TagsFromJson(Map<String, dynamic> json) => _$_Tags(
       tagsId: json['tagsId'] as int?,
       tagsName: json['tagsName'] as String?,
       tagsIcon: json['tagsIcon'] as String?,
-      tagsTipe: json['tagsTipe'] as String?,
+      tagsTipe: $enumDecodeNullable(_$TagsTipeEnumMap, json['tagsTipe']),
     );
 
 Map<String, dynamic> _$$_TagsToJson(_$_Tags instance) => <String, dynamic>{
       'tagsId': instance.tagsId,
       'tagsName': instance.tagsName,
       'tagsIcon': instance.tagsIcon,
-      'tagsTipe': instance.tagsTipe,
+      'tagsTipe': _$TagsTipeEnumMap[instance.tagsTipe],
     };
+
+const _$TagsTipeEnumMap = {
+  TagsTipe.OTONOMI: 'OTONOMI',
+  TagsTipe.PIHAK_TERKAIT: 'PIHAK_TERKAIT',
+  TagsTipe.TOPIK: 'TOPIK',
+};
 
 _$_Link _$$_LinkFromJson(Map<String, dynamic> json) => _$_Link(
       url: json['url'] as String?,

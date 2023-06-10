@@ -1504,7 +1504,7 @@ mixin _$Tags {
   int? get tagsId => throw _privateConstructorUsedError;
   String? get tagsName => throw _privateConstructorUsedError;
   String? get tagsIcon => throw _privateConstructorUsedError;
-  String? get tagsTipe => throw _privateConstructorUsedError;
+  TagsTipe? get tagsTipe => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1517,7 +1517,7 @@ abstract class $TagsCopyWith<$Res> {
       _$TagsCopyWithImpl<$Res, Tags>;
   @useResult
   $Res call(
-      {int? tagsId, String? tagsName, String? tagsIcon, String? tagsTipe});
+      {int? tagsId, String? tagsName, String? tagsIcon, TagsTipe? tagsTipe});
 }
 
 /// @nodoc
@@ -1554,7 +1554,7 @@ class _$TagsCopyWithImpl<$Res, $Val extends Tags>
       tagsTipe: freezed == tagsTipe
           ? _value.tagsTipe
           : tagsTipe // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as TagsTipe?,
     ) as $Val);
   }
 }
@@ -1566,7 +1566,7 @@ abstract class _$$_TagsCopyWith<$Res> implements $TagsCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? tagsId, String? tagsName, String? tagsIcon, String? tagsTipe});
+      {int? tagsId, String? tagsName, String? tagsIcon, TagsTipe? tagsTipe});
 }
 
 /// @nodoc
@@ -1599,7 +1599,7 @@ class __$$_TagsCopyWithImpl<$Res> extends _$TagsCopyWithImpl<$Res, _$_Tags>
       tagsTipe: freezed == tagsTipe
           ? _value.tagsTipe
           : tagsTipe // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as TagsTipe?,
     ));
   }
 }
@@ -1618,7 +1618,7 @@ class _$_Tags implements _Tags {
   @override
   final String? tagsIcon;
   @override
-  final String? tagsTipe;
+  final TagsTipe? tagsTipe;
 
   @override
   String toString() {
@@ -1663,7 +1663,7 @@ abstract class _Tags implements Tags {
       {final int? tagsId,
       final String? tagsName,
       final String? tagsIcon,
-      final String? tagsTipe}) = _$_Tags;
+      final TagsTipe? tagsTipe}) = _$_Tags;
 
   factory _Tags.fromJson(Map<String, dynamic> json) = _$_Tags.fromJson;
 
@@ -1674,7 +1674,7 @@ abstract class _Tags implements Tags {
   @override
   String? get tagsIcon;
   @override
-  String? get tagsTipe;
+  TagsTipe? get tagsTipe;
   @override
   @JsonKey(ignore: true)
   _$$_TagsCopyWith<_$_Tags> get copyWith => throw _privateConstructorUsedError;
