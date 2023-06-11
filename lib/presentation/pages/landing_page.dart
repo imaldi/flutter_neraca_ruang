@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/appbar_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/assets.dart';
@@ -20,31 +21,6 @@ class LandingPage extends ConsumerStatefulWidget {
 }
 
 class LandingPageState extends ConsumerState<LandingPage> {
-  TabBar get _tabBar => TabBar(
-        isScrollable: true,
-        indicatorColor: Colors.transparent,
-        tabs: [
-          InkWell(
-              onTap: () {
-                context.router.push(const KabarRoute());
-              },
-              child: TabMenuItem("KABAR")),
-          TabMenuItem("JURNAL"),
-          TabMenuItem("INFOGRAFIS"),
-          TabMenuItem("VIDEO"),
-          TabMenuItem("ALBUM FOTO"),
-          TabMenuItem("DISKUSI"),
-        ],
-      );
-
-  ScrollController scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    // ref.read(dashBoardProvider);
-  }
-
   @override
   Widget build(BuildContext context) {
     var dataDashboard = ref.watch(dashBoardProvider);
@@ -52,21 +28,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
     return DefaultTabController(
       length: 6,
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: Center(
-              child: Image.asset("assets/images/nr_logo_horizontal.png")),
-          bottom: PreferredSize(
-            preferredSize: _tabBar.preferredSize,
-            child: ColoredBox(color: Colors.blue, child: _tabBar),
-          ),
-          actions: const [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.search),
-            )
-          ],
-        ),
+        appBar: appBarWidget(context),
         drawer: Drawer(
           child: SingleChildScrollView(
             child: Column(
