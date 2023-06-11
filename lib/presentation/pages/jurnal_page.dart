@@ -35,7 +35,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
     return SafeArea(
       top: false,
       child: DefaultTabController(
-        length: isGreenMode ? mainTabLength : greenTabLength,
+        length: !isGreenMode ? mainTabLength : greenTabLength,
         child: WillPopScope(
           onWillPop: () {
             return basicOnWillPop(context, ref);
@@ -57,16 +57,21 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
                           itemBuilder: (c, i) {
                             return ContentWidget(contentList![i]);
                           }),
-                      Container(
-                        padding: const EdgeInsets.all(medium),
-                        margin: const EdgeInsets.symmetric(vertical: medium),
-                        decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(extra))),
-                        child: Text(
-                          "LOAD MORE",
-                          style: TextStyle(color: Colors.white),
+                      InkWell(
+                        onTap: () {
+                          ref.read(limitProvider.notifier).state++;
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(medium),
+                          margin: const EdgeInsets.symmetric(vertical: medium),
+                          decoration: const BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(extra))),
+                          child: Text(
+                            "LOAD MORE",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                       Column(

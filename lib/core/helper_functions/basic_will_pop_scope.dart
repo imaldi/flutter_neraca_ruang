@@ -12,5 +12,6 @@ Future<bool> basicOnWillPop(BuildContext context, WidgetRef ref) {
   ref.read(kotaNameProvider.notifier).state = "";
   ref.read(tagsIdProvider.notifier).state = 0;
   ref.read(tagsNameProvider.notifier).state = "";
+  ref.read(limitProvider.notifier).state = 2;
   return Future.value(false);
 }

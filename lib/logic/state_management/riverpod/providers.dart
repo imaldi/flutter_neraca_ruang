@@ -104,7 +104,7 @@ final pageNumberProvider = StateProvider<int>(
   (ref) => 1,
 );
 
-final isGreenProvider = StateProvider((ref) => false);
+final limitProvider = StateProvider<int>((ref) => 2);
 
 class Repository {
   Repository(this.ref);
@@ -115,6 +115,7 @@ class Repository {
     String token = ref.read(userTokenProvider);
 
     var pageNumber = ref.watch(pageNumberProvider);
+    var limit = ref.watch(limitProvider);
     var tagsId = ref.watch(tagsIdProvider);
 
     ref.listen(tagsIdProvider, (oldV, newV) {
@@ -132,7 +133,7 @@ class Repository {
     Map<String, String> queryParameters = {
       'tipe': tipe,
       'page': pageNumber.toString(),
-      'limit': "2"
+      'limit': limit.toString(),
     };
     if (tagsId != 0) {
       queryParameters['tags_id'] = tagsId.toString();
