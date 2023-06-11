@@ -14,10 +14,26 @@ appBarWidget(BuildContext context) {
             context.router.replace(const KabarRoute());
           },
           child: TabMenuItem("KABAR")),
-      TabMenuItem("JURNAL"),
-      TabMenuItem("INFOGRAFIS"),
-      TabMenuItem("VIDEO"),
-      TabMenuItem("ALBUM FOTO"),
+      InkWell(
+          onTap: () {
+            context.router.replace(const JurnalRoute());
+          },
+          child: TabMenuItem("JURNAL")),
+      InkWell(
+          onTap: () {
+            context.router.replace(const InfografisRoute());
+          },
+          child: TabMenuItem("INFOGRAFIS")),
+      InkWell(
+          onTap: () {
+            context.router.replace(const VideoRoute());
+          },
+          child: TabMenuItem("VIDEO")),
+      InkWell(
+          onTap: () {
+            context.router.replace(const AlbumFotoRoute());
+          },
+          child: TabMenuItem("ALBUM FOTO")),
       TabMenuItem("DISKUSI"),
     ],
   );

@@ -62,6 +62,7 @@ class Datum with _$Datum {
     @JsonKey(name: "tags_otonomi") Tags? tagsOtonomi,
     @JsonKey(name: "total_read") int? totalRead,
     @JsonKey(name: "total_like") int? totalLike,
+    @JsonKey(name: "total_comment") int? totalComment,
     @JsonKey(name: "total_shared") int? totalShared,
     String? domain,
     @JsonKey(name: "full_path") String? fullPath,

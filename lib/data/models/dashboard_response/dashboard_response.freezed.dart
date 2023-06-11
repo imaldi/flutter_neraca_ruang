@@ -656,6 +656,8 @@ mixin _$Datum {
   int? get totalRead => throw _privateConstructorUsedError;
   @JsonKey(name: "total_like")
   int? get totalLike => throw _privateConstructorUsedError;
+  @JsonKey(name: "total_comment")
+  int? get totalComment => throw _privateConstructorUsedError;
   @JsonKey(name: "total_shared")
   int? get totalShared => throw _privateConstructorUsedError;
   String? get domain => throw _privateConstructorUsedError;
@@ -713,6 +715,7 @@ abstract class $DatumCopyWith<$Res> {
       @JsonKey(name: "tags_otonomi") Tags? tagsOtonomi,
       @JsonKey(name: "total_read") int? totalRead,
       @JsonKey(name: "total_like") int? totalLike,
+      @JsonKey(name: "total_comment") int? totalComment,
       @JsonKey(name: "total_shared") int? totalShared,
       String? domain,
       @JsonKey(name: "full_path") String? fullPath,
@@ -766,6 +769,7 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
     Object? tagsOtonomi = freezed,
     Object? totalRead = freezed,
     Object? totalLike = freezed,
+    Object? totalComment = freezed,
     Object? totalShared = freezed,
     Object? domain = freezed,
     Object? fullPath = freezed,
@@ -861,6 +865,10 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
       totalLike: freezed == totalLike
           ? _value.totalLike
           : totalLike // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalComment: freezed == totalComment
+          ? _value.totalComment
+          : totalComment // ignore: cast_nullable_to_non_nullable
               as int?,
       totalShared: freezed == totalShared
           ? _value.totalShared
@@ -985,6 +993,7 @@ abstract class _$$_DatumCopyWith<$Res> implements $DatumCopyWith<$Res> {
       @JsonKey(name: "tags_otonomi") Tags? tagsOtonomi,
       @JsonKey(name: "total_read") int? totalRead,
       @JsonKey(name: "total_like") int? totalLike,
+      @JsonKey(name: "total_comment") int? totalComment,
       @JsonKey(name: "total_shared") int? totalShared,
       String? domain,
       @JsonKey(name: "full_path") String? fullPath,
@@ -1037,6 +1046,7 @@ class __$$_DatumCopyWithImpl<$Res> extends _$DatumCopyWithImpl<$Res, _$_Datum>
     Object? tagsOtonomi = freezed,
     Object? totalRead = freezed,
     Object? totalLike = freezed,
+    Object? totalComment = freezed,
     Object? totalShared = freezed,
     Object? domain = freezed,
     Object? fullPath = freezed,
@@ -1133,6 +1143,10 @@ class __$$_DatumCopyWithImpl<$Res> extends _$DatumCopyWithImpl<$Res, _$_Datum>
           ? _value.totalLike
           : totalLike // ignore: cast_nullable_to_non_nullable
               as int?,
+      totalComment: freezed == totalComment
+          ? _value.totalComment
+          : totalComment // ignore: cast_nullable_to_non_nullable
+              as int?,
       totalShared: freezed == totalShared
           ? _value.totalShared
           : totalShared // ignore: cast_nullable_to_non_nullable
@@ -1217,6 +1231,7 @@ class _$_Datum implements _Datum {
       @JsonKey(name: "tags_otonomi") this.tagsOtonomi,
       @JsonKey(name: "total_read") this.totalRead,
       @JsonKey(name: "total_like") this.totalLike,
+      @JsonKey(name: "total_comment") this.totalComment,
       @JsonKey(name: "total_shared") this.totalShared,
       this.domain,
       @JsonKey(name: "full_path") this.fullPath,
@@ -1291,6 +1306,9 @@ class _$_Datum implements _Datum {
   @JsonKey(name: "total_like")
   final int? totalLike;
   @override
+  @JsonKey(name: "total_comment")
+  final int? totalComment;
+  @override
   @JsonKey(name: "total_shared")
   final int? totalShared;
   @override
@@ -1332,7 +1350,7 @@ class _$_Datum implements _Datum {
 
   @override
   String toString() {
-    return 'Datum(id: $id, judul: $judul, slug: $slug, keterangan: $keterangan, tipe: $tipe, kategoriId: $kategoriId, kategoriName: $kategoriName, sourceId: $sourceId, sourceName: $sourceName, sourceUrl: $sourceUrl, sourceDate: $sourceDate, propinsiId: $propinsiId, kotaId: $kotaId, propinsiName: $propinsiName, kotaName: $kotaName, tagsPihak: $tagsPihak, tagsTopik: $tagsTopik, tagsOtonomi: $tagsOtonomi, totalRead: $totalRead, totalLike: $totalLike, totalShared: $totalShared, domain: $domain, fullPath: $fullPath, fileUpload: $fileUpload, thumbPath: $thumbPath, videoUrl: $videoUrl, thumbnail: $thumbnail, images: $images, activeAt: $activeAt, activeBy: $activeBy, publishAt: $publishAt, publishBy: $publishBy, deletedAt: $deletedAt, deletedBy: $deletedBy)';
+    return 'Datum(id: $id, judul: $judul, slug: $slug, keterangan: $keterangan, tipe: $tipe, kategoriId: $kategoriId, kategoriName: $kategoriName, sourceId: $sourceId, sourceName: $sourceName, sourceUrl: $sourceUrl, sourceDate: $sourceDate, propinsiId: $propinsiId, kotaId: $kotaId, propinsiName: $propinsiName, kotaName: $kotaName, tagsPihak: $tagsPihak, tagsTopik: $tagsTopik, tagsOtonomi: $tagsOtonomi, totalRead: $totalRead, totalLike: $totalLike, totalComment: $totalComment, totalShared: $totalShared, domain: $domain, fullPath: $fullPath, fileUpload: $fileUpload, thumbPath: $thumbPath, videoUrl: $videoUrl, thumbnail: $thumbnail, images: $images, activeAt: $activeAt, activeBy: $activeBy, publishAt: $publishAt, publishBy: $publishBy, deletedAt: $deletedAt, deletedBy: $deletedBy)';
   }
 
   @override
@@ -1375,6 +1393,8 @@ class _$_Datum implements _Datum {
                 other.totalRead == totalRead) &&
             (identical(other.totalLike, totalLike) ||
                 other.totalLike == totalLike) &&
+            (identical(other.totalComment, totalComment) ||
+                other.totalComment == totalComment) &&
             (identical(other.totalShared, totalShared) ||
                 other.totalShared == totalShared) &&
             (identical(other.domain, domain) || other.domain == domain) &&
@@ -1427,6 +1447,7 @@ class _$_Datum implements _Datum {
         tagsOtonomi,
         totalRead,
         totalLike,
+        totalComment,
         totalShared,
         domain,
         fullPath,
@@ -1479,6 +1500,7 @@ abstract class _Datum implements Datum {
       @JsonKey(name: "tags_otonomi") final Tags? tagsOtonomi,
       @JsonKey(name: "total_read") final int? totalRead,
       @JsonKey(name: "total_like") final int? totalLike,
+      @JsonKey(name: "total_comment") final int? totalComment,
       @JsonKey(name: "total_shared") final int? totalShared,
       final String? domain,
       @JsonKey(name: "full_path") final String? fullPath,
@@ -1551,6 +1573,9 @@ abstract class _Datum implements Datum {
   @override
   @JsonKey(name: "total_like")
   int? get totalLike;
+  @override
+  @JsonKey(name: "total_comment")
+  int? get totalComment;
   @override
   @JsonKey(name: "total_shared")
   int? get totalShared;

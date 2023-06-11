@@ -77,32 +77,43 @@ class _ContentWidgetState extends State<ContentWidget> {
             children: [
               Row(
                 children: [
-                  Flexible(
+                  const Flexible(
                       child: IconWidget(
                     iconForum,
                     size: huge,
                   )),
-                  Expanded(child: Text("${widget.content.totalRead} Reads"))
+                  Expanded(
+                      child: Text("${widget.content.totalRead ?? "0"} Reads"))
                 ],
               ),
               Row(
                 children: [
-                  Flexible(
+                  const Flexible(
                       child: IconWidget(
                     iconForum,
                     size: huge,
                   )),
-                  Expanded(child: Text("${widget.content.totalLike} Likes"))
+                  Expanded(
+                      child: Text("${widget.content.totalLike ?? "0"} Likes"))
                 ],
               ),
               Row(
                 children: [
-                  Flexible(
+                  const Flexible(
                       child: IconWidget(
                     iconForum,
                     size: huge,
                   )),
-                  Expanded(child: Text("${widget.content.totalLike} Comments"))
+                  Expanded(
+                      child: Row(
+                    children: [
+                      Text("${widget.content.totalComment ?? "0"} "),
+                      Text(
+                        "Comments",
+                        softWrap: false,
+                      ),
+                    ],
+                  ))
                 ],
               ),
               IconWidget(

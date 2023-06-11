@@ -5,8 +5,8 @@ import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.d
 import 'package:flutter_neraca_ruang/presentation/widgets/content_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
-import '../../core/consts/urls.dart';
 import '../widgets/appbar_widget.dart';
 
 @RoutePage()
@@ -23,7 +23,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
     var kabarTerbaru = ref.watch(kabarProvider);
 
     return DefaultTabController(
-      length: 6,
+      length: mainTabLength,
       child: WillPopScope(
         onWillPop: () {
           context.router.replace(const LandingRoute());

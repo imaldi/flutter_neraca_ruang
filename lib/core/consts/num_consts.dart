@@ -1,0 +1,1 @@
+const mainTabLength = 6;
