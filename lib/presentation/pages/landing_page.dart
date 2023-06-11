@@ -130,7 +130,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                       return Column(
                         children: [
                           Container(
-                            margin: const EdgeInsets.only(bottom: extra),
+                            margin: const EdgeInsets.only(bottom: normal),
                             constraints: BoxConstraints(
                               maxHeight: 200,
                               minWidth: MediaQuery.of(context).size.width,
@@ -161,12 +161,15 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                       Theme.of(context).textTheme.headlineSmall,
                                   textAlign: TextAlign.center,
                                 ),
-                                Text("${data.first.keterangan}"),
+                                Text("${data.first.keterangan}",
+                                    maxLines: 7,
+                                    overflow: TextOverflow.ellipsis),
                               ],
                             ),
                           ),
                           Container(
-                            margin: const EdgeInsets.symmetric(vertical: extra),
+                            margin:
+                                const EdgeInsets.symmetric(vertical: normal),
                             constraints: BoxConstraints(
                               maxHeight: 200,
                               minWidth: MediaQuery.of(context).size.width,
@@ -193,12 +196,17 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                       Theme.of(context).textTheme.headlineSmall,
                                   textAlign: TextAlign.center,
                                 ),
-                                Text("${data[1].keterangan}"),
+                                Text(
+                                  "${data[1].keterangan}",
+                                  maxLines: 7,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ],
                             ),
                           ),
                           Container(
-                            margin: const EdgeInsets.symmetric(vertical: extra),
+                            margin:
+                                const EdgeInsets.symmetric(vertical: normal),
                             constraints: BoxConstraints(
                               maxHeight: 200,
                               minWidth: MediaQuery.of(context).size.width,
@@ -227,13 +235,16 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                       Theme.of(context).textTheme.headlineSmall,
                                   textAlign: TextAlign.center,
                                 ),
-                                Text("${data[2].keterangan}"),
+                                Text("${data[2].keterangan}",
+                                    maxLines: 7,
+                                    overflow: TextOverflow.ellipsis),
                               ],
                             ),
                           ),
                           // Image.asset("assets/images/neraca_ruang.png"),
                           Container(
-                            margin: const EdgeInsets.symmetric(vertical: extra),
+                            margin:
+                                const EdgeInsets.symmetric(vertical: normal),
                             constraints: BoxConstraints(
                               maxHeight: 200,
                               minWidth: MediaQuery.of(context).size.width,
@@ -260,12 +271,15 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                       Theme.of(context).textTheme.headlineSmall,
                                   textAlign: TextAlign.center,
                                 ),
-                                Text("${data[3].keterangan}"),
+                                Text("${data[3].keterangan}",
+                                    maxLines: 7,
+                                    overflow: TextOverflow.ellipsis),
                               ],
                             ),
                           ),
                           Container(
-                            margin: const EdgeInsets.symmetric(vertical: extra),
+                            margin:
+                                const EdgeInsets.symmetric(vertical: normal),
                             constraints: BoxConstraints(
                               maxHeight: 200,
                               minWidth: MediaQuery.of(context).size.width,
@@ -298,7 +312,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
                             ),
                           ),
                           Container(
-                            margin: const EdgeInsets.symmetric(vertical: extra),
+                            margin:
+                                const EdgeInsets.symmetric(vertical: normal),
                             constraints: BoxConstraints(
                               maxHeight: 200,
                               minWidth: MediaQuery.of(context).size.width,
@@ -379,164 +394,11 @@ class LandingPageState extends ConsumerState<LandingPage> {
                       Text("Error Bruh");
                     },
                     loading: () => UnconstrainedBox(
-                        child: Container(
-                            child: Center(
-                                child: const CircularProgressIndicator()))))
-
-                // fotoTerbaru.when(
-                //     data: (foto) {
-                //       return Text(foto.toJson().toString());
-                //     },
-                //     error: (err, stack) {
-                //       return Text("Ada Error");
-                //     },
-                //     loading: () => const CircularProgressIndicator()),
-                ),
+                        child:
+                            const Center(child: CircularProgressIndicator())))),
           ),
         ),
 
-        /// Ini layout asli
-        // SingleChildScrollView(
-        //   child: Column(
-        //     children: [
-        //       Image.asset("assets/images/dashboard_1.png"),
-        //       Padding(
-        //         padding: const EdgeInsets.all(medium),
-        //         child: Column(
-        //           children: [
-        //             Image.asset("assets/images/icon_kabar1.png"),
-        //             Text(
-        //               'Anita Basudara (nama editor) 26/05/2023, 12:00 WIB',
-        //               style: Theme.of(context).textTheme.bodySmall,
-        //             ),
-        //             Text(
-        //               'PEMKOT DENPASAR LUNCURKAN REDITIA GUNA PERLUASAN DIGITALISASI DAERAH',
-        //               style: Theme.of(context).textTheme.headlineSmall,
-        //               textAlign: TextAlign.center,
-        //             ),
-        //             const Text(
-        //                 "Pemerintah Kota (Pemkot) Denpasar kini memiliki Renon Digital Area (Reditia). Inovasi ini bertujuan untuk mempercepat dan memperluas digitalisasi pajak...."),
-        //           ],
-        //         ),
-        //       ),
-        //       Image.asset("assets/images/dashboard_2.png"),
-        //       Padding(
-        //         padding: const EdgeInsets.all(medium),
-        //         child: Column(
-        //           children: [
-        //             Image.asset("assets/images/icon_kabar1.png"),
-        //             Text(
-        //               "PARADOKS DESENTRALISASI : CUMA 4 PERSEN TAPI DAPAT SETENGAH",
-        //               style: Theme.of(context).textTheme.headlineSmall,
-        //               textAlign: TextAlign.center,
-        //             ),
-        //             const Text(
-        //                 "Sebagian realisasi anggaran yang ditransfer pemerintah pusat ke daerah (propinsi, kota, maupun kabupaten), merupakan dana bagi hasil (DBH). Sumber pendapat yang menjadi hak konstitusi mereka. Maka, selain pendapatan asli daerah (PAD), otonomi fiskal yang 'murni' merupakan kemampuan masing-masing mereka, juga dicerminkan tingkat perolehan DBH-nya."),
-        //           ],
-        //         ),
-        //       ),
-        //       const ScrollableHorizontalImage(),
-        //       Padding(
-        //         padding: const EdgeInsets.all(medium),
-        //         child: Column(
-        //           children: [
-        //             Image.asset("assets/images/icon_kabar1.png"),
-        //             Text(
-        //               "20 TAHUN OTONOMI DAERAH",
-        //               style: Theme.of(context).textTheme.headlineSmall,
-        //               textAlign: TextAlign.center,
-        //             ),
-        //             const Text(
-        //                 "Era desentralisasi telah mendorong kepala daerah berinovasi dalam mengembangkan wilayah mereka untuk."),
-        //           ],
-        //         ),
-        //       ),
-        //       Image.asset("assets/images/neraca_ruang.png"),
-        //       Padding(
-        //         padding: const EdgeInsets.all(medium),
-        //         child: Column(
-        //           children: [
-        //             Image.asset("assets/images/icon_kabar1.png"),
-        //             Text(
-        //               "PLANOLOGI MENGGUGAT (EPISODE 2 : MEMBERI MANFAAT ATAU MENGUNDANG BENCANA?)",
-        //               style: Theme.of(context).textTheme.headlineSmall,
-        //               textAlign: TextAlign.center,
-        //             ),
-        //             const Text("Ini Isi Sinopsis Video"),
-        //           ],
-        //         ),
-        //       ),
-        //       const ScrollableHorizontalImage(),
-        //       Padding(
-        //         padding: const EdgeInsets.all(medium),
-        //         child: Column(
-        //           children: [
-        //             Image.asset("assets/images/icon_kabar1.png"),
-        //             const Text("Institut Teknlogi Denpasar, 23 Mei 2023"),
-        //             Text(
-        //               "ARISAN 6301: PARIWISATA NUSANTARA",
-        //               style: Theme.of(context).textTheme.headlineSmall,
-        //               textAlign: TextAlign.center,
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //       const ScrollableHorizontalImage(),
-        //       Padding(
-        //         padding: const EdgeInsets.all(medium),
-        //         child: Column(
-        //           children: [
-        //             Image.asset("assets/images/icon_kabar1.png"),
-        //             Text(
-        //               "APAKAH INDONESIA SUDAH MENJALANKAN OTONOMI DAERAH DENGAN BAIK?",
-        //               style: Theme.of(context).textTheme.headlineSmall,
-        //               textAlign: TextAlign.center,
-        //             ),
-        //             const Text(
-        //                 "Diskusi hangat mengenai pandangan masyarakat terhadap penerapan otonomi daerah di masa kini."),
-        //           ],
-        //         ),
-        //       ),
-        //       const SizedBox(
-        //         height: extra,
-        //       ),
-        //       Text(
-        //         "IKUTI KAMI",
-        //         style: Theme.of(context).textTheme.headlineSmall,
-        //         textAlign: TextAlign.center,
-        //       ),
-        //       Column(
-        //         mainAxisAlignment: MainAxisAlignment.end,
-        //         children: [
-        //           Padding(
-        //             padding: const EdgeInsets.only(bottom: 8.0),
-        //             child: Row(
-        //               mainAxisAlignment: MainAxisAlignment.center,
-        //               children: [
-        //                 Image.asset("assets/images/icon_facebook.png"),
-        //                 Image.asset("assets/images/icon_ig.png"),
-        //                 Image.asset("assets/images/icon_twitter.png"),
-        //                 Image.asset("assets/images/icon_tiktok.png"),
-        //                 Image.asset("assets/images/icon_youtube.png"),
-        //               ],
-        //             ),
-        //           ),
-        //           Padding(
-        //             padding: const EdgeInsets.only(bottom: 8.0),
-        //             child: Text(
-        //               "neracaruang@neracaruang.com",
-        //               style: Theme.of(context)
-        //                   .textTheme
-        //                   .bodySmall
-        //                   ?.copyWith(decoration: TextDecoration.underline),
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //       const ScrollableHorizontalImage(),
-        //     ],
-        //   ),
-        // ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(

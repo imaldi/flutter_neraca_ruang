@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
+import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
 import '../../logic/state_management/riverpod/providers.dart';
 import '../widgets/appbar_widget.dart';
@@ -26,8 +27,7 @@ class _VideoPageState extends ConsumerState<VideoPage> {
       length: mainTabLength,
       child: WillPopScope(
         onWillPop: () {
-          context.router.replace(const LandingRoute());
-          return Future.value(true);
+          return basicOnWillPop(context, ref);
         },
         child: Scaffold(
           appBar: appBarWidget(context),
@@ -44,7 +44,8 @@ class _VideoPageState extends ConsumerState<VideoPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: contentList?.length,
                           itemBuilder: (c, i) {
-                            return ContentWidget(contentList![i]);
+                            return ContentWidget(contentList![i],
+                                isUsingThumbnail: true);
                           }),
                       Container(
                         padding: const EdgeInsets.all(medium),

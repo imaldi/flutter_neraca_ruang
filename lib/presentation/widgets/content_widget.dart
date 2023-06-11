@@ -8,7 +8,9 @@ import 'IconWidget.dart';
 
 class ContentWidget extends StatefulWidget {
   final Datum content;
-  const ContentWidget(this.content, {Key? key}) : super(key: key);
+  final bool isUsingThumbnail;
+  const ContentWidget(this.content, {this.isUsingThumbnail = false, Key? key})
+      : super(key: key);
 
   @override
   _ContentWidgetState createState() => _ContentWidgetState();
@@ -20,24 +22,33 @@ class _ContentWidgetState extends State<ContentWidget> {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(vertical: extra),
+          margin: const EdgeInsets.only(bottom: normal),
           constraints: BoxConstraints(
             maxHeight: 200,
             minWidth: MediaQuery.of(context).size.width,
           ),
           child: Image.network(
-            "https://$contentUrl/${widget.content.images}" ?? "",
+            widget.isUsingThumbnail
+                ? "https://$thumbnailUrl/${widget.content.thumbnail}"
+                : "https://$contentUrl/${widget.content.images}" ?? "",
             fit: BoxFit.cover,
             errorBuilder: (bc, o, st) {
               return Text(widget.content.images ?? "");
             },
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: medium),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.location_city),
+                  Text(widget.content.kotaName ?? "")
+                ],
+              ),
               SizedBox(
                 height: huge,
                 child: FittedBox(
@@ -66,7 +77,11 @@ class _ContentWidgetState extends State<ContentWidget> {
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
-              Text("${widget.content.keterangan}"),
+              Text(
+                "${widget.content.keterangan}",
+                maxLines: 7,
+                overflow: TextOverflow.ellipsis,
+              ),
             ],
           ),
         ),
@@ -83,7 +98,12 @@ class _ContentWidgetState extends State<ContentWidget> {
                     size: huge,
                   )),
                   Expanded(
-                      child: Text("${widget.content.totalRead ?? "0"} Reads"))
+                      child: Wrap(
+                    children: [
+                      Text("${widget.content.totalRead ?? "0"} "),
+                      const Text("Reads"),
+                    ],
+                  ))
                 ],
               ),
               Row(
@@ -94,7 +114,12 @@ class _ContentWidgetState extends State<ContentWidget> {
                     size: huge,
                   )),
                   Expanded(
-                      child: Text("${widget.content.totalLike ?? "0"} Likes"))
+                      child: Wrap(
+                    children: [
+                      Text("${widget.content.totalLike ?? "0"} "),
+                      const FittedBox(child: Text("Likes")),
+                    ],
+                  ))
                 ],
               ),
               Row(
@@ -105,18 +130,19 @@ class _ContentWidgetState extends State<ContentWidget> {
                     size: huge,
                   )),
                   Expanded(
-                      child: Row(
+                      child: Wrap(
                     children: [
                       Text("${widget.content.totalComment ?? "0"} "),
-                      Text(
-                        "Comments",
-                        softWrap: false,
+                      const FittedBox(
+                        child: Text(
+                          "Comments",
+                        ),
                       ),
                     ],
                   ))
                 ],
               ),
-              IconWidget(
+              const IconWidget(
                 iconForum,
                 size: huge,
               ),

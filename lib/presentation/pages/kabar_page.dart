@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
+import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../widgets/appbar_widget.dart';
 
 @RoutePage()
@@ -26,8 +27,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
       length: mainTabLength,
       child: WillPopScope(
         onWillPop: () {
-          context.router.replace(const LandingRoute());
-          return Future.value(true);
+          return basicOnWillPop(context, ref);
         },
         child: Scaffold(
           appBar: appBarWidget(context),

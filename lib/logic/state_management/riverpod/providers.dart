@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter_neraca_ruang/core/consts/datum_type.dart';
+import 'package:flutter_neraca_ruang/core/consts/urls.dart';
 import 'package:flutter_neraca_ruang/data/models/simple_dashboard_response/simple_dashboard_response.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -19,8 +21,6 @@ final userTokenProvider = StateProvider<String>((ref) =>
     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc");
 
 final repositoryProvider = Provider((ref) => Repository(ref));
-final simpleDashboardRepositoryProvider =
-    Provider(SimpleDashboardRepository.new);
 
 var kabarProvider = FutureProvider<DashboardResponse>((ref) async {
   final repo = ref.watch(repositoryProvider);
@@ -83,28 +83,21 @@ var dashBoardProvider = FutureProvider<List<Datum>>((ref) async {
   return await Future<List<Datum>>(() => theList);
 });
 
-class SimpleDashboardRepository {
-  SimpleDashboardRepository(this.ref);
+final kotaIdProvider = StateProvider<int>(
+  (ref) {
+    return 0;
+  },
+);
 
-  final Ref ref;
+final tagsIdProvider = StateProvider<int>(
+  (ref) {
+    return 0;
+  },
+);
 
-  Future<SimpleDashboardResponse> fetchDatum() async {
-    String token = ref.read(userTokenProvider);
-
-    var url =
-        Uri.https("neracaruang-api.binerapps.co.id", "/api/portal/carousel");
-
-    final response = await http.get(url, headers: {
-      'Authorization': token,
-      'Accept': 'application/json',
-    });
-
-    print("URL: $url");
-    print("Response body: ${response.body}");
-
-    return SimpleDashboardResponse.fromJson(jsonDecode(response.body));
-  }
-}
+final pageNumberProvider = StateProvider<int>(
+  (ref) => 1,
+);
 
 class Repository {
   Repository(this.ref);
@@ -114,10 +107,31 @@ class Repository {
   Future<DashboardResponse> fetchDatum(String tipe) async {
     String token = ref.read(userTokenProvider);
 
-    var url =
-        Uri.https("neracaruang-api.binerapps.co.id", "/api/portal/content", {
-      'tipe': tipe,
+    var pageNumber = ref.watch(pageNumberProvider);
+    var tagsId = ref.watch(tagsIdProvider);
+
+    ref.listen(tagsIdProvider, (oldV, newV) {
+      if ((oldV != newV) && (newV != 0)) {
+        ref.read(kotaIdProvider.notifier).state = 0;
+      }
     });
+    var kotaId = ref.watch(kotaIdProvider);
+    ref.listen(kotaIdProvider, (oldV, newV) {
+      if ((oldV != newV) && (newV != 0)) {
+        ref.read(tagsIdProvider.notifier).state = 0;
+      }
+    });
+
+    var queryParameters = {'tipe': tipe, 'page': pageNumber.toString()};
+    if (tagsId != 0) {
+      queryParameters['tags_id'] = tagsId.toString();
+    }
+
+    if (kotaId != 0) {
+      queryParameters['kota_id'] = kotaId.toString();
+    }
+
+    var url = Uri.https(baseUrl, dashboardList, queryParameters);
 
     final response = await http.get(url, headers: {
       'Authorization': token,
@@ -125,7 +139,7 @@ class Repository {
     });
 
     print("URL: $url");
-    print("Response body: ${response.body}");
+    log("Response body: ${response.body}");
 
     return DashboardResponse.fromJson(jsonDecode(response.body));
   }
