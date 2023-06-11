@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/content_widget.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/green_mode_appbar_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../widgets/appbar_widget.dart';
+import '../widgets/bottom_bar_widget.dart';
 
 @RoutePage()
 class KabarPage extends ConsumerStatefulWidget {
@@ -22,6 +24,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
   @override
   Widget build(BuildContext context) {
     var kabarTerbaru = ref.watch(kabarProvider);
+    var greenMode = ref.watch(kotaIdProvider) != 0;
 
     return DefaultTabController(
       length: mainTabLength,
@@ -30,7 +33,9 @@ class _KabarPageState extends ConsumerState<KabarPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: appBarWidget(context),
+          appBar: greenMode
+              ? greenModeAppBarWidget(context)
+              : appBarWidget(context),
           body: kabarTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             return SafeArea(
@@ -106,6 +111,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
               child: CircularProgressIndicator(),
             );
           }),
+          bottomNavigationBar: greenMode ? null : const BottomBarWidget(),
         ),
       ),
     );

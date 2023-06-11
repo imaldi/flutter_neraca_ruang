@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/green_mode_appbar_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/num_consts.dart';
@@ -8,6 +9,7 @@ import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
 import '../widgets/appbar_widget.dart';
+import '../widgets/bottom_bar_widget.dart';
 import '../widgets/content_widget.dart';
 
 @RoutePage()
@@ -22,6 +24,7 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
   @override
   Widget build(BuildContext context) {
     var fotoTerbaru = ref.watch(fotoProvider);
+    var greenMode = ref.watch(kotaIdProvider) != 0;
 
     return DefaultTabController(
       length: mainTabLength,
@@ -30,7 +33,9 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: appBarWidget(context),
+          appBar: greenMode
+              ? greenModeAppBarWidget(context)
+              : appBarWidget(context),
           body: fotoTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             return SafeArea(
@@ -108,6 +113,7 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
               child: CircularProgressIndicator(),
             );
           }),
+          bottomNavigationBar: greenMode ? null : const BottomBarWidget(),
         ),
       ),
     );

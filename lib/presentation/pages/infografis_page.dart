@@ -8,7 +8,9 @@ import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
 import '../widgets/appbar_widget.dart';
+import '../widgets/bottom_bar_widget.dart';
 import '../widgets/content_widget.dart';
+import '../widgets/green_mode_appbar_widget.dart';
 
 @RoutePage()
 class InfografisPage extends ConsumerStatefulWidget {
@@ -22,6 +24,7 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
   @override
   Widget build(BuildContext context) {
     var infografisTerbaru = ref.watch(infografisProvider);
+    var greenMode = ref.watch(kotaIdProvider) != 0;
 
     return DefaultTabController(
       length: mainTabLength,
@@ -30,7 +33,9 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: appBarWidget(context),
+          appBar: greenMode
+              ? greenModeAppBarWidget(context)
+              : appBarWidget(context),
           body: infografisTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             return SafeArea(
@@ -108,6 +113,7 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
               child: CircularProgressIndicator(),
             );
           }),
+          bottomNavigationBar: greenMode ? null : const BottomBarWidget(),
         ),
       ),
     );

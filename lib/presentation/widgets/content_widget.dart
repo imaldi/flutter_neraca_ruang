@@ -42,14 +42,16 @@ class _ContentWidgetState extends State<ContentWidget> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.location_city),
-                  Text(widget.content.kotaName ?? "")
-                ],
+              InkWell(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.location_city),
+                    Text(widget.content.kotaName ?? "")
+                  ],
+                ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: huge,
                 child: FittedBox(
                   child: Row(

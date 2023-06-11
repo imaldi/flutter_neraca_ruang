@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../widgets/appbar_widget.dart';
+import '../widgets/bottom_bar_widget.dart';
 import '../widgets/content_widget.dart';
 
 @RoutePage()
@@ -22,6 +23,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
   @override
   Widget build(BuildContext context) {
     var jurnalTerbaru = ref.watch(jurnalProvider);
+    var greenMode = ref.watch(kotaIdProvider) != 0;
 
     return DefaultTabController(
       length: mainTabLength,
@@ -30,7 +32,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: appBarWidget(context),
+          appBar: greenMode ? null : appBarWidget(context),
           body: jurnalTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             return SafeArea(
@@ -108,6 +110,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
               child: CircularProgressIndicator(),
             );
           }),
+          bottomNavigationBar: greenMode ? null : const BottomBarWidget(),
         ),
       ),
     );

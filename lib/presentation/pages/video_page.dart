@@ -8,6 +8,7 @@ import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
 import '../../logic/state_management/riverpod/providers.dart';
 import '../widgets/appbar_widget.dart';
+import '../widgets/bottom_bar_widget.dart';
 import '../widgets/content_widget.dart';
 
 @RoutePage()
@@ -109,6 +110,7 @@ class _VideoPageState extends ConsumerState<VideoPage> {
               child: CircularProgressIndicator(),
             );
           }),
+          bottomNavigationBar: const BottomBarWidget(),
         ),
       ),
     );
