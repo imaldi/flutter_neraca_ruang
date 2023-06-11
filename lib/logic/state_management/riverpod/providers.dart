@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_neraca_ruang/core/consts/datum_type.dart';
 import 'package:flutter_neraca_ruang/core/consts/urls.dart';
 import 'package:flutter_neraca_ruang/data/models/simple_dashboard_response/simple_dashboard_response.dart';
@@ -102,6 +103,8 @@ final tagsNameProvider = StateProvider((ref) => "");
 final pageNumberProvider = StateProvider<int>(
   (ref) => 1,
 );
+
+final isGreenProvider = StateProvider((ref) => false);
 
 class Repository {
   Repository(this.ref);

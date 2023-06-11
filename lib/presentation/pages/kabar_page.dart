@@ -25,6 +25,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
   Widget build(BuildContext context) {
     var kabarTerbaru = ref.watch(kabarProvider);
     var isGreenMode = ref.watch(kotaIdProvider) != 0;
+    // var isGreenMode = ref.watch(isGreenProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var appbarTitle = kotaName.isNotEmpty

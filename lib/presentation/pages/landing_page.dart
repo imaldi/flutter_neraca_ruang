@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/num_consts.dart';
+import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/appbar_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/bottom_bar_widget.dart';
@@ -133,10 +134,19 @@ class LandingPageState extends ConsumerState<LandingPage> {
                           padding: const EdgeInsets.all(medium),
                           child: Column(
                             children: [
-                              Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: extra, maxHeight: extra),
-                                  child: Image.asset(iconKabar)),
+                              InkWell(
+                                onTap: () {
+                                  ref.read(kotaIdProvider.notifier).state =
+                                      data[0].kotaId ?? 0;
+                                  ref.read(kotaNameProvider.notifier).state =
+                                      data[0].kotaName ?? "";
+                                  context.router.replace(const KabarRoute());
+                                },
+                                child: Container(
+                                    constraints: const BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child: Image.asset(iconKabar)),
+                              ),
                               Text(
                                 '${data.first.sourceName} 26/05/2023, 12:00 WIB',
                                 style: Theme.of(context).textTheme.bodySmall,
@@ -170,10 +180,19 @@ class LandingPageState extends ConsumerState<LandingPage> {
                           padding: const EdgeInsets.all(medium),
                           child: Column(
                             children: [
-                              Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: extra, maxHeight: extra),
-                                  child: Image.asset(iconJurnal)),
+                              InkWell(
+                                onTap: () {
+                                  ref.read(kotaIdProvider.notifier).state =
+                                      data[0].kotaId ?? 0;
+                                  ref.read(kotaNameProvider.notifier).state =
+                                      data[0].kotaName ?? "";
+                                  context.router.replace(const JurnalRoute());
+                                },
+                                child: Container(
+                                    constraints: const BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child: Image.asset(iconJurnal)),
+                              ),
                               Text(
                                 "${data[1].judul}",
                                 style:
@@ -207,10 +226,20 @@ class LandingPageState extends ConsumerState<LandingPage> {
                           padding: const EdgeInsets.all(medium),
                           child: Column(
                             children: [
-                              Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: extra, maxHeight: extra),
-                                  child: Image.asset(iconInfografis)),
+                              InkWell(
+                                onTap: () {
+                                  ref.read(kotaIdProvider.notifier).state =
+                                      data[0].kotaId ?? 0;
+                                  ref.read(kotaNameProvider.notifier).state =
+                                      data[0].kotaName ?? "";
+                                  context.router
+                                      .replace(const InfografisRoute());
+                                },
+                                child: Container(
+                                    constraints: const BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child: Image.asset(iconInfografis)),
+                              ),
                               Text(
                                 "${data[2].judul}",
                                 style:
@@ -241,10 +270,19 @@ class LandingPageState extends ConsumerState<LandingPage> {
                           padding: const EdgeInsets.all(medium),
                           child: Column(
                             children: [
-                              Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: extra, maxHeight: extra),
-                                  child: Image.asset(iconVideo)),
+                              InkWell(
+                                onTap: () {
+                                  ref.read(kotaIdProvider.notifier).state =
+                                      data[0].kotaId ?? 0;
+                                  ref.read(kotaNameProvider.notifier).state =
+                                      data[0].kotaName ?? "";
+                                  context.router.replace(const VideoRoute());
+                                },
+                                child: Container(
+                                    constraints: const BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child: Image.asset(iconVideo)),
+                              ),
                               Text(
                                 "${data[3].judul}",
                                 style:
@@ -274,10 +312,20 @@ class LandingPageState extends ConsumerState<LandingPage> {
                           padding: const EdgeInsets.all(medium),
                           child: Column(
                             children: [
-                              Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: extra, maxHeight: extra),
-                                  child: Image.asset(iconFoto)),
+                              InkWell(
+                                onTap: () {
+                                  ref.read(kotaIdProvider.notifier).state =
+                                      data[0].kotaId ?? 0;
+                                  ref.read(kotaNameProvider.notifier).state =
+                                      data[0].kotaName ?? "";
+                                  context.router
+                                      .replace(const AlbumFotoRoute());
+                                },
+                                child: Container(
+                                    constraints: const BoxConstraints(
+                                        maxWidth: extra, maxHeight: extra),
+                                    child: Image.asset(iconFoto)),
+                              ),
                               Text(
                                   "${data[4].sourceName ?? "Tidak ada Sumber"}, ${data[4].sourceDate ?? "Tidak ada tanggal Sumber"}"),
                               Text(
