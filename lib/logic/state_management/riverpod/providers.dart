@@ -8,6 +8,7 @@ import 'package:flutter_neraca_ruang/data/models/simple_dashboard_response/simpl
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../data/models/adsense_response/adsense_response.dart';
 import '../../../data/models/dashboard_response/dashboard_response.dart';
 
 // TODO: Buat FutureProvider untuk fetch semua konten yang tampil di dashboard
@@ -49,6 +50,12 @@ var videoProvider = FutureProvider<DashboardResponse>((ref) async {
 var fotoProvider = FutureProvider<DashboardResponse>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchDatum(DatumType.foto.toString());
+  return response;
+});
+
+var adsenseProvider = FutureProvider<AdsenseResponse>((ref) async {
+  final repo = ref.watch(repositoryProvider);
+  final response = await repo.fetchAdsense();
   return response;
 });
 
@@ -154,5 +161,24 @@ class Repository {
     // log("Response body: ${response.body}");
 
     return DashboardResponse.fromJson(jsonDecode(response.body));
+  }
+
+  Future<AdsenseResponse> fetchAdsense() async {
+    String token = ref.read(userTokenProvider);
+
+    var url = Uri.https(
+      baseUrl,
+      adsenseUrl,
+    );
+
+    final response = await http.get(url, headers: {
+      'Authorization': token,
+      'Accept': 'application/json',
+    });
+
+    print("URL adsense: $url");
+    // log("Response body: ${response.body}");
+
+    return AdsenseResponse.fromJson(jsonDecode(response.body));
   }
 }

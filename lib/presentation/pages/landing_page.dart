@@ -25,6 +25,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
   @override
   Widget build(BuildContext context) {
     var dataDashboard = ref.watch(dashBoardProvider);
+    var adsense = ref.watch(adsenseProvider);
 
     return DefaultTabController(
       length: mainTabLength,
@@ -408,7 +409,15 @@ class LandingPageState extends ConsumerState<LandingPage> {
                             ),
                           ],
                         ),
-                        const ScrollableHorizontalImage(),
+                        // TODO implement adsense
+                        // const ScrollableHorizontalImage(),
+                        // adsense.when(data: (data) {
+                        //   return Text("Ada Data: ${data.toJson().toString()}");
+                        // }, error: (o, st) {
+                        //   return Text("Ada Error");
+                        // }, loading: () {
+                        //   return const CircularProgressIndicator();
+                        // })
                       ],
                     );
                   },
