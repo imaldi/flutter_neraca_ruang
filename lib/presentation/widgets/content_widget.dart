@@ -46,10 +46,15 @@ class ContentWidget extends ConsumerWidget {
                 onTap: isGreenMode
                     ? () {
                         ref.read(kotaIdProvider.notifier).state = 0;
+                        ref.read(kotaNameProvider.notifier).state = "";
+                        ref.read(tagsIdProvider.notifier).state = 0;
+                        ref.read(tagsNameProvider.notifier).state = "";
                       }
                     : () {
                         ref.read(kotaIdProvider.notifier).state =
                             content.kotaId ?? 0;
+                        ref.read(kotaNameProvider.notifier).state =
+                            content.kotaName ?? "";
                       },
                 child: isGreenMode
                     // ? Text(content.tipe ?? "Kosong")
@@ -68,14 +73,41 @@ class ContentWidget extends ConsumerWidget {
                         ],
                       ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: huge,
                 child: FittedBox(
                   child: Row(
                     children: [
-                      IconWidget(iconVideo),
-                      IconWidget(iconFoto),
-                      IconWidget(iconJurnal),
+                      IconWidget(
+                        content.tagsPihak?.tagsIcon ?? "",
+                        isOnlineSource: true,
+                        onTap: () {
+                          ref.read(tagsIdProvider.notifier).state =
+                              content.tagsPihak?.tagsId ?? 0;
+                          ref.read(kotaNameProvider.notifier).state =
+                              content.tagsPihak?.tagsName ?? "";
+                        },
+                      ),
+                      IconWidget(
+                        content.tagsTopik?.tagsIcon ?? "",
+                        isOnlineSource: true,
+                        onTap: () {
+                          ref.read(tagsIdProvider.notifier).state =
+                              content.tagsTopik?.tagsId ?? 0;
+                          ref.read(kotaNameProvider.notifier).state =
+                              content.tagsTopik?.tagsName ?? "";
+                        },
+                      ),
+                      IconWidget(
+                        content.tagsOtonomi?.tagsIcon ?? "",
+                        isOnlineSource: true,
+                        onTap: () {
+                          ref.read(tagsIdProvider.notifier).state =
+                              content.tagsOtonomi?.tagsId ?? 0;
+                          ref.read(kotaNameProvider.notifier).state =
+                              content.tagsOtonomi?.tagsName ?? "";
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -136,7 +168,7 @@ class ContentWidget extends ConsumerWidget {
                       child: Wrap(
                     children: [
                       Text("${content.totalLike ?? "0"} "),
-                      const FittedBox(child: Text("Likes")),
+                      Text("Likes"),
                     ],
                   ))
                 ],
@@ -152,10 +184,8 @@ class ContentWidget extends ConsumerWidget {
                       child: Wrap(
                     children: [
                       Text("${content.totalComment ?? "0"} "),
-                      const FittedBox(
-                        child: Text(
-                          "Comments",
-                        ),
+                      Text(
+                        "Comments",
                       ),
                     ],
                   ))

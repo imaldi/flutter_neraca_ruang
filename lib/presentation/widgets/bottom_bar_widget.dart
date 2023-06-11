@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class BottomBarWidget extends StatelessWidget {
-  const BottomBarWidget({Key? key}) : super(key: key);
+  final Color? bgColor;
+  const BottomBarWidget({this.bgColor, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: bgColor,
       items: [
         BottomNavigationBarItem(
           label: "",

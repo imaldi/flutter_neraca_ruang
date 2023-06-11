@@ -89,11 +89,15 @@ final kotaIdProvider = StateProvider<int>(
   },
 );
 
+final kotaNameProvider = StateProvider((ref) => "");
+
 final tagsIdProvider = StateProvider<int>(
   (ref) {
     return 0;
   },
 );
+
+final tagsNameProvider = StateProvider((ref) => "");
 
 final pageNumberProvider = StateProvider<int>(
   (ref) => 1,

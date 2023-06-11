@@ -24,19 +24,28 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
   Widget build(BuildContext context) {
     var jurnalTerbaru = ref.watch(jurnalProvider);
     var isGreenMode = ref.watch(kotaIdProvider) != 0;
+    var kotaName = ref.watch(kotaNameProvider);
+    var tagName = ref.watch(tagsNameProvider);
+    var appbarTitle = kotaName.isNotEmpty
+        ? kotaName
+        : tagName.isNotEmpty
+            ? tagName
+            : null;
 
-    return DefaultTabController(
-      length: mainTabLength,
-      child: WillPopScope(
-        onWillPop: () {
-          return basicOnWillPop(context, ref);
-        },
-        child: Scaffold(
-          appBar: appBarWidget(context, isGreenMode),
-          body: jurnalTerbaru.when(data: (data) {
-            var contentList = data.data?.data;
-            return SafeArea(
-              child: SingleChildScrollView(
+    return SafeArea(
+      top: false,
+      child: DefaultTabController(
+        length: mainTabLength,
+        child: WillPopScope(
+          onWillPop: () {
+            return basicOnWillPop(context, ref);
+          },
+          child: Scaffold(
+            appBar:
+                appBarWidget(context, isGreenMode, appbarTitle: appbarTitle),
+            body: jurnalTerbaru.when(data: (data) {
+              var contentList = data.data?.data;
+              return SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: extra),
                   child: Column(
@@ -99,18 +108,18 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
                     ],
                   ),
                 ),
-              ),
-            );
-          }, error: (o, st) {
-            return Center(
-              child: Text("There is an Error"),
-            );
-          }, loading: () {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
-          bottomNavigationBar: isGreenMode ? null : const BottomBarWidget(),
+              );
+            }, error: (o, st) {
+              return Center(
+                child: Text("There is an Error"),
+              );
+            }, loading: () {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }),
+            bottomNavigationBar: isGreenMode ? null : const BottomBarWidget(),
+          ),
         ),
       ),
     );
