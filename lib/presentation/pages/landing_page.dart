@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,11 +20,15 @@ class LandingPage extends ConsumerStatefulWidget {
 }
 
 class LandingPageState extends ConsumerState<LandingPage> {
-  TabBar get _tabBar => const TabBar(
+  TabBar get _tabBar => TabBar(
         isScrollable: true,
         indicatorColor: Colors.transparent,
         tabs: [
-          TabMenuItem("KABAR"),
+          InkWell(
+              onTap: () {
+                context.router.push(const KabarRoute());
+              },
+              child: TabMenuItem("KABAR")),
           TabMenuItem("JURNAL"),
           TabMenuItem("INFOGRAFIS"),
           TabMenuItem("VIDEO"),
@@ -43,7 +48,6 @@ class LandingPageState extends ConsumerState<LandingPage> {
   @override
   Widget build(BuildContext context) {
     var dataDashboard = ref.watch(dashBoardProvider);
-    var fotoTerbaru = ref.watch(fotoProvider);
 
     return DefaultTabController(
       length: 6,
@@ -412,7 +416,10 @@ class LandingPageState extends ConsumerState<LandingPage> {
                     error: (e, s) {
                       Text("Error Bruh");
                     },
-                    loading: () => const CircularProgressIndicator())
+                    loading: () => UnconstrainedBox(
+                        child: Container(
+                            child: Center(
+                                child: const CircularProgressIndicator()))))
 
                 // fotoTerbaru.when(
                 //     data: (foto) {

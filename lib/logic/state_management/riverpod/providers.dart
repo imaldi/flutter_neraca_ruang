@@ -22,39 +22,49 @@ final repositoryProvider = Provider((ref) => Repository(ref));
 final simpleDashboardRepositoryProvider =
     Provider(SimpleDashboardRepository.new);
 
-var kabarProvider = FutureProvider<Datum>((ref) async {
+var kabarProvider = FutureProvider<DashboardResponse>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchDatum(DatumType.kabar.toString());
-  final datum = response.data?.data?.first ?? Datum();
-  return datum;
+  return response;
 });
 
-var jurnalProvider = FutureProvider<Datum>((ref) async {
+var jurnalProvider = FutureProvider<DashboardResponse>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchDatum(DatumType.jurnal.toString());
-  final datum = response.data?.data?.first ?? Datum();
-  return datum;
+  return response;
 });
 
-var infografisProvider = FutureProvider<Datum>((ref) async {
+var infografisProvider = FutureProvider<DashboardResponse>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchDatum(DatumType.infografis.toString());
-  final datum = response.data?.data?.first ?? Datum();
-  return datum;
+  return response;
 });
 
-var videoProvider = FutureProvider<Datum>((ref) async {
+var videoProvider = FutureProvider<DashboardResponse>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchDatum(DatumType.video.toString());
-  final datum = response.data?.data?.first ?? Datum();
-  return datum;
+  return response;
 });
-var fotoProvider = FutureProvider<Datum>((ref) async {
+var fotoProvider = FutureProvider<DashboardResponse>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchDatum(DatumType.foto.toString());
-  final datum = response.data?.data?.first ?? Datum();
-  return datum;
+  return response;
 });
+
+class SelectedDummyStateNotifier extends StateNotifier<Datum?> {
+  // We initialize the list of todos to an empty list
+  SelectedDummyStateNotifier() : super(null);
+  // Let's allow the UI to add todos.
+  void saveDummy(Datum datum) {
+    // Since our state is immutable, we are not allowed to do `state.add(todo)`.
+    // Instead, we should create a new list of todos which contains the previous
+    // items and the new one.
+    // Using Dart's spread operator here is helpful!
+    state = datum;
+    // No need to call "notifyListeners" or anything similar. Calling "state ="
+    // will automatically rebuild the UI when necessary.
+  }
+}
 
 // FIXME: ini masih salah, belum pakai family (tapi kyknya udah bisa aja kok)
 var dashBoardProvider = FutureProvider<List<Datum>>((ref) async {
@@ -64,11 +74,11 @@ var dashBoardProvider = FutureProvider<List<Datum>>((ref) async {
   var foto = await ref.watch(fotoProvider.future);
   var video = await ref.watch(videoProvider.future);
   var theList = <Datum>[]
-    ..add(kabar)
-    ..add(jurnal)
-    ..add(infografis)
-    ..add(video)
-    ..add(foto);
+    ..add(kabar.data?.data?.first ?? Datum())
+    ..add(jurnal.data?.data?.first ?? Datum())
+    ..add(infografis.data?.data?.first ?? Datum())
+    ..add(video.data?.data?.first ?? Datum())
+    ..add(foto.data?.data?.first ?? Datum());
   print("Dashboard Result: ${theList.toString()}");
   return await Future<List<Datum>>(() => theList);
 });

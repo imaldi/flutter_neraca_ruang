@@ -57,6 +57,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const InfografisPage(),
       );
     },
+    DatumTypeFilterRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const DatumTypeFilterPage(),
+      );
+    },
   };
 }
 
@@ -154,6 +160,20 @@ class InfografisRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'InfografisRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DatumTypeFilterPage]
+class DatumTypeFilterRoute extends PageRouteInfo<void> {
+  const DatumTypeFilterRoute({List<PageRouteInfo>? children})
+      : super(
+          DatumTypeFilterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DatumTypeFilterRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
