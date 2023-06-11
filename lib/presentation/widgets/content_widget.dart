@@ -69,6 +69,11 @@ class ContentWidget extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Icon(Icons.location_city),
+
+                          /// TODO handle about the right icon for the right city
+                          // IconWidget(
+                          //   'assets/icons/icon_daerah/${content.kotaName?.toLowerCase().replaceAll(" ", "_")}_1',
+                          // ),
                           Text(content.kotaName ?? "")
                         ],
                       ),

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/core/consts/num_consts.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/appbar_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/bottom_bar_widget.dart';
@@ -25,7 +26,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
     var dataDashboard = ref.watch(dashBoardProvider);
 
     return DefaultTabController(
-      length: 6,
+      length: mainTabLength,
       child: Scaffold(
         appBar: appBarWidget(context, false),
         drawer: Drawer(

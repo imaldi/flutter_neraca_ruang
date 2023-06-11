@@ -35,7 +35,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
     return SafeArea(
       top: false,
       child: DefaultTabController(
-        length: mainTabLength,
+        length: isGreenMode ? mainTabLength : greenTabLength,
         child: WillPopScope(
           onWillPop: () {
             return basicOnWillPop(context, ref);

@@ -24,15 +24,22 @@ class _VideoPageState extends ConsumerState<VideoPage> {
   Widget build(BuildContext context) {
     var videoTerbaru = ref.watch(videoProvider);
     var isGreenMode = ref.watch(kotaIdProvider) != 0;
+    var kotaName = ref.watch(kotaNameProvider);
+    var tagName = ref.watch(tagsNameProvider);
+    var appbarTitle = kotaName.isNotEmpty
+        ? kotaName
+        : tagName.isNotEmpty
+            ? tagName
+            : null;
 
     return DefaultTabController(
-      length: mainTabLength,
+      length: isGreenMode ? mainTabLength : greenTabLength,
       child: WillPopScope(
         onWillPop: () {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: appBarWidget(context, isGreenMode),
+          appBar: appBarWidget(context, isGreenMode, appbarTitle: appbarTitle),
           body: videoTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             return SafeArea(

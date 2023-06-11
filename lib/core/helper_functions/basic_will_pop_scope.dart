@@ -9,6 +9,8 @@ Future<bool> basicOnWillPop(BuildContext context, WidgetRef ref) {
   context.router.replace(const LandingRoute());
   ref.read(pageNumberProvider.notifier).state = 1;
   ref.read(kotaIdProvider.notifier).state = 0;
+  ref.read(kotaNameProvider.notifier).state = "";
   ref.read(tagsIdProvider.notifier).state = 0;
+  ref.read(tagsNameProvider.notifier).state = "";
   return Future.value(false);
 }
