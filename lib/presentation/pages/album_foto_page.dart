@@ -24,7 +24,7 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
   @override
   Widget build(BuildContext context) {
     var fotoTerbaru = ref.watch(fotoProvider);
-    var greenMode = ref.watch(kotaIdProvider) != 0;
+    var isGreenMode = ref.watch(kotaIdProvider) != 0;
 
     return DefaultTabController(
       length: mainTabLength,
@@ -33,9 +33,7 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: greenMode
-              ? greenModeAppBarWidget(context)
-              : appBarWidget(context),
+          appBar: appBarWidget(context, isGreenMode),
           body: fotoTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             return SafeArea(
@@ -113,7 +111,7 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
               child: CircularProgressIndicator(),
             );
           }),
-          bottomNavigationBar: greenMode ? null : const BottomBarWidget(),
+          bottomNavigationBar: isGreenMode ? null : const BottomBarWidget(),
         ),
       ),
     );

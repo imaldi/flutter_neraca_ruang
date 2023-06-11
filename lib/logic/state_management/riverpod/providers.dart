@@ -122,7 +122,11 @@ class Repository {
       }
     });
 
-    var queryParameters = {'tipe': tipe, 'page': pageNumber.toString()};
+    Map<String, String> queryParameters = {
+      'tipe': tipe,
+      'page': pageNumber.toString(),
+      'limit': "2"
+    };
     if (tagsId != 0) {
       queryParameters['tags_id'] = tagsId.toString();
     }
@@ -139,7 +143,7 @@ class Repository {
     });
 
     print("URL: $url");
-    log("Response body: ${response.body}");
+    // log("Response body: ${response.body}");
 
     return DashboardResponse.fromJson(jsonDecode(response.body));
   }

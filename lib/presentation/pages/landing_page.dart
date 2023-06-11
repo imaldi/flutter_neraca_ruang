@@ -27,7 +27,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
     return DefaultTabController(
       length: 6,
       child: Scaffold(
-        appBar: appBarWidget(context),
+        appBar: appBarWidget(context, false),
         drawer: Drawer(
           child: SingleChildScrollView(
             child: Column(
@@ -209,7 +209,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                               Container(
                                   constraints: const BoxConstraints(
                                       maxWidth: extra, maxHeight: extra),
-                                  child: Image.asset(iconInfografisSementara)),
+                                  child: Image.asset(iconInfografis)),
                               Text(
                                 "${data[2].judul}",
                                 style:

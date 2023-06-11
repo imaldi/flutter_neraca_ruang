@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/assets.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
+import '../../core/helper_functions/menu_icon_name_chooser.dart';
 import '../../data/models/dashboard_response/dashboard_response.dart';
 import 'IconWidget.dart';
 
-class ContentWidget extends StatefulWidget {
+class ContentWidget extends ConsumerWidget {
   final Datum content;
   final bool isUsingThumbnail;
   const ContentWidget(this.content, {this.isUsingThumbnail = false, Key? key})
       : super(key: key);
 
   @override
-  _ContentWidgetState createState() => _ContentWidgetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    var isGreenMode = ref.watch(kotaIdProvider) != 0;
 
-class _ContentWidgetState extends State<ContentWidget> {
-  @override
-  Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -28,28 +28,45 @@ class _ContentWidgetState extends State<ContentWidget> {
             minWidth: MediaQuery.of(context).size.width,
           ),
           child: Image.network(
-            widget.isUsingThumbnail
-                ? "https://$thumbnailUrl/${widget.content.thumbnail}"
-                : "https://$contentUrl/${widget.content.images}" ?? "",
+            isUsingThumbnail
+                ? "https://$thumbnailUrl/${content.thumbnail}"
+                : "https://$contentUrl/${content.images}",
             fit: BoxFit.cover,
             errorBuilder: (bc, o, st) {
-              return Text(widget.content.images ?? "");
+              return Text(content.images ?? "");
             },
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: medium),
+          padding: const EdgeInsets.symmetric(horizontal: medium),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(Icons.location_city),
-                    Text(widget.content.kotaName ?? "")
-                  ],
-                ),
+                onTap: isGreenMode
+                    ? () {
+                        ref.read(kotaIdProvider.notifier).state = 0;
+                      }
+                    : () {
+                        ref.read(kotaIdProvider.notifier).state =
+                            content.kotaId ?? 0;
+                      },
+                child: isGreenMode
+                    // ? Text(content.tipe ?? "Kosong")
+                    ? SizedBox(
+                        height: huge,
+
+                        /// ngasih FittedBox di dalam parent yg ga kasih constraint bakal eror (Row, Column, dll)
+                        child: FittedBox(
+                            child: IconWidget(
+                                menuIconNameChooser(content.tipe ?? ""))))
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.location_city),
+                          Text(content.kotaName ?? "")
+                        ],
+                      ),
               ),
               const SizedBox(
                 height: huge,
@@ -71,16 +88,16 @@ class _ContentWidgetState extends State<ContentWidget> {
           child: Column(
             children: [
               Text(
-                '${widget.content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                '${content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               Text(
-                '${widget.content.judul}',
+                '${content.judul}',
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
               Text(
-                "${widget.content.keterangan}",
+                "${content.keterangan}",
                 maxLines: 7,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -102,7 +119,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                   Expanded(
                       child: Wrap(
                     children: [
-                      Text("${widget.content.totalRead ?? "0"} "),
+                      Text("${content.totalRead ?? "0"} "),
                       const Text("Reads"),
                     ],
                   ))
@@ -118,7 +135,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                   Expanded(
                       child: Wrap(
                     children: [
-                      Text("${widget.content.totalLike ?? "0"} "),
+                      Text("${content.totalLike ?? "0"} "),
                       const FittedBox(child: Text("Likes")),
                     ],
                   ))
@@ -134,7 +151,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                   Expanded(
                       child: Wrap(
                     children: [
-                      Text("${widget.content.totalComment ?? "0"} "),
+                      Text("${content.totalComment ?? "0"} "),
                       const FittedBox(
                         child: Text(
                           "Comments",

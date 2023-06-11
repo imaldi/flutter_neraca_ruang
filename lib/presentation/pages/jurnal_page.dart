@@ -23,7 +23,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
   @override
   Widget build(BuildContext context) {
     var jurnalTerbaru = ref.watch(jurnalProvider);
-    var greenMode = ref.watch(kotaIdProvider) != 0;
+    var isGreenMode = ref.watch(kotaIdProvider) != 0;
 
     return DefaultTabController(
       length: mainTabLength,
@@ -32,7 +32,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: greenMode ? null : appBarWidget(context),
+          appBar: appBarWidget(context, isGreenMode),
           body: jurnalTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             return SafeArea(
@@ -110,7 +110,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
               child: CircularProgressIndicator(),
             );
           }),
-          bottomNavigationBar: greenMode ? null : const BottomBarWidget(),
+          bottomNavigationBar: isGreenMode ? null : const BottomBarWidget(),
         ),
       ),
     );

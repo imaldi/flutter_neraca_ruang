@@ -72,6 +72,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/icon_menu/
+    - assets/icons/icon_navigasi/
 #assets_gen:
 #  - core/consts/assets/assets.dart
   #   - images/a_dot_ham.jpeg

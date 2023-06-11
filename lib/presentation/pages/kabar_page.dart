@@ -24,7 +24,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
   @override
   Widget build(BuildContext context) {
     var kabarTerbaru = ref.watch(kabarProvider);
-    var greenMode = ref.watch(kotaIdProvider) != 0;
+    var isGreenMode = ref.watch(kotaIdProvider) != 0;
 
     return DefaultTabController(
       length: mainTabLength,
@@ -33,9 +33,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: greenMode
-              ? greenModeAppBarWidget(context)
-              : appBarWidget(context),
+          appBar: appBarWidget(context, isGreenMode),
           body: kabarTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             return SafeArea(
@@ -111,7 +109,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
               child: CircularProgressIndicator(),
             );
           }),
-          bottomNavigationBar: greenMode ? null : const BottomBarWidget(),
+          bottomNavigationBar: isGreenMode ? null : const BottomBarWidget(),
         ),
       ),
     );

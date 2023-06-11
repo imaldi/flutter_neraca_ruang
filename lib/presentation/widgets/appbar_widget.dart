@@ -4,7 +4,7 @@ import 'package:flutter_neraca_ruang/presentation/widgets/tab_menu_item.dart';
 
 import '../../core/router/app_router.dart';
 
-appBarWidget(BuildContext context) {
+appBarWidget(BuildContext context, bool isGreenMode) {
   final TabBar _tabBar = TabBar(
     isScrollable: true,
     indicatorColor: Colors.transparent,
@@ -46,10 +46,12 @@ appBarWidget(BuildContext context) {
         },
         child:
             Center(child: Image.asset("assets/images/nr_logo_horizontal.png"))),
-    bottom: PreferredSize(
-      preferredSize: _tabBar.preferredSize,
-      child: ColoredBox(color: Colors.blue, child: _tabBar),
-    ),
+    bottom: isGreenMode
+        ? null
+        : PreferredSize(
+            preferredSize: _tabBar.preferredSize,
+            child: ColoredBox(color: Colors.blue, child: _tabBar),
+          ),
     actions: const [
       Padding(
         padding: EdgeInsets.all(8.0),

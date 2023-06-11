@@ -23,6 +23,7 @@ class _VideoPageState extends ConsumerState<VideoPage> {
   @override
   Widget build(BuildContext context) {
     var videoTerbaru = ref.watch(videoProvider);
+    var isGreenMode = ref.watch(kotaIdProvider) != 0;
 
     return DefaultTabController(
       length: mainTabLength,
@@ -31,7 +32,7 @@ class _VideoPageState extends ConsumerState<VideoPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: appBarWidget(context),
+          appBar: appBarWidget(context, isGreenMode),
           body: videoTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             return SafeArea(
@@ -110,7 +111,7 @@ class _VideoPageState extends ConsumerState<VideoPage> {
               child: CircularProgressIndicator(),
             );
           }),
-          bottomNavigationBar: const BottomBarWidget(),
+          bottomNavigationBar: isGreenMode ? null : const BottomBarWidget(),
         ),
       ),
     );
