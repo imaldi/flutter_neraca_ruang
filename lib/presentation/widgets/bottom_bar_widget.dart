@@ -11,15 +11,15 @@ class BottomBarWidget extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           label: "",
+          icon: Image.asset("assets/images/oto.png"),
+        ),
+        BottomNavigationBarItem(
+          label: "",
           icon: Image.asset("assets/images/kons.png"),
         ),
         BottomNavigationBarItem(
           label: "",
           icon: Image.asset("assets/images/mada.png"),
-        ),
-        BottomNavigationBarItem(
-          label: "",
-          icon: Image.asset("assets/images/oto.png"),
         ),
       ],
     );

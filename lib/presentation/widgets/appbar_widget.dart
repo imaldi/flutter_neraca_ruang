@@ -67,7 +67,7 @@ appBarWidget(BuildContext context, bool isGreenMode, {String? appbarTitle}) {
           )
         : PreferredSize(
             preferredSize: _tabBar.preferredSize,
-            child: ColoredBox(color: Colors.blue, child: _tabBar),
+            child: ColoredBox(color: const Color(primaryColor), child: _tabBar),
           ),
     actions: const [
       Padding(

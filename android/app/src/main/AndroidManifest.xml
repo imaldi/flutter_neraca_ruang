@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aim2u.flutter_neraca_ruang">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="flutter_neraca_ruang"
         android:name="${applicationName}"

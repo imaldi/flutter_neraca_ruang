@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:html/parser.dart';
 
 import '../../core/consts/assets.dart';
 import '../../core/consts/sizes.dart';
@@ -133,11 +135,13 @@ class ContentWidget extends ConsumerWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
-              Text(
-                "${content.keterangan}",
-                maxLines: 7,
-                overflow: TextOverflow.ellipsis,
-              ),
+              content.tipe == "kabar" || content.tipe == "jurnal"
+                  ? HtmlWidget(content.keterangan ?? "")
+                  : Text(
+                      "${content.keterangan}",
+                      maxLines: 7,
+                      overflow: TextOverflow.ellipsis,
+                    ),
             ],
           ),
         ),
@@ -150,7 +154,7 @@ class ContentWidget extends ConsumerWidget {
                 children: [
                   const Flexible(
                       child: IconWidget(
-                    iconForum,
+                    iconDibaca,
                     size: huge,
                   )),
                   Expanded(
@@ -166,7 +170,7 @@ class ContentWidget extends ConsumerWidget {
                 children: [
                   const Flexible(
                       child: IconWidget(
-                    iconForum,
+                    iconSuka,
                     size: huge,
                   )),
                   Expanded(
@@ -182,15 +186,17 @@ class ContentWidget extends ConsumerWidget {
                 children: [
                   const Flexible(
                       child: IconWidget(
-                    iconForum,
+                    iconCommments,
                     size: huge,
                   )),
                   Expanded(
                       child: Wrap(
                     children: [
                       Text("${content.totalComment ?? "0"} "),
-                      Text(
-                        "Comments",
+                      const FittedBox(
+                        child: Text(
+                          "Comments",
+                        ),
                       ),
                     ],
                   ))
