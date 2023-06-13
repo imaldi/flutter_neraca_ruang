@@ -51,7 +51,9 @@ class _KabarPageState extends ConsumerState<KabarPage> {
                   size: huge + medium,
                   isOnlineSource: true,
                 ),
-              )),
+              ), resetStates: () {
+            basicResetStates(context, ref);
+          }),
           body: kabarTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             if (contentList == null || contentList.isEmpty) {

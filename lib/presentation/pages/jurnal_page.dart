@@ -52,7 +52,9 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
                     size: huge + medium,
                     isOnlineSource: true,
                   ),
-                )),
+                ), resetStates: () {
+              basicResetStates(context, ref);
+            }),
             body: jurnalTerbaru.when(data: (data) {
               var contentList = data.data?.data;
               if (contentList == null || contentList.isEmpty) {

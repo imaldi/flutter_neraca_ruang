@@ -10,7 +10,9 @@ import '../../core/router/app_router.dart';
 import 'bottom_bar_widget.dart';
 
 appBarWidget(BuildContext context,
-    {String? appbarTitle, Widget? appbarBackgroundImage}) {
+    {String? appbarTitle,
+    Widget? appbarBackgroundImage,
+    Function? resetStates}) {
   final TabBar _tabBar = TabBar(
     isScrollable: true,
     indicatorColor: Colors.transparent,
@@ -18,26 +20,41 @@ appBarWidget(BuildContext context,
       InkWell(
           onTap: () {
             context.router.replace(const KabarRoute());
+            if (resetStates != null) {
+              resetStates();
+            }
           },
           child: TabMenuItem("KABAR")),
       InkWell(
           onTap: () {
             context.router.replace(const JurnalRoute());
+            if (resetStates != null) {
+              resetStates();
+            }
           },
           child: TabMenuItem("JURNAL")),
       InkWell(
           onTap: () {
             context.router.replace(const InfografisRoute());
+            if (resetStates != null) {
+              resetStates();
+            }
           },
           child: TabMenuItem("INFOGRAFIS")),
       InkWell(
           onTap: () {
             context.router.replace(const VideoRoute());
+            if (resetStates != null) {
+              resetStates();
+            }
           },
           child: TabMenuItem("VIDEO")),
       InkWell(
           onTap: () {
             context.router.replace(const AlbumFotoRoute());
+            if (resetStates != null) {
+              resetStates();
+            }
           },
           child: TabMenuItem("ALBUM FOTO")),
       TabMenuItem("DISKUSI"),
@@ -46,9 +63,14 @@ appBarWidget(BuildContext context,
   return AppBar(
     elevation: 0,
     leading: appbarTitle != null && appbarTitle.isNotEmpty
-        ? IconWidget(
-            iconNR,
-            size: huge,
+        ? InkWell(
+            onTap: () {
+              context.router.replace(const LandingRoute());
+            },
+            child: IconWidget(
+              iconNR,
+              size: huge,
+            ),
           )
         : null,
     title: appbarTitle != null && appbarTitle.isNotEmpty

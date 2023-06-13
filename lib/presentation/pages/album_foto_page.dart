@@ -50,7 +50,9 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
                   size: huge + medium,
                   isOnlineSource: true,
                 ),
-              )),
+              ), resetStates: () {
+            basicResetStates(context, ref);
+          }),
           body: fotoTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             if (contentList == null || contentList.isEmpty) {

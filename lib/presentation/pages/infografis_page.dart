@@ -50,7 +50,9 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
                   size: huge + medium,
                   isOnlineSource: true,
                 ),
-              )),
+              ), resetStates: () {
+            basicResetStates(context, ref);
+          }),
           body: infografisTerbaru.when(data: (data) {
             var contentList = data.data?.data;
             if (contentList == null || contentList.isEmpty) {
