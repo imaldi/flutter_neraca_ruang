@@ -8,6 +8,7 @@ import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
+import '../widgets/IconWidget.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/content_widget.dart';
@@ -26,6 +27,7 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
     var fotoTerbaru = ref.watch(fotoProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
+    var iconUrl = ref.watch(tagsIconLinkProvider);
     var appbarTitle =
         // kotaName.isNotEmpty
         //     ? kotaName
@@ -39,9 +41,23 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: appBarWidget(context, appbarTitle: appbarTitle),
+          appBar: appBarWidget(context,
+              appbarTitle: appbarTitle,
+              appbarBackgroundImage: Opacity(
+                opacity: 0.3,
+                child: IconWidget(
+                  iconUrl,
+                  size: huge + medium,
+                  isOnlineSource: true,
+                ),
+              )),
           body: fotoTerbaru.when(data: (data) {
             var contentList = data.data?.data;
+            if (contentList == null || contentList.isEmpty) {
+              return Center(
+                child: Text("Data Tidak ditemukan"),
+              );
+            }
             return SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
@@ -115,7 +131,7 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
             );
           }, error: (o, st) {
             return Center(
-              child: Text("There is an Error"),
+              child: Text("There is an Error: ${st}"),
             );
           }, loading: () {
             return Center(

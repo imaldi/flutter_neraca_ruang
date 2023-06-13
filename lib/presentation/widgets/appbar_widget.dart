@@ -1,13 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/sizes.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/tab_menu_item.dart';
 
+import '../../core/consts/assets.dart';
 import '../../core/consts/colors.dart';
 import '../../core/router/app_router.dart';
 import 'bottom_bar_widget.dart';
 
-appBarWidget(BuildContext context, {String? appbarTitle}) {
+appBarWidget(BuildContext context,
+    {String? appbarTitle, Widget? appbarBackgroundImage}) {
   final TabBar _tabBar = TabBar(
     isScrollable: true,
     indicatorColor: Colors.transparent,
@@ -42,8 +45,27 @@ appBarWidget(BuildContext context, {String? appbarTitle}) {
   );
   return AppBar(
     elevation: 0,
+    leading: appbarTitle != null && appbarTitle.isNotEmpty
+        ? IconWidget(
+            iconNR,
+            size: huge,
+          )
+        : null,
     title: appbarTitle != null && appbarTitle.isNotEmpty
-        ? Center(child: Text(appbarTitle))
+        ? Center(
+            child: Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                Text(
+                  appbarTitle.toUpperCase(),
+                  style: TextStyle(
+                      color: Color(titleColorText),
+                      fontWeight: FontWeight.bold),
+                ),
+                appbarBackgroundImage ?? Container(),
+              ],
+            ),
+          )
         : InkWell(
             onTap: () {
               context.router.replace(const LandingRoute());

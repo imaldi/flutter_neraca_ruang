@@ -50,6 +50,7 @@ var videoProvider = FutureProvider<DashboardResponse>((ref) async {
 var fotoProvider = FutureProvider<DashboardResponse>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchDatum(DatumType.foto.toString());
+  log("Response Foto: ${response.data?.data?.first.kotaName.toString()}");
   return response;
 });
 
@@ -87,7 +88,7 @@ var dashBoardProvider = FutureProvider<List<Datum>>((ref) async {
     ..add(infografis.data?.data?.first ?? Datum())
     ..add(video.data?.data?.first ?? Datum())
     ..add(foto.data?.data?.first ?? Datum());
-  print("Dashboard Result: ${theList.toString()}");
+  print("Dashboard Result: ${theList.length}");
   return await Future<List<Datum>>(() => theList);
 });
 
@@ -106,6 +107,7 @@ final tagsIdProvider = StateProvider<int>(
 );
 
 final tagsNameProvider = StateProvider((ref) => "");
+final tagsIconLinkProvider = StateProvider((ref) => "");
 
 final selectedContentIdProvider = StateProvider<int>((ref) => 0);
 
@@ -126,20 +128,23 @@ class Repository {
     var pageNumber = ref.watch(pageNumberProvider);
     var limit = ref.watch(limitProvider);
     var tagsId = ref.watch(tagsIdProvider);
+    var kotaId = ref.watch(kotaIdProvider);
+    var selectedContentId = ref.watch(selectedContentIdProvider);
 
     ref.listen(tagsIdProvider, (oldV, newV) {
       /// Ini maksudnya ketika tagsId berubah (klik logo kota di halaman detail), maka reset kotaId dan selectedContentId
       if ((oldV != newV) && (newV != 0)) {
-        ref.read(kotaIdProvider.notifier).state = 0;
-        ref.read(selectedContentIdProvider.notifier).state = 0;
+        ref.read(kotaIdProvider.notifier).update((state) => 0);
+        ref.read(selectedContentIdProvider.notifier).update((state) => 0);
       }
     });
-    var kotaId = ref.watch(kotaIdProvider);
     ref.listen(kotaIdProvider, (oldV, newV) {
       /// Ini maksudnya ketika kotaId berubah (klik logo kota di halaman detail), maka reset tagsId dan selectedContentId
       if ((oldV != newV) && (newV != 0)) {
-        ref.read(tagsIdProvider.notifier).state = 0;
-        ref.read(selectedContentIdProvider.notifier).state = 0;
+        ref.read(tagsIdProvider.notifier).update((state) => 0);
+
+        /// FIXME ga tau kenapa disini ada pesan error
+        ref.read(selectedContentIdProvider.notifier).update((state) => 0);
       }
     });
 
@@ -155,18 +160,27 @@ class Repository {
     if (kotaId != 0) {
       queryParameters['kota_id'] = kotaId.toString();
     }
+    // todo: handle reset state ketika masuk ke halaman dengan tipe berbeda
+    // FIXME oke oke, jadi daritadi itu salahnya adalah ketika data not found, object yang di terima bukan object, melainkan array kosong
+    // TODO handle error spt itu dengan try catch, lalu return dengan Object kosong
+    try {
+      var url = Uri.https(baseUrl, dashboardList, queryParameters);
 
-    var url = Uri.https(baseUrl, dashboardList, queryParameters);
+      final response = await http.get(url, headers: {
+        'Authorization': token,
+        'Accept': 'application/json',
+      });
 
-    final response = await http.get(url, headers: {
-      'Authorization': token,
-      'Accept': 'application/json',
-    });
+      print("URL: $url");
+      // log("Response body content: ${response.body}");
 
-    print("URL: $url");
-    // log("Response body: ${response.body}");
-
-    return DashboardResponse.fromJson(jsonDecode(response.body));
+      return DashboardResponse.fromJson(jsonDecode(response.body));
+    } on TypeError {
+      return DashboardResponse();
+    } catch (e) {
+      print("Error Type: ${e}");
+      throw Exception();
+    }
   }
 
   Future<AdsenseResponse> fetchAdsense() async {

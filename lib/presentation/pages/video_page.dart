@@ -7,6 +7,7 @@ import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
 import '../../logic/state_management/riverpod/providers.dart';
+import '../widgets/IconWidget.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/content_widget.dart';
@@ -25,6 +26,7 @@ class _VideoPageState extends ConsumerState<VideoPage> {
     var videoTerbaru = ref.watch(videoProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
+    var iconUrl = ref.watch(tagsIconLinkProvider);
     var appbarTitle =
         // kotaName.isNotEmpty
         //     ? kotaName
@@ -38,9 +40,23 @@ class _VideoPageState extends ConsumerState<VideoPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: appBarWidget(context, appbarTitle: appbarTitle),
+          appBar: appBarWidget(context,
+              appbarTitle: appbarTitle,
+              appbarBackgroundImage: Opacity(
+                opacity: 0.3,
+                child: IconWidget(
+                  iconUrl,
+                  size: huge + medium,
+                  isOnlineSource: true,
+                ),
+              )),
           body: videoTerbaru.when(data: (data) {
             var contentList = data.data?.data;
+            if (contentList == null || contentList.isEmpty) {
+              return Center(
+                child: Text("Data Tidak ditemukan"),
+              );
+            }
             return SafeArea(
               child: SingleChildScrollView(
                 child: Padding(

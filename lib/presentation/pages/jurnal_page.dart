@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
+import '../widgets/IconWidget.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/content_widget.dart';
@@ -25,11 +26,13 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
     var jurnalTerbaru = ref.watch(jurnalProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
-    var appbarTitle = kotaName.isNotEmpty
-        ? kotaName
-        : tagName.isNotEmpty
-            ? tagName
-            : null;
+    var iconUrl = ref.watch(tagsIconLinkProvider);
+
+    var appbarTitle =
+        // kotaName.isNotEmpty
+        //     ? kotaName
+        //     :
+        tagName.isNotEmpty ? tagName : null;
 
     return SafeArea(
       top: false,
@@ -40,9 +43,23 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
             return basicOnWillPop(context, ref);
           },
           child: Scaffold(
-            appBar: appBarWidget(context, appbarTitle: appbarTitle),
+            appBar: appBarWidget(context,
+                appbarTitle: appbarTitle,
+                appbarBackgroundImage: Opacity(
+                  opacity: 0.3,
+                  child: IconWidget(
+                    iconUrl,
+                    size: huge + medium,
+                    isOnlineSource: true,
+                  ),
+                )),
             body: jurnalTerbaru.when(data: (data) {
               var contentList = data.data?.data;
+              if (contentList == null || contentList.isEmpty) {
+                return Center(
+                  child: Text("Data Tidak ditemukan"),
+                );
+              }
               return SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: extra),

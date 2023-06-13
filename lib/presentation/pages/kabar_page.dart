@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/core/consts/assets.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/content_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/green_mode_appbar_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +28,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
     var kabarTerbaru = ref.watch(kabarProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
-    var kontenId = ref.watch(selectedContentIdProvider);
+    var iconUrl = ref.watch(tagsIconLinkProvider);
     var appbarTitle =
         // kotaName.isNotEmpty
         //     ? kotaName
@@ -40,9 +42,23 @@ class _KabarPageState extends ConsumerState<KabarPage> {
           return basicOnWillPop(context, ref);
         },
         child: Scaffold(
-          appBar: appBarWidget(context, appbarTitle: appbarTitle),
+          appBar: appBarWidget(context,
+              appbarTitle: appbarTitle,
+              appbarBackgroundImage: Opacity(
+                opacity: 0.3,
+                child: IconWidget(
+                  iconUrl,
+                  size: huge + medium,
+                  isOnlineSource: true,
+                ),
+              )),
           body: kabarTerbaru.when(data: (data) {
             var contentList = data.data?.data;
+            if (contentList == null || contentList.isEmpty) {
+              return const Center(
+                child: Text("Data Tidak ditemukan"),
+              );
+            }
             return SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
@@ -52,7 +68,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
                       ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: contentList?.length,
+                          itemCount: contentList.length,
                           itemBuilder: (c, i) {
                             return ContentWidget(contentList![i]);
                           }),

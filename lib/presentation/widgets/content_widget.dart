@@ -55,9 +55,12 @@ class ContentWidget extends ConsumerWidget {
                     //       }
                     //     :
                     () {
+                  /// FIXME ga tau kenapa disini ada pesan error
                   ref.read(kotaIdProvider.notifier).state = content.kotaId ?? 0;
                   ref.read(kotaNameProvider.notifier).state =
                       content.kotaName ?? "";
+                  ref.read(tagsIdProvider.notifier).state = 0;
+                  ref.read(tagsNameProvider.notifier).state = "";
                 },
                 child:
                     // isGreenMode
@@ -94,8 +97,10 @@ class ContentWidget extends ConsumerWidget {
                       onTap: () {
                         ref.read(tagsIdProvider.notifier).state =
                             content.tagsPihak?.tagsId ?? 0;
-                        ref.read(kotaNameProvider.notifier).state =
+                        ref.read(tagsNameProvider.notifier).state =
                             content.tagsPihak?.tagsName ?? "";
+                        ref.read(tagsIconLinkProvider.notifier).state =
+                            content.tagsPihak?.tagsIcon ?? "";
                       },
                     ),
                     IconWidget(
@@ -104,8 +109,10 @@ class ContentWidget extends ConsumerWidget {
                       onTap: () {
                         ref.read(tagsIdProvider.notifier).state =
                             content.tagsTopik?.tagsId ?? 0;
-                        ref.read(kotaNameProvider.notifier).state =
+                        ref.read(tagsNameProvider.notifier).state =
                             content.tagsTopik?.tagsName ?? "";
+                        ref.read(tagsIconLinkProvider.notifier).state =
+                            content.tagsTopik?.tagsIcon ?? "";
                       },
                     ),
                     IconWidget(
@@ -114,8 +121,10 @@ class ContentWidget extends ConsumerWidget {
                       onTap: () {
                         ref.read(tagsIdProvider.notifier).state =
                             content.tagsOtonomi?.tagsId ?? 0;
-                        ref.read(kotaNameProvider.notifier).state =
+                        ref.read(tagsNameProvider.notifier).state =
                             content.tagsOtonomi?.tagsName ?? "";
+                        ref.read(tagsIconLinkProvider.notifier).state =
+                            content.tagsOtonomi?.tagsIcon ?? "";
                       },
                     ),
                   ],
