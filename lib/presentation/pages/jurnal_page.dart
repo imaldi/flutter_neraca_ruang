@@ -23,26 +23,24 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
   @override
   Widget build(BuildContext context) {
     var jurnalTerbaru = ref.watch(jurnalProvider);
-    var isGreenMode = ref.watch(kotaIdProvider) != 0;
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
-    var appbarTitle = kotaName.isNotEmpty
-        ? kotaName
-        : tagName.isNotEmpty
-            ? tagName
-            : null;
+    var appbarTitle =
+        // kotaName.isNotEmpty
+        //     ? kotaName
+        //     :
+        tagName.isNotEmpty ? tagName : null;
 
     return SafeArea(
       top: false,
       child: DefaultTabController(
-        length: !isGreenMode ? mainTabLength : greenTabLength,
+        length: mainTabLength,
         child: WillPopScope(
           onWillPop: () {
             return basicOnWillPop(context, ref);
           },
           child: Scaffold(
-            appBar:
-                appBarWidget(context, isGreenMode, appbarTitle: appbarTitle),
+            appBar: appBarWidget(context, appbarTitle: appbarTitle),
             body: jurnalTerbaru.when(data: (data) {
               var contentList = data.data?.data;
               return SingleChildScrollView(
@@ -123,7 +121,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
                 child: CircularProgressIndicator(),
               );
             }),
-            bottomNavigationBar: isGreenMode ? null : const BottomBarWidget(),
+            bottomNavigationBar: const BottomBarWidget(),
           ),
         ),
       ),

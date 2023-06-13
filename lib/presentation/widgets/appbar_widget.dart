@@ -7,7 +7,7 @@ import '../../core/consts/colors.dart';
 import '../../core/router/app_router.dart';
 import 'bottom_bar_widget.dart';
 
-appBarWidget(BuildContext context, bool isGreenMode, {String? appbarTitle}) {
+appBarWidget(BuildContext context, {String? appbarTitle}) {
   final TabBar _tabBar = TabBar(
     isScrollable: true,
     indicatorColor: Colors.transparent,
@@ -50,25 +50,27 @@ appBarWidget(BuildContext context, bool isGreenMode, {String? appbarTitle}) {
             },
             child: Center(
                 child: Image.asset("assets/images/nr_logo_horizontal.png"))),
-    bottom: isGreenMode
-        ? PreferredSize(
-            preferredSize: _tabBar.preferredSize,
-            child: ColoredBox(
-                color: const Color(greenModeColor),
-                child: TabBar(
-                  indicatorColor: Colors.transparent,
-                  padding: const EdgeInsets.symmetric(vertical: normal),
-                  tabs: [
-                    Image.asset("assets/images/kons.png"),
-                    Image.asset("assets/images/mada.png"),
-                    Image.asset("assets/images/oto.png"),
-                  ],
-                )),
-          )
-        : PreferredSize(
-            preferredSize: _tabBar.preferredSize,
-            child: ColoredBox(color: const Color(primaryColor), child: _tabBar),
-          ),
+    bottom:
+        // isGreenMode
+        // ? PreferredSize(
+        //     preferredSize: _tabBar.preferredSize,
+        //     child: ColoredBox(
+        //         color: const Color(greenModeColor),
+        //         child: TabBar(
+        //           indicatorColor: Colors.transparent,
+        //           padding: const EdgeInsets.symmetric(vertical: normal),
+        //           tabs: [
+        //             Image.asset("assets/images/kons.png"),
+        //             Image.asset("assets/images/mada.png"),
+        //             Image.asset("assets/images/oto.png"),
+        //           ],
+        //         )),
+        //   )
+        // :
+        PreferredSize(
+      preferredSize: _tabBar.preferredSize,
+      child: ColoredBox(color: const Color(primaryColor), child: _tabBar),
+    ),
     actions: const [
       Padding(
         padding: EdgeInsets.all(8.0),

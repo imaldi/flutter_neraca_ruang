@@ -31,7 +31,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
     return DefaultTabController(
       length: mainTabLength,
       child: Scaffold(
-        appBar: appBarWidget(context, false),
+        appBar: appBarWidget(context),
         drawer: Drawer(
           child: SingleChildScrollView(
             child: Column(
@@ -112,362 +112,404 @@ class LandingPageState extends ConsumerState<LandingPage> {
             //     loading: () => const CircularProgressIndicator()),
 
             /// Ini dashboard
-            SingleChildScrollView(
-          child: Center(
-              child: dataDashboard.when(
-                  data: (data) {
-                    return Column(
-                      children: [
-                        Container(
-                          // margin: const EdgeInsets.only(bottom: normal),
-                          constraints: BoxConstraints(
-                            maxHeight: 200,
-                            minWidth: MediaQuery.of(context).size.width,
-                          ),
-                          child: Image.network(
-                            "https://$contentUrl/${data.first.images}",
-                            fit: BoxFit.cover,
-                            errorBuilder: (bc, o, st) {
-                              return Text(data.first.images ?? "");
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(normal),
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  ref.read(kotaIdProvider.notifier).state =
-                                      data[0].kotaId ?? 0;
-                                  ref.read(kotaNameProvider.notifier).state =
-                                      data[0].kotaName ?? "";
-                                  context.router.replace(const KabarRoute());
+            Center(
+                child: dataDashboard.when(
+                    data: (data) {
+                      return SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Container(
+                              // margin: const EdgeInsets.only(bottom: normal),
+                              constraints: BoxConstraints(
+                                maxHeight: 200,
+                                minWidth: MediaQuery.of(context).size.width,
+                              ),
+                              child: Image.network(
+                                "https://$contentUrl/${data.first.images}",
+                                fit: BoxFit.cover,
+                                errorBuilder: (bc, o, st) {
+                                  return Text(data.first.images ?? "");
                                 },
-                                child: Container(
-                                    constraints: const BoxConstraints(
-                                        maxWidth: extra, maxHeight: extra),
-                                    child: Image.asset(iconKabar)),
                               ),
-                              Text(
-                                // TODO fix formatting tanggal
-                                '${data.first.sourceName ?? ""} 26/05/2023, 12:00 WIB',
-                                style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(normal),
+                              child: Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      ref.read(kotaIdProvider.notifier).state =
+                                          data[0].kotaId ?? 0;
+                                      ref
+                                          .read(contentIdProvider.notifier)
+                                          .state = data[0].id ?? 0;
+                                      ref
+                                          .read(kotaNameProvider.notifier)
+                                          .state = data[0].kotaName ?? "";
+
+                                      context.router
+                                          .replace(const KabarRoute());
+                                    },
+                                    child: Container(
+                                        constraints: const BoxConstraints(
+                                            maxWidth: extra, maxHeight: extra),
+                                        child: Image.asset(iconKabar)),
+                                  ),
+                                  Text(
+                                    // TODO fix formatting tanggal
+                                    '${data.first.sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    '${data.first.judul}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Container(
+                                      height: 200,
+                                      child: SingleChildScrollView(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          child: HtmlWidget(
+                                              "${data.first.keterangan}"))),
+                                ],
                               ),
-                              Text(
-                                '${data.first.judul}',
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                                textAlign: TextAlign.center,
+                            ),
+                            Container(
+                              // margin: const EdgeInsets.symmetric(vertical: normal),
+                              constraints: BoxConstraints(
+                                maxHeight: 200,
+                                minWidth: MediaQuery.of(context).size.width,
                               ),
-                              Container(
-                                  height: 200,
-                                  child: SingleChildScrollView(
+                              child: Image.network(
+                                "https://$contentUrl/${data[1].images}",
+                                fit: BoxFit.cover,
+                                errorBuilder: (bc, o, st) {
+                                  return Text(data[1].images ?? "");
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(normal),
+                              child: Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      ref.read(kotaIdProvider.notifier).state =
+                                          data[1].kotaId ?? 0;
+                                      ref
+                                          .read(kotaNameProvider.notifier)
+                                          .state = data[1].kotaName ?? "";
+                                      ref
+                                          .read(contentIdProvider.notifier)
+                                          .state = data[1].id ?? 0;
+                                      context.router
+                                          .replace(const JurnalRoute());
+                                    },
+                                    child: Container(
+                                        constraints: const BoxConstraints(
+                                            maxWidth: extra, maxHeight: extra),
+                                        child: Image.asset(iconJurnal)),
+                                  ),
+                                  Text(
+                                    // TODO fix formatting tanggal
+                                    '${data[1].sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    "${data[1].judul}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Container(
+                                    constraints:
+                                        const BoxConstraints(maxHeight: 200),
+                                    child: SingleChildScrollView(
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       child: HtmlWidget(
-                                          "${data.first.keterangan}"))),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          // margin: const EdgeInsets.symmetric(vertical: normal),
-                          constraints: BoxConstraints(
-                            maxHeight: 200,
-                            minWidth: MediaQuery.of(context).size.width,
-                          ),
-                          child: Image.network(
-                            "https://$contentUrl/${data[1].images}",
-                            fit: BoxFit.cover,
-                            errorBuilder: (bc, o, st) {
-                              return Text(data[1].images ?? "");
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(normal),
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  ref.read(kotaIdProvider.notifier).state =
-                                      data[1].kotaId ?? 0;
-                                  ref.read(kotaNameProvider.notifier).state =
-                                      data[1].kotaName ?? "";
-                                  context.router.replace(const JurnalRoute());
+                                        "${data[1].keterangan}",
+                                        textStyle:
+                                            TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              // margin: const EdgeInsets.symmetric(vertical: normal),
+                              constraints: BoxConstraints(
+                                maxHeight: 200,
+                                minWidth: MediaQuery.of(context).size.width,
+                              ),
+                              child: Image.network(
+                                "https://$contentUrl/${data[2].images}",
+                                fit: BoxFit.cover,
+                                errorBuilder: (bc, o, st) {
+                                  return Text(data[2].images ?? "");
                                 },
-                                child: Container(
-                                    constraints: const BoxConstraints(
-                                        maxWidth: extra, maxHeight: extra),
-                                    child: Image.asset(iconJurnal)),
                               ),
-                              Text(
-                                // TODO fix formatting tanggal
-                                '${data[1].sourceName ?? ""} 26/05/2023, 12:00 WIB',
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                              Text(
-                                "${data[1].judul}",
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                                textAlign: TextAlign.center,
-                              ),
-                              Container(
-                                constraints:
-                                    const BoxConstraints(maxHeight: 200),
-                                child: SingleChildScrollView(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  child: HtmlWidget(
-                                    "${data[1].keterangan}",
-                                    textStyle: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          // margin: const EdgeInsets.symmetric(vertical: normal),
-                          constraints: BoxConstraints(
-                            maxHeight: 200,
-                            minWidth: MediaQuery.of(context).size.width,
-                          ),
-                          child: Image.network(
-                            "https://$contentUrl/${data[2].images}",
-                            fit: BoxFit.cover,
-                            errorBuilder: (bc, o, st) {
-                              return Text(data[2].images ?? "");
-                            },
-                          ),
-                        ),
-                        // const ScrollableHorizontalImage(),
-                        Padding(
-                          padding: const EdgeInsets.all(normal),
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  ref.read(kotaIdProvider.notifier).state =
-                                      data[2].kotaId ?? 0;
-                                  ref.read(kotaNameProvider.notifier).state =
-                                      data[2].kotaName ?? "";
-                                  context.router
-                                      .replace(const InfografisRoute());
-                                },
-                                child: Container(
-                                    constraints: const BoxConstraints(
-                                        maxWidth: extra, maxHeight: extra),
-                                    child: Image.asset(iconInfografis)),
-                              ),
-                              Text(
-                                "${data[2].judul}",
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                                textAlign: TextAlign.center,
-                              ),
-                              Text("${data[2].keterangan}",
-                                  maxLines: 7, overflow: TextOverflow.ellipsis),
-                            ],
-                          ),
-                        ),
-                        // Image.asset("assets/images/neraca_ruang.png"),
-                        Container(
-                          // margin: const EdgeInsets.symmetric(vertical: normal),
-                          constraints: BoxConstraints(
-                            maxHeight: 200,
-                            minWidth: MediaQuery.of(context).size.width,
-                          ),
-                          child: Image.network(
-                            "https://$thumbnailUrl/${data[3].thumbnail}",
-                            fit: BoxFit.cover,
-                            errorBuilder: (bc, o, st) {
-                              return Text(data[3].thumbnail ?? "");
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(normal),
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  ref.read(kotaIdProvider.notifier).state =
-                                      data[3].kotaId ?? 0;
-                                  ref.read(kotaNameProvider.notifier).state =
-                                      data[3].kotaName ?? "";
-                                  context.router.replace(const VideoRoute());
-                                },
-                                child: Container(
-                                    constraints: const BoxConstraints(
-                                        maxWidth: extra, maxHeight: extra),
-                                    child: Image.asset(iconVideo)),
-                              ),
-                              Text(
-                                // TODO fix formatting tanggal
-                                '${data[3].sourceName ?? ""} 26/05/2023, 12:00 WIB',
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                              Text(
-                                "${data[3].judul}",
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                                textAlign: TextAlign.center,
-                              ),
-                              Text("${data[3].keterangan}",
-                                  maxLines: 7, overflow: TextOverflow.ellipsis),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          constraints: BoxConstraints(
-                            maxHeight: 200,
-                            minWidth: MediaQuery.of(context).size.width,
-                          ),
-                          child: Image.network(
-                            "https://$contentUrl/${data[4].images}" ?? "",
-                            fit: BoxFit.cover,
-                            errorBuilder: (bc, o, st) {
-                              return Text(data[4].images ?? "");
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(normal),
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  ref.read(kotaIdProvider.notifier).state =
-                                      data[4].kotaId ?? 0;
-                                  ref.read(kotaNameProvider.notifier).state =
-                                      data[4].kotaName ?? "";
-                                  context.router
-                                      .replace(const AlbumFotoRoute());
-                                },
-                                child: Container(
-                                    constraints: const BoxConstraints(
-                                        maxWidth: extra, maxHeight: extra),
-                                    child: Image.asset(iconFoto)),
-                              ),
-                              Text(
-                                // TODO fix formatting tanggal
-                                '${data[4].sourceName ?? ""} 26/05/2023, 12:00 WIB',
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                              Text(
-                                  "${data[4].sourceName ?? "Tidak ada Sumber"}, ${data[4].sourceDate ?? "Tidak ada tanggal Sumber"}"),
-                              Text(
-                                "${data[4].judul}",
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(vertical: normal),
-                          constraints: BoxConstraints(
-                            maxHeight: 200,
-                            minWidth: MediaQuery.of(context).size.width,
-                          ),
-                          child: Image.network(
-                            "https://$contentUrl/${data[4].images}" ?? "",
-                            fit: BoxFit.cover,
-                            errorBuilder: (bc, o, st) {
-                              return Text(data[4].images ?? "");
-                            },
-                          ),
-                        ),
-
-                        /// Diskusi section, hide dulu untuk sekarang
-                        // Padding(
-                        //   padding: const EdgeInsets.all(medium),
-                        //   child: Column(
-                        //     children: [
-                        //       Container(
-                        //           constraints: const BoxConstraints(
-                        //               maxWidth: extra, maxHeight: extra),
-                        //           child: Image.asset(iconForum)),
-                        //       Text(
-                        //         "APAKAH INDONESIA SUDAH MENJALANKAN OTONOMI DAERAH DENGAN BAIK? (STATIS, BELUM DARI API)",
-                        //         style:
-                        //             Theme.of(context).textTheme.headlineSmall,
-                        //         textAlign: TextAlign.center,
-                        //       ),
-                        //       const Text(
-                        //           "Diskusi hangat mengenai pandangan masyarakat terhadap penerapan otonomi daerah di masa kini. (STATIS, BELUM DARI API)"),
-                        //     ],
-                        //   ),
-                        // ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: extra),
-                          child: Column(
-                            children: [
-                              Text(
-                                "IKUTI KAMI",
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                                textAlign: TextAlign.center,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                            ),
+                            // const ScrollableHorizontalImage(),
+                            Padding(
+                              padding: const EdgeInsets.all(normal),
+                              child: Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                            "assets/images/icon_facebook.png"),
-                                        Image.asset(
-                                            "assets/images/icon_ig.png"),
-                                        Image.asset(
-                                            "assets/images/icon_twitter.png"),
-                                        Image.asset(
-                                            "assets/images/icon_tiktok.png"),
-                                        Image.asset(
-                                            "assets/images/icon_youtube.png"),
-                                      ],
-                                    ),
+                                  InkWell(
+                                    onTap: () {
+                                      ref.read(kotaIdProvider.notifier).state =
+                                          data[2].kotaId ?? 0;
+                                      ref
+                                          .read(kotaNameProvider.notifier)
+                                          .state = data[2].kotaName ?? "";
+                                      ref
+                                          .read(contentIdProvider.notifier)
+                                          .state = data[2].id ?? 0;
+                                      context.router
+                                          .replace(const InfografisRoute());
+                                    },
+                                    child: Container(
+                                        constraints: const BoxConstraints(
+                                            maxWidth: extra, maxHeight: extra),
+                                        child: Image.asset(iconInfografis)),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Text(
-                                      "neracaruang@neracaruang.com",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(
-                                              decoration:
-                                                  TextDecoration.underline),
-                                    ),
+                                  Text(
+                                    "${data[2].judul}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text("${data[2].keterangan}",
+                                      maxLines: 7,
+                                      overflow: TextOverflow.ellipsis),
+                                ],
+                              ),
+                            ),
+                            // Image.asset("assets/images/neraca_ruang.png"),
+                            Container(
+                              // margin: const EdgeInsets.symmetric(vertical: normal),
+                              constraints: BoxConstraints(
+                                maxHeight: 200,
+                                minWidth: MediaQuery.of(context).size.width,
+                              ),
+                              child: Image.network(
+                                "https://$thumbnailUrl/${data[3].thumbnail}",
+                                fit: BoxFit.cover,
+                                errorBuilder: (bc, o, st) {
+                                  return Text(data[3].thumbnail ?? "");
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(normal),
+                              child: Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      ref.read(kotaIdProvider.notifier).state =
+                                          data[3].kotaId ?? 0;
+                                      ref
+                                          .read(kotaNameProvider.notifier)
+                                          .state = data[3].kotaName ?? "";
+                                      ref
+                                          .read(contentIdProvider.notifier)
+                                          .state = data[3].id ?? 0;
+                                      context.router
+                                          .replace(const VideoRoute());
+                                    },
+                                    child: Container(
+                                        constraints: const BoxConstraints(
+                                            maxWidth: extra, maxHeight: extra),
+                                        child: Image.asset(iconVideo)),
+                                  ),
+                                  Text(
+                                    // TODO fix formatting tanggal
+                                    '${data[3].sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    "${data[3].judul}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text("${data[3].keterangan}",
+                                      maxLines: 7,
+                                      overflow: TextOverflow.ellipsis),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              constraints: BoxConstraints(
+                                maxHeight: 200,
+                                minWidth: MediaQuery.of(context).size.width,
+                              ),
+                              child: Image.network(
+                                "https://$contentUrl/${data[4].images}" ?? "",
+                                fit: BoxFit.cover,
+                                errorBuilder: (bc, o, st) {
+                                  return Text(data[4].images ?? "");
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(normal),
+                              child: Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      ref.read(kotaIdProvider.notifier).state =
+                                          data[4].kotaId ?? 0;
+                                      ref
+                                          .read(kotaNameProvider.notifier)
+                                          .state = data[4].kotaName ?? "";
+                                      ref
+                                          .read(contentIdProvider.notifier)
+                                          .state = data[4].id ?? 0;
+                                      context.router
+                                          .replace(const AlbumFotoRoute());
+                                    },
+                                    child: Container(
+                                        constraints: const BoxConstraints(
+                                            maxWidth: extra, maxHeight: extra),
+                                        child: Image.asset(iconFoto)),
+                                  ),
+                                  Text(
+                                    // TODO fix formatting tanggal
+                                    '${data[4].sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                      "${data[4].sourceName ?? "Tidak ada Sumber"}, ${data[4].sourceDate ?? "Tidak ada tanggal Sumber"}"),
+                                  Text(
+                                    "${data[4].judul}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
+                                    textAlign: TextAlign.center,
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
+                            ),
+                            Container(
+                              margin:
+                                  const EdgeInsets.symmetric(vertical: normal),
+                              constraints: BoxConstraints(
+                                maxHeight: 200,
+                                minWidth: MediaQuery.of(context).size.width,
+                              ),
+                              child: Image.network(
+                                "https://$contentUrl/${data[4].images}" ?? "",
+                                fit: BoxFit.cover,
+                                errorBuilder: (bc, o, st) {
+                                  return Text(data[4].images ?? "");
+                                },
+                              ),
+                            ),
 
-                        // TODO implement adsense
-                        // const ScrollableHorizontalImage(),
-                        // adsense.when(data: (data) {
-                        //   return Text("Ada Data: ${data.toJson().toString()}");
-                        // }, error: (o, st) {
-                        //   return Text("Ada Error");
-                        // }, loading: () {
-                        //   return const CircularProgressIndicator();
-                        // })
-                      ],
-                    );
-                  },
-                  error: (e, s) {
-                    const Text("Error Bruh");
-                  },
-                  loading: () => const UnconstrainedBox(
-                      child: Center(child: CircularProgressIndicator())))),
-        ),
+                            /// Diskusi section, hide dulu untuk sekarang
+                            // Padding(
+                            //   padding: const EdgeInsets.all(medium),
+                            //   child: Column(
+                            //     children: [
+                            //       Container(
+                            //           constraints: const BoxConstraints(
+                            //               maxWidth: extra, maxHeight: extra),
+                            //           child: Image.asset(iconForum)),
+                            //       Text(
+                            //         "APAKAH INDONESIA SUDAH MENJALANKAN OTONOMI DAERAH DENGAN BAIK? (STATIS, BELUM DARI API)",
+                            //         style:
+                            //             Theme.of(context).textTheme.headlineSmall,
+                            //         textAlign: TextAlign.center,
+                            //       ),
+                            //       const Text(
+                            //           "Diskusi hangat mengenai pandangan masyarakat terhadap penerapan otonomi daerah di masa kini. (STATIS, BELUM DARI API)"),
+                            //     ],
+                            //   ),
+                            // ),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: extra),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "IKUTI KAMI",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                                "assets/images/icon_facebook.png"),
+                                            Image.asset(
+                                                "assets/images/icon_ig.png"),
+                                            Image.asset(
+                                                "assets/images/icon_twitter.png"),
+                                            Image.asset(
+                                                "assets/images/icon_tiktok.png"),
+                                            Image.asset(
+                                                "assets/images/icon_youtube.png"),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: Text(
+                                          "neracaruang@neracaruang.com",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                  decoration:
+                                                      TextDecoration.underline),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // TODO implement adsense
+                            // const ScrollableHorizontalImage(),
+                            // adsense.when(data: (data) {
+                            //   return Text("Ada Data: ${data.toJson().toString()}");
+                            // }, error: (o, st) {
+                            //   return Text("Ada Error");
+                            // }, loading: () {
+                            //   return const CircularProgressIndicator();
+                            // })
+                          ],
+                        ),
+                      );
+                    },
+                    error: (e, s) {
+                      const Text("Error Bruh");
+                    },
+                    loading: () => const UnconstrainedBox(
+                        child: Center(child: CircularProgressIndicator())))),
 
         bottomNavigationBar:
             const BottomBarWidget(), // This trailing comma makes auto-formatting nicer for build methods.

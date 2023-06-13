@@ -107,6 +107,8 @@ final tagsIdProvider = StateProvider<int>(
 
 final tagsNameProvider = StateProvider((ref) => "");
 
+final contentIdProvider = StateProvider<int>((ref) => 0);
+
 final pageNumberProvider = StateProvider<int>(
   (ref) => 1,
 );
