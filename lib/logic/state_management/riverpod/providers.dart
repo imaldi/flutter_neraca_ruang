@@ -107,7 +107,7 @@ final tagsIdProvider = StateProvider<int>(
 
 final tagsNameProvider = StateProvider((ref) => "");
 
-final contentIdProvider = StateProvider<int>((ref) => 0);
+final selectedContentIdProvider = StateProvider<int>((ref) => 0);
 
 final pageNumberProvider = StateProvider<int>(
   (ref) => 1,
@@ -128,14 +128,18 @@ class Repository {
     var tagsId = ref.watch(tagsIdProvider);
 
     ref.listen(tagsIdProvider, (oldV, newV) {
+      /// Ini maksudnya ketika tagsId berubah (klik logo kota di halaman detail), maka reset kotaId dan selectedContentId
       if ((oldV != newV) && (newV != 0)) {
         ref.read(kotaIdProvider.notifier).state = 0;
+        ref.read(selectedContentIdProvider.notifier).state = 0;
       }
     });
     var kotaId = ref.watch(kotaIdProvider);
     ref.listen(kotaIdProvider, (oldV, newV) {
+      /// Ini maksudnya ketika kotaId berubah (klik logo kota di halaman detail), maka reset tagsId dan selectedContentId
       if ((oldV != newV) && (newV != 0)) {
         ref.read(tagsIdProvider.notifier).state = 0;
+        ref.read(selectedContentIdProvider.notifier).state = 0;
       }
     });
 

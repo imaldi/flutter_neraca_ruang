@@ -20,7 +20,7 @@ class ContentWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var contentId = ref.watch(contentIdProvider);
+    var contentId = ref.watch(selectedContentIdProvider);
     return Column(
       children: [
         Container(
@@ -84,41 +84,41 @@ class ContentWidget extends ConsumerWidget {
               ),
               SizedBox(
                 height: huge,
-                child: FittedBox(
-                  child: Row(
-                    children: [
-                      IconWidget(
-                        content.tagsPihak?.tagsIcon ?? "",
-                        isOnlineSource: true,
-                        onTap: () {
-                          ref.read(tagsIdProvider.notifier).state =
-                              content.tagsPihak?.tagsId ?? 0;
-                          ref.read(kotaNameProvider.notifier).state =
-                              content.tagsPihak?.tagsName ?? "";
-                        },
-                      ),
-                      IconWidget(
-                        content.tagsTopik?.tagsIcon ?? "",
-                        isOnlineSource: true,
-                        onTap: () {
-                          ref.read(tagsIdProvider.notifier).state =
-                              content.tagsTopik?.tagsId ?? 0;
-                          ref.read(kotaNameProvider.notifier).state =
-                              content.tagsTopik?.tagsName ?? "";
-                        },
-                      ),
-                      IconWidget(
-                        content.tagsOtonomi?.tagsIcon ?? "",
-                        isOnlineSource: true,
-                        onTap: () {
-                          ref.read(tagsIdProvider.notifier).state =
-                              content.tagsOtonomi?.tagsId ?? 0;
-                          ref.read(kotaNameProvider.notifier).state =
-                              content.tagsOtonomi?.tagsName ?? "";
-                        },
-                      ),
-                    ],
-                  ),
+
+                /// sebelumnya ada error disini karena row di bungkus dengan fitted box, jangan pakai begitu lagi
+                child: Row(
+                  children: [
+                    IconWidget(
+                      content.tagsPihak?.tagsIcon ?? "",
+                      isOnlineSource: true,
+                      onTap: () {
+                        ref.read(tagsIdProvider.notifier).state =
+                            content.tagsPihak?.tagsId ?? 0;
+                        ref.read(kotaNameProvider.notifier).state =
+                            content.tagsPihak?.tagsName ?? "";
+                      },
+                    ),
+                    IconWidget(
+                      content.tagsTopik?.tagsIcon ?? "",
+                      isOnlineSource: true,
+                      onTap: () {
+                        ref.read(tagsIdProvider.notifier).state =
+                            content.tagsTopik?.tagsId ?? 0;
+                        ref.read(kotaNameProvider.notifier).state =
+                            content.tagsTopik?.tagsName ?? "";
+                      },
+                    ),
+                    IconWidget(
+                      content.tagsOtonomi?.tagsIcon ?? "",
+                      isOnlineSource: true,
+                      onTap: () {
+                        ref.read(tagsIdProvider.notifier).state =
+                            content.tagsOtonomi?.tagsId ?? 0;
+                        ref.read(kotaNameProvider.notifier).state =
+                            content.tagsOtonomi?.tagsName ?? "";
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -134,7 +134,8 @@ class ContentWidget extends ConsumerWidget {
               ),
               InkWell(
                 onTap: () {
-                  ref.read(contentIdProvider.notifier).state = content.id ?? 0;
+                  ref.read(selectedContentIdProvider.notifier).state =
+                      content.id ?? 0;
                 },
                 child: Text(
                   '${content.judul}',

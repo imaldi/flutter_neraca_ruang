@@ -26,7 +26,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
     var kabarTerbaru = ref.watch(kabarProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
-    var kontenId = ref.watch(contentIdProvider);
+    var kontenId = ref.watch(selectedContentIdProvider);
     var appbarTitle =
         // kotaName.isNotEmpty
         //     ? kotaName

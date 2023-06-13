@@ -25,11 +25,11 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
     var jurnalTerbaru = ref.watch(jurnalProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
-    var appbarTitle =
-        // kotaName.isNotEmpty
-        //     ? kotaName
-        //     :
-        tagName.isNotEmpty ? tagName : null;
+    var appbarTitle = kotaName.isNotEmpty
+        ? kotaName
+        : tagName.isNotEmpty
+            ? tagName
+            : null;
 
     return SafeArea(
       top: false,

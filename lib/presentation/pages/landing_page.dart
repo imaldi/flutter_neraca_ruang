@@ -141,7 +141,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                       ref.read(kotaIdProvider.notifier).state =
                                           data[0].kotaId ?? 0;
                                       ref
-                                          .read(contentIdProvider.notifier)
+                                          .read(selectedContentIdProvider
+                                              .notifier)
                                           .state = data[0].id ?? 0;
                                       ref
                                           .read(kotaNameProvider.notifier)
@@ -204,7 +205,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .read(kotaNameProvider.notifier)
                                           .state = data[1].kotaName ?? "";
                                       ref
-                                          .read(contentIdProvider.notifier)
+                                          .read(selectedContentIdProvider
+                                              .notifier)
                                           .state = data[1].id ?? 0;
                                       context.router
                                           .replace(const JurnalRoute());
@@ -270,7 +272,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .read(kotaNameProvider.notifier)
                                           .state = data[2].kotaName ?? "";
                                       ref
-                                          .read(contentIdProvider.notifier)
+                                          .read(selectedContentIdProvider
+                                              .notifier)
                                           .state = data[2].id ?? 0;
                                       context.router
                                           .replace(const InfografisRoute());
@@ -320,7 +323,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .read(kotaNameProvider.notifier)
                                           .state = data[3].kotaName ?? "";
                                       ref
-                                          .read(contentIdProvider.notifier)
+                                          .read(selectedContentIdProvider
+                                              .notifier)
                                           .state = data[3].id ?? 0;
                                       context.router
                                           .replace(const VideoRoute());
@@ -374,7 +378,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .read(kotaNameProvider.notifier)
                                           .state = data[4].kotaName ?? "";
                                       ref
-                                          .read(contentIdProvider.notifier)
+                                          .read(selectedContentIdProvider
+                                              .notifier)
                                           .state = data[4].id ?? 0;
                                       context.router
                                           .replace(const AlbumFotoRoute());
