@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'core/consts/colors.dart';
 import 'core/router/app_router.dart';
+import 'data/models/login_response/login_response.dart';
 
-void main() {
+void main() async {
+  final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir.path);
+  Hive.registerAdapter(LoginResponseAdapter());
+  Hive.registerAdapter(UserDataAdapter());
+  Hive.registerAdapter(UserAdapter());
+  Hive.openBox<LoginResponse>('authbox');
   runApp(ProviderScope(child: MyApp()));
 }
 

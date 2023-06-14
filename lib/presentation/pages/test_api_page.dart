@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../logic/state_management/riverpod/providers.dart';
+import '../../logic/state_management/riverpod/dashboard_providers.dart';
 
 @RoutePage()
 class TestApiPage extends ConsumerStatefulWidget {

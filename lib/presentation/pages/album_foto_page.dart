@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neraca_ruang/logic/state_management/riverpod/providers.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/green_mode_appbar_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
