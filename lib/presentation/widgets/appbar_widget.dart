@@ -92,8 +92,7 @@ appBarWidget(BuildContext context,
             onTap: () {
               context.router.replace(const LandingRoute());
             },
-            child: Center(
-                child: Image.asset("assets/images/nr_logo_horizontal.png"))),
+            child: Center(child: Image.asset(iconNRAppbar))),
     bottom:
         // isGreenMode
         // ? PreferredSize(

@@ -14,3 +14,4 @@ const iconDibaca = "$assetsIconsIconNavigasi/icon_dibaca.png";
 const iconCommments = "$assetsIconsIconNavigasi/icon_komentar.png";
 const iconSuka = "$assetsIconsIconNavigasi/icon_suka.png";
 const iconNR = "$assetsIconsIconMenu/nr_logo_icon.png";
+const iconNRAppbar = "assets/images/nr_logo_horizontal.png";
