@@ -7,10 +7,12 @@ import 'package:flutter_neraca_ruang/presentation/widgets/appbar_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/bottom_bar_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:hive/hive.dart';
 
 import '../../core/consts/assets.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
+import '../../logic/state_management/riverpod/auth_providers.dart';
 import '../widgets/drawer_content.dart';
 import '../widgets/scrollable_horizontal_image.dart';
 
@@ -25,8 +27,26 @@ class LandingPage extends ConsumerStatefulWidget {
 class LandingPageState extends ConsumerState<LandingPage> {
   @override
   Widget build(BuildContext context) {
+    // ref.listen(loggingInProvider, (previous, next) {
+    //   next.when(
+    //       data: (data) {
+    //         if (!data) {
+    //           context.router.replace(const LoginRoute());
+    //           print("login listener called in landing page");
+    //         }
+    //       },
+    //       error: (o, st) => null,
+    //       loading: () => null);
+    // });
+    ref.listen(isLoginProvider, (previous, next) {
+      if (!next) {
+        context.router.replace(const LoginRoute());
+        print("login listener called in landing page");
+      }
+    });
     var dataDashboard = ref.watch(dashBoardProvider);
     var adsense = ref.watch(adsenseProvider);
+    var isLogin = ref.watch(isLoginProvider);
 
     return DefaultTabController(
       length: mainTabLength,
@@ -53,14 +73,26 @@ class LandingPageState extends ConsumerState<LandingPage> {
                   height: 2 * extra,
                 ),
                 Container(
-                  padding: const EdgeInsets.all(big),
-                  margin: const EdgeInsets.symmetric(vertical: big),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(huge))),
-                  child: const Text("Masuk / Daftar"),
-                ),
+                    padding: const EdgeInsets.all(big),
+                    margin: const EdgeInsets.symmetric(vertical: big),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(huge))),
+                    child: isLogin
+                        ? InkWell(
+                            onTap: () {
+                              ref.invalidate(isLoginProvider);
+                              var box = Hive.box('authbox');
+                              box.clear();
+                              context.router.replace(const LoginRoute());
+                            },
+                            child: const Text("Log Out"))
+                        : InkWell(
+                            onTap: () {
+                              context.router.push(const LoginRoute());
+                            },
+                            child: const Text("Masuk / Daftar"))),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

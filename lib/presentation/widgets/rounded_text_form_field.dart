@@ -6,7 +6,9 @@ import '../../core/consts/sizes.dart';
 class RoundedTextFormField extends StatelessWidget {
   final String? hint;
   final InputDecoration? decoration;
-  const RoundedTextFormField({this.decoration, this.hint, Key? key})
+  final TextEditingController? controller;
+  const RoundedTextFormField(
+      {this.decoration, this.controller, this.hint, Key? key})
       : super(key: key);
   static const _basicBorder = OutlineInputBorder(
       borderSide: BorderSide(color: Color(primaryColor), width: 4),
@@ -17,6 +19,7 @@ class RoundedTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+          controller: controller,
           decoration: (decoration ?? const InputDecoration()).copyWith(
               contentPadding: const EdgeInsets.all(medium),
               enabledBorder: _basicBorder,

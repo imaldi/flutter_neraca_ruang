@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/consts/sizes.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/auth_providers.dart';
+import 'package:flutter_neraca_ruang/presentation/pages/landing_page.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_container.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,11 +13,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/assets.dart';
 
 @RoutePage()
-class LoginPage extends ConsumerWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends ConsumerState<LoginPage> {
+  var usernameController = TextEditingController(text: 'admin');
+  var passwordController = TextEditingController(text: '12345678');
+  // var usernameController = TextEditingController(text: '');
+  // var passwordController = TextEditingController(text: '');
+  // var isLoginListener = ref
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(loggingInProvider, (previous, next) {
+      next.when(
+          data: (data) {
+            if (data) {
+              context.router.replace(const LandingRoute());
+              print("login listener called");
+            }
+          },
+          error: (o, st) => null,
+          loading: () => null);
+    });
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -59,17 +83,13 @@ class LoginPage extends ConsumerWidget {
                       const Text("atau"),
 
                       /// Custom TFF
-                      Row(
-                        children: [
-                          Expanded(
-                            child: const RoundedTextFormField(
-                              hint: "Nama",
-                            ),
-                          ),
-                        ],
+                      RoundedTextFormField(
+                        hint: "Nama",
+                        controller: usernameController,
                       ),
-                      const RoundedTextFormField(
+                      RoundedTextFormField(
                         hint: "Kata Sandi",
+                        controller: passwordController,
                       ),
 
                       Container(
@@ -86,7 +106,15 @@ class LoginPage extends ConsumerWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(huge))),
                             clipBehavior: Clip.antiAlias,
-                            onPressed: () {},
+                            onPressed: () {
+                              ref
+                                  .read(usernameProvider.notifier)
+                                  .update((state) => usernameController.text);
+                              ref
+                                  .read(passwordProvider.notifier)
+                                  .update((state) => passwordController.text);
+                              context.router.replace(LandingRoute());
+                            },
                             child: Text("MASUK")),
                       ),
                       Text("Belum memiliki akun?"),

@@ -59,10 +59,10 @@ class RegisterPage extends ConsumerWidget {
                       const Text("atau"),
 
                       /// Custom TFF
-                      const RoundedTextFormField(
+                      RoundedTextFormField(
                         hint: "Nama*",
                       ),
-                      const RoundedTextFormField(
+                      RoundedTextFormField(
                         hint: "Kata Sandi*",
                       ),
 
@@ -79,18 +79,17 @@ class RegisterPage extends ConsumerWidget {
                                 },
                                 child: Icon(Icons.calendar_month))),
                       ),
-                      const RoundedTextFormField(hint: "Telepon"),
+                      RoundedTextFormField(hint: "Telepon"),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const RoundedTextFormField(hint: "Kota/Kabupaten"),
+                          RoundedTextFormField(hint: "Kota/Kabupaten"),
                           const Text("Aktifkan lokasi?")
                         ],
                       ),
-                      const RoundedTextFormField(hint: "Kode Pos"),
-                      const RoundedTextFormField(hint: "Kata Sandi*"),
-                      const RoundedTextFormField(
-                          hint: "Konfirmasi Kata Sandi*"),
+                      RoundedTextFormField(hint: "Kode Pos"),
+                      RoundedTextFormField(hint: "Kata Sandi*"),
+                      RoundedTextFormField(hint: "Konfirmasi Kata Sandi*"),
 
                       Container(
                         color: Colors.grey[100],
