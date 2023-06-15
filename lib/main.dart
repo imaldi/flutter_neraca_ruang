@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neraca_ruang/logic/state_management/riverpod/auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'core/consts/colors.dart';
 import 'core/router/app_router.dart';
-import 'data/models/login_response/login_response.dart';
+import 'di.dart' as di;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir.path);
-  Hive.registerAdapter(LoginResponseAdapter());
-  Hive.registerAdapter(UserDataAdapter());
-  Hive.registerAdapter(UserAdapter());
-  await Hive.openBox<LoginResponse>('authbox');
+  await di.init();
   runApp(ProviderScope(child: MyApp()));
   FlutterError.demangleStackTrace = (StackTrace stack) {
     if (stack is stack_trace.Trace) return stack.vmTrace;

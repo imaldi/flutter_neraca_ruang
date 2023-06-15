@@ -10,8 +10,11 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:hive/hive.dart';
 
 import '../../core/consts/assets.dart';
+import '../../core/consts/hive_const.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
+import '../../data/models/login_response/login_response.dart';
+import '../../di.dart';
 import '../../logic/state_management/riverpod/auth_providers.dart';
 import '../widgets/drawer_content.dart';
 import '../widgets/scrollable_horizontal_image.dart';
@@ -82,8 +85,10 @@ class LandingPageState extends ConsumerState<LandingPage> {
                     child: isLogin
                         ? InkWell(
                             onTap: () {
-                              ref.invalidate(isLoginProvider);
-                              var box = Hive.box('authbox');
+                              ref
+                                  .read(isLoginProvider.notifier)
+                                  .update((state) => false);
+                              var box = sl<Box<LoginResponse>>();
                               box.clear();
                               context.router.replace(const LoginRoute());
                             },
