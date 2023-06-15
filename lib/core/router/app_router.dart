@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_neraca_ruang/presentation/pages/album_foto_page.dart';
 
 import '../../presentation/pages/datum_type_filter_page.dart';
+import '../../presentation/pages/green_page.dart';
 import '../../presentation/pages/infografis_page.dart';
 import '../../presentation/pages/jurnal_page.dart';
 import '../../presentation/pages/kabar_page.dart';
@@ -26,6 +27,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: InfografisRoute.page),
         AutoRoute(page: VideoRoute.page),
         AutoRoute(page: AlbumFotoRoute.page),
+        AutoRoute(page: GreenRoute.page),
         // TODO nanti semua pakai route yg ini saja
         AutoRoute(page: DatumTypeFilterRoute.page),
         AutoRoute(page: LoginRoute.page),

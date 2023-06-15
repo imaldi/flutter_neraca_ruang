@@ -81,6 +81,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const DatumTypeFilterPage(),
       );
     },
+    GreenRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const GreenPage(),
+      );
+    },
   };
 }
 
@@ -234,6 +240,20 @@ class DatumTypeFilterRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'DatumTypeFilterRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [GreenPage]
+class GreenRoute extends PageRouteInfo<void> {
+  const GreenRoute({List<PageRouteInfo>? children})
+      : super(
+          GreenRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'GreenRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
