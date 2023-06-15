@@ -16,12 +16,20 @@ class LoginResponseAdapter extends TypeAdapter<_$_LoginResponse> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_LoginResponse();
+    return _$_LoginResponse(
+      message: fields[0] as String?,
+      data: fields[1] as UserData?,
+    );
   }
 
   @override
   void write(BinaryWriter writer, _$_LoginResponse obj) {
-    writer.writeByte(0);
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.message)
+      ..writeByte(1)
+      ..write(obj.data);
   }
 
   @override
@@ -45,12 +53,23 @@ class UserDataAdapter extends TypeAdapter<_$_UserData> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_UserData();
+    return _$_UserData(
+      user: fields[0] as User?,
+      token: fields[1] as String?,
+      loginDate: fields[2] as DateTime?,
+    );
   }
 
   @override
   void write(BinaryWriter writer, _$_UserData obj) {
-    writer.writeByte(0);
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.user)
+      ..writeByte(1)
+      ..write(obj.token)
+      ..writeByte(2)
+      ..write(obj.loginDate);
   }
 
   @override
@@ -74,12 +93,35 @@ class UserAdapter extends TypeAdapter<_$_User> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_User();
+    return _$_User(
+      id: fields[0] as int?,
+      username: fields[1] as String?,
+      fullname: fields[2] as String?,
+      email: fields[3] as String?,
+      emailVerifiedAt: fields[4] as DateTime?,
+      createdAt: fields[5] as DateTime?,
+      updatedAt: fields[6] as DateTime?,
+    );
   }
 
   @override
   void write(BinaryWriter writer, _$_User obj) {
-    writer.writeByte(0);
+    writer
+      ..writeByte(7)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.username)
+      ..writeByte(2)
+      ..write(obj.fullname)
+      ..writeByte(3)
+      ..write(obj.email)
+      ..writeByte(4)
+      ..write(obj.emailVerifiedAt)
+      ..writeByte(5)
+      ..write(obj.createdAt)
+      ..writeByte(6)
+      ..write(obj.updatedAt);
   }
 
   @override

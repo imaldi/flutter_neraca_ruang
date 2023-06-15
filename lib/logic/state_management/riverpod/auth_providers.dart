@@ -11,7 +11,7 @@ import '../../../core/consts/urls.dart';
 import '../../../di.dart';
 
 final hiveUserTokenProvider = StateProvider<String>(((ref) {
-  var box = Hive.box(authBoxKey);
+  var box = sl<Box<LoginResponse>>();
   return box.get(userDataKey)?.data?.token ?? "";
 }));
 
@@ -31,12 +31,33 @@ final loggingInProvider = FutureProvider((ref) async {
 final isLoginProvider = StateProvider((ref) {
   // var loggingInResult = ref.watch(loggingInProvider);
   var box = sl<Box<LoginResponse>>();
+
   var loginRespononse = box.get(userDataKey);
   var isLoggedIn = loginRespononse != null;
   print("box.get(userDataKey): $loginRespononse");
   print("isLoggedIn: $isLoggedIn");
 
   return isLoggedIn;
+});
+
+final userDataProvider = StateProvider((ref) {
+  var box = sl<Box<LoginResponse>>();
+  try {
+    if (box.containsKey(userDataKey)) {
+      final LoginResponse response = box.get(userDataKey) ??
+          const LoginResponse(message: "ntah napa lah..");
+      print("user Data From Hive: $response");
+
+      return response;
+    } else {
+      throw Exception();
+    }
+  } catch (e) {
+    return LoginResponse(message: "Ada Error: ${e.runtimeType}");
+  }
+
+  // var loginRespononse = box.get(userDataKey);
+  // return loginRespononse;
 });
 
 class Repository {
@@ -93,7 +114,9 @@ class Repository {
         print("response data: ${responseContent}");
         var authBox = sl<Box<LoginResponse>>();
         await authBox.put(userDataKey, responseContent);
-        return true;
+        var dataFromBox = authBox.get(userDataKey);
+        print("dataFromBox: $dataFromBox");
+        return dataFromBox != null;
         // return await asyncBox;
         //     .when(
         //   data: (box) {

@@ -50,6 +50,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
     var dataDashboard = ref.watch(dashBoardProvider);
     var adsense = ref.watch(adsenseProvider);
     var isLogin = ref.watch(isLoginProvider);
+    var userData = ref.watch(userDataProvider);
 
     return DefaultTabController(
       length: mainTabLength,
@@ -84,12 +85,12 @@ class LandingPageState extends ConsumerState<LandingPage> {
                             const BorderRadius.all(Radius.circular(huge))),
                     child: isLogin
                         ? InkWell(
-                            onTap: () {
+                            onTap: () async {
                               ref
                                   .read(isLoginProvider.notifier)
                                   .update((state) => false);
                               var box = sl<Box<LoginResponse>>();
-                              box.clear();
+                              await box.delete(userDataKey);
                               context.router.replace(const LoginRoute());
                             },
                             child: const Text("Log Out"))
@@ -139,14 +140,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
         ),
         body:
 
-            // fotoTerbaru.when(
-            //     data: (foto) {
-            //       return Text(foto.toJson().toString());
-            //     },
-            //     error: (err, stack) {
-            //       return Text("Ada Error: ${err.toString()}");
-            //     },
-            //     loading: () => const CircularProgressIndicator()),
+            /// Testing state persistence from Hive
+            // Center(child: Text("${userData.toJson()}")),
 
             /// Ini dashboard
             Center(

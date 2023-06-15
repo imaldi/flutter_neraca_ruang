@@ -20,7 +20,9 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LoginResponse {
+  @HiveField(0)
   String? get message => throw _privateConstructorUsedError;
+  @HiveField(1)
   UserData? get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +37,7 @@ abstract class $LoginResponseCopyWith<$Res> {
           LoginResponse value, $Res Function(LoginResponse) then) =
       _$LoginResponseCopyWithImpl<$Res, LoginResponse>;
   @useResult
-  $Res call({String? message, UserData? data});
+  $Res call({@HiveField(0) String? message, @HiveField(1) UserData? data});
 
   $UserDataCopyWith<$Res>? get data;
 }
@@ -89,7 +91,7 @@ abstract class _$$_LoginResponseCopyWith<$Res>
       __$$_LoginResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? message, UserData? data});
+  $Res call({@HiveField(0) String? message, @HiveField(1) UserData? data});
 
   @override
   $UserDataCopyWith<$Res>? get data;
@@ -127,14 +129,16 @@ class __$$_LoginResponseCopyWithImpl<$Res>
 @HiveType(typeId: loginResponseTypeId, adapterName: 'LoginResponseAdapter')
 @JsonSerializable(explicitToJson: true)
 class _$_LoginResponse implements _LoginResponse {
-  const _$_LoginResponse({this.message, this.data});
+  const _$_LoginResponse({@HiveField(0) this.message, @HiveField(1) this.data});
 
   factory _$_LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$$_LoginResponseFromJson(json);
 
   @override
+  @HiveField(0)
   final String? message;
   @override
+  @HiveField(1)
   final UserData? data;
 
   @override
@@ -170,15 +174,18 @@ class _$_LoginResponse implements _LoginResponse {
 }
 
 abstract class _LoginResponse implements LoginResponse {
-  const factory _LoginResponse({final String? message, final UserData? data}) =
-      _$_LoginResponse;
+  const factory _LoginResponse(
+      {@HiveField(0) final String? message,
+      @HiveField(1) final UserData? data}) = _$_LoginResponse;
 
   factory _LoginResponse.fromJson(Map<String, dynamic> json) =
       _$_LoginResponse.fromJson;
 
   @override
+  @HiveField(0)
   String? get message;
   @override
+  @HiveField(1)
   UserData? get data;
   @override
   @JsonKey(ignore: true)
@@ -192,8 +199,11 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserData {
+  @HiveField(0)
   User? get user => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get token => throw _privateConstructorUsedError;
+  @HiveField(2)
   @JsonKey(name: 'login_date')
   DateTime? get loginDate => throw _privateConstructorUsedError;
 
@@ -209,9 +219,9 @@ abstract class $UserDataCopyWith<$Res> {
       _$UserDataCopyWithImpl<$Res, UserData>;
   @useResult
   $Res call(
-      {User? user,
-      String? token,
-      @JsonKey(name: 'login_date') DateTime? loginDate});
+      {@HiveField(0) User? user,
+      @HiveField(1) String? token,
+      @HiveField(2) @JsonKey(name: 'login_date') DateTime? loginDate});
 
   $UserCopyWith<$Res>? get user;
 }
@@ -270,9 +280,9 @@ abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {User? user,
-      String? token,
-      @JsonKey(name: 'login_date') DateTime? loginDate});
+      {@HiveField(0) User? user,
+      @HiveField(1) String? token,
+      @HiveField(2) @JsonKey(name: 'login_date') DateTime? loginDate});
 
   @override
   $UserCopyWith<$Res>? get user;
@@ -316,16 +326,21 @@ class __$$_UserDataCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$_UserData implements _UserData {
   const _$_UserData(
-      {this.user, this.token, @JsonKey(name: 'login_date') this.loginDate});
+      {@HiveField(0) this.user,
+      @HiveField(1) this.token,
+      @HiveField(2) @JsonKey(name: 'login_date') this.loginDate});
 
   factory _$_UserData.fromJson(Map<String, dynamic> json) =>
       _$$_UserDataFromJson(json);
 
   @override
+  @HiveField(0)
   final User? user;
   @override
+  @HiveField(1)
   final String? token;
   @override
+  @HiveField(2)
   @JsonKey(name: 'login_date')
   final DateTime? loginDate;
 
@@ -365,17 +380,24 @@ class _$_UserData implements _UserData {
 
 abstract class _UserData implements UserData {
   const factory _UserData(
-      {final User? user,
-      final String? token,
-      @JsonKey(name: 'login_date') final DateTime? loginDate}) = _$_UserData;
+      {@HiveField(0)
+          final User? user,
+      @HiveField(1)
+          final String? token,
+      @HiveField(2)
+      @JsonKey(name: 'login_date')
+          final DateTime? loginDate}) = _$_UserData;
 
   factory _UserData.fromJson(Map<String, dynamic> json) = _$_UserData.fromJson;
 
   @override
+  @HiveField(0)
   User? get user;
   @override
+  @HiveField(1)
   String? get token;
   @override
+  @HiveField(2)
   @JsonKey(name: 'login_date')
   DateTime? get loginDate;
   @override
@@ -390,14 +412,21 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
+  @HiveField(0)
   int? get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get username => throw _privateConstructorUsedError;
+  @HiveField(2)
   String? get fullname => throw _privateConstructorUsedError;
+  @HiveField(3)
   String? get email => throw _privateConstructorUsedError;
+  @HiveField(4)
   @JsonKey(name: 'email_verified_at')
   DateTime? get emailVerifiedAt => throw _privateConstructorUsedError;
+  @HiveField(5)
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  @HiveField(6)
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -412,13 +441,23 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {int? id,
-      String? username,
-      String? fullname,
-      String? email,
-      @JsonKey(name: 'email_verified_at') DateTime? emailVerifiedAt,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'updated_at') DateTime? updatedAt});
+      {@HiveField(0)
+          int? id,
+      @HiveField(1)
+          String? username,
+      @HiveField(2)
+          String? fullname,
+      @HiveField(3)
+          String? email,
+      @HiveField(4)
+      @JsonKey(name: 'email_verified_at')
+          DateTime? emailVerifiedAt,
+      @HiveField(5)
+      @JsonKey(name: 'created_at')
+          DateTime? createdAt,
+      @HiveField(6)
+      @JsonKey(name: 'updated_at')
+          DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -482,13 +521,23 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
-      String? username,
-      String? fullname,
-      String? email,
-      @JsonKey(name: 'email_verified_at') DateTime? emailVerifiedAt,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'updated_at') DateTime? updatedAt});
+      {@HiveField(0)
+          int? id,
+      @HiveField(1)
+          String? username,
+      @HiveField(2)
+          String? fullname,
+      @HiveField(3)
+          String? email,
+      @HiveField(4)
+      @JsonKey(name: 'email_verified_at')
+          DateTime? emailVerifiedAt,
+      @HiveField(5)
+      @JsonKey(name: 'created_at')
+          DateTime? createdAt,
+      @HiveField(6)
+      @JsonKey(name: 'updated_at')
+          DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -547,31 +596,38 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 @JsonSerializable(explicitToJson: true)
 class _$_User implements _User {
   const _$_User(
-      {this.id,
-      this.username,
-      this.fullname,
-      this.email,
-      @JsonKey(name: 'email_verified_at') this.emailVerifiedAt,
-      @JsonKey(name: 'created_at') this.createdAt,
-      @JsonKey(name: 'updated_at') this.updatedAt});
+      {@HiveField(0) this.id,
+      @HiveField(1) this.username,
+      @HiveField(2) this.fullname,
+      @HiveField(3) this.email,
+      @HiveField(4) @JsonKey(name: 'email_verified_at') this.emailVerifiedAt,
+      @HiveField(5) @JsonKey(name: 'created_at') this.createdAt,
+      @HiveField(6) @JsonKey(name: 'updated_at') this.updatedAt});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
   @override
+  @HiveField(0)
   final int? id;
   @override
+  @HiveField(1)
   final String? username;
   @override
+  @HiveField(2)
   final String? fullname;
   @override
+  @HiveField(3)
   final String? email;
   @override
+  @HiveField(4)
   @JsonKey(name: 'email_verified_at')
   final DateTime? emailVerifiedAt;
   @override
+  @HiveField(5)
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
   @override
+  @HiveField(6)
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
 
@@ -620,31 +676,48 @@ class _$_User implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {final int? id,
-      final String? username,
-      final String? fullname,
-      final String? email,
-      @JsonKey(name: 'email_verified_at') final DateTime? emailVerifiedAt,
-      @JsonKey(name: 'created_at') final DateTime? createdAt,
-      @JsonKey(name: 'updated_at') final DateTime? updatedAt}) = _$_User;
+      {@HiveField(0)
+          final int? id,
+      @HiveField(1)
+          final String? username,
+      @HiveField(2)
+          final String? fullname,
+      @HiveField(3)
+          final String? email,
+      @HiveField(4)
+      @JsonKey(name: 'email_verified_at')
+          final DateTime? emailVerifiedAt,
+      @HiveField(5)
+      @JsonKey(name: 'created_at')
+          final DateTime? createdAt,
+      @HiveField(6)
+      @JsonKey(name: 'updated_at')
+          final DateTime? updatedAt}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
+  @HiveField(0)
   int? get id;
   @override
+  @HiveField(1)
   String? get username;
   @override
+  @HiveField(2)
   String? get fullname;
   @override
+  @HiveField(3)
   String? get email;
   @override
+  @HiveField(4)
   @JsonKey(name: 'email_verified_at')
   DateTime? get emailVerifiedAt;
   @override
+  @HiveField(5)
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;
   @override
+  @HiveField(6)
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;
   @override
