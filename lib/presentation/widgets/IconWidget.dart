@@ -9,11 +9,15 @@ class IconWidget extends StatelessWidget {
   final bool isOnlineSource;
   final Function()? onTap;
   final Widget? customOnErrorWidget;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
   const IconWidget(this.srcPath,
       {this.size,
       this.isOnlineSource = false,
       this.onTap,
       this.customOnErrorWidget,
+      this.padding,
+      this.margin,
       Key? key})
       : super(key: key);
 
@@ -22,6 +26,8 @@ class IconWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
+          padding: padding,
+          margin: margin,
           constraints:
               BoxConstraints(maxWidth: size ?? extra, maxHeight: size ?? extra),
           child: isOnlineSource

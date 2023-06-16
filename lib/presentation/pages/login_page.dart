@@ -54,80 +54,67 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     border: Border.all(style: BorderStyle.none),
                     borderRadius: BorderRadius.circular(extra)),
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Image.asset(iconNRAppbar),
-                      Text(
-                        "Selamat Datang",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: RoundedContainer(huge,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: normal, horizontal: huge),
-                                boxDecoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Color(primaryColor),
-                                        width: small)),
-                                child: Center(
-                                  child: const Text(
-                                    "Masuk dengan email",
-                                    style: TextStyle(fontSize: medium),
-                                  ),
-                                )),
-                          ),
-                        ],
-                      ),
-                      const Text("atau"),
-
-                      /// Custom TFF
-                      RoundedTextFormField(
-                        hint: "Nama",
-                        controller: usernameController,
-                      ),
-                      RoundedTextFormField(
-                        hint: "Kata Sandi",
-                        controller: passwordController,
-                      ),
-
-                      Container(
-                        color: Colors.grey[100],
-                        child: Text("Saya Bukan Robot"),
-                      ),
-                      RoundedContainer(
-                        extra,
-                        margin: const EdgeInsets.all(0),
-                        padding: const EdgeInsets.all(0),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(primaryColor),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(huge))),
-                            clipBehavior: Clip.antiAlias,
-                            onPressed: () {
-                              ref
-                                  .read(usernameProvider.notifier)
-                                  .update((state) => usernameController.text);
-                              ref
-                                  .read(passwordProvider.notifier)
-                                  .update((state) => passwordController.text);
-                              context.router.replace(LandingRoute());
-                            },
-                            child: Text("MASUK")),
-                      ),
-                      Text("Belum memiliki akun?"),
-                      InkWell(
-                        onTap: () {
-                          context.router.push(const RegisterRoute());
-                        },
-                        child: Text(
-                          "DAFTAR",
-                          style: TextStyle(color: Colors.blue),
+                  child: IntrinsicWidth(
+                    child: Column(
+                      children: [
+                        Image.asset(iconNRAppbar),
+                        Text(
+                          "Selamat Datang",
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
-                      ),
-                    ],
+                        RoundedTextFormField(
+                          isEnabled: false,
+                          decoration: InputDecoration(
+                              label: Center(child: Text("Masuk Dengan Email"))),
+                          // controller: usernameController,
+                        ),
+                        const Text("atau"),
+                        RoundedTextFormField(
+                          hint: "Nama",
+                          controller: usernameController,
+                        ),
+                        RoundedTextFormField(
+                          hint: "Kata Sandi",
+                          controller: passwordController,
+                        ),
+                        Container(
+                          color: Colors.grey[100],
+                          child: Text("Saya Bukan Robot"),
+                        ),
+                        RoundedContainer(
+                          extra,
+                          margin: const EdgeInsets.all(0),
+                          padding: const EdgeInsets.all(0),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(primaryColor),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(huge))),
+                              clipBehavior: Clip.antiAlias,
+                              onPressed: () {
+                                ref
+                                    .read(usernameProvider.notifier)
+                                    .update((state) => usernameController.text);
+                                ref
+                                    .read(passwordProvider.notifier)
+                                    .update((state) => passwordController.text);
+                                context.router.replace(LandingRoute());
+                              },
+                              child: Text("MASUK")),
+                        ),
+                        Text("Belum memiliki akun?"),
+                        InkWell(
+                          onTap: () {
+                            context.router.push(const RegisterRoute());
+                          },
+                          child: Text(
+                            "DAFTAR",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

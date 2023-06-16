@@ -7,8 +7,13 @@ class RoundedTextFormField extends StatelessWidget {
   final String? hint;
   final InputDecoration? decoration;
   final TextEditingController? controller;
+  final bool isEnabled;
   const RoundedTextFormField(
-      {this.decoration, this.controller, this.hint, Key? key})
+      {this.decoration,
+      this.controller,
+      this.hint,
+      this.isEnabled = true,
+      Key? key})
       : super(key: key);
   static const _basicBorder = OutlineInputBorder(
       borderSide: BorderSide(color: Color(primaryColor), width: 4),

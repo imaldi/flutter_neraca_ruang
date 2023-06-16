@@ -125,6 +125,7 @@ class ContentWidget extends ConsumerWidget {
                   children: [
                     IconWidget(
                       content.tagsPihak?.tagsIcon ?? "",
+                      margin: const EdgeInsets.symmetric(horizontal: small),
                       isOnlineSource: true,
                       onTap: () {
                         ref.read(tagsIdProvider.notifier).state =
@@ -137,6 +138,7 @@ class ContentWidget extends ConsumerWidget {
                     ),
                     IconWidget(
                       content.tagsTopik?.tagsIcon ?? "",
+                      margin: const EdgeInsets.symmetric(horizontal: small),
                       isOnlineSource: true,
                       onTap: () {
                         ref.read(tagsIdProvider.notifier).state =
@@ -149,6 +151,7 @@ class ContentWidget extends ConsumerWidget {
                     ),
                     IconWidget(
                       content.tagsOtonomi?.tagsIcon ?? "",
+                      margin: const EdgeInsets.symmetric(horizontal: small),
                       isOnlineSource: true,
                       onTap: () {
                         ref.read(tagsIdProvider.notifier).state =
