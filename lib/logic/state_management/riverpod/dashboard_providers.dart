@@ -24,6 +24,12 @@ final userTokenProvider = StateProvider<String>((ref) =>
 
 final repositoryProvider = Provider((ref) => Repository(ref));
 
+var greenPageProvider = FutureProvider<DashboardResponse>((ref) async {
+  final repo = ref.watch(repositoryProvider);
+  final response = await repo.fetchDatum("");
+  return response;
+});
+
 var kabarProvider = FutureProvider<DashboardResponse>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchDatum(DatumType.kabar.toString());
@@ -149,10 +155,12 @@ class Repository {
     });
 
     Map<String, String> queryParameters = {
-      'tipe': tipe,
       'page': pageNumber.toString(),
       'limit': limit.toString(),
     };
+    if (tipe.isNotEmpty) {
+      queryParameters['tipe'] = tipe;
+    }
     if (tagsId != 0) {
       queryParameters['tags_id'] = tagsId.toString();
     }

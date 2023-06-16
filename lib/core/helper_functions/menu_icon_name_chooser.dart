@@ -2,7 +2,7 @@ import 'package:flutter_neraca_ruang/core/consts/assets.dart';
 
 import '../consts/datum_type.dart';
 
-String menuIconNameChooser(String tipe) {
+String menuIconNameChooser(String tipe, {bool isGreenMode = false}) {
   // return tipe == "kabar"
   //     ? iconKabar
   //     : tipe == "jurnal"
@@ -17,15 +17,15 @@ String menuIconNameChooser(String tipe) {
 
   switch (tipe) {
     case "kabar":
-      return iconKabar;
+      return isGreenMode ? iconKabar2 : iconKabar;
     case "jurnal":
-      return iconJurnal;
+      return isGreenMode ? iconJurnal2 : iconJurnal;
     case "infografis":
-      return iconInfografis;
+      return isGreenMode ? iconInfografis2 : iconInfografis;
     case "video":
-      return iconVideo;
+      return isGreenMode ? iconVideo2 : iconVideo;
     case "foto":
-      return iconFoto;
+      return isGreenMode ? iconFoto2 : iconFoto;
     default:
       return iconError;
   }

@@ -12,53 +12,56 @@ import 'bottom_bar_widget.dart';
 appBarWidget(BuildContext context,
     {String? appbarTitle,
     Widget? appbarBackgroundImage,
-    Function? resetStates}) {
+    Function? resetStates,
+    List<Widget>? tabsChild,
+    bool isGreenMode = false}) {
   final TabBar _tabBar = TabBar(
-    isScrollable: true,
+    isScrollable: !isGreenMode,
     indicatorColor: Colors.transparent,
-    tabs: [
-      InkWell(
-          onTap: () {
-            context.router.replace(const KabarRoute());
-            if (resetStates != null) {
-              resetStates();
-            }
-          },
-          child: TabMenuItem("KABAR")),
-      InkWell(
-          onTap: () {
-            context.router.replace(const JurnalRoute());
-            if (resetStates != null) {
-              resetStates();
-            }
-          },
-          child: TabMenuItem("JURNAL")),
-      InkWell(
-          onTap: () {
-            context.router.replace(const InfografisRoute());
-            if (resetStates != null) {
-              resetStates();
-            }
-          },
-          child: TabMenuItem("INFOGRAFIS")),
-      InkWell(
-          onTap: () {
-            context.router.replace(const VideoRoute());
-            if (resetStates != null) {
-              resetStates();
-            }
-          },
-          child: TabMenuItem("VIDEO")),
-      InkWell(
-          onTap: () {
-            context.router.replace(const AlbumFotoRoute());
-            if (resetStates != null) {
-              resetStates();
-            }
-          },
-          child: TabMenuItem("ALBUM FOTO")),
-      TabMenuItem("DISKUSI"),
-    ],
+    tabs: tabsChild ??
+        [
+          InkWell(
+              onTap: () {
+                context.router.replace(const KabarRoute());
+                if (resetStates != null) {
+                  resetStates();
+                }
+              },
+              child: TabMenuItem("KABAR")),
+          InkWell(
+              onTap: () {
+                context.router.replace(const JurnalRoute());
+                if (resetStates != null) {
+                  resetStates();
+                }
+              },
+              child: TabMenuItem("JURNAL")),
+          InkWell(
+              onTap: () {
+                context.router.replace(const InfografisRoute());
+                if (resetStates != null) {
+                  resetStates();
+                }
+              },
+              child: TabMenuItem("INFOGRAFIS")),
+          InkWell(
+              onTap: () {
+                context.router.replace(const VideoRoute());
+                if (resetStates != null) {
+                  resetStates();
+                }
+              },
+              child: TabMenuItem("VIDEO")),
+          InkWell(
+              onTap: () {
+                context.router.replace(const AlbumFotoRoute());
+                if (resetStates != null) {
+                  resetStates();
+                }
+              },
+              child: TabMenuItem("ALBUM FOTO")),
+          TabMenuItem("DISKUSI"),
+        ],
   );
   return AppBar(
     elevation: 0,
@@ -74,20 +77,22 @@ appBarWidget(BuildContext context,
           )
         : null,
     title: appbarTitle != null && appbarTitle.isNotEmpty
-        ? Center(
-            child: Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                Text(
-                  appbarTitle.toUpperCase(),
-                  style: TextStyle(
-                      color: Color(titleColorText),
-                      fontWeight: FontWeight.bold),
+        ? isGreenMode
+            ? appbarBackgroundImage
+            : Center(
+                child: Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    Text(
+                      appbarTitle.toUpperCase(),
+                      style: TextStyle(
+                          color: Color(titleColorText),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    appbarBackgroundImage ?? Container(),
+                  ],
                 ),
-                appbarBackgroundImage ?? Container(),
-              ],
-            ),
-          )
+              )
         : InkWell(
             onTap: () {
               context.router.replace(const LandingRoute());
@@ -112,7 +117,9 @@ appBarWidget(BuildContext context,
         // :
         PreferredSize(
       preferredSize: _tabBar.preferredSize,
-      child: ColoredBox(color: const Color(primaryColor), child: _tabBar),
+      child: ColoredBox(
+          color: isGreenMode ? Colors.white : Color(primaryColor),
+          child: _tabBar),
     ),
     actions: const [
       Padding(

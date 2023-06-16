@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/assets.dart';
+import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
@@ -25,18 +26,19 @@ class GreenPage extends ConsumerStatefulWidget {
 class GreenPageState extends ConsumerState<GreenPage> {
   @override
   Widget build(BuildContext context) {
-    var kabarTerbaru = ref.watch(kabarProvider);
+    // var kabarTerbaru = ref.watch(kabarProvider);
+    var greenContent = ref.watch(greenPageProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
-    var appbarTitle =
-        // kotaName.isNotEmpty
-        //     ? kotaName
+    var appbarTitle = kotaName.isNotEmpty
+        ? kotaName
         //     :
-        tagName.isNotEmpty ? tagName : null;
+        // tagName.isNotEmpty ? tagName
+        : null;
 
     return DefaultTabController(
-      length: mainTabLength,
+      length: greenTabLength,
       child: WillPopScope(
         onWillPop: () {
           return basicOnWillPop(context, ref);
@@ -44,17 +46,41 @@ class GreenPageState extends ConsumerState<GreenPage> {
         child: Scaffold(
           appBar: appBarWidget(context,
               appbarTitle: appbarTitle,
-              appbarBackgroundImage: Opacity(
-                opacity: 0.3,
-                child: IconWidget(
-                  iconUrl,
-                  size: huge + medium,
-                  isOnlineSource: true,
+              appbarBackgroundImage: Center(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: IconWidget(
+                        'assets/icons/icon_daerah/${appbarTitle?.toLowerCase().replaceAll(" ", "_")}_2.png',
+                        size: huge + medium,
+                        isOnlineSource: true,
+                        customOnErrorWidget: Column(
+                          children: [
+                            Icon(
+                              Icons.location_city,
+                              color: Color(greenModeColor),
+                            ),
+                            Text(
+                              appbarTitle ?? "",
+                              style:
+                                  const TextStyle(color: Color(greenModeColor)),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ), resetStates: () {
+              ),
+              isGreenMode: true,
+              tabsChild: [
+                Image.asset("assets/images/oto.png"),
+                Image.asset("assets/images/kons.png"),
+                Image.asset("assets/images/mada.png"),
+              ], resetStates: () {
             basicResetStates(context, ref);
           }),
-          body: kabarTerbaru.when(data: (data) {
+          body: greenContent.when(data: (data) {
             var contentList = data.data?.data;
             if (contentList == null || contentList.isEmpty) {
               return const Center(
@@ -72,7 +98,10 @@ class GreenPageState extends ConsumerState<GreenPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: contentList.length,
                           itemBuilder: (c, i) {
-                            return ContentWidget(contentList![i]);
+                            return ContentWidget(
+                              contentList[i],
+                              isGreenMode: true,
+                            );
                           }),
                       InkWell(
                         onTap: () {
@@ -136,10 +165,11 @@ class GreenPageState extends ConsumerState<GreenPage> {
             return const Text("Ada Error");
           }, loading: () {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Color(greenModeColor),
+              ),
             );
           }),
-          bottomNavigationBar: const BottomBarWidget(),
         ),
       ),
     );

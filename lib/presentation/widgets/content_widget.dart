@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
+import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
+import 'package:flutter_neraca_ruang/presentation/pages/green_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:html/parser.dart';
@@ -8,14 +11,18 @@ import 'package:html/parser.dart';
 import '../../core/consts/assets.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
+import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/helper_functions/menu_icon_name_chooser.dart';
+import '../../core/helper_functions/route_chooser.dart';
 import '../../data/models/dashboard_response/dashboard_response.dart';
 import 'IconWidget.dart';
 
 class ContentWidget extends ConsumerWidget {
   final Datum content;
   final bool isUsingThumbnail;
-  const ContentWidget(this.content, {this.isUsingThumbnail = false, Key? key})
+  final bool isGreenMode;
+  const ContentWidget(this.content,
+      {this.isUsingThumbnail = false, this.isGreenMode = false, Key? key})
       : super(key: key);
 
   @override
@@ -35,7 +42,12 @@ class ContentWidget extends ConsumerWidget {
                 : "https://$contentUrl/${content.images}",
             fit: BoxFit.cover,
             errorBuilder: (bc, o, st) {
-              return Text(content.images ?? "");
+              return Icon(
+                Icons.broken_image_outlined,
+                size: 2 * extra,
+                color: Color(isGreenMode ? greenModeColor : primaryColor),
+              );
+              // Text(content.images ?? "Image not Found");
             },
           ),
         ),
@@ -45,45 +57,65 @@ class ContentWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
-                onTap:
-                    // isGreenMode
-                    //     ? () {
-                    //         ref.read(kotaIdProvider.notifier).state = 0;
-                    //         ref.read(kotaNameProvider.notifier).state = "";
-                    //         ref.read(tagsIdProvider.notifier).state = 0;
-                    //         ref.read(tagsNameProvider.notifier).state = "";
-                    //       }
-                    //     :
-                    () {
-                  /// FIXME ga tau kenapa disini ada pesan error
-                  ref.read(kotaIdProvider.notifier).state = content.kotaId ?? 0;
-                  ref.read(kotaNameProvider.notifier).state =
-                      content.kotaName ?? "";
-                  ref.read(tagsIdProvider.notifier).state = 0;
-                  ref.read(tagsNameProvider.notifier).state = "";
-                },
-                child:
-                    // isGreenMode
-                    //     ? SizedBox(
-                    //         height: huge,
-                    //
-                    //         /// ngasih FittedBox di dalam parent yg ga kasih constraint bakal eror (Row, Column, dll)
-                    //         child: FittedBox(
-                    //             child: IconWidget(
-                    //                 menuIconNameChooser(content.tipe ?? ""))))
-                    //     :
-                    Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(Icons.location_city),
+                onTap: isGreenMode
+                    ? () {
+                        basicResetStates(context, ref);
+                        context.router.replace(const LandingRoute());
 
-                    /// TODO handle about the right icon for the right city
-                    // IconWidget(
-                    //   'assets/icons/icon_daerah/${content.kotaName?.toLowerCase().replaceAll(" ", "_")}_1',
-                    // ),
-                    Text(content.kotaName ?? "")
-                  ],
-                ),
+                        // ref.invalidate(kotaIdProvider);
+                        // ref.invalidate(kotaNameProvider);
+                        // ref.invalidate(tagsIdProvider);
+                        // ref.invalidate(tagsNameProvider);
+                      }
+                    : () {
+                        /// FIXME ga tau kenapa disini ada pesan error
+                        ref.read(kotaIdProvider.notifier).state =
+                            content.kotaId ?? 0;
+                        ref.read(kotaNameProvider.notifier).state =
+                            content.kotaName ?? "";
+                        ref.invalidate(tagsIdProvider);
+                        ref.invalidate(tagsNameProvider);
+                        context.router.replace(const GreenRoute());
+                      },
+                child: isGreenMode
+                    ? SizedBox(
+                        height: huge,
+
+                        /// ngasih FittedBox di dalam parent yg ga kasih constraint bakal eror (Row, Column, dll)
+                        child: InkWell(
+                          onTap: () {
+                            context.router
+                                .replace(routeChooser(content.tipe ?? ""));
+                          },
+                          child: IconWidget(menuIconNameChooser(
+                              content.tipe ?? "",
+                              isGreenMode: isGreenMode)),
+                        ))
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /// TODO handle about the right icon for the right city
+                          IconWidget(
+                            'assets/icons/icon_daerah/${content.kotaName?.toLowerCase().replaceAll(" ", "_")}_4.png',
+                            size: 2 * extra,
+                            customOnErrorWidget: FittedBox(
+                              child: Column(
+                                children: [
+                                  const Icon(
+                                    Icons.location_city,
+                                    color: Color(primaryColor),
+                                  ),
+                                  Text(
+                                    content.kotaName ?? "",
+                                    style: const TextStyle(
+                                        color: Color(primaryColor)),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
               ),
               SizedBox(
                 height: huge,
@@ -139,7 +171,12 @@ class ContentWidget extends ConsumerWidget {
             children: [
               Text(
                 '${content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
-                style: Theme.of(context).textTheme.bodySmall,
+                style: isGreenMode
+                    ? Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: const Color(greenModeColor))
+                    : Theme.of(context).textTheme.bodySmall,
               ),
               InkWell(
                 onTap: () {
@@ -148,7 +185,12 @@ class ContentWidget extends ConsumerWidget {
                 },
                 child: Text(
                   '${content.judul}',
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: isGreenMode
+                      ? Theme.of(context)
+                          .textTheme
+                          .headlineSmall
+                          ?.copyWith(color: const Color(greenModeColor))
+                      : Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -174,9 +216,9 @@ class ContentWidget extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Flexible(
+                  Flexible(
                       child: IconWidget(
-                    iconDibaca,
+                    isGreenMode ? iconDibaca2 : iconDibaca,
                     size: huge,
                   )),
                   Expanded(
@@ -190,9 +232,9 @@ class ContentWidget extends ConsumerWidget {
               ),
               Row(
                 children: [
-                  const Flexible(
+                  Flexible(
                       child: IconWidget(
-                    iconSuka,
+                    isGreenMode ? iconSuka2 : iconSuka,
                     size: huge,
                   )),
                   Expanded(
@@ -206,9 +248,9 @@ class ContentWidget extends ConsumerWidget {
               ),
               Row(
                 children: [
-                  const Flexible(
+                  Flexible(
                       child: IconWidget(
-                    iconCommments,
+                    isGreenMode ? iconCommments2 : iconCommments,
                     size: huge,
                   )),
                   Expanded(
@@ -224,8 +266,8 @@ class ContentWidget extends ConsumerWidget {
                   ))
                 ],
               ),
-              const IconWidget(
-                iconForum,
+              IconWidget(
+                isGreenMode ? iconForum2 : iconForum,
                 size: huge,
               ),
             ]

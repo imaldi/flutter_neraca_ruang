@@ -8,8 +8,13 @@ class IconWidget extends StatelessWidget {
   final double? size;
   final bool isOnlineSource;
   final Function()? onTap;
+  final Widget? customOnErrorWidget;
   const IconWidget(this.srcPath,
-      {this.size, this.isOnlineSource = false, this.onTap, Key? key})
+      {this.size,
+      this.isOnlineSource = false,
+      this.onTap,
+      this.customOnErrorWidget,
+      Key? key})
       : super(key: key);
 
   @override
@@ -23,13 +28,13 @@ class IconWidget extends StatelessWidget {
               ? Image.network(
                   srcPath,
                   errorBuilder: (bc, o, st) {
-                    return Image.asset(iconError);
+                    return customOnErrorWidget ?? Image.asset(iconError);
                   },
                 )
               : Image.asset(
                   srcPath,
                   errorBuilder: (bc, o, st) {
-                    return Image.asset(iconError);
+                    return customOnErrorWidget ?? Image.asset(iconError);
                   },
                 )),
     );
