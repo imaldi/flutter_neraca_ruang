@@ -84,7 +84,7 @@ abstract class _$AppRouter extends RootStackRouter {
     DatumTypeFilterRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const DatumTypeFilterPage(),
+        child: WrappedRoute(child: const DatumTypeFilterPage()),
       );
     },
   };
