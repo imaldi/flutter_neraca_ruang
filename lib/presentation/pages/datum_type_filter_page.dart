@@ -28,8 +28,7 @@ class DatumTypeFilterPage extends StatefulWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     // TODO: implement wrappedRoute
-    return BlocProvider<DashboardCubit>(
-        create: (bc) => DashboardCubit(), child: this);
+    return this;
   }
 }
 

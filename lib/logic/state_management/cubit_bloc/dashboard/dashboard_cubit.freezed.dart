@@ -29,8 +29,11 @@ mixin _$DashboardState {
   int? get page => throw _privateConstructorUsedError;
   String? get slug => throw _privateConstructorUsedError;
   String? get tipe => throw _privateConstructorUsedError;
-  int? get kota_id => throw _privateConstructorUsedError;
-  int? get tags_id => throw _privateConstructorUsedError;
+  int get kota_id => throw _privateConstructorUsedError;
+  String get kota_name => throw _privateConstructorUsedError;
+  int get tags_id => throw _privateConstructorUsedError;
+  String get tags_name => throw _privateConstructorUsedError;
+  int get selected_id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,8 +56,11 @@ abstract class $DashboardStateCopyWith<$Res> {
       int? page,
       String? slug,
       String? tipe,
-      int? kota_id,
-      int? tags_id});
+      int kota_id,
+      String kota_name,
+      int tags_id,
+      String tags_name,
+      int selected_id});
 
   $DashboardResponseCopyWith<$Res>? get dashboardResponse;
 }
@@ -78,8 +84,11 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
     Object? page = freezed,
     Object? slug = freezed,
     Object? tipe = freezed,
-    Object? kota_id = freezed,
-    Object? tags_id = freezed,
+    Object? kota_id = null,
+    Object? kota_name = null,
+    Object? tags_id = null,
+    Object? tags_name = null,
+    Object? selected_id = null,
   }) {
     return _then(_value.copyWith(
       dashboardResponse: freezed == dashboardResponse
@@ -106,14 +115,26 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
           ? _value.tipe
           : tipe // ignore: cast_nullable_to_non_nullable
               as String?,
-      kota_id: freezed == kota_id
+      kota_id: null == kota_id
           ? _value.kota_id
           : kota_id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      tags_id: freezed == tags_id
+              as int,
+      kota_name: null == kota_name
+          ? _value.kota_name
+          : kota_name // ignore: cast_nullable_to_non_nullable
+              as String,
+      tags_id: null == tags_id
           ? _value.tags_id
           : tags_id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
+      tags_name: null == tags_name
+          ? _value.tags_name
+          : tags_name // ignore: cast_nullable_to_non_nullable
+              as String,
+      selected_id: null == selected_id
+          ? _value.selected_id
+          : selected_id // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 
@@ -147,8 +168,11 @@ abstract class _$$_DashboardStateCopyWith<$Res>
       int? page,
       String? slug,
       String? tipe,
-      int? kota_id,
-      int? tags_id});
+      int kota_id,
+      String kota_name,
+      int tags_id,
+      String tags_name,
+      int selected_id});
 
   @override
   $DashboardResponseCopyWith<$Res>? get dashboardResponse;
@@ -171,8 +195,11 @@ class __$$_DashboardStateCopyWithImpl<$Res>
     Object? page = freezed,
     Object? slug = freezed,
     Object? tipe = freezed,
-    Object? kota_id = freezed,
-    Object? tags_id = freezed,
+    Object? kota_id = null,
+    Object? kota_name = null,
+    Object? tags_id = null,
+    Object? tags_name = null,
+    Object? selected_id = null,
   }) {
     return _then(_$_DashboardState(
       dashboardResponse: freezed == dashboardResponse
@@ -199,14 +226,26 @@ class __$$_DashboardStateCopyWithImpl<$Res>
           ? _value.tipe
           : tipe // ignore: cast_nullable_to_non_nullable
               as String?,
-      kota_id: freezed == kota_id
+      kota_id: null == kota_id
           ? _value.kota_id
           : kota_id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      tags_id: freezed == tags_id
+              as int,
+      kota_name: null == kota_name
+          ? _value.kota_name
+          : kota_name // ignore: cast_nullable_to_non_nullable
+              as String,
+      tags_id: null == tags_id
           ? _value.tags_id
           : tags_id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
+      tags_name: null == tags_name
+          ? _value.tags_name
+          : tags_name // ignore: cast_nullable_to_non_nullable
+              as String,
+      selected_id: null == selected_id
+          ? _value.selected_id
+          : selected_id // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -223,8 +262,11 @@ class _$_DashboardState implements _DashboardState {
       this.page,
       this.slug,
       this.tipe,
-      this.kota_id,
-      this.tags_id})
+      this.kota_id = 0,
+      this.kota_name = "",
+      this.tags_id = 0,
+      this.tags_name = "",
+      this.selected_id = 0})
       : _listContentDashboard = listContentDashboard;
 
   factory _$_DashboardState.fromJson(Map<String, dynamic> json) =>
@@ -254,13 +296,24 @@ class _$_DashboardState implements _DashboardState {
   @override
   final String? tipe;
   @override
-  final int? kota_id;
+  @JsonKey()
+  final int kota_id;
   @override
-  final int? tags_id;
+  @JsonKey()
+  final String kota_name;
+  @override
+  @JsonKey()
+  final int tags_id;
+  @override
+  @JsonKey()
+  final String tags_name;
+  @override
+  @JsonKey()
+  final int selected_id;
 
   @override
   String toString() {
-    return 'DashboardState(dashboardResponse: $dashboardResponse, listContentDashboard: $listContentDashboard, limit: $limit, page: $page, slug: $slug, tipe: $tipe, kota_id: $kota_id, tags_id: $tags_id)';
+    return 'DashboardState(dashboardResponse: $dashboardResponse, listContentDashboard: $listContentDashboard, limit: $limit, page: $page, slug: $slug, tipe: $tipe, kota_id: $kota_id, kota_name: $kota_name, tags_id: $tags_id, tags_name: $tags_name, selected_id: $selected_id)';
   }
 
   @override
@@ -277,7 +330,13 @@ class _$_DashboardState implements _DashboardState {
             (identical(other.slug, slug) || other.slug == slug) &&
             (identical(other.tipe, tipe) || other.tipe == tipe) &&
             (identical(other.kota_id, kota_id) || other.kota_id == kota_id) &&
-            (identical(other.tags_id, tags_id) || other.tags_id == tags_id));
+            (identical(other.kota_name, kota_name) ||
+                other.kota_name == kota_name) &&
+            (identical(other.tags_id, tags_id) || other.tags_id == tags_id) &&
+            (identical(other.tags_name, tags_name) ||
+                other.tags_name == tags_name) &&
+            (identical(other.selected_id, selected_id) ||
+                other.selected_id == selected_id));
   }
 
   @JsonKey(ignore: true)
@@ -291,7 +350,10 @@ class _$_DashboardState implements _DashboardState {
       slug,
       tipe,
       kota_id,
-      tags_id);
+      kota_name,
+      tags_id,
+      tags_name,
+      selected_id);
 
   @JsonKey(ignore: true)
   @override
@@ -317,8 +379,11 @@ abstract class _DashboardState implements DashboardState {
       final int? page,
       final String? slug,
       final String? tipe,
-      final int? kota_id,
-      final int? tags_id}) = _$_DashboardState;
+      final int kota_id,
+      final String kota_name,
+      final int tags_id,
+      final String tags_name,
+      final int selected_id}) = _$_DashboardState;
 
   factory _DashboardState.fromJson(Map<String, dynamic> json) =
       _$_DashboardState.fromJson;
@@ -338,9 +403,15 @@ abstract class _DashboardState implements DashboardState {
   @override
   String? get tipe;
   @override
-  int? get kota_id;
+  int get kota_id;
   @override
-  int? get tags_id;
+  String get kota_name;
+  @override
+  int get tags_id;
+  @override
+  String get tags_name;
+  @override
+  int get selected_id;
   @override
   @JsonKey(ignore: true)
   _$$_DashboardStateCopyWith<_$_DashboardState> get copyWith =>

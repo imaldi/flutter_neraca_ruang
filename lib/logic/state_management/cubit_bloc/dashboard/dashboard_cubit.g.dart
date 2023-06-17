@@ -19,8 +19,11 @@ _$_DashboardState _$$_DashboardStateFromJson(Map<String, dynamic> json) =>
       page: json['page'] as int?,
       slug: json['slug'] as String?,
       tipe: json['tipe'] as String?,
-      kota_id: json['kota_id'] as int?,
-      tags_id: json['tags_id'] as int?,
+      kota_id: json['kota_id'] as int? ?? 0,
+      kota_name: json['kota_name'] as String? ?? "",
+      tags_id: json['tags_id'] as int? ?? 0,
+      tags_name: json['tags_name'] as String? ?? "",
+      selected_id: json['selected_id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$_DashboardStateToJson(_$_DashboardState instance) =>
@@ -32,5 +35,8 @@ Map<String, dynamic> _$$_DashboardStateToJson(_$_DashboardState instance) =>
       'slug': instance.slug,
       'tipe': instance.tipe,
       'kota_id': instance.kota_id,
+      'kota_name': instance.kota_name,
       'tags_id': instance.tags_id,
+      'tags_name': instance.tags_name,
+      'selected_id': instance.selected_id,
     };
