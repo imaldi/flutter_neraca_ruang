@@ -5,7 +5,7 @@ class DashboardState with _$DashboardState {
   // const factory DashboardState.initial() = _Initial;
   const factory DashboardState({
     @JsonKey(name: "dashboard_response") DashboardResponse? dashboardResponse,
-    List<Datum>? listContentDashboard,
+    @JsonKey(name: "list_content_dashboard") List<Datum>? listContentDashboard,
     int? limit,
     int? page,
     String? slug,

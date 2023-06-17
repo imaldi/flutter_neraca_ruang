@@ -23,6 +23,7 @@ mixin _$DashboardState {
   @JsonKey(name: "dashboard_response")
   DashboardResponse? get dashboardResponse =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: "list_content_dashboard")
   List<Datum>? get listContentDashboard => throw _privateConstructorUsedError;
   int? get limit => throw _privateConstructorUsedError;
   int? get page => throw _privateConstructorUsedError;
@@ -46,7 +47,8 @@ abstract class $DashboardStateCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "dashboard_response")
           DashboardResponse? dashboardResponse,
-      List<Datum>? listContentDashboard,
+      @JsonKey(name: "list_content_dashboard")
+          List<Datum>? listContentDashboard,
       int? limit,
       int? page,
       String? slug,
@@ -139,7 +141,8 @@ abstract class _$$_DashboardStateCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "dashboard_response")
           DashboardResponse? dashboardResponse,
-      List<Datum>? listContentDashboard,
+      @JsonKey(name: "list_content_dashboard")
+          List<Datum>? listContentDashboard,
       int? limit,
       int? page,
       String? slug,
@@ -212,8 +215,10 @@ class __$$_DashboardStateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DashboardState implements _DashboardState {
   const _$_DashboardState(
-      {@JsonKey(name: "dashboard_response") this.dashboardResponse,
-      final List<Datum>? listContentDashboard,
+      {@JsonKey(name: "dashboard_response")
+          this.dashboardResponse,
+      @JsonKey(name: "list_content_dashboard")
+          final List<Datum>? listContentDashboard,
       this.limit,
       this.page,
       this.slug,
@@ -230,6 +235,7 @@ class _$_DashboardState implements _DashboardState {
   final DashboardResponse? dashboardResponse;
   final List<Datum>? _listContentDashboard;
   @override
+  @JsonKey(name: "list_content_dashboard")
   List<Datum>? get listContentDashboard {
     final value = _listContentDashboard;
     if (value == null) return null;
@@ -305,7 +311,8 @@ abstract class _DashboardState implements DashboardState {
   const factory _DashboardState(
       {@JsonKey(name: "dashboard_response")
           final DashboardResponse? dashboardResponse,
-      final List<Datum>? listContentDashboard,
+      @JsonKey(name: "list_content_dashboard")
+          final List<Datum>? listContentDashboard,
       final int? limit,
       final int? page,
       final String? slug,
@@ -320,6 +327,7 @@ abstract class _DashboardState implements DashboardState {
   @JsonKey(name: "dashboard_response")
   DashboardResponse? get dashboardResponse;
   @override
+  @JsonKey(name: "list_content_dashboard")
   List<Datum>? get listContentDashboard;
   @override
   int? get limit;

@@ -12,7 +12,8 @@ part 'dashboard_cubit.freezed.dart';
 part 'dashboard_cubit.g.dart';
 
 class DashboardCubit extends HydratedCubit<DashboardState> {
-  DashboardCubit() : super(const DashboardState());
+  DashboardCubit()
+      : super(const DashboardState(listContentDashboard: <Datum>[]));
 
   fetchDashboardContent() async {
     // fetch data dari ke 5 tipe

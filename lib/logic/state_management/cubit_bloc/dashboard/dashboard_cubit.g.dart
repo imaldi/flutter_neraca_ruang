@@ -12,7 +12,7 @@ _$_DashboardState _$$_DashboardStateFromJson(Map<String, dynamic> json) =>
           ? null
           : DashboardResponse.fromJson(
               json['dashboard_response'] as Map<String, dynamic>),
-      listContentDashboard: (json['listContentDashboard'] as List<dynamic>?)
+      listContentDashboard: (json['list_content_dashboard'] as List<dynamic>?)
           ?.map((e) => Datum.fromJson(e as Map<String, dynamic>))
           .toList(),
       limit: json['limit'] as int?,
@@ -26,7 +26,7 @@ _$_DashboardState _$$_DashboardStateFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_DashboardStateToJson(_$_DashboardState instance) =>
     <String, dynamic>{
       'dashboard_response': instance.dashboardResponse,
-      'listContentDashboard': instance.listContentDashboard,
+      'list_content_dashboard': instance.listContentDashboard,
       'limit': instance.limit,
       'page': instance.page,
       'slug': instance.slug,

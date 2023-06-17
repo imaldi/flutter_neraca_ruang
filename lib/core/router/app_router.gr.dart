@@ -36,7 +36,7 @@ abstract class _$AppRouter extends RootStackRouter {
     LandingRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const LandingPage(),
+        child: WrappedRoute(child: const LandingPage()),
       );
     },
     LoginRoute.name: (routeData) {
