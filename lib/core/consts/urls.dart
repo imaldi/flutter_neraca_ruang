@@ -5,3 +5,4 @@ const storageUrl = "$baseUrl/storage";
 const contentUrl = "$storageUrl/content";
 const thumbnailUrl = "$storageUrl/thumbnail";
 const adsenseUrl = "/api/admin/adsense";
+const addLike = "/api/portal/updatelike";
