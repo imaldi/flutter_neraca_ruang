@@ -220,6 +220,10 @@ class ContentWidget extends ConsumerWidget {
                             content.tagsPihak?.tagsName ?? "";
                         ref.read(tagsIconLinkProvider.notifier).state =
                             content.tagsPihak?.tagsIcon ?? "";
+                        ref.invalidate(kotaIdProvider);
+                        ref.invalidate(kotaNameProvider);
+                        context.router
+                            .replace(routeChooser(content.tipe ?? ""));
                       },
                     ),
                     IconWidget(
@@ -233,6 +237,10 @@ class ContentWidget extends ConsumerWidget {
                             content.tagsTopik?.tagsName ?? "";
                         ref.read(tagsIconLinkProvider.notifier).state =
                             content.tagsTopik?.tagsIcon ?? "";
+                        ref.invalidate(kotaIdProvider);
+                        ref.invalidate(kotaNameProvider);
+                        context.router
+                            .replace(routeChooser(content.tipe ?? ""));
                       },
                     ),
                     IconWidget(
@@ -246,6 +254,10 @@ class ContentWidget extends ConsumerWidget {
                             content.tagsOtonomi?.tagsName ?? "";
                         ref.read(tagsIconLinkProvider.notifier).state =
                             content.tagsOtonomi?.tagsIcon ?? "";
+                        ref.invalidate(kotaIdProvider);
+                        ref.invalidate(kotaNameProvider);
+                        context.router
+                            .replace(routeChooser(content.tipe ?? ""));
                       },
                     ),
                   ],
@@ -346,7 +358,7 @@ class ContentWidget extends ConsumerWidget {
                 ),
               ),
               IconWidget(
-                isGreenMode ? iconForum2 : iconForum,
+                isGreenMode ? iconTeruskan2 : iconTeruskan,
                 size: huge,
               ),
             ]

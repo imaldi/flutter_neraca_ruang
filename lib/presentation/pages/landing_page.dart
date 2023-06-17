@@ -151,6 +151,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                       return SingleChildScrollView(
                         child: Column(
                           children: [
+                            /// 1. Kabar
                             Container(
                               // margin: const EdgeInsets.only(bottom: normal),
                               constraints: BoxConstraints(
@@ -292,30 +293,54 @@ class LandingPageState extends ConsumerState<LandingPage> {
                             ),
                             Divider(),
                             Container(
-                              // margin: const EdgeInsets.symmetric(vertical: normal),
+                              margin: const EdgeInsets.only(top: medium),
                               constraints: BoxConstraints(
                                 maxHeight: 200,
                                 minWidth: MediaQuery.of(context).size.width,
                               ),
-                              child: Image.network(
-                                "https://$contentUrl/${data[2].images}",
-                                fit: BoxFit.cover,
-                                errorBuilder: (bc, o, st) {
-                                  return IntrinsicHeight(
-                                    child: const Column(
-                                      children: [
-                                        IconWidget(iconError),
-                                        Text("Image Not Found"),
-                                      ],
-                                    ),
-                                  );
-                                  // Text(data[2].images ?? "");
-                                },
-                              ),
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: data[2].listMedia?.length ?? 0,
+                                  itemBuilder: (c, i) {
+                                    return SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child:
+                                            data[2].listMedia?[i].images != null
+                                                ? FittedBox(
+                                                    fit: BoxFit.fitHeight,
+                                                    child: Image.network(
+                                                      data[2]
+                                                              .listMedia?[i]
+                                                              .images ??
+                                                          "",
+                                                      errorBuilder: (c, o, s) {
+                                                        return const IconWidget(
+                                                            iconError);
+                                                      },
+                                                    ),
+                                                  )
+                                                : const IconWidget(iconError));
+                                  }),
+                              // Image.network(
+                              //   "https://$contentUrl/${data[2].images}",
+                              //   fit: BoxFit.cover,
+                              //   errorBuilder: (bc, o, st) {
+                              //     return IntrinsicHeight(
+                              //       child: const Column(
+                              //         children: [
+                              //           IconWidget(iconError),
+                              //           Text("Image Not Found"),
+                              //         ],
+                              //       ),
+                              //     );
+                              //     // Text(data[2].images ?? "");
+                              //   },
+                              // ),
                             ),
                             // const ScrollableHorizontalImage(),
                             Padding(
-                              padding: const EdgeInsets.all(0),
+                              padding: const EdgeInsets.all(normal),
                               child: Column(
                                 children: [
                                   InkWell(
@@ -351,6 +376,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                     ),
                                   ),
                                   Text("${data[2].keterangan}",
+                                      style: TextStyle(color: Colors.black),
                                       maxLines: 7,
                                       overflow: TextOverflow.ellipsis),
                                 ],
@@ -359,7 +385,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                             // Image.asset("assets/images/neraca_ruang.png"),
                             Divider(),
                             Container(
-                              // margin: const EdgeInsets.symmetric(vertical: normal),
+                              margin: const EdgeInsets.only(top: medium),
                               constraints: BoxConstraints(
                                 maxHeight: 200,
                                 minWidth: MediaQuery.of(context).size.width,
@@ -422,6 +448,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                             ),
                             Divider(),
                             Container(
+                              margin: const EdgeInsets.only(top: medium),
                               constraints: BoxConstraints(
                                 maxHeight: 200,
                                 minWidth: MediaQuery.of(context).size.width,

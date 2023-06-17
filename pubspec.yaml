@@ -80,7 +80,6 @@ flutter:
     - assets/images/
     - assets/icons/icon_menu/
     - assets/icons/icon_navigasi/
-    - assets/icons/icon_daerah/
 #assets_gen:
 #  - core/consts/assets/assets.dart
   #   - images/a_dot_ham.jpeg
