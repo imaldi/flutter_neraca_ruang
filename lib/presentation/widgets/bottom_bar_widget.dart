@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/core/consts/sizes.dart';
 
 class BottomBarWidget extends StatelessWidget {
   final Color? bgColor;
@@ -11,7 +12,9 @@ class BottomBarWidget extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           label: "",
-          icon: Image.asset("assets/images/oto.png"),
+          icon: Container(
+              margin: const EdgeInsets.symmetric(horizontal: normal),
+              child: Image.asset("assets/images/oto.png")),
         ),
         BottomNavigationBarItem(
           label: "",
@@ -19,7 +22,9 @@ class BottomBarWidget extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           label: "",
-          icon: Image.asset("assets/images/mada.png"),
+          icon: Container(
+              margin: const EdgeInsets.symmetric(horizontal: normal),
+              child: Image.asset("assets/images/mada.png")),
         ),
       ],
     );

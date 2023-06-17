@@ -205,7 +205,7 @@ class ContentWidget extends ConsumerWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   child: HtmlWidget(
                     "${content.keterangan}",
-                    textStyle: TextStyle(color: Color(primaryTextColor)),
+                    textStyle: const TextStyle(color: Colors.black),
                   ),
                 ),
               ),
@@ -217,57 +217,44 @@ class ContentWidget extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Flexible(
-                      child: IconWidget(
-                    isGreenMode ? iconDibaca2 : iconDibaca,
-                    size: huge,
-                  )),
-                  Expanded(
-                      child: Wrap(
-                    children: [
-                      Text("${content.totalRead ?? "0"} "),
-                      const Text("Reads"),
-                    ],
-                  ))
-                ],
+              IconWidget(
+                isGreenMode ? iconDibaca2 : iconDibaca,
+                size: huge,
               ),
-              Row(
+              FittedBox(
+                  child: Row(
                 children: [
-                  Flexible(
-                      child: IconWidget(
-                    isGreenMode ? iconSuka2 : iconSuka,
-                    size: huge,
-                  )),
-                  Expanded(
-                      child: Wrap(
-                    children: [
-                      Text("${content.totalLike ?? "0"} "),
-                      Text("Likes"),
-                    ],
-                  ))
+                  Text("${content.totalRead ?? "0"} "),
+                  const Text("Reads"),
                 ],
+              )),
+              IconWidget(
+                isGreenMode ? iconSuka2 : iconSuka,
+                size: huge,
               ),
-              Row(
-                children: [
-                  Flexible(
-                      child: IconWidget(
-                    isGreenMode ? iconCommments2 : iconCommments,
-                    size: huge,
-                  )),
-                  Expanded(
-                      child: Wrap(
-                    children: [
-                      Text("${content.totalComment ?? "0"} "),
-                      const FittedBox(
-                        child: Text(
-                          "Comments",
-                        ),
+              FittedBox(
+                child: Row(
+                  children: [
+                    Text("${content.totalLike ?? "0"} "),
+                    Text("Likes"),
+                  ],
+                ),
+              ),
+              IconWidget(
+                isGreenMode ? iconCommments2 : iconCommments,
+                size: huge,
+              ),
+              FittedBox(
+                child: Row(
+                  children: [
+                    Text("${content.totalComment ?? "0"} "),
+                    const FittedBox(
+                      child: Text(
+                        "Comments",
                       ),
-                    ],
-                  ))
-                ],
+                    ),
+                  ],
+                ),
               ),
               IconWidget(
                 isGreenMode ? iconForum2 : iconForum,

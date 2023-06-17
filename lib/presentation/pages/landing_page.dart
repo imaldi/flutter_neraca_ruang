@@ -166,49 +166,50 @@ class LandingPageState extends ConsumerState<LandingPage> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(normal),
-                              child: Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      ref.read(kotaIdProvider.notifier).state =
-                                          data[0].kotaId ?? 0;
-                                      ref
-                                          .read(selectedContentIdProvider
-                                              .notifier)
-                                          .state = data[0].id ?? 0;
-                                      ref
-                                          .read(kotaNameProvider.notifier)
-                                          .state = data[0].kotaName ?? "";
+                              child: InkWell(
+                                onTap: () {
+                                  ref.read(kotaIdProvider.notifier).state =
+                                      data[0].kotaId ?? 0;
+                                  ref
+                                      .read(selectedContentIdProvider.notifier)
+                                      .state = data[0].id ?? 0;
+                                  ref.read(kotaNameProvider.notifier).state =
+                                      data[0].kotaName ?? "";
 
-                                      context.router
-                                          .replace(const KabarRoute());
-                                    },
-                                    child: Container(
+                                  context.router.replace(const KabarRoute());
+                                },
+                                child: Column(
+                                  children: [
+                                    Container(
                                         constraints: const BoxConstraints(
                                             maxWidth: extra, maxHeight: extra),
                                         child: Image.asset(iconKabar)),
-                                  ),
-                                  Text(
-                                    // TODO fix formatting tanggal
-                                    '${data.first.sourceName ?? ""} 26/05/2023, 12:00 WIB',
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
-                                  ),
-                                  Text(
-                                    '${data.first.judul}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Container(
-                                      height: 200,
-                                      child: SingleChildScrollView(
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          child: HtmlWidget(
-                                              "${data.first.keterangan}"))),
-                                ],
+                                    Text(
+                                      // TODO fix formatting tanggal
+                                      '${data.first.sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: medium),
+                                      child: Text(
+                                        '${data.first.judul}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Container(
+                                        height: 200,
+                                        child: SingleChildScrollView(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            child: HtmlWidget(
+                                                "${data.first.keterangan}"))),
+                                  ],
+                                ),
                               ),
                             ),
                             Container(
