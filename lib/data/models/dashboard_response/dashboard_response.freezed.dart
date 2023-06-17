@@ -671,6 +671,10 @@ mixin _$Datum {
   String? get videoUrl => throw _privateConstructorUsedError;
   String? get thumbnail => throw _privateConstructorUsedError;
   String? get images => throw _privateConstructorUsedError;
+  @JsonKey(name: "list_media")
+  List<ListMediaElement>? get listMedia => throw _privateConstructorUsedError;
+  @JsonKey(name: "peta_kota")
+  PetaKota? get petaKota => throw _privateConstructorUsedError;
   @JsonKey(name: "active_at")
   DateTime? get activeAt => throw _privateConstructorUsedError;
   @JsonKey(name: "active_by")
@@ -724,6 +728,8 @@ abstract class $DatumCopyWith<$Res> {
       @JsonKey(name: "video_url") String? videoUrl,
       String? thumbnail,
       String? images,
+      @JsonKey(name: "list_media") List<ListMediaElement>? listMedia,
+      @JsonKey(name: "peta_kota") PetaKota? petaKota,
       @JsonKey(name: "active_at") DateTime? activeAt,
       @JsonKey(name: "active_by") String? activeBy,
       @JsonKey(name: "publish_at") DateTime? publishAt,
@@ -734,6 +740,7 @@ abstract class $DatumCopyWith<$Res> {
   $TagsCopyWith<$Res>? get tagsPihak;
   $TagsCopyWith<$Res>? get tagsTopik;
   $TagsCopyWith<$Res>? get tagsOtonomi;
+  $PetaKotaCopyWith<$Res>? get petaKota;
 }
 
 /// @nodoc
@@ -778,6 +785,8 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
     Object? videoUrl = freezed,
     Object? thumbnail = freezed,
     Object? images = freezed,
+    Object? listMedia = freezed,
+    Object? petaKota = freezed,
     Object? activeAt = freezed,
     Object? activeBy = freezed,
     Object? publishAt = freezed,
@@ -902,6 +911,14 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as String?,
+      listMedia: freezed == listMedia
+          ? _value.listMedia
+          : listMedia // ignore: cast_nullable_to_non_nullable
+              as List<ListMediaElement>?,
+      petaKota: freezed == petaKota
+          ? _value.petaKota
+          : petaKota // ignore: cast_nullable_to_non_nullable
+              as PetaKota?,
       activeAt: freezed == activeAt
           ? _value.activeAt
           : activeAt // ignore: cast_nullable_to_non_nullable
@@ -964,6 +981,18 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
       return _then(_value.copyWith(tagsOtonomi: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PetaKotaCopyWith<$Res>? get petaKota {
+    if (_value.petaKota == null) {
+      return null;
+    }
+
+    return $PetaKotaCopyWith<$Res>(_value.petaKota!, (value) {
+      return _then(_value.copyWith(petaKota: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -1002,6 +1031,8 @@ abstract class _$$_DatumCopyWith<$Res> implements $DatumCopyWith<$Res> {
       @JsonKey(name: "video_url") String? videoUrl,
       String? thumbnail,
       String? images,
+      @JsonKey(name: "list_media") List<ListMediaElement>? listMedia,
+      @JsonKey(name: "peta_kota") PetaKota? petaKota,
       @JsonKey(name: "active_at") DateTime? activeAt,
       @JsonKey(name: "active_by") String? activeBy,
       @JsonKey(name: "publish_at") DateTime? publishAt,
@@ -1015,6 +1046,8 @@ abstract class _$$_DatumCopyWith<$Res> implements $DatumCopyWith<$Res> {
   $TagsCopyWith<$Res>? get tagsTopik;
   @override
   $TagsCopyWith<$Res>? get tagsOtonomi;
+  @override
+  $PetaKotaCopyWith<$Res>? get petaKota;
 }
 
 /// @nodoc
@@ -1055,6 +1088,8 @@ class __$$_DatumCopyWithImpl<$Res> extends _$DatumCopyWithImpl<$Res, _$_Datum>
     Object? videoUrl = freezed,
     Object? thumbnail = freezed,
     Object? images = freezed,
+    Object? listMedia = freezed,
+    Object? petaKota = freezed,
     Object? activeAt = freezed,
     Object? activeBy = freezed,
     Object? publishAt = freezed,
@@ -1179,6 +1214,14 @@ class __$$_DatumCopyWithImpl<$Res> extends _$DatumCopyWithImpl<$Res, _$_Datum>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as String?,
+      listMedia: freezed == listMedia
+          ? _value._listMedia
+          : listMedia // ignore: cast_nullable_to_non_nullable
+              as List<ListMediaElement>?,
+      petaKota: freezed == petaKota
+          ? _value.petaKota
+          : petaKota // ignore: cast_nullable_to_non_nullable
+              as PetaKota?,
       activeAt: freezed == activeAt
           ? _value.activeAt
           : activeAt // ignore: cast_nullable_to_non_nullable
@@ -1240,12 +1283,15 @@ class _$_Datum implements _Datum {
       @JsonKey(name: "video_url") this.videoUrl,
       this.thumbnail,
       this.images,
+      @JsonKey(name: "list_media") final List<ListMediaElement>? listMedia,
+      @JsonKey(name: "peta_kota") this.petaKota,
       @JsonKey(name: "active_at") this.activeAt,
       @JsonKey(name: "active_by") this.activeBy,
       @JsonKey(name: "publish_at") this.publishAt,
       @JsonKey(name: "publish_by") this.publishBy,
       @JsonKey(name: "deleted_at") this.deletedAt,
-      @JsonKey(name: "deleted_by") this.deletedBy});
+      @JsonKey(name: "deleted_by") this.deletedBy})
+      : _listMedia = listMedia;
 
   factory _$_Datum.fromJson(Map<String, dynamic> json) =>
       _$$_DatumFromJson(json);
@@ -1329,6 +1375,20 @@ class _$_Datum implements _Datum {
   final String? thumbnail;
   @override
   final String? images;
+  final List<ListMediaElement>? _listMedia;
+  @override
+  @JsonKey(name: "list_media")
+  List<ListMediaElement>? get listMedia {
+    final value = _listMedia;
+    if (value == null) return null;
+    if (_listMedia is EqualUnmodifiableListView) return _listMedia;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey(name: "peta_kota")
+  final PetaKota? petaKota;
   @override
   @JsonKey(name: "active_at")
   final DateTime? activeAt;
@@ -1350,7 +1410,7 @@ class _$_Datum implements _Datum {
 
   @override
   String toString() {
-    return 'Datum(id: $id, judul: $judul, slug: $slug, keterangan: $keterangan, tipe: $tipe, kategoriId: $kategoriId, kategoriName: $kategoriName, sourceId: $sourceId, sourceName: $sourceName, sourceUrl: $sourceUrl, sourceDate: $sourceDate, propinsiId: $propinsiId, kotaId: $kotaId, propinsiName: $propinsiName, kotaName: $kotaName, tagsPihak: $tagsPihak, tagsTopik: $tagsTopik, tagsOtonomi: $tagsOtonomi, totalRead: $totalRead, totalLike: $totalLike, totalComment: $totalComment, totalShared: $totalShared, domain: $domain, fullPath: $fullPath, fileUpload: $fileUpload, thumbPath: $thumbPath, videoUrl: $videoUrl, thumbnail: $thumbnail, images: $images, activeAt: $activeAt, activeBy: $activeBy, publishAt: $publishAt, publishBy: $publishBy, deletedAt: $deletedAt, deletedBy: $deletedBy)';
+    return 'Datum(id: $id, judul: $judul, slug: $slug, keterangan: $keterangan, tipe: $tipe, kategoriId: $kategoriId, kategoriName: $kategoriName, sourceId: $sourceId, sourceName: $sourceName, sourceUrl: $sourceUrl, sourceDate: $sourceDate, propinsiId: $propinsiId, kotaId: $kotaId, propinsiName: $propinsiName, kotaName: $kotaName, tagsPihak: $tagsPihak, tagsTopik: $tagsTopik, tagsOtonomi: $tagsOtonomi, totalRead: $totalRead, totalLike: $totalLike, totalComment: $totalComment, totalShared: $totalShared, domain: $domain, fullPath: $fullPath, fileUpload: $fileUpload, thumbPath: $thumbPath, videoUrl: $videoUrl, thumbnail: $thumbnail, images: $images, listMedia: $listMedia, petaKota: $petaKota, activeAt: $activeAt, activeBy: $activeBy, publishAt: $publishAt, publishBy: $publishBy, deletedAt: $deletedAt, deletedBy: $deletedBy)';
   }
 
   @override
@@ -1409,6 +1469,10 @@ class _$_Datum implements _Datum {
             (identical(other.thumbnail, thumbnail) ||
                 other.thumbnail == thumbnail) &&
             (identical(other.images, images) || other.images == images) &&
+            const DeepCollectionEquality()
+                .equals(other._listMedia, _listMedia) &&
+            (identical(other.petaKota, petaKota) ||
+                other.petaKota == petaKota) &&
             (identical(other.activeAt, activeAt) ||
                 other.activeAt == activeAt) &&
             (identical(other.activeBy, activeBy) ||
@@ -1456,6 +1520,8 @@ class _$_Datum implements _Datum {
         videoUrl,
         thumbnail,
         images,
+        const DeepCollectionEquality().hash(_listMedia),
+        petaKota,
         activeAt,
         activeBy,
         publishAt,
@@ -1509,6 +1575,8 @@ abstract class _Datum implements Datum {
       @JsonKey(name: "video_url") final String? videoUrl,
       final String? thumbnail,
       final String? images,
+      @JsonKey(name: "list_media") final List<ListMediaElement>? listMedia,
+      @JsonKey(name: "peta_kota") final PetaKota? petaKota,
       @JsonKey(name: "active_at") final DateTime? activeAt,
       @JsonKey(name: "active_by") final String? activeBy,
       @JsonKey(name: "publish_at") final DateTime? publishAt,
@@ -1598,6 +1666,12 @@ abstract class _Datum implements Datum {
   @override
   String? get images;
   @override
+  @JsonKey(name: "list_media")
+  List<ListMediaElement>? get listMedia;
+  @override
+  @JsonKey(name: "peta_kota")
+  PetaKota? get petaKota;
+  @override
   @JsonKey(name: "active_at")
   DateTime? get activeAt;
   @override
@@ -1618,6 +1692,398 @@ abstract class _Datum implements Datum {
   @override
   @JsonKey(ignore: true)
   _$$_DatumCopyWith<_$_Datum> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PetaKota _$PetaKotaFromJson(Map<String, dynamic> json) {
+  return _PetaKota.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PetaKota {
+  @JsonKey(name: "kota_icon_1")
+  String? get kotaIcon1 => throw _privateConstructorUsedError;
+  @JsonKey(name: "kota_icon_2")
+  String? get kotaIcon2 => throw _privateConstructorUsedError;
+  @JsonKey(name: "kota_icon_3")
+  String? get kotaIcon3 => throw _privateConstructorUsedError;
+  @JsonKey(name: "kota_icon_4")
+  String? get kotaIcon4 => throw _privateConstructorUsedError;
+  @JsonKey(name: "kota_icon_5")
+  String? get kotaIcon5 => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PetaKotaCopyWith<PetaKota> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PetaKotaCopyWith<$Res> {
+  factory $PetaKotaCopyWith(PetaKota value, $Res Function(PetaKota) then) =
+      _$PetaKotaCopyWithImpl<$Res, PetaKota>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: "kota_icon_1") String? kotaIcon1,
+      @JsonKey(name: "kota_icon_2") String? kotaIcon2,
+      @JsonKey(name: "kota_icon_3") String? kotaIcon3,
+      @JsonKey(name: "kota_icon_4") String? kotaIcon4,
+      @JsonKey(name: "kota_icon_5") String? kotaIcon5});
+}
+
+/// @nodoc
+class _$PetaKotaCopyWithImpl<$Res, $Val extends PetaKota>
+    implements $PetaKotaCopyWith<$Res> {
+  _$PetaKotaCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? kotaIcon1 = freezed,
+    Object? kotaIcon2 = freezed,
+    Object? kotaIcon3 = freezed,
+    Object? kotaIcon4 = freezed,
+    Object? kotaIcon5 = freezed,
+  }) {
+    return _then(_value.copyWith(
+      kotaIcon1: freezed == kotaIcon1
+          ? _value.kotaIcon1
+          : kotaIcon1 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kotaIcon2: freezed == kotaIcon2
+          ? _value.kotaIcon2
+          : kotaIcon2 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kotaIcon3: freezed == kotaIcon3
+          ? _value.kotaIcon3
+          : kotaIcon3 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kotaIcon4: freezed == kotaIcon4
+          ? _value.kotaIcon4
+          : kotaIcon4 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kotaIcon5: freezed == kotaIcon5
+          ? _value.kotaIcon5
+          : kotaIcon5 // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_PetaKotaCopyWith<$Res> implements $PetaKotaCopyWith<$Res> {
+  factory _$$_PetaKotaCopyWith(
+          _$_PetaKota value, $Res Function(_$_PetaKota) then) =
+      __$$_PetaKotaCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: "kota_icon_1") String? kotaIcon1,
+      @JsonKey(name: "kota_icon_2") String? kotaIcon2,
+      @JsonKey(name: "kota_icon_3") String? kotaIcon3,
+      @JsonKey(name: "kota_icon_4") String? kotaIcon4,
+      @JsonKey(name: "kota_icon_5") String? kotaIcon5});
+}
+
+/// @nodoc
+class __$$_PetaKotaCopyWithImpl<$Res>
+    extends _$PetaKotaCopyWithImpl<$Res, _$_PetaKota>
+    implements _$$_PetaKotaCopyWith<$Res> {
+  __$$_PetaKotaCopyWithImpl(
+      _$_PetaKota _value, $Res Function(_$_PetaKota) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? kotaIcon1 = freezed,
+    Object? kotaIcon2 = freezed,
+    Object? kotaIcon3 = freezed,
+    Object? kotaIcon4 = freezed,
+    Object? kotaIcon5 = freezed,
+  }) {
+    return _then(_$_PetaKota(
+      kotaIcon1: freezed == kotaIcon1
+          ? _value.kotaIcon1
+          : kotaIcon1 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kotaIcon2: freezed == kotaIcon2
+          ? _value.kotaIcon2
+          : kotaIcon2 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kotaIcon3: freezed == kotaIcon3
+          ? _value.kotaIcon3
+          : kotaIcon3 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kotaIcon4: freezed == kotaIcon4
+          ? _value.kotaIcon4
+          : kotaIcon4 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kotaIcon5: freezed == kotaIcon5
+          ? _value.kotaIcon5
+          : kotaIcon5 // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_PetaKota implements _PetaKota {
+  const _$_PetaKota(
+      {@JsonKey(name: "kota_icon_1") this.kotaIcon1,
+      @JsonKey(name: "kota_icon_2") this.kotaIcon2,
+      @JsonKey(name: "kota_icon_3") this.kotaIcon3,
+      @JsonKey(name: "kota_icon_4") this.kotaIcon4,
+      @JsonKey(name: "kota_icon_5") this.kotaIcon5});
+
+  factory _$_PetaKota.fromJson(Map<String, dynamic> json) =>
+      _$$_PetaKotaFromJson(json);
+
+  @override
+  @JsonKey(name: "kota_icon_1")
+  final String? kotaIcon1;
+  @override
+  @JsonKey(name: "kota_icon_2")
+  final String? kotaIcon2;
+  @override
+  @JsonKey(name: "kota_icon_3")
+  final String? kotaIcon3;
+  @override
+  @JsonKey(name: "kota_icon_4")
+  final String? kotaIcon4;
+  @override
+  @JsonKey(name: "kota_icon_5")
+  final String? kotaIcon5;
+
+  @override
+  String toString() {
+    return 'PetaKota(kotaIcon1: $kotaIcon1, kotaIcon2: $kotaIcon2, kotaIcon3: $kotaIcon3, kotaIcon4: $kotaIcon4, kotaIcon5: $kotaIcon5)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PetaKota &&
+            (identical(other.kotaIcon1, kotaIcon1) ||
+                other.kotaIcon1 == kotaIcon1) &&
+            (identical(other.kotaIcon2, kotaIcon2) ||
+                other.kotaIcon2 == kotaIcon2) &&
+            (identical(other.kotaIcon3, kotaIcon3) ||
+                other.kotaIcon3 == kotaIcon3) &&
+            (identical(other.kotaIcon4, kotaIcon4) ||
+                other.kotaIcon4 == kotaIcon4) &&
+            (identical(other.kotaIcon5, kotaIcon5) ||
+                other.kotaIcon5 == kotaIcon5));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, kotaIcon1, kotaIcon2, kotaIcon3, kotaIcon4, kotaIcon5);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_PetaKotaCopyWith<_$_PetaKota> get copyWith =>
+      __$$_PetaKotaCopyWithImpl<_$_PetaKota>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_PetaKotaToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PetaKota implements PetaKota {
+  const factory _PetaKota(
+      {@JsonKey(name: "kota_icon_1") final String? kotaIcon1,
+      @JsonKey(name: "kota_icon_2") final String? kotaIcon2,
+      @JsonKey(name: "kota_icon_3") final String? kotaIcon3,
+      @JsonKey(name: "kota_icon_4") final String? kotaIcon4,
+      @JsonKey(name: "kota_icon_5") final String? kotaIcon5}) = _$_PetaKota;
+
+  factory _PetaKota.fromJson(Map<String, dynamic> json) = _$_PetaKota.fromJson;
+
+  @override
+  @JsonKey(name: "kota_icon_1")
+  String? get kotaIcon1;
+  @override
+  @JsonKey(name: "kota_icon_2")
+  String? get kotaIcon2;
+  @override
+  @JsonKey(name: "kota_icon_3")
+  String? get kotaIcon3;
+  @override
+  @JsonKey(name: "kota_icon_4")
+  String? get kotaIcon4;
+  @override
+  @JsonKey(name: "kota_icon_5")
+  String? get kotaIcon5;
+  @override
+  @JsonKey(ignore: true)
+  _$$_PetaKotaCopyWith<_$_PetaKota> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ListMediaElement _$ListMediaElementFromJson(Map<String, dynamic> json) {
+  return _ListMediaElement.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ListMediaElement {
+  String? get images => throw _privateConstructorUsedError;
+  String? get captions => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ListMediaElementCopyWith<ListMediaElement> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ListMediaElementCopyWith<$Res> {
+  factory $ListMediaElementCopyWith(
+          ListMediaElement value, $Res Function(ListMediaElement) then) =
+      _$ListMediaElementCopyWithImpl<$Res, ListMediaElement>;
+  @useResult
+  $Res call({String? images, String? captions});
+}
+
+/// @nodoc
+class _$ListMediaElementCopyWithImpl<$Res, $Val extends ListMediaElement>
+    implements $ListMediaElementCopyWith<$Res> {
+  _$ListMediaElementCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? images = freezed,
+    Object? captions = freezed,
+  }) {
+    return _then(_value.copyWith(
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as String?,
+      captions: freezed == captions
+          ? _value.captions
+          : captions // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_ListMediaElementCopyWith<$Res>
+    implements $ListMediaElementCopyWith<$Res> {
+  factory _$$_ListMediaElementCopyWith(
+          _$_ListMediaElement value, $Res Function(_$_ListMediaElement) then) =
+      __$$_ListMediaElementCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? images, String? captions});
+}
+
+/// @nodoc
+class __$$_ListMediaElementCopyWithImpl<$Res>
+    extends _$ListMediaElementCopyWithImpl<$Res, _$_ListMediaElement>
+    implements _$$_ListMediaElementCopyWith<$Res> {
+  __$$_ListMediaElementCopyWithImpl(
+      _$_ListMediaElement _value, $Res Function(_$_ListMediaElement) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? images = freezed,
+    Object? captions = freezed,
+  }) {
+    return _then(_$_ListMediaElement(
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as String?,
+      captions: freezed == captions
+          ? _value.captions
+          : captions // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_ListMediaElement implements _ListMediaElement {
+  const _$_ListMediaElement({this.images, this.captions});
+
+  factory _$_ListMediaElement.fromJson(Map<String, dynamic> json) =>
+      _$$_ListMediaElementFromJson(json);
+
+  @override
+  final String? images;
+  @override
+  final String? captions;
+
+  @override
+  String toString() {
+    return 'ListMediaElement(images: $images, captions: $captions)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ListMediaElement &&
+            (identical(other.images, images) || other.images == images) &&
+            (identical(other.captions, captions) ||
+                other.captions == captions));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, images, captions);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ListMediaElementCopyWith<_$_ListMediaElement> get copyWith =>
+      __$$_ListMediaElementCopyWithImpl<_$_ListMediaElement>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ListMediaElementToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ListMediaElement implements ListMediaElement {
+  const factory _ListMediaElement(
+      {final String? images, final String? captions}) = _$_ListMediaElement;
+
+  factory _ListMediaElement.fromJson(Map<String, dynamic> json) =
+      _$_ListMediaElement.fromJson;
+
+  @override
+  String? get images;
+  @override
+  String? get captions;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ListMediaElementCopyWith<_$_ListMediaElement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

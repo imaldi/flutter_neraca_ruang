@@ -70,7 +70,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
                       ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: contentList?.length,
+                          itemCount: contentList.length,
                           itemBuilder: (c, i) {
                             return ContentWidget(contentList![i]);
                           }),

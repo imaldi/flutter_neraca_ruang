@@ -71,6 +71,8 @@ class Datum with _$Datum {
     @JsonKey(name: "video_url") String? videoUrl,
     String? thumbnail,
     String? images,
+    @JsonKey(name: "list_media") List<ListMediaElement>? listMedia,
+    @JsonKey(name: "peta_kota") PetaKota? petaKota,
     @JsonKey(name: "active_at") DateTime? activeAt,
     @JsonKey(name: "active_by") String? activeBy,
     @JsonKey(name: "publish_at") DateTime? publishAt,
@@ -80,6 +82,31 @@ class Datum with _$Datum {
   }) = _Datum;
 
   factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
+}
+
+@freezed
+class PetaKota with _$PetaKota {
+  const factory PetaKota({
+    @JsonKey(name: "kota_icon_1") String? kotaIcon1,
+    @JsonKey(name: "kota_icon_2") String? kotaIcon2,
+    @JsonKey(name: "kota_icon_3") String? kotaIcon3,
+    @JsonKey(name: "kota_icon_4") String? kotaIcon4,
+    @JsonKey(name: "kota_icon_5") String? kotaIcon5,
+  }) = _PetaKota;
+
+  factory PetaKota.fromJson(Map<String, dynamic> json) =>
+      _$PetaKotaFromJson(json);
+}
+
+@freezed
+class ListMediaElement with _$ListMediaElement {
+  const factory ListMediaElement({
+    String? images,
+    String? captions,
+  }) = _ListMediaElement;
+
+  factory ListMediaElement.fromJson(Map<String, dynamic> json) =>
+      _$ListMediaElementFromJson(json);
 }
 
 @freezed

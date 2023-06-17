@@ -7,6 +7,7 @@ import 'package:flutter_neraca_ruang/presentation/pages/green_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:html/parser.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../core/consts/assets.dart';
 import '../../core/consts/sizes.dart';
@@ -21,8 +22,14 @@ class ContentWidget extends ConsumerWidget {
   final Datum content;
   final bool isUsingThumbnail;
   final bool isGreenMode;
+  final bool isVideoMode;
+  final bool isInfografis;
   const ContentWidget(this.content,
-      {this.isUsingThumbnail = false, this.isGreenMode = false, Key? key})
+      {this.isUsingThumbnail = false,
+      this.isVideoMode = false,
+      this.isGreenMode = false,
+      this.isInfografis = false,
+      Key? key})
       : super(key: key);
 
   @override
@@ -31,25 +38,91 @@ class ContentWidget extends ConsumerWidget {
     return Column(
       children: [
         Container(
+          // color: Colors.green,
           margin: const EdgeInsets.only(bottom: normal),
           constraints: BoxConstraints(
+            minHeight: 200,
             maxHeight: 200,
             minWidth: MediaQuery.of(context).size.width,
           ),
-          child: Image.network(
-            isUsingThumbnail
-                ? "https://$thumbnailUrl/${content.thumbnail}"
-                : "https://$contentUrl/${content.images}",
-            fit: BoxFit.cover,
-            errorBuilder: (bc, o, st) {
-              return Icon(
-                Icons.broken_image_outlined,
-                size: 2 * extra,
-                color: Color(isGreenMode ? greenModeColor : primaryColor),
-              );
-              // Text(content.images ?? "Image not Found");
-            },
-          ),
+          child:
+              // isVideoMode
+              // ? Center(child: Builder(builder: (context) {
+              //     YoutubePlayerController _controller = YoutubePlayerController(
+              //       initialVideoId: 'iLnmTe5Q2Qw',
+              //       flags: YoutubePlayerFlags(
+              //         autoPlay: true,
+              //         mute: true,
+              //       ),
+              //     );
+              //     late PlayerState _playerState;
+              //     late YoutubeMetaData _videoMetaData;
+              //     double _volume = 100;
+              //     bool _muted = false;
+              //     bool _isPlayerReady = false;
+              //     void listener() {
+              //       if (_isPlayerReady &&
+              //           mounted &&
+              //           !_controller.value.isFullScreen) {
+              //         setState(() {
+              //           _playerState = _controller.value.playerState;
+              //           _videoMetaData = _controller.metadata;
+              //         });
+              //       }
+              //     }
+              //
+              //     return
+              //       YoutubePlayer(
+              //       controller: _controller,
+              //       showVideoProgressIndicator: true,
+              //       progressIndicatorColor: Colors.amber,
+              //       progressColors: const ProgressBarColors(
+              //         playedColor: Colors.amber,
+              //         handleColor: Colors.amberAccent,
+              //       ),
+              //       onReady: () {
+              //         _controller.addListener(listener);
+              //       },
+              //     );
+              //   }))
+              // :
+              isInfografis
+                  ? ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: content.listMedia?.length ?? 0,
+                      itemBuilder: (c, i) {
+                        return SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: content.listMedia?[i].images != null
+                                ? FittedBox(
+                                    fit: BoxFit.fitHeight,
+                                    child: Image.network(
+                                      content.listMedia?[i].images ?? "",
+                                      errorBuilder: (c, o, s) {
+                                        return const IconWidget(iconError);
+                                      },
+                                    ),
+                                  )
+                                : const IconWidget(iconError));
+                      })
+                  : FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Image.network(
+                        isUsingThumbnail
+                            ? "https://$thumbnailUrl/${content.thumbnail}"
+                            : "https://$contentUrl/${content.images}",
+                        fit: BoxFit.cover,
+                        errorBuilder: (bc, o, st) {
+                          return Icon(
+                            Icons.broken_image_outlined,
+                            size: 2 * extra,
+                            color: Color(
+                                isGreenMode ? greenModeColor : primaryColor),
+                          );
+                          // Text(content.images ?? "Image not Found");
+                        },
+                      ),
+                    ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: medium),
@@ -69,6 +142,13 @@ class ContentWidget extends ConsumerWidget {
                       }
                     : () {
                         /// FIXME ga tau kenapa disini ada pesan error
+                        ref.read(tagsIconLinkProvider.notifier).state = content
+                                .petaKota?.kotaIcon2
+                                ?.replaceAll(" ", "%20") ??
+                            "";
+
+                        print(
+                            "Link Kota 2: ${content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
                         ref.read(kotaIdProvider.notifier).state =
                             content.kotaId ?? 0;
                         ref.read(kotaNameProvider.notifier).state =
@@ -87,16 +167,22 @@ class ContentWidget extends ConsumerWidget {
                             context.router
                                 .replace(routeChooser(content.tipe ?? ""));
                           },
-                          child: IconWidget(menuIconNameChooser(
-                              content.tipe ?? "",
-                              isGreenMode: isGreenMode)),
+                          child: IconWidget(
+                            menuIconNameChooser(content.tipe ?? "",
+                                isGreenMode: isGreenMode),
+                            // isOnlineSource: true,
+                          ),
                         ))
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           /// TODO handle about the right icon for the right city
                           IconWidget(
-                            'assets/icons/icon_daerah/${content.kotaName?.toLowerCase().replaceAll(" ", "_")}_4.png',
+                            // 'assets/icons/icon_daerah/${content.kotaName?.toLowerCase().replaceAll(" ", "_")}_4.png',
+                            content.petaKota?.kotaIcon4
+                                    ?.replaceAll(" ", "%20") ??
+                                "",
+                            isOnlineSource: true,
                             size: 2 * extra,
                             customOnErrorWidget: FittedBox(
                               child: Column(
@@ -186,15 +272,18 @@ class ContentWidget extends ConsumerWidget {
                   ref.read(selectedContentIdProvider.notifier).state =
                       content.id ?? 0;
                 },
-                child: Text(
-                  '${content.judul}',
-                  style: isGreenMode
-                      ? Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(color: const Color(greenModeColor))
-                      : Theme.of(context).textTheme.headlineSmall,
-                  textAlign: TextAlign.center,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: medium),
+                  child: Text(
+                    '${content.judul}',
+                    style: isGreenMode
+                        ? Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(color: const Color(greenModeColor))
+                        : Theme.of(context).textTheme.headlineSmall,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               Container(

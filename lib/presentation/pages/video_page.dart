@@ -68,10 +68,13 @@ class _VideoPageState extends ConsumerState<VideoPage> {
                       ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: contentList?.length,
+                          itemCount: contentList.length,
                           itemBuilder: (c, i) {
-                            return ContentWidget(contentList![i],
-                                isUsingThumbnail: true);
+                            return ContentWidget(
+                              contentList[i],
+                              isUsingThumbnail: true,
+                              isVideoMode: true,
+                            );
                           }),
                       InkWell(
                         onTap: () {

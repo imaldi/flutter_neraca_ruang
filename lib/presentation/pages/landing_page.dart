@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/num_consts.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/appbar_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/bottom_bar_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -181,6 +182,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                 child: Column(
                                   children: [
                                     Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: normal),
                                         constraints: const BoxConstraints(
                                             maxWidth: extra, maxHeight: extra),
                                         child: Image.asset(iconKabar)),
@@ -212,6 +215,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                 ),
                               ),
                             ),
+                            Divider(),
                             Container(
                               // margin: const EdgeInsets.symmetric(vertical: normal),
                               constraints: BoxConstraints(
@@ -245,22 +249,30 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .replace(const JurnalRoute());
                                     },
                                     child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: normal),
                                         constraints: const BoxConstraints(
                                             maxWidth: extra, maxHeight: extra),
                                         child: Image.asset(iconJurnal)),
                                   ),
-                                  Text(
-                                    // TODO fix formatting tanggal
-                                    '${data[1].sourceName ?? ""} 26/05/2023, 12:00 WIB',
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
+                                  IntrinsicHeight(
+                                    child: Text(
+                                      // TODO fix formatting tanggal
+                                      '${data[1].sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
                                   ),
-                                  Text(
-                                    "${data[1].judul}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.center,
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: medium),
+                                    child: Text(
+                                      "${data[1].judul}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
                                   Container(
                                     constraints:
@@ -278,6 +290,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                 ],
                               ),
                             ),
+                            Divider(),
                             Container(
                               // margin: const EdgeInsets.symmetric(vertical: normal),
                               constraints: BoxConstraints(
@@ -288,13 +301,21 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                 "https://$contentUrl/${data[2].images}",
                                 fit: BoxFit.cover,
                                 errorBuilder: (bc, o, st) {
-                                  return Text(data[2].images ?? "");
+                                  return IntrinsicHeight(
+                                    child: const Column(
+                                      children: [
+                                        IconWidget(iconError),
+                                        Text("Image Not Found"),
+                                      ],
+                                    ),
+                                  );
+                                  // Text(data[2].images ?? "");
                                 },
                               ),
                             ),
                             // const ScrollableHorizontalImage(),
                             Padding(
-                              padding: const EdgeInsets.all(normal),
+                              padding: const EdgeInsets.all(0),
                               child: Column(
                                 children: [
                                   InkWell(
@@ -312,16 +333,22 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .replace(const InfografisRoute());
                                     },
                                     child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: normal),
                                         constraints: const BoxConstraints(
                                             maxWidth: extra, maxHeight: extra),
                                         child: Image.asset(iconInfografis)),
                                   ),
-                                  Text(
-                                    "${data[2].judul}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.center,
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: medium),
+                                    child: Text(
+                                      "${data[2].judul}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
                                   Text("${data[2].keterangan}",
                                       maxLines: 7,
@@ -330,6 +357,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                               ),
                             ),
                             // Image.asset("assets/images/neraca_ruang.png"),
+                            Divider(),
                             Container(
                               // margin: const EdgeInsets.symmetric(vertical: normal),
                               constraints: BoxConstraints(
@@ -363,6 +391,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .replace(const VideoRoute());
                                     },
                                     child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: normal),
                                         constraints: const BoxConstraints(
                                             maxWidth: extra, maxHeight: extra),
                                         child: Image.asset(iconVideo)),
@@ -373,12 +403,16 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
-                                  Text(
-                                    "${data[3].judul}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.center,
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: medium),
+                                    child: Text(
+                                      "${data[3].judul}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
                                   Text("${data[3].keterangan}",
                                       maxLines: 7,
@@ -386,6 +420,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                 ],
                               ),
                             ),
+                            Divider(),
                             Container(
                               constraints: BoxConstraints(
                                 maxHeight: 200,
@@ -418,6 +453,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .replace(const AlbumFotoRoute());
                                     },
                                     child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: normal),
                                         constraints: const BoxConstraints(
                                             maxWidth: extra, maxHeight: extra),
                                         child: Image.asset(iconFoto)),
@@ -428,18 +465,25 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
-                                  Text(
-                                      "${data[4].sourceName ?? "Tidak ada Sumber"}, ${data[4].sourceDate ?? "Tidak ada tanggal Sumber"}"),
-                                  Text(
-                                    "${data[4].judul}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                    textAlign: TextAlign.center,
+                                  IntrinsicHeight(
+                                    child: Text(
+                                        "${data[4].sourceName ?? ""}, ${data[4].sourceDate ?? ""}"),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: normal),
+                                    child: Text(
+                                      "${data[4].judul}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
+                            Divider(),
                             Container(
                               margin:
                                   const EdgeInsets.symmetric(vertical: normal),

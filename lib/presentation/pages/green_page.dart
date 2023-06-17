@@ -51,7 +51,8 @@ class GreenPageState extends ConsumerState<GreenPage> {
                   children: [
                     Expanded(
                       child: IconWidget(
-                        'assets/icons/icon_daerah/${appbarTitle?.toLowerCase().replaceAll(" ", "_")}_2.png',
+                        // 'assets/icons/icon_daerah/${appbarTitle?.toLowerCase().replaceAll(" ", "_")}_2.png',
+                        iconUrl,
                         size: huge + medium,
                         isOnlineSource: true,
                         customOnErrorWidget: Column(

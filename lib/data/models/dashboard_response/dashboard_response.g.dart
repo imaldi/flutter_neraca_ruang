@@ -93,6 +93,12 @@ _$_Datum _$$_DatumFromJson(Map<String, dynamic> json) => _$_Datum(
       videoUrl: json['video_url'] as String?,
       thumbnail: json['thumbnail'] as String?,
       images: json['images'] as String?,
+      listMedia: (json['list_media'] as List<dynamic>?)
+          ?.map((e) => ListMediaElement.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      petaKota: json['peta_kota'] == null
+          ? null
+          : PetaKota.fromJson(json['peta_kota'] as Map<String, dynamic>),
       activeAt: json['active_at'] == null
           ? null
           : DateTime.parse(json['active_at'] as String),
@@ -137,12 +143,43 @@ Map<String, dynamic> _$$_DatumToJson(_$_Datum instance) => <String, dynamic>{
       'video_url': instance.videoUrl,
       'thumbnail': instance.thumbnail,
       'images': instance.images,
+      'list_media': instance.listMedia,
+      'peta_kota': instance.petaKota,
       'active_at': instance.activeAt?.toIso8601String(),
       'active_by': instance.activeBy,
       'publish_at': instance.publishAt?.toIso8601String(),
       'publish_by': instance.publishBy,
       'deleted_at': instance.deletedAt?.toIso8601String(),
       'deleted_by': instance.deletedBy,
+    };
+
+_$_PetaKota _$$_PetaKotaFromJson(Map<String, dynamic> json) => _$_PetaKota(
+      kotaIcon1: json['kota_icon_1'] as String?,
+      kotaIcon2: json['kota_icon_2'] as String?,
+      kotaIcon3: json['kota_icon_3'] as String?,
+      kotaIcon4: json['kota_icon_4'] as String?,
+      kotaIcon5: json['kota_icon_5'] as String?,
+    );
+
+Map<String, dynamic> _$$_PetaKotaToJson(_$_PetaKota instance) =>
+    <String, dynamic>{
+      'kota_icon_1': instance.kotaIcon1,
+      'kota_icon_2': instance.kotaIcon2,
+      'kota_icon_3': instance.kotaIcon3,
+      'kota_icon_4': instance.kotaIcon4,
+      'kota_icon_5': instance.kotaIcon5,
+    };
+
+_$_ListMediaElement _$$_ListMediaElementFromJson(Map<String, dynamic> json) =>
+    _$_ListMediaElement(
+      images: json['images'] as String?,
+      captions: json['captions'] as String?,
+    );
+
+Map<String, dynamic> _$$_ListMediaElementToJson(_$_ListMediaElement instance) =>
+    <String, dynamic>{
+      'images': instance.images,
+      'captions': instance.captions,
     };
 
 _$_Tags _$$_TagsFromJson(Map<String, dynamic> json) => _$_Tags(

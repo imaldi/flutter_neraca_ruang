@@ -69,9 +69,12 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
                       ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: contentList?.length,
+                          itemCount: contentList.length,
                           itemBuilder: (c, i) {
-                            return ContentWidget(contentList![i]);
+                            return ContentWidget(
+                              contentList[i],
+                              isInfografis: true,
+                            );
                           }),
                       InkWell(
                         onTap: () {
