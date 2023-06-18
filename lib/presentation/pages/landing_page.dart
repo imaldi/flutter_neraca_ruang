@@ -30,15 +30,8 @@ class LandingPage extends ConsumerStatefulWidget {
 }
 
 class LandingPageState extends ConsumerState<LandingPage> {
-  // late YoutubePlayerController _controller;
-  // final videoURL = "www.youtube.com/naonatuh";
-
   @override
   void initState() {
-    // final videoID = YoutubePlayer.convertUrlToId(videoURL);
-    // _controller = YoutubePlayerController(
-    //     initialVideoId: videoID!,
-    //     flags: const YoutubePlayerFlags(autoPlay: false));
     super.initState();
   }
 

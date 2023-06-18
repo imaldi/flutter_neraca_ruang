@@ -45,8 +45,15 @@ class ContentWidget extends ConsumerWidget {
             maxHeight: 200,
             minWidth: MediaQuery.of(context).size.width,
           ),
-          child:
-              // isVideoMode
+          child: isVideoMode
+              ? YoutubePlayer(
+                  controller: YoutubePlayerController(
+                      initialVideoId:
+                          YoutubePlayer.convertUrlToId(content.videoUrl ?? "")!,
+                      flags: const YoutubePlayerFlags(autoPlay: false)),
+                  showVideoProgressIndicator: true,
+                )
+              :
               // ? Center(child: Builder(builder: (context) {
               //     YoutubePlayerController _controller = YoutubePlayerController(
               //       initialVideoId: 'iLnmTe5Q2Qw',
