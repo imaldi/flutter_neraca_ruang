@@ -42,6 +42,7 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
         },
         child: Scaffold(
           appBar: appBarWidget(context,
+              ref: ref,
               appbarTitle: appbarTitle,
               appbarBackgroundImage: Opacity(
                 opacity: 0.3,

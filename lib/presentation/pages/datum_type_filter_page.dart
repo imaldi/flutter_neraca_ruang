@@ -41,7 +41,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
         },
         child: Scaffold(
           appBar: appBarWidget(
-            context,
+            context, ref: ref,
             // appbarTitle: appbarTitle,
             // appbarBackgroundImage: Center(
             //   child: Row(
@@ -617,7 +617,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
           }, loading: () {
             return const Center(
               child: CircularProgressIndicator(
-                color: Color(greenModeColor),
+                color: Color(primaryColor),
               ),
             );
           }),

@@ -45,6 +45,7 @@ class GreenPageState extends ConsumerState<GreenPage> {
         },
         child: Scaffold(
           appBar: appBarWidget(context,
+              ref: ref,
               appbarTitle: appbarTitle,
               appbarBackgroundImage: Center(
                 child: Row(

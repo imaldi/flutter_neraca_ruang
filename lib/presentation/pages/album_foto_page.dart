@@ -42,6 +42,7 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
         },
         child: Scaffold(
           appBar: appBarWidget(context,
+              ref: ref,
               appbarTitle: appbarTitle,
               appbarBackgroundImage: Opacity(
                 opacity: 0.3,

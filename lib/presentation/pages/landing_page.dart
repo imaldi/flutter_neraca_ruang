@@ -62,7 +62,10 @@ class LandingPageState extends ConsumerState<LandingPage> {
     return DefaultTabController(
       length: mainTabLength,
       child: Scaffold(
-        appBar: appBarWidget(context),
+        appBar: appBarWidget(
+          context,
+          ref: ref,
+        ),
         drawer: Drawer(
           child: SingleChildScrollView(
             child: Column(
