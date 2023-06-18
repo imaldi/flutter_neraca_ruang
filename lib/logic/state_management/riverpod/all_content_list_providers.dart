@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -16,21 +17,26 @@ part 'all_content_list_providers.g.dart';
 class Contents extends _$Contents {
   @override
   FutureOr<List<Datum>> build() async {
-    return [];
+    return fetchTodo();
   }
 
-  Future<void> fetchTodo(
-      {int? pageNumber, int? limit, String? type, String? keyword}) async {
+  Future<List<Datum>> fetchTodo(
+      {int? pageNumber = 1,
+      int? limit = 5,
+      String? type,
+      String? keyword}) async {
     Map<String, String> queryParameters = {
       'page': pageNumber.toString(),
       'limit': limit.toString(),
     };
 
-    var authBox = sl<Box<LoginResponse>>();
-    var dataFromBox = authBox.get(userDataKey);
-    print("dataFromBox: $dataFromBox");
+    // var authBox = sl<Box<LoginResponse>>();
+    // var dataFromBox = authBox.get(userDataKey);
+    // print("dataFromBox: $dataFromBox");
 
-    String token = dataFromBox?.data?.token ?? "";
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+    // dataFromBox?.data?.token ?? "";
 
     var url = Uri.https(baseUrl, dashboardList, queryParameters);
 
@@ -39,15 +45,19 @@ class Contents extends _$Contents {
       'Authorization': token,
       'Accept': 'application/json',
     });
-    print("URL: $url");
+    print("URL fetch latest list from contentProvider: $url");
+    log("result JSON: ${jsonDecode(response.body)}");
+    // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
 
     final result =
         DashboardResponse.fromJson(jsonDecode(response.body)).data?.data ??
             <Datum>[];
+
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       return result;
     });
+    return result;
   }
 
   Future<void> likeContent(String slug) async {

@@ -140,12 +140,9 @@ class ContentWidget extends ConsumerWidget {
                 onTap: isGreenMode
                     ? () {
                         basicResetStates(context, ref);
+                        // Kenapa ke landing route ya?? haduh
+                        // kyk nya ter override dengan inkwell yang lebih di dalam
                         context.router.replace(const LandingRoute());
-
-                        // ref.invalidate(kotaIdProvider);
-                        // ref.invalidate(kotaNameProvider);
-                        // ref.invalidate(tagsIdProvider);
-                        // ref.invalidate(tagsNameProvider);
                       }
                     : () {
                         /// FIXME ga tau kenapa disini ada pesan error
