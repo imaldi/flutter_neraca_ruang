@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/cubit_bloc/dashboard/dashboard_cubit.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/pages/green_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +20,7 @@ import '../../core/helper_functions/route_chooser.dart';
 import '../../data/models/dashboard_response/dashboard_response.dart';
 import 'IconWidget.dart';
 
-class ContentWidget extends ConsumerWidget {
+class ContentWidget extends StatelessWidget {
   final Datum content;
   final bool isUsingThumbnail;
   final bool isGreenMode;
@@ -33,8 +35,8 @@ class ContentWidget extends ConsumerWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var contentId = ref.watch(selectedContentIdProvider);
+  Widget build(BuildContext context) {
+    var contentId = context.watch<DashboardCubit>();
     return Column(
       children: [
         Container(
@@ -132,7 +134,7 @@ class ContentWidget extends ConsumerWidget {
               InkWell(
                 onTap: isGreenMode
                     ? () {
-                        basicResetStates(context, ref);
+                        // basicResetStates(context, ref);
                         context.router.replace(const LandingRoute());
 
                         // ref.invalidate(kotaIdProvider);
@@ -142,19 +144,28 @@ class ContentWidget extends ConsumerWidget {
                       }
                     : () {
                         /// FIXME ga tau kenapa disini ada pesan error
-                        ref.read(tagsIconLinkProvider.notifier).state = content
-                                .petaKota?.kotaIcon2
-                                ?.replaceAll(" ", "%20") ??
-                            "";
+                        context.read<DashboardCubit>().editPageState(
+                              iconLink: content.petaKota?.kotaIcon2
+                                      ?.replaceAll(" ", "%20") ??
+                                  "",
+                              idKota: content.kotaId,
+                              namaKota: content.kotaName,
+                              idTag: 0,
+                              namaTag: "",
+                            );
+                        // ref.read(tagsIconLinkProvider.notifier).state = content
+                        //         .petaKota?.kotaIcon2
+                        //         ?.replaceAll(" ", "%20") ??
+                        //     "";
 
                         print(
                             "Link Kota 2: ${content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
-                        ref.read(kotaIdProvider.notifier).state =
-                            content.kotaId ?? 0;
-                        ref.read(kotaNameProvider.notifier).state =
-                            content.kotaName ?? "";
-                        ref.invalidate(tagsIdProvider);
-                        ref.invalidate(tagsNameProvider);
+                        // ref.read(kotaIdProvider.notifier).state =
+                        //     content.kotaId ?? 0;
+                        // ref.read(kotaNameProvider.notifier).state =
+                        //     content.kotaName ?? "";
+                        // ref.invalidate(tagsIdProvider);
+                        // ref.invalidate(tagsNameProvider);
                         context.router.replace(const GreenRoute());
                       },
                 child: isGreenMode
@@ -214,14 +225,21 @@ class ContentWidget extends ConsumerWidget {
                       margin: const EdgeInsets.symmetric(horizontal: small),
                       isOnlineSource: true,
                       onTap: () {
-                        ref.read(tagsIdProvider.notifier).state =
-                            content.tagsPihak?.tagsId ?? 0;
-                        ref.read(tagsNameProvider.notifier).state =
-                            content.tagsPihak?.tagsName ?? "";
-                        ref.read(tagsIconLinkProvider.notifier).state =
-                            content.tagsPihak?.tagsIcon ?? "";
-                        ref.invalidate(kotaIdProvider);
-                        ref.invalidate(kotaNameProvider);
+                        context.read<DashboardCubit>().editPageState(
+                              idTag: content.tagsPihak?.tagsId,
+                              namaTag: content.tagsPihak?.tagsName,
+                              iconLink: content.tagsPihak?.tagsIcon,
+                              idKota: 0,
+                              namaKota: "",
+                            );
+                        // ref.read(tagsIdProvider.notifier).state =
+                        //     content.tagsPihak?.tagsId ?? 0;
+                        // ref.read(tagsNameProvider.notifier).state =
+                        //     content.tagsPihak?.tagsName ?? "";
+                        // ref.read(tagsIconLinkProvider.notifier).state =
+                        //     content.tagsPihak?.tagsIcon ?? "";
+                        // ref.invalidate(kotaIdProvider);
+                        // ref.invalidate(kotaNameProvider);
                         context.router
                             .replace(routeChooser(content.tipe ?? ""));
                       },
@@ -231,14 +249,21 @@ class ContentWidget extends ConsumerWidget {
                       margin: const EdgeInsets.symmetric(horizontal: small),
                       isOnlineSource: true,
                       onTap: () {
-                        ref.read(tagsIdProvider.notifier).state =
-                            content.tagsTopik?.tagsId ?? 0;
-                        ref.read(tagsNameProvider.notifier).state =
-                            content.tagsTopik?.tagsName ?? "";
-                        ref.read(tagsIconLinkProvider.notifier).state =
-                            content.tagsTopik?.tagsIcon ?? "";
-                        ref.invalidate(kotaIdProvider);
-                        ref.invalidate(kotaNameProvider);
+                        context.read<DashboardCubit>().editPageState(
+                              idTag: content.tagsTopik?.tagsId,
+                              namaTag: content.tagsTopik?.tagsName,
+                              iconLink: content.tagsTopik?.tagsIcon,
+                              idKota: 0,
+                              namaKota: "",
+                            );
+                        // ref.read(tagsIdProvider.notifier).state =
+                        //     content.tagsTopik?.tagsId ?? 0;
+                        // ref.read(tagsNameProvider.notifier).state =
+                        //     content.tagsTopik?.tagsName ?? "";
+                        // ref.read(tagsIconLinkProvider.notifier).state =
+                        //     content.tagsTopik?.tagsIcon ?? "";
+                        // ref.invalidate(kotaIdProvider);
+                        // ref.invalidate(kotaNameProvider);
                         context.router
                             .replace(routeChooser(content.tipe ?? ""));
                       },
@@ -248,14 +273,21 @@ class ContentWidget extends ConsumerWidget {
                       margin: const EdgeInsets.symmetric(horizontal: small),
                       isOnlineSource: true,
                       onTap: () {
-                        ref.read(tagsIdProvider.notifier).state =
-                            content.tagsOtonomi?.tagsId ?? 0;
-                        ref.read(tagsNameProvider.notifier).state =
-                            content.tagsOtonomi?.tagsName ?? "";
-                        ref.read(tagsIconLinkProvider.notifier).state =
-                            content.tagsOtonomi?.tagsIcon ?? "";
-                        ref.invalidate(kotaIdProvider);
-                        ref.invalidate(kotaNameProvider);
+                        context.read<DashboardCubit>().editPageState(
+                              idTag: content.tagsOtonomi?.tagsId,
+                              namaTag: content.tagsOtonomi?.tagsName,
+                              iconLink: content.tagsOtonomi?.tagsIcon,
+                              idKota: 0,
+                              namaKota: "",
+                            );
+                        // ref.read(tagsIdProvider.notifier).state =
+                        //     content.tagsOtonomi?.tagsId ?? 0;
+                        // ref.read(tagsNameProvider.notifier).state =
+                        //     content.tagsOtonomi?.tagsName ?? "";
+                        // ref.read(tagsIconLinkProvider.notifier).state =
+                        //     content.tagsOtonomi?.tagsIcon ?? "";
+                        // ref.invalidate(kotaIdProvider);
+                        // ref.invalidate(kotaNameProvider);
                         context.router
                             .replace(routeChooser(content.tipe ?? ""));
                       },
@@ -281,8 +313,11 @@ class ContentWidget extends ConsumerWidget {
               ),
               InkWell(
                 onTap: () {
-                  ref.read(selectedContentIdProvider.notifier).state =
-                      content.id ?? 0;
+                  context
+                      .read<DashboardCubit>()
+                      .editPageState(contentId: content.id);
+                  // ref.read(selectedContentIdProvider.notifier).state =
+                  //     content.id ?? 0;
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: medium),

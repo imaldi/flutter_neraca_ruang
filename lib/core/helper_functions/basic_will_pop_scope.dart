@@ -6,9 +6,9 @@ import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../router/app_router.dart';
 
 // FIXME nanti perbaiki, bukan begini caranya (Reset satu satu gini, sekarang yang penting jadi saja dulu)
-Future<bool> basicOnWillPop(BuildContext context, WidgetRef ref) {
-  context.router.replace(const LandingRoute());
-  basicResetStates(context, ref);
+Future<bool> basicOnWillPop(BuildContext context) {
+  context.router.replace(const DatumTypeFilterRoute());
+  // basicResetStates(context, ref);
 
   return Future.value(false);
 }

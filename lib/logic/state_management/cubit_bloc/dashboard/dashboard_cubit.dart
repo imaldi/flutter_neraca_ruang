@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter_neraca_ruang/data/models/dashboard_response/dashboard_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -113,9 +114,97 @@ class DashboardCubit extends HydratedCubit<DashboardState> {
   }
 
   fetchContentsWithCustomFilter(
-      {int? pageNumber, int? limit, String? type, String? keyword}) {}
+      {int pageNumber = 1,
+      int limit = 3,
+      String tipe = "",
+      String keyword = "",
+      int tagsId = 0,
+      int kotaId = 0}) async {
+    emit(state.copyWith(is_loading: true));
+    try {
+      var queryParams = <String, String>{
+        'page': pageNumber.toString(),
+        'limit': limit.toString(),
+      };
+      if (tipe.isNotEmpty) {
+        queryParams['tipe'] = tipe;
+      }
+      if (keyword.isNotEmpty) {
+        queryParams['keyword'] = keyword;
+      }
+      if (tagsId != 0) {
+        queryParams['tags_id'] = tagsId.toString();
+      }
+      if (kotaId != 0) {
+        queryParams['kota_id'] = kotaId.toString();
+      }
+      var urlFoto = Uri.https(
+          baseUrl, dashboardList, {'page': "1", 'limit': "1", 'tipe': tipe});
+      String token =
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+
+      final headers = {
+        'Authorization': token,
+        'Accept': 'application/json',
+      };
+
+      final requestKonten = await http.get(urlFoto, headers: headers);
+
+      final responseKonten =
+          DashboardResponse.fromJson(jsonDecode(requestKonten.body)).data?.data;
+      print("response konten (tipe: $tipe): $responseKonten");
+      log("state: ${state.toJson()}");
+      if (tipe.isNotEmpty) {
+        switch (tipe) {
+          case 'kabar':
+            emit(state.copyWith(tipe: tipe, listContentKabar: responseKonten));
+            break;
+          case 'jurnal':
+            emit(state.copyWith(tipe: tipe, listContentJurnal: responseKonten));
+            break;
+          case 'infografis':
+            emit(state.copyWith(
+                tipe: tipe, listContentInfografis: responseKonten));
+            break;
+          case 'video':
+            emit(state.copyWith(tipe: tipe, listContentVideo: responseKonten));
+            break;
+          case 'foto':
+            emit(state.copyWith(tipe: tipe, listContentFoto: responseKonten));
+            break;
+          case 'green':
+            emit(
+                state.copyWith(tipe: '', listContentGreenPage: responseKonten));
+            break;
+          default:
+            emit(state.copyWith(tipe: '', listContentSearch: responseKonten));
+        }
+      }
+    } catch (error) {
+      print("ada error");
+      addError(error);
+    }
+  }
 
   giveLikeToAContent({required int id, required String slug}) {}
+
+  editPageState(
+      {String? iconLink,
+      String? namaKota,
+      String? namaTag,
+      int? contentId,
+      int? idKota,
+      int? idTag,
+      bool isGreenMode = false}) {
+    emit(state.copyWith(
+      icon: iconLink,
+      kota_name: namaKota ?? state.kota_name,
+      kota_id: idKota ?? state.kota_id,
+      tags_id: idTag ?? state.kota_id,
+      is_green_mode: isGreenMode,
+      selected_id: contentId ?? state.selected_id,
+    ));
+  }
 
   @override
   DashboardState? fromJson(Map<String, dynamic> json) {

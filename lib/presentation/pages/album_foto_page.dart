@@ -38,7 +38,7 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
       length: mainTabLength,
       child: WillPopScope(
         onWillPop: () {
-          return basicOnWillPop(context, ref);
+          return basicOnWillPop(context);
         },
         child: Scaffold(
           appBar: appBarWidget(context,

@@ -133,6 +133,7 @@ class _DatumTypeFilterPageState extends State<DatumTypeFilterPage> {
             builder: (context, state) {
           var theContentList = state.listContentDashboard ?? <Datum>[];
           var contentTypeList = theContentList.map((e) => e.tipe);
+          print("urutan tipe: $contentTypeList");
           return SingleChildScrollView(
             child: Column(
               children: [

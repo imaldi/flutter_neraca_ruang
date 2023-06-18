@@ -25,10 +25,27 @@ mixin _$DashboardState {
       throw _privateConstructorUsedError;
   @JsonKey(name: "list_content_dashboard")
   List<Datum>? get listContentDashboard => throw _privateConstructorUsedError;
+  @JsonKey(name: "list_content_kabar")
+  List<Datum>? get listContentKabar => throw _privateConstructorUsedError;
+  @JsonKey(name: "list_content_jurnal")
+  List<Datum>? get listContentJurnal => throw _privateConstructorUsedError;
+  @JsonKey(name: "list_content_infografis")
+  List<Datum>? get listContentInfografis => throw _privateConstructorUsedError;
+  @JsonKey(name: "list_content_video")
+  List<Datum>? get listContentVideo => throw _privateConstructorUsedError;
+  @JsonKey(name: "list_content_foto")
+  List<Datum>? get listContentFoto => throw _privateConstructorUsedError;
+  @JsonKey(name: "list_content_search")
+  List<Datum>? get listContentSearch => throw _privateConstructorUsedError;
+  @JsonKey(name: "list_content_green_page")
+  List<Datum>? get listContentGreenPage => throw _privateConstructorUsedError;
   int? get limit => throw _privateConstructorUsedError;
   int? get page => throw _privateConstructorUsedError;
   String? get slug => throw _privateConstructorUsedError;
   String? get tipe => throw _privateConstructorUsedError;
+  String? get icon => throw _privateConstructorUsedError;
+  dynamic get is_loading => throw _privateConstructorUsedError;
+  dynamic get is_green_mode => throw _privateConstructorUsedError;
   int get kota_id => throw _privateConstructorUsedError;
   String get kota_name => throw _privateConstructorUsedError;
   int get tags_id => throw _privateConstructorUsedError;
@@ -52,10 +69,27 @@ abstract class $DashboardStateCopyWith<$Res> {
           DashboardResponse? dashboardResponse,
       @JsonKey(name: "list_content_dashboard")
           List<Datum>? listContentDashboard,
+      @JsonKey(name: "list_content_kabar")
+          List<Datum>? listContentKabar,
+      @JsonKey(name: "list_content_jurnal")
+          List<Datum>? listContentJurnal,
+      @JsonKey(name: "list_content_infografis")
+          List<Datum>? listContentInfografis,
+      @JsonKey(name: "list_content_video")
+          List<Datum>? listContentVideo,
+      @JsonKey(name: "list_content_foto")
+          List<Datum>? listContentFoto,
+      @JsonKey(name: "list_content_search")
+          List<Datum>? listContentSearch,
+      @JsonKey(name: "list_content_green_page")
+          List<Datum>? listContentGreenPage,
       int? limit,
       int? page,
       String? slug,
       String? tipe,
+      String? icon,
+      dynamic is_loading,
+      dynamic is_green_mode,
       int kota_id,
       String kota_name,
       int tags_id,
@@ -80,10 +114,20 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
   $Res call({
     Object? dashboardResponse = freezed,
     Object? listContentDashboard = freezed,
+    Object? listContentKabar = freezed,
+    Object? listContentJurnal = freezed,
+    Object? listContentInfografis = freezed,
+    Object? listContentVideo = freezed,
+    Object? listContentFoto = freezed,
+    Object? listContentSearch = freezed,
+    Object? listContentGreenPage = freezed,
     Object? limit = freezed,
     Object? page = freezed,
     Object? slug = freezed,
     Object? tipe = freezed,
+    Object? icon = freezed,
+    Object? is_loading = freezed,
+    Object? is_green_mode = freezed,
     Object? kota_id = null,
     Object? kota_name = null,
     Object? tags_id = null,
@@ -98,6 +142,34 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
       listContentDashboard: freezed == listContentDashboard
           ? _value.listContentDashboard
           : listContentDashboard // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentKabar: freezed == listContentKabar
+          ? _value.listContentKabar
+          : listContentKabar // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentJurnal: freezed == listContentJurnal
+          ? _value.listContentJurnal
+          : listContentJurnal // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentInfografis: freezed == listContentInfografis
+          ? _value.listContentInfografis
+          : listContentInfografis // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentVideo: freezed == listContentVideo
+          ? _value.listContentVideo
+          : listContentVideo // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentFoto: freezed == listContentFoto
+          ? _value.listContentFoto
+          : listContentFoto // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentSearch: freezed == listContentSearch
+          ? _value.listContentSearch
+          : listContentSearch // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentGreenPage: freezed == listContentGreenPage
+          ? _value.listContentGreenPage
+          : listContentGreenPage // ignore: cast_nullable_to_non_nullable
               as List<Datum>?,
       limit: freezed == limit
           ? _value.limit
@@ -115,6 +187,18 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
           ? _value.tipe
           : tipe // ignore: cast_nullable_to_non_nullable
               as String?,
+      icon: freezed == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String?,
+      is_loading: freezed == is_loading
+          ? _value.is_loading
+          : is_loading // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      is_green_mode: freezed == is_green_mode
+          ? _value.is_green_mode
+          : is_green_mode // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       kota_id: null == kota_id
           ? _value.kota_id
           : kota_id // ignore: cast_nullable_to_non_nullable
@@ -164,10 +248,27 @@ abstract class _$$_DashboardStateCopyWith<$Res>
           DashboardResponse? dashboardResponse,
       @JsonKey(name: "list_content_dashboard")
           List<Datum>? listContentDashboard,
+      @JsonKey(name: "list_content_kabar")
+          List<Datum>? listContentKabar,
+      @JsonKey(name: "list_content_jurnal")
+          List<Datum>? listContentJurnal,
+      @JsonKey(name: "list_content_infografis")
+          List<Datum>? listContentInfografis,
+      @JsonKey(name: "list_content_video")
+          List<Datum>? listContentVideo,
+      @JsonKey(name: "list_content_foto")
+          List<Datum>? listContentFoto,
+      @JsonKey(name: "list_content_search")
+          List<Datum>? listContentSearch,
+      @JsonKey(name: "list_content_green_page")
+          List<Datum>? listContentGreenPage,
       int? limit,
       int? page,
       String? slug,
       String? tipe,
+      String? icon,
+      dynamic is_loading,
+      dynamic is_green_mode,
       int kota_id,
       String kota_name,
       int tags_id,
@@ -191,10 +292,20 @@ class __$$_DashboardStateCopyWithImpl<$Res>
   $Res call({
     Object? dashboardResponse = freezed,
     Object? listContentDashboard = freezed,
+    Object? listContentKabar = freezed,
+    Object? listContentJurnal = freezed,
+    Object? listContentInfografis = freezed,
+    Object? listContentVideo = freezed,
+    Object? listContentFoto = freezed,
+    Object? listContentSearch = freezed,
+    Object? listContentGreenPage = freezed,
     Object? limit = freezed,
     Object? page = freezed,
     Object? slug = freezed,
     Object? tipe = freezed,
+    Object? icon = freezed,
+    Object? is_loading = freezed,
+    Object? is_green_mode = freezed,
     Object? kota_id = null,
     Object? kota_name = null,
     Object? tags_id = null,
@@ -209,6 +320,34 @@ class __$$_DashboardStateCopyWithImpl<$Res>
       listContentDashboard: freezed == listContentDashboard
           ? _value._listContentDashboard
           : listContentDashboard // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentKabar: freezed == listContentKabar
+          ? _value._listContentKabar
+          : listContentKabar // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentJurnal: freezed == listContentJurnal
+          ? _value._listContentJurnal
+          : listContentJurnal // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentInfografis: freezed == listContentInfografis
+          ? _value._listContentInfografis
+          : listContentInfografis // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentVideo: freezed == listContentVideo
+          ? _value._listContentVideo
+          : listContentVideo // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentFoto: freezed == listContentFoto
+          ? _value._listContentFoto
+          : listContentFoto // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentSearch: freezed == listContentSearch
+          ? _value._listContentSearch
+          : listContentSearch // ignore: cast_nullable_to_non_nullable
+              as List<Datum>?,
+      listContentGreenPage: freezed == listContentGreenPage
+          ? _value._listContentGreenPage
+          : listContentGreenPage // ignore: cast_nullable_to_non_nullable
               as List<Datum>?,
       limit: freezed == limit
           ? _value.limit
@@ -226,6 +365,13 @@ class __$$_DashboardStateCopyWithImpl<$Res>
           ? _value.tipe
           : tipe // ignore: cast_nullable_to_non_nullable
               as String?,
+      icon: freezed == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String?,
+      is_loading: freezed == is_loading ? _value.is_loading! : is_loading,
+      is_green_mode:
+          freezed == is_green_mode ? _value.is_green_mode! : is_green_mode,
       kota_id: null == kota_id
           ? _value.kota_id
           : kota_id // ignore: cast_nullable_to_non_nullable
@@ -258,16 +404,40 @@ class _$_DashboardState implements _DashboardState {
           this.dashboardResponse,
       @JsonKey(name: "list_content_dashboard")
           final List<Datum>? listContentDashboard,
+      @JsonKey(name: "list_content_kabar")
+          final List<Datum>? listContentKabar,
+      @JsonKey(name: "list_content_jurnal")
+          final List<Datum>? listContentJurnal,
+      @JsonKey(name: "list_content_infografis")
+          final List<Datum>? listContentInfografis,
+      @JsonKey(name: "list_content_video")
+          final List<Datum>? listContentVideo,
+      @JsonKey(name: "list_content_foto")
+          final List<Datum>? listContentFoto,
+      @JsonKey(name: "list_content_search")
+          final List<Datum>? listContentSearch,
+      @JsonKey(name: "list_content_green_page")
+          final List<Datum>? listContentGreenPage,
       this.limit,
       this.page,
       this.slug,
       this.tipe,
+      this.icon,
+      this.is_loading = false,
+      this.is_green_mode = false,
       this.kota_id = 0,
       this.kota_name = "",
       this.tags_id = 0,
       this.tags_name = "",
       this.selected_id = 0})
-      : _listContentDashboard = listContentDashboard;
+      : _listContentDashboard = listContentDashboard,
+        _listContentKabar = listContentKabar,
+        _listContentJurnal = listContentJurnal,
+        _listContentInfografis = listContentInfografis,
+        _listContentVideo = listContentVideo,
+        _listContentFoto = listContentFoto,
+        _listContentSearch = listContentSearch,
+        _listContentGreenPage = listContentGreenPage;
 
   factory _$_DashboardState.fromJson(Map<String, dynamic> json) =>
       _$$_DashboardStateFromJson(json);
@@ -287,6 +457,89 @@ class _$_DashboardState implements _DashboardState {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Datum>? _listContentKabar;
+  @override
+  @JsonKey(name: "list_content_kabar")
+  List<Datum>? get listContentKabar {
+    final value = _listContentKabar;
+    if (value == null) return null;
+    if (_listContentKabar is EqualUnmodifiableListView)
+      return _listContentKabar;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Datum>? _listContentJurnal;
+  @override
+  @JsonKey(name: "list_content_jurnal")
+  List<Datum>? get listContentJurnal {
+    final value = _listContentJurnal;
+    if (value == null) return null;
+    if (_listContentJurnal is EqualUnmodifiableListView)
+      return _listContentJurnal;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Datum>? _listContentInfografis;
+  @override
+  @JsonKey(name: "list_content_infografis")
+  List<Datum>? get listContentInfografis {
+    final value = _listContentInfografis;
+    if (value == null) return null;
+    if (_listContentInfografis is EqualUnmodifiableListView)
+      return _listContentInfografis;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Datum>? _listContentVideo;
+  @override
+  @JsonKey(name: "list_content_video")
+  List<Datum>? get listContentVideo {
+    final value = _listContentVideo;
+    if (value == null) return null;
+    if (_listContentVideo is EqualUnmodifiableListView)
+      return _listContentVideo;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Datum>? _listContentFoto;
+  @override
+  @JsonKey(name: "list_content_foto")
+  List<Datum>? get listContentFoto {
+    final value = _listContentFoto;
+    if (value == null) return null;
+    if (_listContentFoto is EqualUnmodifiableListView) return _listContentFoto;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Datum>? _listContentSearch;
+  @override
+  @JsonKey(name: "list_content_search")
+  List<Datum>? get listContentSearch {
+    final value = _listContentSearch;
+    if (value == null) return null;
+    if (_listContentSearch is EqualUnmodifiableListView)
+      return _listContentSearch;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Datum>? _listContentGreenPage;
+  @override
+  @JsonKey(name: "list_content_green_page")
+  List<Datum>? get listContentGreenPage {
+    final value = _listContentGreenPage;
+    if (value == null) return null;
+    if (_listContentGreenPage is EqualUnmodifiableListView)
+      return _listContentGreenPage;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final int? limit;
   @override
@@ -295,6 +548,14 @@ class _$_DashboardState implements _DashboardState {
   final String? slug;
   @override
   final String? tipe;
+  @override
+  final String? icon;
+  @override
+  @JsonKey()
+  final dynamic is_loading;
+  @override
+  @JsonKey()
+  final dynamic is_green_mode;
   @override
   @JsonKey()
   final int kota_id;
@@ -313,7 +574,7 @@ class _$_DashboardState implements _DashboardState {
 
   @override
   String toString() {
-    return 'DashboardState(dashboardResponse: $dashboardResponse, listContentDashboard: $listContentDashboard, limit: $limit, page: $page, slug: $slug, tipe: $tipe, kota_id: $kota_id, kota_name: $kota_name, tags_id: $tags_id, tags_name: $tags_name, selected_id: $selected_id)';
+    return 'DashboardState(dashboardResponse: $dashboardResponse, listContentDashboard: $listContentDashboard, listContentKabar: $listContentKabar, listContentJurnal: $listContentJurnal, listContentInfografis: $listContentInfografis, listContentVideo: $listContentVideo, listContentFoto: $listContentFoto, listContentSearch: $listContentSearch, listContentGreenPage: $listContentGreenPage, limit: $limit, page: $page, slug: $slug, tipe: $tipe, icon: $icon, is_loading: $is_loading, is_green_mode: $is_green_mode, kota_id: $kota_id, kota_name: $kota_name, tags_id: $tags_id, tags_name: $tags_name, selected_id: $selected_id)';
   }
 
   @override
@@ -325,10 +586,29 @@ class _$_DashboardState implements _DashboardState {
                 other.dashboardResponse == dashboardResponse) &&
             const DeepCollectionEquality()
                 .equals(other._listContentDashboard, _listContentDashboard) &&
+            const DeepCollectionEquality()
+                .equals(other._listContentKabar, _listContentKabar) &&
+            const DeepCollectionEquality()
+                .equals(other._listContentJurnal, _listContentJurnal) &&
+            const DeepCollectionEquality()
+                .equals(other._listContentInfografis, _listContentInfografis) &&
+            const DeepCollectionEquality()
+                .equals(other._listContentVideo, _listContentVideo) &&
+            const DeepCollectionEquality()
+                .equals(other._listContentFoto, _listContentFoto) &&
+            const DeepCollectionEquality()
+                .equals(other._listContentSearch, _listContentSearch) &&
+            const DeepCollectionEquality()
+                .equals(other._listContentGreenPage, _listContentGreenPage) &&
             (identical(other.limit, limit) || other.limit == limit) &&
             (identical(other.page, page) || other.page == page) &&
             (identical(other.slug, slug) || other.slug == slug) &&
             (identical(other.tipe, tipe) || other.tipe == tipe) &&
+            (identical(other.icon, icon) || other.icon == icon) &&
+            const DeepCollectionEquality()
+                .equals(other.is_loading, is_loading) &&
+            const DeepCollectionEquality()
+                .equals(other.is_green_mode, is_green_mode) &&
             (identical(other.kota_id, kota_id) || other.kota_id == kota_id) &&
             (identical(other.kota_name, kota_name) ||
                 other.kota_name == kota_name) &&
@@ -341,19 +621,30 @@ class _$_DashboardState implements _DashboardState {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      dashboardResponse,
-      const DeepCollectionEquality().hash(_listContentDashboard),
-      limit,
-      page,
-      slug,
-      tipe,
-      kota_id,
-      kota_name,
-      tags_id,
-      tags_name,
-      selected_id);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        dashboardResponse,
+        const DeepCollectionEquality().hash(_listContentDashboard),
+        const DeepCollectionEquality().hash(_listContentKabar),
+        const DeepCollectionEquality().hash(_listContentJurnal),
+        const DeepCollectionEquality().hash(_listContentInfografis),
+        const DeepCollectionEquality().hash(_listContentVideo),
+        const DeepCollectionEquality().hash(_listContentFoto),
+        const DeepCollectionEquality().hash(_listContentSearch),
+        const DeepCollectionEquality().hash(_listContentGreenPage),
+        limit,
+        page,
+        slug,
+        tipe,
+        icon,
+        const DeepCollectionEquality().hash(is_loading),
+        const DeepCollectionEquality().hash(is_green_mode),
+        kota_id,
+        kota_name,
+        tags_id,
+        tags_name,
+        selected_id
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -375,10 +666,27 @@ abstract class _DashboardState implements DashboardState {
           final DashboardResponse? dashboardResponse,
       @JsonKey(name: "list_content_dashboard")
           final List<Datum>? listContentDashboard,
+      @JsonKey(name: "list_content_kabar")
+          final List<Datum>? listContentKabar,
+      @JsonKey(name: "list_content_jurnal")
+          final List<Datum>? listContentJurnal,
+      @JsonKey(name: "list_content_infografis")
+          final List<Datum>? listContentInfografis,
+      @JsonKey(name: "list_content_video")
+          final List<Datum>? listContentVideo,
+      @JsonKey(name: "list_content_foto")
+          final List<Datum>? listContentFoto,
+      @JsonKey(name: "list_content_search")
+          final List<Datum>? listContentSearch,
+      @JsonKey(name: "list_content_green_page")
+          final List<Datum>? listContentGreenPage,
       final int? limit,
       final int? page,
       final String? slug,
       final String? tipe,
+      final String? icon,
+      final dynamic is_loading,
+      final dynamic is_green_mode,
       final int kota_id,
       final String kota_name,
       final int tags_id,
@@ -395,6 +703,27 @@ abstract class _DashboardState implements DashboardState {
   @JsonKey(name: "list_content_dashboard")
   List<Datum>? get listContentDashboard;
   @override
+  @JsonKey(name: "list_content_kabar")
+  List<Datum>? get listContentKabar;
+  @override
+  @JsonKey(name: "list_content_jurnal")
+  List<Datum>? get listContentJurnal;
+  @override
+  @JsonKey(name: "list_content_infografis")
+  List<Datum>? get listContentInfografis;
+  @override
+  @JsonKey(name: "list_content_video")
+  List<Datum>? get listContentVideo;
+  @override
+  @JsonKey(name: "list_content_foto")
+  List<Datum>? get listContentFoto;
+  @override
+  @JsonKey(name: "list_content_search")
+  List<Datum>? get listContentSearch;
+  @override
+  @JsonKey(name: "list_content_green_page")
+  List<Datum>? get listContentGreenPage;
+  @override
   int? get limit;
   @override
   int? get page;
@@ -402,6 +731,12 @@ abstract class _DashboardState implements DashboardState {
   String? get slug;
   @override
   String? get tipe;
+  @override
+  String? get icon;
+  @override
+  dynamic get is_loading;
+  @override
+  dynamic get is_green_mode;
   @override
   int get kota_id;
   @override

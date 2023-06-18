@@ -37,7 +37,7 @@ class _VideoPageState extends ConsumerState<VideoPage> {
       length: mainTabLength,
       child: WillPopScope(
         onWillPop: () {
-          return basicOnWillPop(context, ref);
+          return basicOnWillPop(context);
         },
         child: Scaffold(
           appBar: appBarWidget(context,

@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neraca_ruang/core/consts/sizes.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/cubit_bloc/dashboard/dashboard_cubit.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/tab_menu_item.dart';
 
@@ -22,42 +24,57 @@ appBarWidget(BuildContext context,
         [
           InkWell(
               onTap: () {
+                context
+                    .read<DashboardCubit>()
+                    .fetchContentsWithCustomFilter(tipe: "kabar");
                 context.router.replace(const KabarRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
+                // if (resetStates != null) {
+                //   resetStates();
+                // }
               },
               child: TabMenuItem("KABAR")),
           InkWell(
               onTap: () {
+                context
+                    .read<DashboardCubit>()
+                    .fetchContentsWithCustomFilter(tipe: "jurnal");
                 context.router.replace(const JurnalRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
+                // if (resetStates != null) {
+                //   resetStates();
+                // }
               },
               child: TabMenuItem("JURNAL")),
           InkWell(
               onTap: () {
+                context
+                    .read<DashboardCubit>()
+                    .fetchContentsWithCustomFilter(tipe: "infografis");
                 context.router.replace(const InfografisRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
+                // if (resetStates != null) {
+                //   resetStates();
+                // }
               },
               child: TabMenuItem("INFOGRAFIS")),
           InkWell(
               onTap: () {
+                context
+                    .read<DashboardCubit>()
+                    .fetchContentsWithCustomFilter(tipe: "video");
                 context.router.replace(const VideoRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
+                // if (resetStates != null) {
+                //   resetStates();
+                // }
               },
               child: TabMenuItem("VIDEO")),
           InkWell(
               onTap: () {
+                context
+                    .read<DashboardCubit>()
+                    .fetchContentsWithCustomFilter(tipe: "foto");
                 context.router.replace(const AlbumFotoRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
+                // if (resetStates != null) {
+                //   resetStates();
+                // }
               },
               child: TabMenuItem("ALBUM FOTO")),
           TabMenuItem("DISKUSI"),
