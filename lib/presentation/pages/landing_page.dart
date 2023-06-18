@@ -9,6 +9,7 @@ import 'package:flutter_neraca_ruang/presentation/widgets/bottom_bar_widget.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:hive/hive.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../core/consts/assets.dart';
 import '../../core/consts/hive_const.dart';
@@ -29,6 +30,18 @@ class LandingPage extends ConsumerStatefulWidget {
 }
 
 class LandingPageState extends ConsumerState<LandingPage> {
+  // late YoutubePlayerController _controller;
+  // final videoURL = "www.youtube.com/naonatuh";
+
+  @override
+  void initState() {
+    // final videoID = YoutubePlayer.convertUrlToId(videoURL);
+    // _controller = YoutubePlayerController(
+    //     initialVideoId: videoID!,
+    //     flags: const YoutubePlayerFlags(autoPlay: false));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // ref.listen(loggingInProvider, (previous, next) {
@@ -390,13 +403,24 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                 maxHeight: 200,
                                 minWidth: MediaQuery.of(context).size.width,
                               ),
-                              child: Image.network(
-                                "https://$thumbnailUrl/${data[3].thumbnail}",
-                                fit: BoxFit.cover,
-                                errorBuilder: (bc, o, st) {
-                                  return Text(data[3].thumbnail ?? "");
-                                },
+                              child: YoutubePlayer(
+                                controller: YoutubePlayerController(
+                                    initialVideoId:
+                                        YoutubePlayer.convertUrlToId(
+                                            data[3].videoUrl ?? "")!,
+                                    flags: const YoutubePlayerFlags(
+                                        autoPlay: false)),
+                                showVideoProgressIndicator: true,
                               ),
+
+                              // Text("URL YOUTUBE: ${data[3].videoUrl}"),
+                              // Image.network(
+                              //   "https://$thumbnailUrl/${data[3].thumbnail}",
+                              //   fit: BoxFit.cover,
+                              //   errorBuilder: (bc, o, st) {
+                              //     return Text(data[3].thumbnail ?? "");
+                              //   },
+                              // ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(normal),
