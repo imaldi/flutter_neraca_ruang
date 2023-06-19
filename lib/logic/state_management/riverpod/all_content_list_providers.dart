@@ -18,10 +18,10 @@ part 'all_content_list_providers.g.dart';
 class Contents extends _$Contents {
   @override
   FutureOr<List<Datum>> build() async {
-    return fetchTodo();
+    return fetchContent();
   }
 
-  Future<List<Datum>> fetchTodo(
+  Future<List<Datum>> fetchContent(
       {int? pageNumber = 1,
       int? limit = 5,
       String? type,
@@ -30,14 +30,14 @@ class Contents extends _$Contents {
       'page': pageNumber.toString(),
       'limit': limit.toString(),
     };
-    queryParameters['keyword'] = ref.watch(keywordProvider);
+    // queryParameters['keyword'] = ref.watch(keywordProvider);
     var shouldStartSearchingByTag = ref.watch(startSearching);
     var idTagsPihak = ref.watch(tagsPihak);
     var idTagsTopik = ref.watch(tagsTopik);
     var idTagsOtonom = ref.watch(tagsOtonom);
     if (shouldStartSearchingByTag) {
-      queryParameters.remove('keyword');
-      ref.invalidate(keywordProvider);
+      // queryParameters.remove('keyword');
+      // ref.invalidate(keywordProvider);
       if (idTagsPihak != 0) {
         queryParameters['tags_pihak'] = idTagsPihak.toString();
       }
@@ -86,49 +86,43 @@ class Contents extends _$Contents {
       });
       state = AsyncValue.error(TypeError, StackTrace.current);
       return [];
-    } finally {
-      ref.invalidate(startSearching);
-      ref.invalidate(tagsPihak);
-      ref.invalidate(tagsOtonom);
-      ref.invalidate(tagsTopik);
     }
+    // finally {
+    //   ref.invalidate(startSearching);
+    //   ref.invalidate(tagsPihak);
+    //   ref.invalidate(tagsOtonom);
+    //   ref.invalidate(tagsTopik);
+    // }
   }
 
-  Future<void> likeContent(String slug) async {
-    // Map<String, String> queryParameters = {
-    //   'slug'
-    //       'page': pageNumber.toString(),
-    //   'limit': limit.toString(),
-    // };
-
-    var authBox = sl<Box<LoginResponse>>();
-    var dataFromBox = authBox.get(userDataKey);
-    print("dataFromBox: $dataFromBox");
-
-    String token = dataFromBox?.data?.token ?? "";
-
-    var url = Uri.https(baseUrl, "$addLike/$slug");
-
-    // final json = await http.get(url);
-    final response = await http.patch(url, headers: {
-      'Authorization': token,
-      'Accept': 'application/json',
-    });
-    print("URL: $url");
-
-    final result =
-        DashboardResponse.fromJson(jsonDecode(response.body)).data?.data ??
-            <Datum>[];
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      return result;
-    });
-  }
+  // Future<void> likeContent(String slug) async {
+  //   // Map<String, String> queryParameters = {
+  //   //   'slug'
+  //   //       'page': pageNumber.toString(),
+  //   //   'limit': limit.toString(),
+  //   // };
+  //
+  //   var authBox = sl<Box<LoginResponse>>();
+  //   var dataFromBox = authBox.get(userDataKey);
+  //   print("dataFromBox: $dataFromBox");
+  //
+  //   String token = dataFromBox?.data?.token ?? "";
+  //
+  //   var url = Uri.https(baseUrl, "$addLike/$slug");
+  //
+  //   // final json = await http.get(url);
+  //   final response = await http.patch(url, headers: {
+  //     'Authorization': token,
+  //     'Accept': 'application/json',
+  //   });
+  //   print("URL: $url");
+  //
+  //   final result =
+  //       DashboardResponse.fromJson(jsonDecode(response.body)).data?.data ??
+  //           <Datum>[];
+  //   state = const AsyncValue.loading();
+  //   state = await AsyncValue.guard(() async {
+  //     return result;
+  //   });
+  // }
 }
-
-// class ContentRepo {
-//   Map<String, String> queryParameters = {
-//     'page': pageNumber.toString(),
-//     'limit': limit.toString(),
-//   };
-// }

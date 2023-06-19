@@ -7,6 +7,7 @@ import '../../core/consts/assets.dart';
 import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/router/app_router.dart';
+import '../widgets/my_toast.dart';
 import '../widgets/rounded_container.dart';
 import '../widgets/rounded_text_form_field.dart';
 
@@ -16,6 +17,13 @@ class RegisterPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final namaCtlr = TextEditingController();
+    final tanggalLahirCtlr = TextEditingController();
+    final teleponCtlr = TextEditingController();
+    final kotaKabCtlr = TextEditingController();
+    final kodePosCtlr = TextEditingController();
+    final kataSandiCtlr = TextEditingController();
+    final konfKtSandiCtlr = TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -61,13 +69,12 @@ class RegisterPage extends ConsumerWidget {
                       /// Custom TFF
                       RoundedTextFormField(
                         hint: "Nama*",
-                      ),
-                      RoundedTextFormField(
-                        hint: "Kata Sandi*",
+                        controller: namaCtlr,
                       ),
 
                       RoundedTextFormField(
                         hint: "Tanggal Lahir",
+                        controller: tanggalLahirCtlr,
                         decoration: InputDecoration(
                             suffixIcon: InkWell(
                                 onTap: () async {
@@ -79,21 +86,41 @@ class RegisterPage extends ConsumerWidget {
                                 },
                                 child: Icon(Icons.calendar_month))),
                       ),
-                      RoundedTextFormField(hint: "Telepon"),
+                      RoundedTextFormField(
+                        hint: "Telepon",
+                        controller: teleponCtlr,
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          RoundedTextFormField(hint: "Kota/Kabupaten"),
+                          RoundedTextFormField(
+                            hint: "Kota/Kabupaten",
+                            controller: kotaKabCtlr,
+                          ),
                           const Text("Aktifkan lokasi?")
                         ],
                       ),
-                      RoundedTextFormField(hint: "Kode Pos"),
-                      RoundedTextFormField(hint: "Kata Sandi*"),
-                      RoundedTextFormField(hint: "Konfirmasi Kata Sandi*"),
+                      RoundedTextFormField(
+                        hint: "Kode Pos",
+                        controller: kodePosCtlr,
+                      ),
+                      RoundedTextFormField(
+                        hint: "Kata Sandi*",
+                        controller: kataSandiCtlr,
+                      ),
+                      RoundedTextFormField(
+                        hint: "Konfirmasi Kata Sandi*",
+                        controller: konfKtSandiCtlr,
+                      ),
 
                       Container(
                         color: Colors.grey[100],
-                        child: Text("Saya Bukan Robot"),
+                        child: Row(
+                          children: [
+                            Checkbox(value: false, onChanged: (val) {}),
+                            Text("Saya Bukan Robot"),
+                          ],
+                        ),
                       ),
                       RoundedContainer(
                         extra,
@@ -105,7 +132,9 @@ class RegisterPage extends ConsumerWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(huge))),
                             clipBehavior: Clip.antiAlias,
-                            onPressed: () {},
+                            onPressed: () {
+                              myToast("OIK");
+                            },
                             child: Text("DAFTAR")),
                       ),
                       Text("Sudah memiliki akun?"),

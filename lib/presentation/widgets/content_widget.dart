@@ -302,6 +302,7 @@ class ContentWidget extends ConsumerWidget {
           child: Column(
             children: [
               Text(
+                /// TODO jangan lupa ganti dengan createdBy
                 '${content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
                 style: isGreenMode
                     ? Theme.of(context)

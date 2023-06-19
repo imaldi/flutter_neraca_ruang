@@ -48,16 +48,15 @@ class LandingPageState extends ConsumerState<LandingPage> {
     //       error: (o, st) => null,
     //       loading: () => null);
     // });
-    ref.listen(isLoginProvider, (previous, next) {
-      if (!next) {
-        context.router.replace(const LoginRoute());
-        print("login listener called in landing page");
-      }
-    });
+    // ref.listen(isLoginProvider, (previous, next) {
+    //   if (!next) {
+    //     context.router.replace(const LoginRoute());
+    //     print("login listener called in landing page");
+    //   }
+    // });
     var dataDashboard = ref.watch(dashBoardProvider);
     var adsense = ref.watch(adsenseProvider);
-    var isLogin = ref.watch(isLoginProvider);
-    var userData = ref.watch(userDataProvider);
+    // var isLogin = ref.watch(isLoginProvider);
 
     return DefaultTabController(
       length: mainTabLength,
@@ -93,18 +92,21 @@ class LandingPageState extends ConsumerState<LandingPage> {
                         border: Border.all(color: Colors.grey),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(huge))),
-                    child: isLogin
-                        ? InkWell(
-                            onTap: () async {
-                              ref
-                                  .read(isLoginProvider.notifier)
-                                  .update((state) => false);
-                              var box = sl<Box<LoginResponse>>();
-                              await box.delete(userDataKey);
-                              context.router.replace(const LoginRoute());
-                            },
-                            child: const Text("Log Out"))
-                        : InkWell(
+                    child:
+                        // isLogin
+                        //     ? InkWell(
+                        //         onTap: () async {
+                        //           ref
+                        //               .read(isLoginProvider.notifier)
+                        //               .update((state) => false);
+                        //           var box = sl<Box<LoginResponse>>();
+                        //           await box.delete(userDataKey);
+                        //           context.router.replace(const LoginRoute());
+                        //         },
+                        //         child: const Text("Log Out"))
+                        //     :
+
+                        InkWell(
                             onTap: () {
                               context.router.push(const LoginRoute());
                             },
@@ -532,21 +534,6 @@ class LandingPageState extends ConsumerState<LandingPage> {
                               ),
                             ),
                             Divider(),
-                            Container(
-                              margin:
-                                  const EdgeInsets.symmetric(vertical: normal),
-                              constraints: BoxConstraints(
-                                maxHeight: 200,
-                                minWidth: MediaQuery.of(context).size.width,
-                              ),
-                              child: Image.network(
-                                "https://$contentUrl/${data[4].images}" ?? "",
-                                fit: BoxFit.cover,
-                                errorBuilder: (bc, o, st) {
-                                  return Text(data[4].images ?? "");
-                                },
-                              ),
-                            ),
 
                             /// Diskusi section, hide dulu untuk sekarang
                             // Padding(

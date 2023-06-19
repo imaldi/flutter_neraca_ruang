@@ -5,12 +5,12 @@ import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/consts/sizes.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/auth_providers.dart';
-import 'package:flutter_neraca_ruang/presentation/pages/landing_page.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_container.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/assets.dart';
+import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 
 @RoutePage()
 class LoginPage extends ConsumerStatefulWidget {
@@ -21,7 +21,7 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  var usernameController = TextEditingController(text: 'admin');
+  var usernameController = TextEditingController(text: '4171320089898911');
   var passwordController = TextEditingController(text: '12345678');
   // var usernameController = TextEditingController(text: '');
   // var passwordController = TextEditingController(text: '');
@@ -29,17 +29,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(loggingInProvider, (previous, next) {
-      next.when(
-          data: (data) {
-            if (data) {
-              context.router.replace(const LandingRoute());
-              print("login listener called");
-            }
-          },
-          error: (o, st) => null,
-          loading: () => null);
-    });
+    // ref.listen(loggingInProvider, (previous, next) {
+    //   next.when(
+    //       data: (data) {
+    //         if (data) {
+    //           context.router.replace(const LandingRoute());
+    //           print("login listener called");
+    //         }
+    //       },
+    //       error: (o, st) => null,
+    //       loading: () => null);
+    // });
+    var userData = ref.watch(authStatusProvider);
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -93,13 +95,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                           BorderRadius.circular(huge))),
                               clipBehavior: Clip.antiAlias,
                               onPressed: () {
-                                ref
-                                    .read(usernameProvider.notifier)
-                                    .update((state) => usernameController.text);
-                                ref
-                                    .read(passwordProvider.notifier)
-                                    .update((state) => passwordController.text);
-                                context.router.replace(LandingRoute());
+                                // ref
+                                //     .read(usernameProvider.notifier)
+                                //     .update((state) => usernameController.text);
+                                // ref
+                                //     .read(passwordProvider.notifier)
+                                //     .update((state) => passwordController.text);
+                                // ref.read(loginEvent.notifier).state = true;
+                                ref.read(authStatusProvider.notifier).login(
+                                    username: usernameController.text,
+                                    password: passwordController.text);
+
+                                // context.router.replace(const LandingRoute());
                               },
                               child: Text("MASUK")),
                         ),
@@ -113,6 +120,31 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             style: TextStyle(color: Colors.blue),
                           ),
                         ),
+                        SizedBox(
+                          height: huge,
+                        ),
+                        RoundedContainer(
+                          extra,
+                          margin: const EdgeInsets.all(0),
+                          padding: const EdgeInsets.all(0),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(primaryColor),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(huge))),
+                              clipBehavior: Clip.antiAlias,
+                              onPressed: () {
+                                ref.read(authStatusProvider.notifier).logout();
+
+                                // context.router.replace(const LandingRoute());
+                              },
+                              child: Text("Reset Saved Data")),
+                        ),
+                        userData.when(
+                            data: (data) => Text("userData $data"),
+                            error: (o, st) => const Text("User Logged Out"),
+                            loading: () => const CircularProgressIndicator())
                       ],
                     ),
                   ),

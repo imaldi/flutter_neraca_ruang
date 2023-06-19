@@ -24,6 +24,10 @@ void basicResetStates(BuildContext context, WidgetRef ref) {
   ref.invalidate(tagsIconLinkProvider);
   ref.invalidate(limitProvider);
   ref.invalidate(selectedContentIdProvider);
+  ref.invalidate(startSearching);
+  ref.invalidate(tagsPihak);
+  ref.invalidate(tagsOtonom);
+  ref.invalidate(tagsTopik);
   // ref.read(kotaNameProvider.notifier).state = "";
   // ref.read(tagsIdProvider.notifier).state = 0;
   // ref.read(tagsNameProvider.notifier).state = "";

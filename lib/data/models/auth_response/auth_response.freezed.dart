@@ -20,7 +20,9 @@ AuthResponse _$AuthResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AuthResponse {
+  @HiveField(0)
   String? get message => throw _privateConstructorUsedError;
+  @HiveField(1)
   MemberData? get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +37,7 @@ abstract class $AuthResponseCopyWith<$Res> {
           AuthResponse value, $Res Function(AuthResponse) then) =
       _$AuthResponseCopyWithImpl<$Res, AuthResponse>;
   @useResult
-  $Res call({String? message, MemberData? data});
+  $Res call({@HiveField(0) String? message, @HiveField(1) MemberData? data});
 
   $MemberDataCopyWith<$Res>? get data;
 }
@@ -89,7 +91,7 @@ abstract class _$$_AuthResponseCopyWith<$Res>
       __$$_AuthResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? message, MemberData? data});
+  $Res call({@HiveField(0) String? message, @HiveField(1) MemberData? data});
 
   @override
   $MemberDataCopyWith<$Res>? get data;
@@ -123,16 +125,20 @@ class __$$_AuthResponseCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@HiveType(typeId: authResponseTypeId, adapterName: 'AuthResponseAdapter')
+@JsonSerializable(explicitToJson: true)
 class _$_AuthResponse implements _AuthResponse {
-  const _$_AuthResponse({this.message, this.data});
+  const _$_AuthResponse({@HiveField(0) this.message, @HiveField(1) this.data});
 
   factory _$_AuthResponse.fromJson(Map<String, dynamic> json) =>
       _$$_AuthResponseFromJson(json);
 
   @override
+  @HiveField(0)
   final String? message;
   @override
+  @HiveField(1)
   final MemberData? data;
 
   @override
@@ -168,15 +174,18 @@ class _$_AuthResponse implements _AuthResponse {
 }
 
 abstract class _AuthResponse implements AuthResponse {
-  const factory _AuthResponse({final String? message, final MemberData? data}) =
-      _$_AuthResponse;
+  const factory _AuthResponse(
+      {@HiveField(0) final String? message,
+      @HiveField(1) final MemberData? data}) = _$_AuthResponse;
 
   factory _AuthResponse.fromJson(Map<String, dynamic> json) =
       _$_AuthResponse.fromJson;
 
   @override
+  @HiveField(0)
   String? get message;
   @override
+  @HiveField(1)
   MemberData? get data;
   @override
   @JsonKey(ignore: true)
@@ -190,8 +199,11 @@ MemberData _$MemberDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MemberData {
+  @HiveField(0)
   Members? get members => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get token => throw _privateConstructorUsedError;
+  @HiveField(2)
   DateTime? get loginDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -206,7 +218,10 @@ abstract class $MemberDataCopyWith<$Res> {
           MemberData value, $Res Function(MemberData) then) =
       _$MemberDataCopyWithImpl<$Res, MemberData>;
   @useResult
-  $Res call({Members? members, String? token, DateTime? loginDate});
+  $Res call(
+      {@HiveField(0) Members? members,
+      @HiveField(1) String? token,
+      @HiveField(2) DateTime? loginDate});
 
   $MembersCopyWith<$Res>? get members;
 }
@@ -265,7 +280,10 @@ abstract class _$$_MemberDataCopyWith<$Res>
       __$$_MemberDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Members? members, String? token, DateTime? loginDate});
+  $Res call(
+      {@HiveField(0) Members? members,
+      @HiveField(1) String? token,
+      @HiveField(2) DateTime? loginDate});
 
   @override
   $MembersCopyWith<$Res>? get members;
@@ -304,18 +322,26 @@ class __$$_MemberDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@HiveType(typeId: memberDataTypeId, adapterName: 'MemberDataAdapter')
+@JsonSerializable(explicitToJson: true)
 class _$_MemberData implements _MemberData {
-  const _$_MemberData({this.members, this.token, this.loginDate});
+  const _$_MemberData(
+      {@HiveField(0) this.members,
+      @HiveField(1) this.token,
+      @HiveField(2) this.loginDate});
 
   factory _$_MemberData.fromJson(Map<String, dynamic> json) =>
       _$$_MemberDataFromJson(json);
 
   @override
+  @HiveField(0)
   final Members? members;
   @override
+  @HiveField(1)
   final String? token;
   @override
+  @HiveField(2)
   final DateTime? loginDate;
 
   @override
@@ -354,18 +380,21 @@ class _$_MemberData implements _MemberData {
 
 abstract class _MemberData implements MemberData {
   const factory _MemberData(
-      {final Members? members,
-      final String? token,
-      final DateTime? loginDate}) = _$_MemberData;
+      {@HiveField(0) final Members? members,
+      @HiveField(1) final String? token,
+      @HiveField(2) final DateTime? loginDate}) = _$_MemberData;
 
   factory _MemberData.fromJson(Map<String, dynamic> json) =
       _$_MemberData.fromJson;
 
   @override
+  @HiveField(0)
   Members? get members;
   @override
+  @HiveField(1)
   String? get token;
   @override
+  @HiveField(2)
   DateTime? get loginDate;
   @override
   @JsonKey(ignore: true)
@@ -379,20 +408,35 @@ Members _$MembersFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Members {
+  @HiveField(0)
   int? get memberId => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get username => throw _privateConstructorUsedError;
+  @HiveField(2)
   String? get fullname => throw _privateConstructorUsedError;
+  @HiveField(3)
   String? get email => throw _privateConstructorUsedError;
+  @HiveField(4)
   String? get noHp => throw _privateConstructorUsedError;
+  @HiveField(5)
   String? get tanggalLahir => throw _privateConstructorUsedError;
+  @HiveField(6)
   String? get propinsiId => throw _privateConstructorUsedError;
+  @HiveField(7)
   String? get kotaId => throw _privateConstructorUsedError;
+  @HiveField(8)
   String? get isAktivasi => throw _privateConstructorUsedError;
+  @HiveField(9)
   String? get isBlocked => throw _privateConstructorUsedError;
+  @HiveField(10)
   String? get aktivasiAt => throw _privateConstructorUsedError;
+  @HiveField(11)
   String? get blockedAt => throw _privateConstructorUsedError;
+  @HiveField(12)
   String? get createdAt => throw _privateConstructorUsedError;
+  @HiveField(13)
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @HiveField(14)
   DateTime? get lastloginAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -406,21 +450,21 @@ abstract class $MembersCopyWith<$Res> {
       _$MembersCopyWithImpl<$Res, Members>;
   @useResult
   $Res call(
-      {int? memberId,
-      String? username,
-      String? fullname,
-      String? email,
-      String? noHp,
-      String? tanggalLahir,
-      String? propinsiId,
-      String? kotaId,
-      String? isAktivasi,
-      String? isBlocked,
-      String? aktivasiAt,
-      String? blockedAt,
-      String? createdAt,
-      DateTime? updatedAt,
-      DateTime? lastloginAt});
+      {@HiveField(0) int? memberId,
+      @HiveField(1) String? username,
+      @HiveField(2) String? fullname,
+      @HiveField(3) String? email,
+      @HiveField(4) String? noHp,
+      @HiveField(5) String? tanggalLahir,
+      @HiveField(6) String? propinsiId,
+      @HiveField(7) String? kotaId,
+      @HiveField(8) String? isAktivasi,
+      @HiveField(9) String? isBlocked,
+      @HiveField(10) String? aktivasiAt,
+      @HiveField(11) String? blockedAt,
+      @HiveField(12) String? createdAt,
+      @HiveField(13) DateTime? updatedAt,
+      @HiveField(14) DateTime? lastloginAt});
 }
 
 /// @nodoc
@@ -525,21 +569,21 @@ abstract class _$$_MembersCopyWith<$Res> implements $MembersCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? memberId,
-      String? username,
-      String? fullname,
-      String? email,
-      String? noHp,
-      String? tanggalLahir,
-      String? propinsiId,
-      String? kotaId,
-      String? isAktivasi,
-      String? isBlocked,
-      String? aktivasiAt,
-      String? blockedAt,
-      String? createdAt,
-      DateTime? updatedAt,
-      DateTime? lastloginAt});
+      {@HiveField(0) int? memberId,
+      @HiveField(1) String? username,
+      @HiveField(2) String? fullname,
+      @HiveField(3) String? email,
+      @HiveField(4) String? noHp,
+      @HiveField(5) String? tanggalLahir,
+      @HiveField(6) String? propinsiId,
+      @HiveField(7) String? kotaId,
+      @HiveField(8) String? isAktivasi,
+      @HiveField(9) String? isBlocked,
+      @HiveField(10) String? aktivasiAt,
+      @HiveField(11) String? blockedAt,
+      @HiveField(12) String? createdAt,
+      @HiveField(13) DateTime? updatedAt,
+      @HiveField(14) DateTime? lastloginAt});
 }
 
 /// @nodoc
@@ -634,57 +678,74 @@ class __$$_MembersCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@HiveType(typeId: memberTypeId, adapterName: 'MemberAdapter')
+@JsonSerializable(explicitToJson: true)
 class _$_Members implements _Members {
   const _$_Members(
-      {this.memberId,
-      this.username,
-      this.fullname,
-      this.email,
-      this.noHp,
-      this.tanggalLahir,
-      this.propinsiId,
-      this.kotaId,
-      this.isAktivasi,
-      this.isBlocked,
-      this.aktivasiAt,
-      this.blockedAt,
-      this.createdAt,
-      this.updatedAt,
-      this.lastloginAt});
+      {@HiveField(0) this.memberId,
+      @HiveField(1) this.username,
+      @HiveField(2) this.fullname,
+      @HiveField(3) this.email,
+      @HiveField(4) this.noHp,
+      @HiveField(5) this.tanggalLahir,
+      @HiveField(6) this.propinsiId,
+      @HiveField(7) this.kotaId,
+      @HiveField(8) this.isAktivasi,
+      @HiveField(9) this.isBlocked,
+      @HiveField(10) this.aktivasiAt,
+      @HiveField(11) this.blockedAt,
+      @HiveField(12) this.createdAt,
+      @HiveField(13) this.updatedAt,
+      @HiveField(14) this.lastloginAt});
 
   factory _$_Members.fromJson(Map<String, dynamic> json) =>
       _$$_MembersFromJson(json);
 
   @override
+  @HiveField(0)
   final int? memberId;
   @override
+  @HiveField(1)
   final String? username;
   @override
+  @HiveField(2)
   final String? fullname;
   @override
+  @HiveField(3)
   final String? email;
   @override
+  @HiveField(4)
   final String? noHp;
   @override
+  @HiveField(5)
   final String? tanggalLahir;
   @override
+  @HiveField(6)
   final String? propinsiId;
   @override
+  @HiveField(7)
   final String? kotaId;
   @override
+  @HiveField(8)
   final String? isAktivasi;
   @override
+  @HiveField(9)
   final String? isBlocked;
   @override
+  @HiveField(10)
   final String? aktivasiAt;
   @override
+  @HiveField(11)
   final String? blockedAt;
   @override
+  @HiveField(12)
   final String? createdAt;
   @override
+  @HiveField(13)
   final DateTime? updatedAt;
   @override
+  @HiveField(14)
   final DateTime? lastloginAt;
 
   @override
@@ -762,53 +823,68 @@ class _$_Members implements _Members {
 
 abstract class _Members implements Members {
   const factory _Members(
-      {final int? memberId,
-      final String? username,
-      final String? fullname,
-      final String? email,
-      final String? noHp,
-      final String? tanggalLahir,
-      final String? propinsiId,
-      final String? kotaId,
-      final String? isAktivasi,
-      final String? isBlocked,
-      final String? aktivasiAt,
-      final String? blockedAt,
-      final String? createdAt,
-      final DateTime? updatedAt,
-      final DateTime? lastloginAt}) = _$_Members;
+      {@HiveField(0) final int? memberId,
+      @HiveField(1) final String? username,
+      @HiveField(2) final String? fullname,
+      @HiveField(3) final String? email,
+      @HiveField(4) final String? noHp,
+      @HiveField(5) final String? tanggalLahir,
+      @HiveField(6) final String? propinsiId,
+      @HiveField(7) final String? kotaId,
+      @HiveField(8) final String? isAktivasi,
+      @HiveField(9) final String? isBlocked,
+      @HiveField(10) final String? aktivasiAt,
+      @HiveField(11) final String? blockedAt,
+      @HiveField(12) final String? createdAt,
+      @HiveField(13) final DateTime? updatedAt,
+      @HiveField(14) final DateTime? lastloginAt}) = _$_Members;
 
   factory _Members.fromJson(Map<String, dynamic> json) = _$_Members.fromJson;
 
   @override
+  @HiveField(0)
   int? get memberId;
   @override
+  @HiveField(1)
   String? get username;
   @override
+  @HiveField(2)
   String? get fullname;
   @override
+  @HiveField(3)
   String? get email;
   @override
+  @HiveField(4)
   String? get noHp;
   @override
+  @HiveField(5)
   String? get tanggalLahir;
   @override
+  @HiveField(6)
   String? get propinsiId;
   @override
+  @HiveField(7)
   String? get kotaId;
   @override
+  @HiveField(8)
   String? get isAktivasi;
   @override
+  @HiveField(9)
   String? get isBlocked;
   @override
+  @HiveField(10)
   String? get aktivasiAt;
   @override
+  @HiveField(11)
   String? get blockedAt;
   @override
+  @HiveField(12)
   String? get createdAt;
   @override
+  @HiveField(13)
   DateTime? get updatedAt;
   @override
+  @HiveField(14)
   DateTime? get lastloginAt;
   @override
   @JsonKey(ignore: true)

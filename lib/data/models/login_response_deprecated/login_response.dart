@@ -10,6 +10,7 @@ import '../../../core/consts/hive_type_id.dart';
 part 'login_response.freezed.dart';
 part 'login_response.g.dart';
 
+@Deprecated("Sekarang pakai AuthResponse")
 @freezed
 class LoginResponse with _$LoginResponse {
   @HiveType(typeId: loginResponseTypeId, adapterName: 'LoginResponseAdapter')
