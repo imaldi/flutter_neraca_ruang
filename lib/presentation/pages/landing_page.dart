@@ -6,18 +6,15 @@ import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_p
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/appbar_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/bottom_bar_widget.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:hive/hive.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../core/consts/assets.dart';
-import '../../core/consts/hive_const.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
-import '../../data/models/login_response_deprecated/login_response.dart';
-import '../../di.dart';
-import '../../logic/state_management/riverpod/auth_providers.dart';
+import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../widgets/drawer_content.dart';
 import '../widgets/scrollable_horizontal_image.dart';
 
@@ -37,26 +34,10 @@ class LandingPageState extends ConsumerState<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    // ref.listen(loggingInProvider, (previous, next) {
-    //   next.when(
-    //       data: (data) {
-    //         if (!data) {
-    //           context.router.replace(const LoginRoute());
-    //           print("login listener called in landing page");
-    //         }
-    //       },
-    //       error: (o, st) => null,
-    //       loading: () => null);
-    // });
-    // ref.listen(isLoginProvider, (previous, next) {
-    //   if (!next) {
-    //     context.router.replace(const LoginRoute());
-    //     print("login listener called in landing page");
-    //   }
-    // });
     var dataDashboard = ref.watch(dashBoardProvider);
     var adsense = ref.watch(adsenseProvider);
-    // var isLogin = ref.watch(isLoginProvider);
+    var authData = ref.watch(authStatusProvider);
+    var isLogin = authData.value != null;
 
     return DefaultTabController(
       length: mainTabLength,
@@ -92,21 +73,18 @@ class LandingPageState extends ConsumerState<LandingPage> {
                         border: Border.all(color: Colors.grey),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(huge))),
-                    child:
-                        // isLogin
-                        //     ? InkWell(
-                        //         onTap: () async {
-                        //           ref
-                        //               .read(isLoginProvider.notifier)
-                        //               .update((state) => false);
-                        //           var box = sl<Box<LoginResponse>>();
-                        //           await box.delete(userDataKey);
-                        //           context.router.replace(const LoginRoute());
-                        //         },
-                        //         child: const Text("Log Out"))
-                        //     :
-
-                        InkWell(
+                    child: isLogin
+                        ? InkWell(
+                            onTap: () async {
+                              ref.read(authStatusProvider.notifier).logout(
+                                  callback: () {
+                                myToast("Log Out Success");
+                                context.router.pop();
+                              });
+                              // context.router.replace(const LoginRoute());
+                            },
+                            child: const Text("Log Out"))
+                        : InkWell(
                             onTap: () {
                               context.router.push(const LoginRoute());
                             },

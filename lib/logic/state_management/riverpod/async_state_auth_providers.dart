@@ -43,7 +43,9 @@ class AuthStatus extends _$AuthStatus {
   }
 
   Future<void> login(
-      {required String username, required String password}) async {
+      {required String username,
+      required String password,
+      Function? successCallback}) async {
     const AsyncValue.loading();
 
     String token =
@@ -83,6 +85,7 @@ class AuthStatus extends _$AuthStatus {
       state = await AsyncValue.guard(() async {
         return dataFromBox;
       });
+      if (successCallback != null) successCallback();
     } on TypeError {
       // state = const AsyncValue.loading();
       // state = await AsyncValue.guard(() async {
@@ -92,13 +95,12 @@ class AuthStatus extends _$AuthStatus {
     }
   }
 
-  Future<void> logout() async {
-    AsyncValue.loading();
+  Future<void> logout({Function? callback}) async {
+    state = const AsyncValue.loading();
     var box = sl<Box<AuthResponse>>();
 
     try {
       if (box.containsKey(userDataKey)) {
-        state = const AsyncValue.loading();
         final AuthResponse response = box.get(userDataKey) ??
             const AuthResponse(message: "There is an error");
 
@@ -107,6 +109,7 @@ class AuthStatus extends _$AuthStatus {
         print("user Data after .delete(): ${box.get(userDataKey)}");
 
         state = await AsyncValue.guard(() async => null);
+        if (callback != null) callback();
         // throw Exception();
 
         // AsyncValue.error(Error(), StackTrace.current);

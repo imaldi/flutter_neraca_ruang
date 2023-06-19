@@ -6,7 +6,7 @@ part of 'async_state_auth_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authStatusHash() => r'd8784817a95d058b6be8a5c721af389630fa77bb';
+String _$authStatusHash() => r'adc1e94d24a2f4a811506c31e0196f0f879371e9';
 
 /// TODO, nanti pisahkn method register dan login,
 /// TODO serta buat method init yg pertama2 ngambil dari box, lalu alihkam ke login page kalau null

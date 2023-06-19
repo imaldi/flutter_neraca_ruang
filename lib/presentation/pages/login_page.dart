@@ -1,10 +1,9 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/consts/sizes.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
-import 'package:flutter_neraca_ruang/logic/state_management/riverpod/auth_providers.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_container.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -104,9 +103,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 // ref.read(loginEvent.notifier).state = true;
                                 ref.read(authStatusProvider.notifier).login(
                                     username: usernameController.text,
-                                    password: passwordController.text);
-
-                                // context.router.replace(const LandingRoute());
+                                    password: passwordController.text,
+                                    successCallback: () {
+                                      myToast("Log In Success");
+                                      context.router
+                                          .replace(const LandingRoute());
+                                    });
                               },
                               child: Text("MASUK")),
                         ),
@@ -123,28 +125,26 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         SizedBox(
                           height: huge,
                         ),
-                        RoundedContainer(
-                          extra,
-                          margin: const EdgeInsets.all(0),
-                          padding: const EdgeInsets.all(0),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(primaryColor),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(huge))),
-                              clipBehavior: Clip.antiAlias,
-                              onPressed: () {
-                                ref.read(authStatusProvider.notifier).logout();
-
-                                // context.router.replace(const LandingRoute());
-                              },
-                              child: Text("Reset Saved Data")),
-                        ),
-                        userData.when(
-                            data: (data) => Text("userData $data"),
-                            error: (o, st) => const Text("User Logged Out"),
-                            loading: () => const CircularProgressIndicator())
+                        // RoundedContainer(
+                        //   extra,
+                        //   margin: const EdgeInsets.all(0),
+                        //   padding: const EdgeInsets.all(0),
+                        //   child: ElevatedButton(
+                        //       style: ElevatedButton.styleFrom(
+                        //           backgroundColor: Color(primaryColor),
+                        //           shape: RoundedRectangleBorder(
+                        //               borderRadius:
+                        //                   BorderRadius.circular(huge))),
+                        //       clipBehavior: Clip.antiAlias,
+                        //       onPressed: () {
+                        //         ref.read(authStatusProvider.notifier).logout();
+                        //       },
+                        //       child: Text("Reset Saved Data")),
+                        // ),
+                        // userData.when(
+                        //     data: (data) => Text("userData $data"),
+                        //     error: (o, st) => const Text("User Logged Out"),
+                        //     loading: () => const CircularProgressIndicator())
                       ],
                     ),
                   ),

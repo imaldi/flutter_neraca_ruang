@@ -10,11 +10,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/assets.dart';
 import '../../core/consts/colors.dart';
+import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
 import 'bottom_bar_widget.dart';
 
 appBarWidget(BuildContext context,
-    {required WidgetRef? ref,
+    {required WidgetRef ref,
     String? appbarTitle,
     Widget? appbarBackgroundImage,
     Function? resetStates,
@@ -146,7 +147,8 @@ appBarWidget(BuildContext context,
                     Center(
                       child: ElevatedButton(
                           onPressed: () {
-                            ref?.read(keywordProvider.notifier).state =
+                            basicResetStates(context, ref);
+                            ref.read(keywordProvider.notifier).state =
                                 dialogController.text;
                             // ref
                             //     ?.read(contentsProvider.notifier)

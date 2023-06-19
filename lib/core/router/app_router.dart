@@ -21,7 +21,7 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
         /// routes go here
         AutoRoute(page: TestApiRoute.page),
-        AutoRoute(page: LandingRoute.page),
+        AutoRoute(page: LandingRoute.page, initial: true),
         AutoRoute(page: KabarRoute.page),
         AutoRoute(page: JurnalRoute.page),
         AutoRoute(page: InfografisRoute.page),
@@ -30,7 +30,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: GreenRoute.page),
         // TODO nanti semua pakai route yg ini saja
         AutoRoute(page: DatumTypeFilterRoute.page),
-        AutoRoute(page: LoginRoute.page, initial: true),
+        AutoRoute(page: LoginRoute.page),
         AutoRoute(page: RegisterRoute.page),
         AutoRoute(page: ProfileRoute.page),
       ];
