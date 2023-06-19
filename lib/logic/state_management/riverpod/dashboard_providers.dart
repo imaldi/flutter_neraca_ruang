@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neraca_ruang/core/consts/datum_type.dart';
 import 'package:flutter_neraca_ruang/core/consts/urls.dart';
@@ -61,7 +62,7 @@ var fotoProvider = FutureProvider<DashboardResponse>((ref) async {
   return response;
 });
 
-var adsenseProvider = FutureProvider<AdsenseResponse>((ref) async {
+var adsenseProvider = FutureProvider<List<Adsense>>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchAdsense();
   return response;
@@ -254,13 +255,12 @@ class Repository {
     }
   }
 
-  Future<AdsenseResponse> fetchAdsense() async {
-    String token = ref.read(userTokenProvider);
+  Future<List<Adsense>> fetchAdsense() async {
+    String token = "Bearer 80|LECLFT9MecjdZfVUGV1ie1xOi3ZocOWKE5FMhhf8";
+    // ref.read(userTokenProvider);
+    var today = DateTime.now().toString().substring(0, 10);
 
-    var url = Uri.https(
-      baseUrl,
-      adsenseUrl,
-    );
+    var url = Uri.https(baseUrl, adsenseUrl, {'tanggal': today});
 
     final response = await http.get(url, headers: {
       'Authorization': token,
@@ -270,6 +270,7 @@ class Repository {
     print("URL adsense: $url");
     // log("Response body: ${response.body}");
 
-    return AdsenseResponse.fromJson(jsonDecode(response.body));
+    return AdsenseResponse.fromJson(jsonDecode(response.body)).data?.data ??
+        <Adsense>[];
   }
 }

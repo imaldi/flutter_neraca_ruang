@@ -21,7 +21,7 @@ AdsenseResponse _$AdsenseResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AdsenseResponse {
   String? get message => throw _privateConstructorUsedError;
-  Data? get data => throw _privateConstructorUsedError;
+  AdsenseData? get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,9 +35,9 @@ abstract class $AdsenseResponseCopyWith<$Res> {
           AdsenseResponse value, $Res Function(AdsenseResponse) then) =
       _$AdsenseResponseCopyWithImpl<$Res, AdsenseResponse>;
   @useResult
-  $Res call({String? message, Data? data});
+  $Res call({String? message, AdsenseData? data});
 
-  $DataCopyWith<$Res>? get data;
+  $AdsenseDataCopyWith<$Res>? get data;
 }
 
 /// @nodoc
@@ -64,18 +64,18 @@ class _$AdsenseResponseCopyWithImpl<$Res, $Val extends AdsenseResponse>
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as Data?,
+              as AdsenseData?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $DataCopyWith<$Res>? get data {
+  $AdsenseDataCopyWith<$Res>? get data {
     if (_value.data == null) {
       return null;
     }
 
-    return $DataCopyWith<$Res>(_value.data!, (value) {
+    return $AdsenseDataCopyWith<$Res>(_value.data!, (value) {
       return _then(_value.copyWith(data: value) as $Val);
     });
   }
@@ -89,10 +89,10 @@ abstract class _$$_AdsenseResponseCopyWith<$Res>
       __$$_AdsenseResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? message, Data? data});
+  $Res call({String? message, AdsenseData? data});
 
   @override
-  $DataCopyWith<$Res>? get data;
+  $AdsenseDataCopyWith<$Res>? get data;
 }
 
 /// @nodoc
@@ -117,7 +117,7 @@ class __$$_AdsenseResponseCopyWithImpl<$Res>
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as Data?,
+              as AdsenseData?,
     ));
   }
 }
@@ -133,7 +133,7 @@ class _$_AdsenseResponse implements _AdsenseResponse {
   @override
   final String? message;
   @override
-  final Data? data;
+  final AdsenseData? data;
 
   @override
   String toString() {
@@ -168,8 +168,8 @@ class _$_AdsenseResponse implements _AdsenseResponse {
 }
 
 abstract class _AdsenseResponse implements AdsenseResponse {
-  const factory _AdsenseResponse({final String? message, final Data? data}) =
-      _$_AdsenseResponse;
+  const factory _AdsenseResponse(
+      {final String? message, final AdsenseData? data}) = _$_AdsenseResponse;
 
   factory _AdsenseResponse.fromJson(Map<String, dynamic> json) =
       _$_AdsenseResponse.fromJson;
@@ -177,19 +177,19 @@ abstract class _AdsenseResponse implements AdsenseResponse {
   @override
   String? get message;
   @override
-  Data? get data;
+  AdsenseData? get data;
   @override
   @JsonKey(ignore: true)
   _$$_AdsenseResponseCopyWith<_$_AdsenseResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-Data _$DataFromJson(Map<String, dynamic> json) {
-  return _Data.fromJson(json);
+AdsenseData _$AdsenseDataFromJson(Map<String, dynamic> json) {
+  return _AdsenseData.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Data {
+mixin _$AdsenseData {
   @JsonKey(name: "current_page")
   int? get currentPage => throw _privateConstructorUsedError;
   List<Adsense>? get data => throw _privateConstructorUsedError;
@@ -204,7 +204,6 @@ mixin _$Data {
   @JsonKey(name: "next_page_url")
   String? get nextPageUrl => throw _privateConstructorUsedError;
   String? get path => throw _privateConstructorUsedError;
-  @JsonKey(name: "per_page")
   int? get perPage => throw _privateConstructorUsedError;
   @JsonKey(name: "prev_page_url")
   String? get prevPageUrl => throw _privateConstructorUsedError;
@@ -213,13 +212,15 @@ mixin _$Data {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;
+  $AdsenseDataCopyWith<AdsenseData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res, Data>;
+abstract class $AdsenseDataCopyWith<$Res> {
+  factory $AdsenseDataCopyWith(
+          AdsenseData value, $Res Function(AdsenseData) then) =
+      _$AdsenseDataCopyWithImpl<$Res, AdsenseData>;
   @useResult
   $Res call(
       {@JsonKey(name: "current_page") int? currentPage,
@@ -231,16 +232,16 @@ abstract class $DataCopyWith<$Res> {
       List<Link>? links,
       @JsonKey(name: "next_page_url") String? nextPageUrl,
       String? path,
-      @JsonKey(name: "per_page") int? perPage,
+      int? perPage,
       @JsonKey(name: "prev_page_url") String? prevPageUrl,
       int? to,
       int? total});
 }
 
 /// @nodoc
-class _$DataCopyWithImpl<$Res, $Val extends Data>
-    implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(this._value, this._then);
+class _$AdsenseDataCopyWithImpl<$Res, $Val extends AdsenseData>
+    implements $AdsenseDataCopyWith<$Res> {
+  _$AdsenseDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -322,9 +323,11 @@ class _$DataCopyWithImpl<$Res, $Val extends Data>
 }
 
 /// @nodoc
-abstract class _$$_DataCopyWith<$Res> implements $DataCopyWith<$Res> {
-  factory _$$_DataCopyWith(_$_Data value, $Res Function(_$_Data) then) =
-      __$$_DataCopyWithImpl<$Res>;
+abstract class _$$_AdsenseDataCopyWith<$Res>
+    implements $AdsenseDataCopyWith<$Res> {
+  factory _$$_AdsenseDataCopyWith(
+          _$_AdsenseData value, $Res Function(_$_AdsenseData) then) =
+      __$$_AdsenseDataCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -337,16 +340,18 @@ abstract class _$$_DataCopyWith<$Res> implements $DataCopyWith<$Res> {
       List<Link>? links,
       @JsonKey(name: "next_page_url") String? nextPageUrl,
       String? path,
-      @JsonKey(name: "per_page") int? perPage,
+      int? perPage,
       @JsonKey(name: "prev_page_url") String? prevPageUrl,
       int? to,
       int? total});
 }
 
 /// @nodoc
-class __$$_DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res, _$_Data>
-    implements _$$_DataCopyWith<$Res> {
-  __$$_DataCopyWithImpl(_$_Data _value, $Res Function(_$_Data) _then)
+class __$$_AdsenseDataCopyWithImpl<$Res>
+    extends _$AdsenseDataCopyWithImpl<$Res, _$_AdsenseData>
+    implements _$$_AdsenseDataCopyWith<$Res> {
+  __$$_AdsenseDataCopyWithImpl(
+      _$_AdsenseData _value, $Res Function(_$_AdsenseData) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -366,7 +371,7 @@ class __$$_DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res, _$_Data>
     Object? to = freezed,
     Object? total = freezed,
   }) {
-    return _then(_$_Data(
+    return _then(_$_AdsenseData(
       currentPage: freezed == currentPage
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
@@ -425,8 +430,8 @@ class __$$_DataCopyWithImpl<$Res> extends _$DataCopyWithImpl<$Res, _$_Data>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Data implements _Data {
-  const _$_Data(
+class _$_AdsenseData implements _AdsenseData {
+  const _$_AdsenseData(
       {@JsonKey(name: "current_page") this.currentPage,
       final List<Adsense>? data,
       @JsonKey(name: "first_page_url") this.firstPageUrl,
@@ -436,14 +441,15 @@ class _$_Data implements _Data {
       final List<Link>? links,
       @JsonKey(name: "next_page_url") this.nextPageUrl,
       this.path,
-      @JsonKey(name: "per_page") this.perPage,
+      this.perPage,
       @JsonKey(name: "prev_page_url") this.prevPageUrl,
       this.to,
       this.total})
       : _data = data,
         _links = links;
 
-  factory _$_Data.fromJson(Map<String, dynamic> json) => _$$_DataFromJson(json);
+  factory _$_AdsenseData.fromJson(Map<String, dynamic> json) =>
+      _$$_AdsenseDataFromJson(json);
 
   @override
   @JsonKey(name: "current_page")
@@ -485,7 +491,6 @@ class _$_Data implements _Data {
   @override
   final String? path;
   @override
-  @JsonKey(name: "per_page")
   final int? perPage;
   @override
   @JsonKey(name: "prev_page_url")
@@ -497,14 +502,14 @@ class _$_Data implements _Data {
 
   @override
   String toString() {
-    return 'Data(currentPage: $currentPage, data: $data, firstPageUrl: $firstPageUrl, from: $from, lastPage: $lastPage, lastPageUrl: $lastPageUrl, links: $links, nextPageUrl: $nextPageUrl, path: $path, perPage: $perPage, prevPageUrl: $prevPageUrl, to: $to, total: $total)';
+    return 'AdsenseData(currentPage: $currentPage, data: $data, firstPageUrl: $firstPageUrl, from: $from, lastPage: $lastPage, lastPageUrl: $lastPageUrl, links: $links, nextPageUrl: $nextPageUrl, path: $path, perPage: $perPage, prevPageUrl: $prevPageUrl, to: $to, total: $total)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Data &&
+            other is _$_AdsenseData &&
             (identical(other.currentPage, currentPage) ||
                 other.currentPage == currentPage) &&
             const DeepCollectionEquality().equals(other._data, _data) &&
@@ -547,19 +552,19 @@ class _$_Data implements _Data {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DataCopyWith<_$_Data> get copyWith =>
-      __$$_DataCopyWithImpl<_$_Data>(this, _$identity);
+  _$$_AdsenseDataCopyWith<_$_AdsenseData> get copyWith =>
+      __$$_AdsenseDataCopyWithImpl<_$_AdsenseData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DataToJson(
+    return _$$_AdsenseDataToJson(
       this,
     );
   }
 }
 
-abstract class _Data implements Data {
-  const factory _Data(
+abstract class _AdsenseData implements AdsenseData {
+  const factory _AdsenseData(
       {@JsonKey(name: "current_page") final int? currentPage,
       final List<Adsense>? data,
       @JsonKey(name: "first_page_url") final String? firstPageUrl,
@@ -569,12 +574,13 @@ abstract class _Data implements Data {
       final List<Link>? links,
       @JsonKey(name: "next_page_url") final String? nextPageUrl,
       final String? path,
-      @JsonKey(name: "per_page") final int? perPage,
+      final int? perPage,
       @JsonKey(name: "prev_page_url") final String? prevPageUrl,
       final int? to,
-      final int? total}) = _$_Data;
+      final int? total}) = _$_AdsenseData;
 
-  factory _Data.fromJson(Map<String, dynamic> json) = _$_Data.fromJson;
+  factory _AdsenseData.fromJson(Map<String, dynamic> json) =
+      _$_AdsenseData.fromJson;
 
   @override
   @JsonKey(name: "current_page")
@@ -600,7 +606,6 @@ abstract class _Data implements Data {
   @override
   String? get path;
   @override
-  @JsonKey(name: "per_page")
   int? get perPage;
   @override
   @JsonKey(name: "prev_page_url")
@@ -611,7 +616,8 @@ abstract class _Data implements Data {
   int? get total;
   @override
   @JsonKey(ignore: true)
-  _$$_DataCopyWith<_$_Data> get copyWith => throw _privateConstructorUsedError;
+  _$$_AdsenseDataCopyWith<_$_AdsenseData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 Adsense _$AdsenseFromJson(Map<String, dynamic> json) {
@@ -625,15 +631,10 @@ mixin _$Adsense {
   DateTime? get tanggalStart => throw _privateConstructorUsedError;
   @JsonKey(name: "tanggal_end")
   DateTime? get tanggalEnd => throw _privateConstructorUsedError;
-  String? get domain => throw _privateConstructorUsedError;
-  @JsonKey(name: "full_path")
-  String? get fullPath => throw _privateConstructorUsedError;
-  @JsonKey(name: "file_ads")
-  String? get fileAds => throw _privateConstructorUsedError;
-  @JsonKey(name: "status_ads")
+  String? get banner => throw _privateConstructorUsedError;
+  @JsonKey(name: "deleted_at")
   int? get statusAds => throw _privateConstructorUsedError;
-  @JsonKey(name: "delete_at")
-  DateTime? get deletedAt => throw _privateConstructorUsedError;
+  String? get deletedAt => throw _privateConstructorUsedError;
   @JsonKey(name: "deleted_by")
   String? get deletedBy => throw _privateConstructorUsedError;
 
@@ -651,11 +652,9 @@ abstract class $AdsenseCopyWith<$Res> {
       {int? id,
       @JsonKey(name: "tanggal_start") DateTime? tanggalStart,
       @JsonKey(name: "tanggal_end") DateTime? tanggalEnd,
-      String? domain,
-      @JsonKey(name: "full_path") String? fullPath,
-      @JsonKey(name: "file_ads") String? fileAds,
-      @JsonKey(name: "status_ads") int? statusAds,
-      @JsonKey(name: "delete_at") DateTime? deletedAt,
+      String? banner,
+      @JsonKey(name: "deleted_at") int? statusAds,
+      String? deletedAt,
       @JsonKey(name: "deleted_by") String? deletedBy});
 }
 
@@ -675,9 +674,7 @@ class _$AdsenseCopyWithImpl<$Res, $Val extends Adsense>
     Object? id = freezed,
     Object? tanggalStart = freezed,
     Object? tanggalEnd = freezed,
-    Object? domain = freezed,
-    Object? fullPath = freezed,
-    Object? fileAds = freezed,
+    Object? banner = freezed,
     Object? statusAds = freezed,
     Object? deletedAt = freezed,
     Object? deletedBy = freezed,
@@ -695,17 +692,9 @@ class _$AdsenseCopyWithImpl<$Res, $Val extends Adsense>
           ? _value.tanggalEnd
           : tanggalEnd // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      domain: freezed == domain
-          ? _value.domain
-          : domain // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fullPath: freezed == fullPath
-          ? _value.fullPath
-          : fullPath // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fileAds: freezed == fileAds
-          ? _value.fileAds
-          : fileAds // ignore: cast_nullable_to_non_nullable
+      banner: freezed == banner
+          ? _value.banner
+          : banner // ignore: cast_nullable_to_non_nullable
               as String?,
       statusAds: freezed == statusAds
           ? _value.statusAds
@@ -714,7 +703,7 @@ class _$AdsenseCopyWithImpl<$Res, $Val extends Adsense>
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       deletedBy: freezed == deletedBy
           ? _value.deletedBy
           : deletedBy // ignore: cast_nullable_to_non_nullable
@@ -734,11 +723,9 @@ abstract class _$$_AdsenseCopyWith<$Res> implements $AdsenseCopyWith<$Res> {
       {int? id,
       @JsonKey(name: "tanggal_start") DateTime? tanggalStart,
       @JsonKey(name: "tanggal_end") DateTime? tanggalEnd,
-      String? domain,
-      @JsonKey(name: "full_path") String? fullPath,
-      @JsonKey(name: "file_ads") String? fileAds,
-      @JsonKey(name: "status_ads") int? statusAds,
-      @JsonKey(name: "delete_at") DateTime? deletedAt,
+      String? banner,
+      @JsonKey(name: "deleted_at") int? statusAds,
+      String? deletedAt,
       @JsonKey(name: "deleted_by") String? deletedBy});
 }
 
@@ -755,9 +742,7 @@ class __$$_AdsenseCopyWithImpl<$Res>
     Object? id = freezed,
     Object? tanggalStart = freezed,
     Object? tanggalEnd = freezed,
-    Object? domain = freezed,
-    Object? fullPath = freezed,
-    Object? fileAds = freezed,
+    Object? banner = freezed,
     Object? statusAds = freezed,
     Object? deletedAt = freezed,
     Object? deletedBy = freezed,
@@ -775,17 +760,9 @@ class __$$_AdsenseCopyWithImpl<$Res>
           ? _value.tanggalEnd
           : tanggalEnd // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      domain: freezed == domain
-          ? _value.domain
-          : domain // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fullPath: freezed == fullPath
-          ? _value.fullPath
-          : fullPath // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fileAds: freezed == fileAds
-          ? _value.fileAds
-          : fileAds // ignore: cast_nullable_to_non_nullable
+      banner: freezed == banner
+          ? _value.banner
+          : banner // ignore: cast_nullable_to_non_nullable
               as String?,
       statusAds: freezed == statusAds
           ? _value.statusAds
@@ -794,7 +771,7 @@ class __$$_AdsenseCopyWithImpl<$Res>
       deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       deletedBy: freezed == deletedBy
           ? _value.deletedBy
           : deletedBy // ignore: cast_nullable_to_non_nullable
@@ -810,11 +787,9 @@ class _$_Adsense implements _Adsense {
       {this.id,
       @JsonKey(name: "tanggal_start") this.tanggalStart,
       @JsonKey(name: "tanggal_end") this.tanggalEnd,
-      this.domain,
-      @JsonKey(name: "full_path") this.fullPath,
-      @JsonKey(name: "file_ads") this.fileAds,
-      @JsonKey(name: "status_ads") this.statusAds,
-      @JsonKey(name: "delete_at") this.deletedAt,
+      this.banner,
+      @JsonKey(name: "deleted_at") this.statusAds,
+      this.deletedAt,
       @JsonKey(name: "deleted_by") this.deletedBy});
 
   factory _$_Adsense.fromJson(Map<String, dynamic> json) =>
@@ -829,26 +804,19 @@ class _$_Adsense implements _Adsense {
   @JsonKey(name: "tanggal_end")
   final DateTime? tanggalEnd;
   @override
-  final String? domain;
+  final String? banner;
   @override
-  @JsonKey(name: "full_path")
-  final String? fullPath;
-  @override
-  @JsonKey(name: "file_ads")
-  final String? fileAds;
-  @override
-  @JsonKey(name: "status_ads")
+  @JsonKey(name: "deleted_at")
   final int? statusAds;
   @override
-  @JsonKey(name: "delete_at")
-  final DateTime? deletedAt;
+  final String? deletedAt;
   @override
   @JsonKey(name: "deleted_by")
   final String? deletedBy;
 
   @override
   String toString() {
-    return 'Adsense(id: $id, tanggalStart: $tanggalStart, tanggalEnd: $tanggalEnd, domain: $domain, fullPath: $fullPath, fileAds: $fileAds, statusAds: $statusAds, deletedAt: $deletedAt, deletedBy: $deletedBy)';
+    return 'Adsense(id: $id, tanggalStart: $tanggalStart, tanggalEnd: $tanggalEnd, banner: $banner, statusAds: $statusAds, deletedAt: $deletedAt, deletedBy: $deletedBy)';
   }
 
   @override
@@ -861,10 +829,7 @@ class _$_Adsense implements _Adsense {
                 other.tanggalStart == tanggalStart) &&
             (identical(other.tanggalEnd, tanggalEnd) ||
                 other.tanggalEnd == tanggalEnd) &&
-            (identical(other.domain, domain) || other.domain == domain) &&
-            (identical(other.fullPath, fullPath) ||
-                other.fullPath == fullPath) &&
-            (identical(other.fileAds, fileAds) || other.fileAds == fileAds) &&
+            (identical(other.banner, banner) || other.banner == banner) &&
             (identical(other.statusAds, statusAds) ||
                 other.statusAds == statusAds) &&
             (identical(other.deletedAt, deletedAt) ||
@@ -876,7 +841,7 @@ class _$_Adsense implements _Adsense {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, tanggalStart, tanggalEnd,
-      domain, fullPath, fileAds, statusAds, deletedAt, deletedBy);
+      banner, statusAds, deletedAt, deletedBy);
 
   @JsonKey(ignore: true)
   @override
@@ -897,11 +862,9 @@ abstract class _Adsense implements Adsense {
       {final int? id,
       @JsonKey(name: "tanggal_start") final DateTime? tanggalStart,
       @JsonKey(name: "tanggal_end") final DateTime? tanggalEnd,
-      final String? domain,
-      @JsonKey(name: "full_path") final String? fullPath,
-      @JsonKey(name: "file_ads") final String? fileAds,
-      @JsonKey(name: "status_ads") final int? statusAds,
-      @JsonKey(name: "delete_at") final DateTime? deletedAt,
+      final String? banner,
+      @JsonKey(name: "deleted_at") final int? statusAds,
+      final String? deletedAt,
       @JsonKey(name: "deleted_by") final String? deletedBy}) = _$_Adsense;
 
   factory _Adsense.fromJson(Map<String, dynamic> json) = _$_Adsense.fromJson;
@@ -915,19 +878,12 @@ abstract class _Adsense implements Adsense {
   @JsonKey(name: "tanggal_end")
   DateTime? get tanggalEnd;
   @override
-  String? get domain;
+  String? get banner;
   @override
-  @JsonKey(name: "full_path")
-  String? get fullPath;
-  @override
-  @JsonKey(name: "file_ads")
-  String? get fileAds;
-  @override
-  @JsonKey(name: "status_ads")
+  @JsonKey(name: "deleted_at")
   int? get statusAds;
   @override
-  @JsonKey(name: "delete_at")
-  DateTime? get deletedAt;
+  String? get deletedAt;
   @override
   @JsonKey(name: "deleted_by")
   String? get deletedBy;

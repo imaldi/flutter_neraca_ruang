@@ -19,6 +19,7 @@ import '../../data/models/login_response/login_response.dart';
 import '../../di.dart';
 import '../../logic/state_management/riverpod/auth_providers.dart';
 import '../widgets/drawer_content.dart';
+import '../widgets/scrollable_horizontal_image.dart';
 
 @RoutePage()
 class LandingPage extends ConsumerStatefulWidget {
@@ -621,14 +622,29 @@ class LandingPageState extends ConsumerState<LandingPage> {
                             ),
 
                             // TODO implement adsense
-                            // const ScrollableHorizontalImage(),
-                            // adsense.when(data: (data) {
-                            //   return Text("Ada Data: ${data.toJson().toString()}");
-                            // }, error: (o, st) {
-                            //   return Text("Ada Error");
-                            // }, loading: () {
-                            //   return const CircularProgressIndicator();
-                            // })
+                            Text(
+                              "Ad",
+                              style: Theme.of(context).textTheme.headlineSmall,
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(
+                              height: normal,
+                            ),
+                            adsense.when(data: (data) {
+                              return ScrollableHorizontalImage(data.map((e) {
+                                return IconWidget(
+                                  e.banner ?? "",
+                                  isOnlineSource: true,
+                                  size: 250,
+                                );
+                              }).toList());
+
+                              // Text("Ada Data: ${data.toString()}");
+                            }, error: (o, st) {
+                              return Text("Ada Error");
+                            }, loading: () {
+                              return const CircularProgressIndicator();
+                            })
                           ],
                         ),
                       );

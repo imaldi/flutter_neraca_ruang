@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../core/consts/sizes.dart';
 
 class ScrollableHorizontalImage extends StatefulWidget {
-  const ScrollableHorizontalImage({Key? key}) : super(key: key);
+  final List<Widget> children;
+  const ScrollableHorizontalImage(this.children, {Key? key}) : super(key: key);
 
   @override
   _ScrollableHorizontalImageState createState() =>
@@ -23,10 +24,11 @@ class _ScrollableHorizontalImageState extends State<ScrollableHorizontalImage> {
               child: Container(
                 constraints: const BoxConstraints(maxHeight: 250),
                 child: Row(
-                  children: [
-                    Image.asset("assets/images/sliding_1.png"),
-                    Image.asset("assets/images/dashboard_3.png"),
-                  ]
+                  children: widget.children
+                      // [
+                      //   Image.asset("assets/images/sliding_1.png"),
+                      //   Image.asset("assets/images/dashboard_3.png"),
+                      // ]
                       .map((e) => Container(
                             margin:
                                 const EdgeInsets.symmetric(horizontal: medium),
