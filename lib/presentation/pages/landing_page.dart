@@ -19,7 +19,6 @@ import '../../data/models/login_response/login_response.dart';
 import '../../di.dart';
 import '../../logic/state_management/riverpod/auth_providers.dart';
 import '../widgets/drawer_content.dart';
-import '../widgets/scrollable_horizontal_image.dart';
 
 @RoutePage()
 class LandingPage extends ConsumerStatefulWidget {
@@ -82,7 +81,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                         Icon(Icons.dehaze),
                       ],
                     )),
-                const DrawerContent(),
+                DrawerContent(),
                 const SizedBox(
                   height: 2 * extra,
                 ),

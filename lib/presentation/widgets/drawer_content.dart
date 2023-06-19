@@ -1,18 +1,16 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/searchable_dropdown.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/sizes.dart';
+import '../../data/models/dashboard_response/dashboard_response.dart';
 
-class DrawerContent extends StatefulWidget {
-  const DrawerContent({Key? key}) : super(key: key);
+class DrawerContent extends ConsumerWidget {
+  DrawerContent({Key? key}) : super(key: key);
 
-  @override
-  _DrawerContentState createState() => _DrawerContentState();
-}
-
-class _DrawerContentState extends State<DrawerContent> {
   final List<String> items = [
     'Pemerintah',
     'Wakil Rakyat',
@@ -27,6 +25,7 @@ class _DrawerContentState extends State<DrawerContent> {
     'Pengusaha',
     'Investor',
   ];
+
   final List<String> items2 = [
     'Pendidikan',
     'Kesehatan',
@@ -67,13 +66,31 @@ class _DrawerContentState extends State<DrawerContent> {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var listTagsPihak = ref.watch(tagsPihakList);
+    var listTagsOtonom = ref.watch(tagsOtonomList);
+    var listTagsTopik = ref.watch(tagsTopikList);
+    var selectedPihak = ref.watch(tagsPihak);
+    var selectedOtonom = ref.watch(tagsOtonom);
+    var selectedTopik = ref.watch(tagsTopik);
     return Center(
       child: Column(
         children: [
-          SearchableDropdown("TOKOH", items),
-          SearchableDropdown("TOPIK", items2),
-          SearchableDropdown("OTONOM-METER", items3),
+          SearchableDropdown("TOKOH", listTagsPihak.value ?? <Tags>[],
+              onItemTapped: (val) {
+            ref.read(tagsPihak.notifier).state = val;
+          }),
+          SearchableDropdown("TOPIK", listTagsTopik.value ?? <Tags>[],
+              onItemTapped: (val) {
+            ref.read(tagsTopik.notifier).state = val;
+          }),
+          SearchableDropdown("OTONOM-METER", listTagsOtonom.value ?? <Tags>[],
+              onItemTapped: (val) {
+            ref.read(tagsOtonom.notifier).state = val;
+          }),
+          Text("selectedPihak: $selectedPihak"),
+          Text("selectedOtonom: $selectedOtonom"),
+          Text("selectedTopik: $selectedTopik"),
         ],
       ),
     );

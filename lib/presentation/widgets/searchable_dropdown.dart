@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
+import '../../data/models/dashboard_response/dashboard_response.dart';
 
 class SearchableDropdown extends StatefulWidget {
   final String label;
-  final List<String> items;
-  const SearchableDropdown(this.label, this.items, {Key? key})
+  final List<Tags> items;
+  final void Function(int)? onItemTapped;
+  const SearchableDropdown(this.label, this.items,
+      {this.onItemTapped, Key? key})
       : super(key: key);
 
   @override
@@ -47,9 +50,12 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               ),
               items: widget.items
                   .map((item) => DropdownMenuItem(
-                        value: item,
+                        value: item.tagsName,
+                        // onTap: () {
+                        //
+                        // },
                         child: Text(
-                          item,
+                          item.tagsName ?? "-",
                           style: const TextStyle(
                             fontSize: 14,
                           ),
@@ -60,6 +66,13 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               onChanged: (value) {
                 setState(() {
                   selectedValue = value as String;
+                  if (widget.onItemTapped != null) {
+                    widget.onItemTapped!(widget.items
+                            .where((element) => element.tagsName == value)
+                            .first
+                            .tagsId ??
+                        0);
+                  }
                 });
               },
               buttonStyleData: ButtonStyleData(

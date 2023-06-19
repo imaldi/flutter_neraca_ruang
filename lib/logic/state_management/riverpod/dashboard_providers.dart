@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_neraca_ruang/core/consts/datum_type.dart';
 import 'package:flutter_neraca_ruang/core/consts/urls.dart';
 import 'package:flutter_neraca_ruang/data/models/simple_dashboard_response/simple_dashboard_response.dart';
+import 'package:flutter_neraca_ruang/data/models/tags_response/tags_response.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
@@ -122,6 +123,39 @@ final pageNumberProvider = StateProvider<int>(
   (ref) => 1,
 );
 
+final tagsOtonom = StateProvider<int>(
+  (ref) => 0,
+);
+
+final tagsOtonomList = FutureProvider<List<Tags>>((ref) async {
+  final repo = ref.watch(repositoryProvider);
+  final response = await repo.fetchTagsByType("otonomi");
+  log("Response Tags: ${response.toString()}");
+  return response;
+});
+
+final tagsPihak = StateProvider<int>(
+  (ref) => 0,
+);
+
+final tagsPihakList = FutureProvider<List<Tags>>((ref) async {
+  final repo = ref.watch(repositoryProvider);
+  final response = await repo.fetchTagsByType("pihak-terkait");
+  log("Response Tags: ${response.toString()}");
+  return response;
+});
+
+final tagsTopik = StateProvider<int>(
+  (ref) => 0,
+);
+
+final tagsTopikList = FutureProvider<List<Tags>>((ref) async {
+  final repo = ref.watch(repositoryProvider);
+  final response = await repo.fetchTagsByType("topik");
+  log("Response Tags: ${response.toString()}");
+  return response;
+});
+
 final limitProvider = StateProvider<int>((ref) => 2);
 
 class Repository {
@@ -186,6 +220,32 @@ class Repository {
       return DashboardResponse.fromJson(jsonDecode(response.body));
     } on TypeError {
       return DashboardResponse();
+    } catch (e) {
+      print("Error Type: ${e}");
+      throw Exception();
+    }
+  }
+
+  Future<List<Tags>> fetchTagsByType(String tipe) async {
+    try {
+      String token = 'Bearer 64|ual6zASlLlLpl3hMCX8Y629HrUlaWUPHHI8u946W';
+      // ref.read(userTokenProvider);
+      print("token in tags: $token");
+
+      var url = Uri.https(baseUrl, "${tagsListUrl}/$tipe");
+
+      final response = await http.get(url, headers: {
+        'Authorization': token,
+        'Accept': 'application/json',
+      });
+
+      print("URL: $url");
+      print("Tag Response: ${response.body}");
+      // log("Response body content: ${response.body}");
+
+      return TagsResponse.fromJson(jsonDecode(response.body)).data ?? <Tags>[];
+    } on TypeError {
+      return const <Tags>[];
     } catch (e) {
       print("Error Type: ${e}");
       throw Exception();
