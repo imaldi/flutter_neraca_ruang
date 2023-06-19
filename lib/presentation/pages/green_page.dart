@@ -14,6 +14,7 @@ import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
+import '../widgets/tab_menu_item.dart';
 
 @RoutePage()
 class GreenPage extends ConsumerStatefulWidget {
@@ -58,7 +59,7 @@ class GreenPageState extends ConsumerState<GreenPage> {
                         isOnlineSource: true,
                         customOnErrorWidget: Column(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.location_city,
                               color: Color(greenModeColor),
                             ),
@@ -116,7 +117,7 @@ class GreenPageState extends ConsumerState<GreenPage> {
                               color: Colors.grey,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(extra))),
-                          child: Text(
+                          child: const Text(
                             "LOAD MORE",
                             style: TextStyle(color: Colors.white),
                           ),

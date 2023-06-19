@@ -25,4 +25,7 @@ const iconCommments2 = "$assetsIconsIconNavigasi/icon_komentar02.png";
 const iconSuka = "$assetsIconsIconNavigasi/icon_suka.png";
 const iconSuka2 = "$assetsIconsIconNavigasi/icon_suka02.png";
 const iconNR = "$assetsIconsIconMenu/nr_logo_icon.png";
+const iconKonsTr = "$assetsIconsIconMenu/kons_logo_transparent.png";
+const iconMadaTr = "$assetsIconsIconMenu/mada_logo_transparent.png";
+const iconOtoTr = "$assetsIconsIconMenu/oto_logo_transparent.png";
 const iconNRAppbar = "assets/images/nr_logo_horizontal.png";
