@@ -28,4 +28,5 @@ const iconNR = "$assetsIconsIconMenu/nr_logo_icon.png";
 const iconKonsTr = "$assetsIconsIconMenu/kons_logo_transparent.png";
 const iconMadaTr = "$assetsIconsIconMenu/mada_logo_transparent.png";
 const iconOtoTr = "$assetsIconsIconMenu/oto_logo_transparent.png";
+const iconBurger = "$assetsIconsIconMenu/icon_burger.png";
 const iconNRAppbar = "assets/images/nr_logo_horizontal.png";

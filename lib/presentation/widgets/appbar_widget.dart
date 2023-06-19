@@ -73,14 +73,14 @@ appBarWidget(BuildContext context,
     elevation: 0,
     leading: appbarTitle != null && appbarTitle.isNotEmpty
         ? Container(
-            margin: const EdgeInsets.symmetric(horizontal: normal),
+            margin: const EdgeInsets.symmetric(horizontal: medium),
             child: InkWell(
               onTap: () {
                 context.router.replace(const LandingRoute());
               },
               child: IconWidget(
                 iconNR,
-                size: huge,
+                size: leadingAppBarIconSize,
               ),
             ),
           )

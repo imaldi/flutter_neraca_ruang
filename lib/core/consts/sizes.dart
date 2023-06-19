@@ -5,4 +5,6 @@ const big = 24.0;
 const huge = 32.0;
 const extra = 64.0;
 const tagsIconHeightFromFigma = 47.0;
+const leadingAppBarIconSize = 51.0;
 const mapIconHeightFromFigma = 58.0;
+const typeIconHeightFromFigma = 45.0;

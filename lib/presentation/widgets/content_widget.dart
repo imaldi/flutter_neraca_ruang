@@ -140,46 +140,49 @@ class ContentWidget extends ConsumerWidget {
             children: [
               Expanded(
                 child: InkWell(
-                  onTap: isGreenMode
-                      ? () {
-                          basicResetStates(context, ref);
-                          // Kenapa ke landing route ya?? haduh
-                          // kyk nya ter override dengan inkwell yang lebih di dalam
-                          context.router.replace(const LandingRoute());
-                        }
-                      : () {
-                          /// FIXME ga tau kenapa disini ada pesan error
-                          ref.read(tagsIconLinkProvider.notifier).state =
-                              content.petaKota?.kotaIcon2
-                                      ?.replaceAll(" ", "%20") ??
-                                  "";
+                  onTap:
+                      // isGreenMode
+                      //     ? () {
+                      //         basicResetStates(context, ref);
+                      //         // Kenapa ke landing route ya?? haduh
+                      //         // kyk nya ter override dengan inkwell yang lebih di dalam
+                      //         context.router.replace(const LandingRoute());
+                      //       }
+                      //     :
+                      () {
+                    /// FIXME ga tau kenapa disini ada pesan error
+                    ref.read(tagsIconLinkProvider.notifier).state =
+                        content.petaKota?.kotaIcon2?.replaceAll(" ", "%20") ??
+                            "";
 
-                          print(
-                              "Link Kota 2: ${content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
-                          ref.read(kotaIdProvider.notifier).state =
-                              content.kotaId ?? 0;
-                          ref.read(kotaNameProvider.notifier).state =
-                              content.kotaName ?? "";
-                          ref.invalidate(tagsIdProvider);
-                          ref.invalidate(tagsNameProvider);
-                          context.router.replace(const GreenRoute());
-                        },
+                    print(
+                        "Link Kota 2: ${content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
+                    ref.read(kotaIdProvider.notifier).state =
+                        content.kotaId ?? 0;
+                    ref.read(kotaNameProvider.notifier).state =
+                        content.kotaName ?? "";
+                    ref.invalidate(tagsIdProvider);
+                    ref.invalidate(tagsNameProvider);
+                    context.router.replace(const GreenRoute());
+                  },
                   child: isGreenMode
-                      ? SizedBox(
-                          height: huge,
-
-                          /// ngasih FittedBox di dalam parent yg ga kasih constraint bakal eror (Row, Column, dll)
-                          child: InkWell(
-                            onTap: () {
-                              context.router
-                                  .replace(routeChooser(content.tipe ?? ""));
-                            },
-                            child: IconWidget(
-                              menuIconNameChooser(content.tipe ?? "",
-                                  isGreenMode: isGreenMode),
-                              // isOnlineSource: true,
-                            ),
-                          ))
+                      ? InkWell(
+                          onTap: () {
+                            basicResetStates(context, ref);
+                            context.router
+                                .replace(routeChooser(content.tipe ?? ""));
+                          },
+                          child: Row(
+                            children: [
+                              IconWidget(
+                                menuIconNameChooser(content.tipe ?? "",
+                                    isGreenMode: isGreenMode),
+                                size: typeIconHeightFromFigma,
+                                // isOnlineSource: true,
+                              ),
+                            ],
+                          ),
+                        )
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
