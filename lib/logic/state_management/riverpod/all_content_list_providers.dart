@@ -31,6 +31,23 @@ class Contents extends _$Contents {
       'limit': limit.toString(),
     };
     queryParameters['keyword'] = ref.watch(keywordProvider);
+    var shouldStartSearchingByTag = ref.watch(startSearching);
+    var idTagsPihak = ref.watch(tagsPihak);
+    var idTagsTopik = ref.watch(tagsTopik);
+    var idTagsOtonom = ref.watch(tagsOtonom);
+    if (shouldStartSearchingByTag) {
+      queryParameters.remove('keyword');
+      ref.invalidate(keywordProvider);
+      if (idTagsPihak != 0) {
+        queryParameters['tags_pihak'] = idTagsPihak.toString();
+      }
+      if (idTagsTopik != 0) {
+        queryParameters['tags_topik'] = idTagsTopik.toString();
+      }
+      if (idTagsPihak != 0) {
+        queryParameters['tags_otonomi'] = idTagsOtonom.toString();
+      }
+    }
     // keyword ?? "";
     print("queryParameters: $queryParameters");
 
@@ -69,6 +86,11 @@ class Contents extends _$Contents {
       });
       state = AsyncValue.error(TypeError, StackTrace.current);
       return [];
+    } finally {
+      ref.invalidate(startSearching);
+      ref.invalidate(tagsPihak);
+      ref.invalidate(tagsOtonom);
+      ref.invalidate(tagsTopik);
     }
   }
 
