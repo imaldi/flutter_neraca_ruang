@@ -102,13 +102,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 //     .update((state) => passwordController.text);
                                 // ref.read(loginEvent.notifier).state = true;
                                 ref.read(authStatusProvider.notifier).login(
-                                    username: usernameController.text,
-                                    password: passwordController.text,
-                                    successCallback: () {
-                                      myToast("Log In Success");
-                                      context.router
-                                          .replace(const LandingRoute());
-                                    });
+                                      username: usernameController.text,
+                                      password: passwordController.text,
+                                      successCallback: () {
+                                        myToast("Log In Success");
+                                        context.router
+                                            .replace(const LandingRoute());
+                                      },
+                                      failureCallback: () {
+                                        myToast("Log In Failed");
+                                      },
+                                    );
                               },
                               child: Text("MASUK")),
                         ),

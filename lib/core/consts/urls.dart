@@ -1,6 +1,7 @@
 // const baseUrl = "neracaruang-api.binerapps.co.id"; // dev
 const baseUrl = "api.neracaruang.com"; // prod
 const loginUrl = "/api/member/login";
+const registerUrl = "/api/member/register";
 const dashboardList = "/api/portal/content";
 const tagsListUrl = "/api/master/gettagging";
 const storageUrl = "$baseUrl/storage";

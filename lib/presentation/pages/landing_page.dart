@@ -77,7 +77,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                         ? InkWell(
                             onTap: () async {
                               ref.read(authStatusProvider.notifier).logout(
-                                  callback: () {
+                                  successCallback: () {
                                 myToast("Log Out Success");
                                 context.router.pop();
                               });

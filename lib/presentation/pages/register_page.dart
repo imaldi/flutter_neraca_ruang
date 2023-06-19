@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/async_state_auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/assets.dart';
@@ -18,6 +19,7 @@ class RegisterPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final namaCtlr = TextEditingController();
+    final emailCtlr = TextEditingController();
     final tanggalLahirCtlr = TextEditingController();
     final teleponCtlr = TextEditingController();
     final kotaKabCtlr = TextEditingController();
@@ -73,16 +75,23 @@ class RegisterPage extends ConsumerWidget {
                       ),
 
                       RoundedTextFormField(
+                        hint: "Email*",
+                        controller: emailCtlr,
+                      ),
+
+                      RoundedTextFormField(
                         hint: "Tanggal Lahir",
                         controller: tanggalLahirCtlr,
                         decoration: InputDecoration(
                             suffixIcon: InkWell(
                                 onTap: () async {
-                                  await showDatePicker(
+                                  var dateChosen = await showDatePicker(
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(1978),
                                       lastDate: DateTime(2100));
+                                  tanggalLahirCtlr.text =
+                                      dateChosen.toString().substring(0, 10);
                                 },
                                 child: Icon(Icons.calendar_month))),
                       ),
@@ -133,6 +142,25 @@ class RegisterPage extends ConsumerWidget {
                                     borderRadius: BorderRadius.circular(huge))),
                             clipBehavior: Clip.antiAlias,
                             onPressed: () {
+                              ref.read(authStatusProvider.notifier).register(
+                                    username: namaCtlr.text,
+                                    email: emailCtlr.text,
+                                    password: kataSandiCtlr.text,
+                                    cPassword: konfKtSandiCtlr.text,
+                                    tanggalLahir: tanggalLahirCtlr.text,
+                                    fullname: "yyy",
+                                    noHp: teleponCtlr.text,
+                                    provId: 1,
+                                    kotaId: 1,
+                                    successCallback: () {
+                                      myToast("Register Success");
+                                      context.router
+                                          .replace(const LandingRoute());
+                                    },
+                                    failureCallback: () {
+                                      myToast("Register Failed");
+                                    },
+                                  );
                               myToast("OIK");
                             },
                             child: Text("DAFTAR")),

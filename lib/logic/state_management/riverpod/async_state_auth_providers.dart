@@ -42,10 +42,12 @@ class AuthStatus extends _$AuthStatus {
     return null;
   }
 
-  Future<void> login(
-      {required String username,
-      required String password,
-      Function? successCallback}) async {
+  Future<void> login({
+    required String username,
+    required String password,
+    Function? successCallback,
+    Function? failureCallback,
+  }) async {
     const AsyncValue.loading();
 
     String token =
@@ -92,10 +94,11 @@ class AuthStatus extends _$AuthStatus {
       //   return null;
       // });
       state = AsyncValue.error(TypeError, StackTrace.current);
+      if (failureCallback != null) failureCallback();
     }
   }
 
-  Future<void> logout({Function? callback}) async {
+  Future<void> logout({Function? successCallback}) async {
     state = const AsyncValue.loading();
     var box = sl<Box<AuthResponse>>();
 
@@ -109,7 +112,7 @@ class AuthStatus extends _$AuthStatus {
         print("user Data after .delete(): ${box.get(userDataKey)}");
 
         state = await AsyncValue.guard(() async => null);
-        if (callback != null) callback();
+        if (successCallback != null) successCallback();
         // throw Exception();
 
         // AsyncValue.error(Error(), StackTrace.current);
@@ -125,133 +128,87 @@ class AuthStatus extends _$AuthStatus {
     }
   }
 
-  Future<AuthResponse> fetchContent(
-      // {int? pageNumber = 1,
-      // int? limit = 5,
-      // String? type,
-      // String? keyword}
-      ) async {
-    // Uri uri;
+  Future<void> register({
+    required String username,
+    String fullname = "",
+    String email = "",
+    required String password,
+    String cPassword = "",
+    String tanggalLahir = "",
+    int kotaId = 0,
+    int provId = 0,
+    String noHp = "",
+    Function? successCallback,
+    Function? failureCallback,
+  }) async {
+    const AsyncValue.loading();
+
     String token =
         "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
-    // dataFromBox?.data?.token ?? "";
+    Map<String, String> bodyParameters = {};
+    bodyParameters['type'] = 'username';
+    if (username.isNotEmpty) {
+      bodyParameters['username'] = username;
+    }
+    if (password.isNotEmpty) {
+      bodyParameters['password'] = password;
+    }
+    if ((fullname).isNotEmpty) {
+      bodyParameters['fullname'] = fullname;
+    }
+    if (email.isNotEmpty) {
+      bodyParameters['email'] = email;
+    }
+    if (noHp.isNotEmpty) {
+      bodyParameters['no_hp'] = noHp;
+    }
+    if (cPassword.isNotEmpty) {
+      bodyParameters['c_password'] = cPassword;
+    }
+    if (tanggalLahir.isNotEmpty) {
+      bodyParameters['tanggal_lahir'] = tanggalLahir;
+    }
+    if (provId != 0) {
+      bodyParameters['prov_id'] = provId.toString();
+    }
+    if (kotaId != 0) {
+      bodyParameters['kota_id'] = kotaId.toString();
+    }
 
-    Map<String, String> bodyParameters = {
-      // 'page': pageNumber.toString(),
-      // 'limit': limit.toString(),
-    };
-    // queryParameters['keyword'] = ref.watch(keywordProvider);
-    var startRegister = ref.watch(registerEvent);
-    var startLogin = ref.watch(loginEvent);
-    var username = ref.watch(usernameProvider);
-    var password = ref.watch(passwordProvider);
-    var cPassword = ref.watch(confPasswordProvider);
-    var kotaKab = ref.watch(kotaKabProvider);
-    var prov = ref.watch(provinsiProvider);
-    var ttl = ref.watch(tanggalLahirProvider);
-    var phone = ref.watch(phoneNumberProvider);
-    if (startRegister) {
-      if (username.isNotEmpty) {
-        bodyParameters['username'] = username;
-      }
-      if (password.isNotEmpty) {
-        bodyParameters['password'] = password;
-      }
-      if (cPassword.isNotEmpty) {
-        bodyParameters['c_password'] = cPassword;
-      }
-      if (kotaKab != 0) {
-        bodyParameters['kota_id'] = kotaKab.toString();
-      }
-      if (prov != 0) {
-        bodyParameters['prov_id'] = prov.toString();
-      }
-      if (ttl.isNotEmpty) {
-        bodyParameters['tanggal_lahir'] = ttl;
-      }
-      if (phone.isNotEmpty) {
-        bodyParameters['no_hp'] = phone;
-      }
+    var url = Uri.https(
+      baseUrl,
+      registerUrl,
+    );
 
-      var url = Uri.https(
-        baseUrl,
-        dashboardList,
-      );
+    // final json = await http.get(url);
+    final response = await http.post(url,
+        headers: {
+          'Authorization': token,
+          'Accept': 'application/json',
+        },
+        body: bodyParameters);
+    print("URL register: $url");
+    log("result JSON: ${jsonDecode(response.body)}");
+    // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
+    try {
+      final result = AuthResponse.fromJson(jsonDecode(response.body));
+      var authBox = sl<Box<AuthResponse>>();
+      await authBox.put(userDataKey, result);
+      var dataFromBox = authBox.get(userDataKey);
+      print("dataFromBox (register): ${dataFromBox?.toJson()}");
 
-      // final json = await http.get(url);
-      final response = await http.get(url, headers: {
-        'Authorization': token,
-        'Accept': 'application/json',
+      // state = const AsyncValue.loading();
+      state = await AsyncValue.guard(() async {
+        return dataFromBox;
       });
-      print("URL register: $url");
-      log("result JSON: ${jsonDecode(response.body)}");
-      // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
-      try {
-        final result = AuthResponse.fromJson(jsonDecode(response.body));
-
-        state = const AsyncValue.loading();
-        state = await AsyncValue.guard(() async {
-          return result;
-        });
-        return result;
-      } on TypeError {
-        state = const AsyncValue.loading();
-        state = await AsyncValue.guard(() async {
-          return AuthResponse();
-        });
-        state = AsyncValue.error(TypeError, StackTrace.current);
-        return AuthResponse();
-      }
+      if (successCallback != null) successCallback();
+    } on TypeError {
+      // state = const AsyncValue.loading();
+      // state = await AsyncValue.guard(() async {
+      //   return null;
+      // });
+      state = AsyncValue.error(TypeError, StackTrace.current);
+      if (failureCallback != null) failureCallback();
     }
-    if (startLogin) {
-      bodyParameters['type'] = 'username';
-      if (username.isNotEmpty) {
-        bodyParameters['username'] = username;
-      }
-      if (password.isNotEmpty) {
-        bodyParameters['password'] = password;
-      }
-
-      var url = Uri.https(
-        baseUrl,
-        loginUrl,
-      );
-
-      // final json = await http.get(url);
-      final response = await http.post(url,
-          headers: {
-            'Authorization': token,
-            'Accept': 'application/json',
-          },
-          body: bodyParameters);
-      print("URL login: $url");
-      log("result JSON: ${jsonDecode(response.body)}");
-      // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
-      try {
-        final result = AuthResponse.fromJson(jsonDecode(response.body));
-
-        state = const AsyncValue.loading();
-        state = await AsyncValue.guard(() async {
-          return result;
-        });
-        var authBox = sl<Box<AuthResponse>>();
-        await authBox.put(userDataKey, result);
-        var dataFromBox = authBox.get(userDataKey);
-        return dataFromBox ?? const AuthResponse();
-      } on TypeError {
-        state = const AsyncValue.loading();
-        state = await AsyncValue.guard(() async {
-          return AuthResponse();
-        });
-        state = AsyncValue.error(TypeError, StackTrace.current);
-        return AuthResponse();
-      }
-    }
-    // keyword ?? "";
-    print("bodyParameters: $bodyParameters");
-    return AuthResponse();
-    // var authBox = sl<Box<LoginResponse>>();
-    // var dataFromBox = authBox.get(userDataKey);
-    // print("dataFromBox: $dataFromBox");
   }
 }
