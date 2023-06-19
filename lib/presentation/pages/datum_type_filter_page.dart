@@ -613,7 +613,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
               ),
             );
           }, error: (o, st) {
-            return const Text("Ada Error");
+            return Center(child: const Text("Keyword Not Found"));
           }, loading: () {
             return const Center(
               child: CircularProgressIndicator(

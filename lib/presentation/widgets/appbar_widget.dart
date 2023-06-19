@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/sizes.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_field.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/tab_menu_item.dart';
@@ -13,7 +14,7 @@ import '../../core/router/app_router.dart';
 import 'bottom_bar_widget.dart';
 
 appBarWidget(BuildContext context,
-    {WidgetRef? ref,
+    {required WidgetRef? ref,
     String? appbarTitle,
     Widget? appbarBackgroundImage,
     Function? resetStates,
@@ -145,9 +146,11 @@ appBarWidget(BuildContext context,
                     Center(
                       child: ElevatedButton(
                           onPressed: () {
-                            ref
-                                ?.read(contentsProvider.notifier)
-                                .fetchTodo(keyword: dialogController.text);
+                            ref?.read(keywordProvider.notifier).state =
+                                dialogController.text;
+                            // ref
+                            //     ?.read(contentsProvider.notifier)
+                            //     .fetchTodo(keyword: dialogController.text);
                             context.router.push(const DatumTypeFilterRoute());
                           },
                           style: ElevatedButton.styleFrom(

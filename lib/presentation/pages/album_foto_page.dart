@@ -70,9 +70,9 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
                       ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: contentList?.length,
+                          itemCount: contentList.length,
                           itemBuilder: (c, i) {
-                            return ContentWidget(contentList![i]);
+                            return ContentWidget(contentList[i]);
                           }),
                       InkWell(
                         onTap: () {

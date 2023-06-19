@@ -105,6 +105,7 @@ final kotaIdProvider = StateProvider<int>(
 );
 
 final kotaNameProvider = StateProvider((ref) => "");
+final keywordProvider = StateProvider((ref) => "");
 
 final tagsIdProvider = StateProvider<int>(
   (ref) {

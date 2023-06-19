@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -29,6 +30,9 @@ class Contents extends _$Contents {
       'page': pageNumber.toString(),
       'limit': limit.toString(),
     };
+    queryParameters['keyword'] = ref.watch(keywordProvider);
+    // keyword ?? "";
+    print("queryParameters: $queryParameters");
 
     // var authBox = sl<Box<LoginResponse>>();
     // var dataFromBox = authBox.get(userDataKey);
@@ -48,16 +52,24 @@ class Contents extends _$Contents {
     print("URL fetch latest list from contentProvider: $url");
     log("result JSON: ${jsonDecode(response.body)}");
     // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
+    try {
+      final result =
+          DashboardResponse.fromJson(jsonDecode(response.body)).data?.data ??
+              <Datum>[];
 
-    final result =
-        DashboardResponse.fromJson(jsonDecode(response.body)).data?.data ??
-            <Datum>[];
-
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
+      state = const AsyncValue.loading();
+      state = await AsyncValue.guard(() async {
+        return result;
+      });
       return result;
-    });
-    return result;
+    } on TypeError {
+      state = const AsyncValue.loading();
+      state = await AsyncValue.guard(() async {
+        return [];
+      });
+      state = AsyncValue.error(TypeError, StackTrace.current);
+      return [];
+    }
   }
 
   Future<void> likeContent(String slug) async {
