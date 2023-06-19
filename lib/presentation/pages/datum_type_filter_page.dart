@@ -7,6 +7,7 @@ import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../core/consts/colors.dart';
@@ -321,10 +322,15 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                         /// sebelumnya ada error disini karena row di bungkus dengan fitted box, jangan pakai begitu lagi
                                         child: Row(
                                           children: [
-                                            Tooltip(
-                                              message:
+                                            JustTheTooltip(
+                                              tailBaseWidth: 0,
+                                              tailLength: 0,
+                                              elevation: 0,
+                                              backgroundColor: Colors.white,
+                                              borderRadius: BorderRadius.zero,
+                                              content: Text(
                                                   content.tagsPihak?.tagsName ??
-                                                      "",
+                                                      ""),
                                               child: IconWidget(
                                                 content.tagsPihak?.tagsIcon ??
                                                     "",
@@ -361,10 +367,15 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                 },
                                               ),
                                             ),
-                                            Tooltip(
-                                              message:
+                                            JustTheTooltip(
+                                              tailBaseWidth: 0,
+                                              tailLength: 0,
+                                              elevation: 0,
+                                              backgroundColor: Colors.white,
+                                              borderRadius: BorderRadius.zero,
+                                              content: Text(
                                                   content.tagsTopik?.tagsName ??
-                                                      "",
+                                                      ""),
                                               child: IconWidget(
                                                 content.tagsTopik?.tagsIcon ??
                                                     "",
@@ -401,10 +412,15 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                 },
                                               ),
                                             ),
-                                            Tooltip(
-                                              message: content
+                                            JustTheTooltip(
+                                              tailBaseWidth: 0,
+                                              tailLength: 0,
+                                              elevation: 0,
+                                              backgroundColor: Colors.white,
+                                              borderRadius: BorderRadius.zero,
+                                              content: Text(content
                                                       .tagsOtonomi?.tagsName ??
-                                                  "",
+                                                  ""),
                                               child: IconWidget(
                                                 content.tagsOtonomi?.tagsIcon ??
                                                     "",

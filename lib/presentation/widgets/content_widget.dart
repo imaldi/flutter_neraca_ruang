@@ -17,6 +17,7 @@ import '../../core/helper_functions/menu_icon_name_chooser.dart';
 import '../../core/helper_functions/route_chooser.dart';
 import '../../data/models/dashboard_response/dashboard_response.dart';
 import 'IconWidget.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class ContentWidget extends ConsumerWidget {
   final Datum content;
@@ -131,8 +132,9 @@ class ContentWidget extends ConsumerWidget {
                       ),
                     ),
         ),
-        Padding(
+        Container(
           padding: const EdgeInsets.symmetric(horizontal: medium),
+          margin: const EdgeInsets.only(bottom: big),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -213,8 +215,14 @@ class ContentWidget extends ConsumerWidget {
                 /// sebelumnya ada error disini karena row di bungkus dengan fitted box, jangan pakai begitu lagi
                 child: Row(
                   children: [
-                    Tooltip(
-                      message: content.tagsPihak?.tagsName ?? "",
+                    JustTheTooltip(
+                      tailBaseWidth: 0,
+                      tailLength: 0,
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      borderRadius: BorderRadius.zero,
+                      // preferredDirection: AxisDirection.up,
+                      content: Text(content.tagsPihak?.tagsName ?? ""),
                       child: IconWidget(
                         content.tagsPihak?.tagsIcon ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
@@ -233,8 +241,13 @@ class ContentWidget extends ConsumerWidget {
                         },
                       ),
                     ),
-                    Tooltip(
-                      message: content.tagsTopik?.tagsName ?? "",
+                    JustTheTooltip(
+                      tailBaseWidth: 0,
+                      tailLength: 0,
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      borderRadius: BorderRadius.zero,
+                      content: Text(content.tagsTopik?.tagsName ?? ""),
                       child: IconWidget(
                         content.tagsTopik?.tagsIcon ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
@@ -253,8 +266,13 @@ class ContentWidget extends ConsumerWidget {
                         },
                       ),
                     ),
-                    Tooltip(
-                      message: content.tagsOtonomi?.tagsName ?? "",
+                    JustTheTooltip(
+                      tailBaseWidth: 0,
+                      tailLength: 0,
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      borderRadius: BorderRadius.zero,
+                      content: Text(content.tagsOtonomi?.tagsName ?? ""),
                       child: IconWidget(
                         content.tagsOtonomi?.tagsIcon ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
