@@ -138,160 +138,167 @@ class ContentWidget extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InkWell(
-                onTap: isGreenMode
-                    ? () {
-                        basicResetStates(context, ref);
-                        // Kenapa ke landing route ya?? haduh
-                        // kyk nya ter override dengan inkwell yang lebih di dalam
-                        context.router.replace(const LandingRoute());
-                      }
-                    : () {
-                        /// FIXME ga tau kenapa disini ada pesan error
-                        ref.read(tagsIconLinkProvider.notifier).state = content
-                                .petaKota?.kotaIcon2
-                                ?.replaceAll(" ", "%20") ??
-                            "";
+              Expanded(
+                child: InkWell(
+                  onTap: isGreenMode
+                      ? () {
+                          basicResetStates(context, ref);
+                          // Kenapa ke landing route ya?? haduh
+                          // kyk nya ter override dengan inkwell yang lebih di dalam
+                          context.router.replace(const LandingRoute());
+                        }
+                      : () {
+                          /// FIXME ga tau kenapa disini ada pesan error
+                          ref.read(tagsIconLinkProvider.notifier).state =
+                              content.petaKota?.kotaIcon2
+                                      ?.replaceAll(" ", "%20") ??
+                                  "";
 
-                        print(
-                            "Link Kota 2: ${content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
-                        ref.read(kotaIdProvider.notifier).state =
-                            content.kotaId ?? 0;
-                        ref.read(kotaNameProvider.notifier).state =
-                            content.kotaName ?? "";
-                        ref.invalidate(tagsIdProvider);
-                        ref.invalidate(tagsNameProvider);
-                        context.router.replace(const GreenRoute());
-                      },
-                child: isGreenMode
-                    ? SizedBox(
-                        height: huge,
+                          print(
+                              "Link Kota 2: ${content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
+                          ref.read(kotaIdProvider.notifier).state =
+                              content.kotaId ?? 0;
+                          ref.read(kotaNameProvider.notifier).state =
+                              content.kotaName ?? "";
+                          ref.invalidate(tagsIdProvider);
+                          ref.invalidate(tagsNameProvider);
+                          context.router.replace(const GreenRoute());
+                        },
+                  child: isGreenMode
+                      ? SizedBox(
+                          height: huge,
 
-                        /// ngasih FittedBox di dalam parent yg ga kasih constraint bakal eror (Row, Column, dll)
-                        child: InkWell(
+                          /// ngasih FittedBox di dalam parent yg ga kasih constraint bakal eror (Row, Column, dll)
+                          child: InkWell(
+                            onTap: () {
+                              context.router
+                                  .replace(routeChooser(content.tipe ?? ""));
+                            },
+                            child: IconWidget(
+                              menuIconNameChooser(content.tipe ?? "",
+                                  isGreenMode: isGreenMode),
+                              // isOnlineSource: true,
+                            ),
+                          ))
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            /// TODO handle about the right icon for the right city
+                            SizedBox(
+                              height: mapIconHeightFromFigma,
+                              child: Image.network(
+                                // 'assets/icons/icon_daerah/${content.kotaName?.toLowerCase().replaceAll(" ", "_")}_4.png',
+                                content.petaKota?.kotaIcon4
+                                        ?.replaceAll(" ", "%20") ??
+                                    "",
+                                // isOnlineSource: true,
+
+                                errorBuilder: (bc, o, st) => FittedBox(
+                                  child: Column(
+                                    children: [
+                                      const Icon(
+                                        Icons.location_city,
+                                        color: Color(primaryColor),
+                                      ),
+                                      Text(
+                                        content.kotaName ?? "",
+                                        style: const TextStyle(
+                                            color: Color(primaryColor)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: tagsIconHeightFromFigma,
+
+                  /// sebelumnya ada error disini karena row di bungkus dengan fitted box, jangan pakai begitu lagi
+                  child: Row(
+                    children: [
+                      JustTheTooltip(
+                        tailBaseWidth: 0,
+                        tailLength: 0,
+                        elevation: 0,
+                        backgroundColor: Colors.white,
+                        borderRadius: BorderRadius.zero,
+                        // preferredDirection: AxisDirection.up,
+                        content: Text(content.tagsPihak?.tagsName ?? ""),
+                        child: IconWidget(
+                          content.tagsPihak?.tagsIcon ?? "",
+                          margin: const EdgeInsets.symmetric(horizontal: small),
+                          isOnlineSource: true,
                           onTap: () {
+                            ref.read(tagsIdProvider.notifier).state =
+                                content.tagsPihak?.tagsId ?? 0;
+                            ref.read(tagsNameProvider.notifier).state =
+                                content.tagsPihak?.tagsName ?? "";
+                            ref.read(tagsIconLinkProvider.notifier).state =
+                                content.tagsPihak?.tagsIcon ?? "";
+                            ref.invalidate(kotaIdProvider);
+                            ref.invalidate(kotaNameProvider);
                             context.router
                                 .replace(routeChooser(content.tipe ?? ""));
                           },
-                          child: IconWidget(
-                            menuIconNameChooser(content.tipe ?? "",
-                                isGreenMode: isGreenMode),
-                            // isOnlineSource: true,
-                          ),
-                        ))
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          /// TODO handle about the right icon for the right city
-                          IconWidget(
-                            // 'assets/icons/icon_daerah/${content.kotaName?.toLowerCase().replaceAll(" ", "_")}_4.png',
-                            content.petaKota?.kotaIcon4
-                                    ?.replaceAll(" ", "%20") ??
-                                "",
-                            isOnlineSource: true,
-                            size: 2 * extra,
-                            customOnErrorWidget: FittedBox(
-                              child: Column(
-                                children: [
-                                  const Icon(
-                                    Icons.location_city,
-                                    color: Color(primaryColor),
-                                  ),
-                                  Text(
-                                    content.kotaName ?? "",
-                                    style: const TextStyle(
-                                        color: Color(primaryColor)),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-              ),
-              SizedBox(
-                height: huge,
-
-                /// sebelumnya ada error disini karena row di bungkus dengan fitted box, jangan pakai begitu lagi
-                child: Row(
-                  children: [
-                    JustTheTooltip(
-                      tailBaseWidth: 0,
-                      tailLength: 0,
-                      elevation: 0,
-                      backgroundColor: Colors.white,
-                      borderRadius: BorderRadius.zero,
-                      // preferredDirection: AxisDirection.up,
-                      content: Text(content.tagsPihak?.tagsName ?? ""),
-                      child: IconWidget(
-                        content.tagsPihak?.tagsIcon ?? "",
-                        margin: const EdgeInsets.symmetric(horizontal: small),
-                        isOnlineSource: true,
-                        onTap: () {
-                          ref.read(tagsIdProvider.notifier).state =
-                              content.tagsPihak?.tagsId ?? 0;
-                          ref.read(tagsNameProvider.notifier).state =
-                              content.tagsPihak?.tagsName ?? "";
-                          ref.read(tagsIconLinkProvider.notifier).state =
-                              content.tagsPihak?.tagsIcon ?? "";
-                          ref.invalidate(kotaIdProvider);
-                          ref.invalidate(kotaNameProvider);
-                          context.router
-                              .replace(routeChooser(content.tipe ?? ""));
-                        },
+                      JustTheTooltip(
+                        tailBaseWidth: 0,
+                        tailLength: 0,
+                        elevation: 0,
+                        backgroundColor: Colors.white,
+                        borderRadius: BorderRadius.zero,
+                        content: Text(content.tagsTopik?.tagsName ?? ""),
+                        child: IconWidget(
+                          content.tagsTopik?.tagsIcon ?? "",
+                          margin: const EdgeInsets.symmetric(horizontal: small),
+                          isOnlineSource: true,
+                          onTap: () {
+                            ref.read(tagsIdProvider.notifier).state =
+                                content.tagsTopik?.tagsId ?? 0;
+                            ref.read(tagsNameProvider.notifier).state =
+                                content.tagsTopik?.tagsName ?? "";
+                            ref.read(tagsIconLinkProvider.notifier).state =
+                                content.tagsTopik?.tagsIcon ?? "";
+                            ref.invalidate(kotaIdProvider);
+                            ref.invalidate(kotaNameProvider);
+                            context.router
+                                .replace(routeChooser(content.tipe ?? ""));
+                          },
+                        ),
                       ),
-                    ),
-                    JustTheTooltip(
-                      tailBaseWidth: 0,
-                      tailLength: 0,
-                      elevation: 0,
-                      backgroundColor: Colors.white,
-                      borderRadius: BorderRadius.zero,
-                      content: Text(content.tagsTopik?.tagsName ?? ""),
-                      child: IconWidget(
-                        content.tagsTopik?.tagsIcon ?? "",
-                        margin: const EdgeInsets.symmetric(horizontal: small),
-                        isOnlineSource: true,
-                        onTap: () {
-                          ref.read(tagsIdProvider.notifier).state =
-                              content.tagsTopik?.tagsId ?? 0;
-                          ref.read(tagsNameProvider.notifier).state =
-                              content.tagsTopik?.tagsName ?? "";
-                          ref.read(tagsIconLinkProvider.notifier).state =
-                              content.tagsTopik?.tagsIcon ?? "";
-                          ref.invalidate(kotaIdProvider);
-                          ref.invalidate(kotaNameProvider);
-                          context.router
-                              .replace(routeChooser(content.tipe ?? ""));
-                        },
+                      JustTheTooltip(
+                        tailBaseWidth: 0,
+                        tailLength: 0,
+                        elevation: 0,
+                        backgroundColor: Colors.white,
+                        borderRadius: BorderRadius.zero,
+                        content: Text(content.tagsOtonomi?.tagsName ?? ""),
+                        child: IconWidget(
+                          content.tagsOtonomi?.tagsIcon ?? "",
+                          margin: const EdgeInsets.symmetric(horizontal: small),
+                          isOnlineSource: true,
+                          onTap: () {
+                            ref.read(tagsIdProvider.notifier).state =
+                                content.tagsOtonomi?.tagsId ?? 0;
+                            ref.read(tagsNameProvider.notifier).state =
+                                content.tagsOtonomi?.tagsName ?? "";
+                            ref.read(tagsIconLinkProvider.notifier).state =
+                                content.tagsOtonomi?.tagsIcon ?? "";
+                            ref.invalidate(kotaIdProvider);
+                            ref.invalidate(kotaNameProvider);
+                            context.router
+                                .replace(routeChooser(content.tipe ?? ""));
+                          },
+                        ),
                       ),
-                    ),
-                    JustTheTooltip(
-                      tailBaseWidth: 0,
-                      tailLength: 0,
-                      elevation: 0,
-                      backgroundColor: Colors.white,
-                      borderRadius: BorderRadius.zero,
-                      content: Text(content.tagsOtonomi?.tagsName ?? ""),
-                      child: IconWidget(
-                        content.tagsOtonomi?.tagsIcon ?? "",
-                        margin: const EdgeInsets.symmetric(horizontal: small),
-                        isOnlineSource: true,
-                        onTap: () {
-                          ref.read(tagsIdProvider.notifier).state =
-                              content.tagsOtonomi?.tagsId ?? 0;
-                          ref.read(tagsNameProvider.notifier).state =
-                              content.tagsOtonomi?.tagsName ?? "";
-                          ref.read(tagsIconLinkProvider.notifier).state =
-                              content.tagsOtonomi?.tagsIcon ?? "";
-                          ref.invalidate(kotaIdProvider);
-                          ref.invalidate(kotaNameProvider);
-                          context.router
-                              .replace(routeChooser(content.tipe ?? ""));
-                        },
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

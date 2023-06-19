@@ -4,3 +4,5 @@ const medium = 16.0;
 const big = 24.0;
 const huge = 32.0;
 const extra = 64.0;
+const tagsIconHeightFromFigma = 47.0;
+const mapIconHeightFromFigma = 58.0;
