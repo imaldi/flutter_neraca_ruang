@@ -157,7 +157,8 @@ final tagsTopikList = FutureProvider<List<Tags>>((ref) async {
   return response;
 });
 
-final startSearching = StateProvider<bool>((ref) => false);
+final startSearchingByTag = StateProvider<bool>((ref) => false);
+final startSearchingByKeyword = StateProvider<bool>((ref) => false);
 
 final limitProvider = StateProvider<int>((ref) => 2);
 

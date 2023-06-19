@@ -31,25 +31,38 @@ class Contents extends _$Contents {
       'limit': limit.toString(),
     };
     // queryParameters['keyword'] = ref.watch(keywordProvider);
-    var shouldStartSearchingByTag = ref.watch(startSearching);
+    var shouldStartSearchingByTag = ref.watch(startSearchingByTag);
+    var shouldStartSearchingByKeyword = ref.watch(startSearchingByKeyword);
+    var keywordParam = ref.watch(keywordProvider);
     var idTagsPihak = ref.watch(tagsPihak);
     var idTagsTopik = ref.watch(tagsTopik);
     var idTagsOtonom = ref.watch(tagsOtonom);
     if (shouldStartSearchingByTag) {
-      // queryParameters.remove('keyword');
-      // ref.invalidate(keywordProvider);
+      queryParameters.remove('keyword');
+      ref.invalidate(keywordProvider);
       if (idTagsPihak != 0) {
         queryParameters['tags_pihak'] = idTagsPihak.toString();
       }
       if (idTagsTopik != 0) {
         queryParameters['tags_topik'] = idTagsTopik.toString();
       }
-      if (idTagsPihak != 0) {
+      if (idTagsOtonom != 0) {
         queryParameters['tags_otonomi'] = idTagsOtonom.toString();
       }
     }
+    if (shouldStartSearchingByKeyword) {
+      queryParameters.remove('tags_pihak');
+      queryParameters.remove('tags_topik');
+      queryParameters.remove('tags_otonomi');
+      ref.invalidate(tagsPihak);
+      ref.invalidate(tagsTopik);
+      ref.invalidate(tagsOtonom);
+      if (keywordParam.isNotEmpty) {
+        queryParameters['keyword'] = keywordParam;
+      }
+    }
     // keyword ?? "";
-    print("queryParameters: $queryParameters");
+    print(": $queryParameters");
 
     // var authBox = sl<Box<LoginResponse>>();
     // var dataFromBox = authBox.get(userDataKey);

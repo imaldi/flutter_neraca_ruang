@@ -82,8 +82,22 @@ class DrawerContent extends ConsumerWidget {
               onItemTapped: (val) {
             ref.read(tagsPihak.notifier).state = val;
           }),
-          SearchableDropdown("TOPIK", listTagsTopik.value ?? <Tags>[],
-              onItemTapped: (val) {
+          SearchableDropdown(
+              "TOPIK",
+              listTagsTopik.value
+                  //     ?.fold<List<Tags>>(<Tags>[],
+                  //         (List<Tags> previousValue, Tags element) {
+                  //       print("previous Value: $previousValue");
+                  //
+                  //       if ((previousValue.last.tagsName ?? "") !=
+                  //           (element.tagsName ?? "")) {
+                  //         return [...previousValue, element];
+                  //       } else {
+                  //         return previousValue;
+                  //       }
+                  //     }).toList()
+                  ??
+                  <Tags>[], onItemTapped: (val) {
             ref.read(tagsTopik.notifier).state = val;
           }),
           SearchableDropdown("OTONOM-METER", listTagsOtonom.value ?? <Tags>[],
@@ -98,7 +112,7 @@ class DrawerContent extends ConsumerWidget {
                   backgroundColor: const Color(primaryColor)),
               onPressed: () {
                 /// suruh server find
-                ref.read(startSearching.notifier).state = true;
+                ref.read(startSearchingByTag.notifier).state = true;
                 context.router.push(const DatumTypeFilterRoute());
               },
               child: const Text("Cari"))

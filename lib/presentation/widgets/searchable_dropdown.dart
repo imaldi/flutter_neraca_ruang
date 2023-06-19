@@ -19,7 +19,19 @@ class SearchableDropdown extends StatefulWidget {
 
 class _SearchableDropdownState extends State<SearchableDropdown> {
   String? selectedValue;
+  // Set<String> uniqueItemNames = {};
+  // late List<Tags> uniqueItems;
   final TextEditingController textEditingController = TextEditingController();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   uniqueItems = widget.items
+  //       .where((item) => uniqueItemNames.add(item.tagsName ?? ""))
+  //       .toList();
+  //   print("Unique Names: $uniqueItemNames");
+  //   print("Unique Tag List: $uniqueItems");
+  // }
 
   @override
   void dispose() {
@@ -49,13 +61,16 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                 ),
               ),
               items: widget.items
+                  .map((e) => e.tagsName ?? "")
+                  .toSet()
+                  .toList()
                   .map((item) => DropdownMenuItem(
-                        value: item.tagsName,
+                        value: item,
                         // onTap: () {
                         //
                         // },
                         child: Text(
-                          item.tagsName ?? "-",
+                          item ?? "-",
                           style: const TextStyle(
                             fontSize: 14,
                           ),
@@ -122,7 +137,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                   return (item.value
                       .toString()
                       .toLowerCase()
-                      .contains(searchValue));
+                      .contains(searchValue.toLowerCase()));
                 },
               ),
               //This to clear the search value when you close the menu

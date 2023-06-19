@@ -24,7 +24,8 @@ void basicResetStates(BuildContext context, WidgetRef ref) {
   ref.invalidate(tagsIconLinkProvider);
   ref.invalidate(limitProvider);
   ref.invalidate(selectedContentIdProvider);
-  ref.invalidate(startSearching);
+  ref.invalidate(startSearchingByTag);
+  ref.invalidate(startSearchingByKeyword);
   ref.invalidate(tagsPihak);
   ref.invalidate(tagsOtonom);
   ref.invalidate(tagsTopik);
