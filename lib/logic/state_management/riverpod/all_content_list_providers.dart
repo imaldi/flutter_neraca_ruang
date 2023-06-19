@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/consts/hive_const.dart';
 import '../../../core/consts/urls.dart';
 import '../../../data/models/dashboard_response/dashboard_response.dart';
-import '../../../data/models/login_response/login_response.dart';
+import '../../../data/models/login_response_deprecated/login_response.dart';
 import '../../../di.dart';
 
 part 'all_content_list_providers.g.dart';

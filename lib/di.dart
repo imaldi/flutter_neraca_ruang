@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'core/consts/hive_const.dart';
-import 'data/models/login_response/login_response.dart';
+import 'data/models/login_response_deprecated/login_response.dart';
 
 final sl = GetIt.instance;
 Future<void> init() async {

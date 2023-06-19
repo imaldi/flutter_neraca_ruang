@@ -15,7 +15,7 @@ import '../../core/consts/assets.dart';
 import '../../core/consts/hive_const.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
-import '../../data/models/login_response/login_response.dart';
+import '../../data/models/login_response_deprecated/login_response.dart';
 import '../../di.dart';
 import '../../logic/state_management/riverpod/auth_providers.dart';
 import '../widgets/drawer_content.dart';
@@ -403,7 +403,8 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                 controller: YoutubePlayerController(
                                     initialVideoId:
                                         YoutubePlayer.convertUrlToId(
-                                            data[3].videoUrl ?? "")!,
+                                                data[3].videoUrl ?? "") ??
+                                            "",
                                     flags: const YoutubePlayerFlags(
                                         autoPlay: false)),
                                 showVideoProgressIndicator: true,
@@ -623,7 +624,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
 
                             // TODO implement adsense
                             Text(
-                              "Ad",
+                              "Ads",
                               style: Theme.of(context).textTheme.headlineSmall,
                               textAlign: TextAlign.center,
                             ),

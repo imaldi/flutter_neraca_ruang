@@ -213,56 +213,65 @@ class ContentWidget extends ConsumerWidget {
                 /// sebelumnya ada error disini karena row di bungkus dengan fitted box, jangan pakai begitu lagi
                 child: Row(
                   children: [
-                    IconWidget(
-                      content.tagsPihak?.tagsIcon ?? "",
-                      margin: const EdgeInsets.symmetric(horizontal: small),
-                      isOnlineSource: true,
-                      onTap: () {
-                        ref.read(tagsIdProvider.notifier).state =
-                            content.tagsPihak?.tagsId ?? 0;
-                        ref.read(tagsNameProvider.notifier).state =
-                            content.tagsPihak?.tagsName ?? "";
-                        ref.read(tagsIconLinkProvider.notifier).state =
-                            content.tagsPihak?.tagsIcon ?? "";
-                        ref.invalidate(kotaIdProvider);
-                        ref.invalidate(kotaNameProvider);
-                        context.router
-                            .replace(routeChooser(content.tipe ?? ""));
-                      },
+                    Tooltip(
+                      message: content.tagsPihak?.tagsName ?? "",
+                      child: IconWidget(
+                        content.tagsPihak?.tagsIcon ?? "",
+                        margin: const EdgeInsets.symmetric(horizontal: small),
+                        isOnlineSource: true,
+                        onTap: () {
+                          ref.read(tagsIdProvider.notifier).state =
+                              content.tagsPihak?.tagsId ?? 0;
+                          ref.read(tagsNameProvider.notifier).state =
+                              content.tagsPihak?.tagsName ?? "";
+                          ref.read(tagsIconLinkProvider.notifier).state =
+                              content.tagsPihak?.tagsIcon ?? "";
+                          ref.invalidate(kotaIdProvider);
+                          ref.invalidate(kotaNameProvider);
+                          context.router
+                              .replace(routeChooser(content.tipe ?? ""));
+                        },
+                      ),
                     ),
-                    IconWidget(
-                      content.tagsTopik?.tagsIcon ?? "",
-                      margin: const EdgeInsets.symmetric(horizontal: small),
-                      isOnlineSource: true,
-                      onTap: () {
-                        ref.read(tagsIdProvider.notifier).state =
-                            content.tagsTopik?.tagsId ?? 0;
-                        ref.read(tagsNameProvider.notifier).state =
-                            content.tagsTopik?.tagsName ?? "";
-                        ref.read(tagsIconLinkProvider.notifier).state =
-                            content.tagsTopik?.tagsIcon ?? "";
-                        ref.invalidate(kotaIdProvider);
-                        ref.invalidate(kotaNameProvider);
-                        context.router
-                            .replace(routeChooser(content.tipe ?? ""));
-                      },
+                    Tooltip(
+                      message: content.tagsTopik?.tagsName ?? "",
+                      child: IconWidget(
+                        content.tagsTopik?.tagsIcon ?? "",
+                        margin: const EdgeInsets.symmetric(horizontal: small),
+                        isOnlineSource: true,
+                        onTap: () {
+                          ref.read(tagsIdProvider.notifier).state =
+                              content.tagsTopik?.tagsId ?? 0;
+                          ref.read(tagsNameProvider.notifier).state =
+                              content.tagsTopik?.tagsName ?? "";
+                          ref.read(tagsIconLinkProvider.notifier).state =
+                              content.tagsTopik?.tagsIcon ?? "";
+                          ref.invalidate(kotaIdProvider);
+                          ref.invalidate(kotaNameProvider);
+                          context.router
+                              .replace(routeChooser(content.tipe ?? ""));
+                        },
+                      ),
                     ),
-                    IconWidget(
-                      content.tagsOtonomi?.tagsIcon ?? "",
-                      margin: const EdgeInsets.symmetric(horizontal: small),
-                      isOnlineSource: true,
-                      onTap: () {
-                        ref.read(tagsIdProvider.notifier).state =
-                            content.tagsOtonomi?.tagsId ?? 0;
-                        ref.read(tagsNameProvider.notifier).state =
-                            content.tagsOtonomi?.tagsName ?? "";
-                        ref.read(tagsIconLinkProvider.notifier).state =
-                            content.tagsOtonomi?.tagsIcon ?? "";
-                        ref.invalidate(kotaIdProvider);
-                        ref.invalidate(kotaNameProvider);
-                        context.router
-                            .replace(routeChooser(content.tipe ?? ""));
-                      },
+                    Tooltip(
+                      message: content.tagsOtonomi?.tagsName ?? "",
+                      child: IconWidget(
+                        content.tagsOtonomi?.tagsIcon ?? "",
+                        margin: const EdgeInsets.symmetric(horizontal: small),
+                        isOnlineSource: true,
+                        onTap: () {
+                          ref.read(tagsIdProvider.notifier).state =
+                              content.tagsOtonomi?.tagsId ?? 0;
+                          ref.read(tagsNameProvider.notifier).state =
+                              content.tagsOtonomi?.tagsName ?? "";
+                          ref.read(tagsIconLinkProvider.notifier).state =
+                              content.tagsOtonomi?.tagsIcon ?? "";
+                          ref.invalidate(kotaIdProvider);
+                          ref.invalidate(kotaNameProvider);
+                          context.router
+                              .replace(routeChooser(content.tipe ?? ""));
+                        },
+                      ),
                     ),
                   ],
                 ),

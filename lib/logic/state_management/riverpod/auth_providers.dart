@@ -1,13 +1,12 @@
 import 'dart:convert';
 
-import 'package:flutter_neraca_ruang/data/models/login_response/login_response.dart';
-import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../core/consts/hive_const.dart';
 import '../../../core/consts/urls.dart';
+import '../../../data/models/login_response_deprecated/login_response.dart';
 import '../../../di.dart';
 
 final hiveUserTokenProvider = StateProvider<String>(((ref) {
@@ -20,6 +19,9 @@ final authRepoProvider = Provider((ref) => Repository(ref));
 final usernameProvider = StateProvider((ref) => "");
 final emailProvider = StateProvider((ref) => "");
 final passwordProvider = StateProvider((ref) => "");
+final tanggalLahirProvider = StateProvider((ref) => "");
+final telepon = StateProvider((ref) => "");
+final kotaKabp = StateProvider((ref) => "");
 final loggingInProvider = FutureProvider((ref) async {
   var username = ref.watch(usernameProvider);
   var password = ref.watch(passwordProvider);
