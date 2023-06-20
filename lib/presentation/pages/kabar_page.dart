@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/assets.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/liked_content_list.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/content_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/green_mode_appbar_widget.dart';
@@ -29,6 +30,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
+    var likedContent = ref.watch(likedContentListProviderProvider);
     var appbarTitle =
         // kotaName.isNotEmpty
         //     ? kotaName

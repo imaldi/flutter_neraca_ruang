@@ -138,6 +138,8 @@ class AuthStatus extends _$AuthStatus {
     int kotaId = 0,
     int provId = 0,
     String noHp = "",
+    // FIXME, nanti tanyakan kejelasan field domisili di layout dan API
+    String domisili = "jaksel",
     Function? successCallback,
     Function? failureCallback,
   }) async {
@@ -167,6 +169,10 @@ class AuthStatus extends _$AuthStatus {
     }
     if (tanggalLahir.isNotEmpty) {
       bodyParameters['tanggal_lahir'] = tanggalLahir;
+    }
+
+    if (domisili.isNotEmpty) {
+      bodyParameters['domisili'] = domisili;
     }
     if (provId != 0) {
       bodyParameters['prov_id'] = provId.toString();

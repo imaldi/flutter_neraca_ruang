@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/liked_content_list.dart';
 import 'package:flutter_neraca_ruang/presentation/pages/green_page.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:html/parser.dart';
@@ -186,7 +188,6 @@ class ContentWidget extends ConsumerWidget {
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            /// TODO handle about the right icon for the right city
                             SizedBox(
                               height: mapIconHeightFromFigma,
                               child: Image.network(
@@ -371,9 +372,17 @@ class ContentWidget extends ConsumerWidget {
                   const Text("Reads"),
                 ],
               )),
-              IconWidget(
-                isGreenMode ? iconSuka2 : iconSuka,
-                size: huge,
+              InkWell(
+                onTap: () {
+                  // ref
+                  //     .read(likedContentListProviderProvider.notifier)
+                  //     .like(content.id ?? 0, contentSlug: content.slug ?? "");
+                  // myToast("the slug: ${content.slug}");
+                },
+                child: IconWidget(
+                  isGreenMode ? iconSuka2 : iconSuka,
+                  size: huge,
+                ),
               ),
               FittedBox(
                 child: Row(
