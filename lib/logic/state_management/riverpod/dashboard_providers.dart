@@ -162,6 +162,9 @@ final startSearchingByKeyword = StateProvider<bool>((ref) => false);
 
 final limitProvider = StateProvider<int>((ref) => 2);
 
+final currentLikedOrDislikedContentIndexProvider =
+    StateProvider<int>((ref) => 0);
+
 class Repository {
   Repository(this.ref);
 

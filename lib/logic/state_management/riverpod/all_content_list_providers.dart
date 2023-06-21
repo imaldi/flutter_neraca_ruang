@@ -108,6 +108,16 @@ class Contents extends _$Contents {
     // }
   }
 
+  Future<void> likeContent(Datum content) async {
+    state = AsyncValue.data([
+      for (final (stateContent as Datum) in state.value ?? [])
+        if (stateContent.id == content.id)
+          stateContent.copyWith(localLike: !stateContent.localLike)
+        else
+          stateContent,
+    ]);
+  }
+
   // Future<void> likeContent(String slug) async {
   //   // Map<String, String> queryParameters = {
   //   //   'slug'
