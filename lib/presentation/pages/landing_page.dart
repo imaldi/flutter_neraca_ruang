@@ -187,7 +187,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                       margin: const EdgeInsets.symmetric(
                                           vertical: medium),
                                       child: Text(
-                                        '${data.first.judul}',
+                                        '${data.first.judul ?? "Kabar"}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineSmall,
@@ -257,7 +257,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                     margin: const EdgeInsets.symmetric(
                                         vertical: medium),
                                     child: Text(
-                                      "${data[1].judul}",
+                                      "${data[1].judul ?? "Jurnal"}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineSmall,
@@ -357,7 +357,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                     margin: const EdgeInsets.symmetric(
                                         vertical: medium),
                                     child: Text(
-                                      "${data[2].judul}",
+                                      "${data[2].judul ?? "Infografis"}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineSmall,
@@ -434,7 +434,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                     margin: const EdgeInsets.symmetric(
                                         vertical: medium),
                                     child: Text(
-                                      "${data[3].judul}",
+                                      "${data[3].judul ?? "Video"}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineSmall,
@@ -501,7 +501,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                     margin: const EdgeInsets.symmetric(
                                         vertical: normal),
                                     child: Text(
-                                      "${data[4].judul}",
+                                      "${data[4].judul ?? "Foto"}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineSmall,

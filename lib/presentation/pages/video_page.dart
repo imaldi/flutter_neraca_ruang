@@ -73,8 +73,6 @@ class _VideoPageState extends ConsumerState<VideoPage> {
                           itemBuilder: (c, i) {
                             return ContentWidget(
                               contentList[i],
-                              isUsingThumbnail: true,
-                              isVideoMode: true,
                             );
                           }),
                       InkWell(

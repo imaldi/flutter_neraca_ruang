@@ -74,7 +74,6 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
                           itemBuilder: (c, i) {
                             return ContentWidget(
                               contentList[i],
-                              isInfografis: true,
                             );
                           }),
                       InkWell(

@@ -23,25 +23,29 @@ import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class ContentWidget extends ConsumerWidget {
   final Datum content;
-  final bool isUsingThumbnail;
+  // final bool isFoto;
   final bool isGreenMode;
-  final bool isVideoMode;
-  final bool isInfografis;
+  // final bool isVideoMode;
+  // final bool isInfografis;
   const ContentWidget(this.content,
-      {this.isUsingThumbnail = false,
-      this.isVideoMode = false,
+      {
+      // this.isFoto = false,
+      // this.isVideoMode = false,
       this.isGreenMode = false,
-      this.isInfografis = false,
+      // this.isInfografis = false,
       Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var contentId = ref.watch(selectedContentIdProvider);
+    var isVideo = content.tipe == "video";
+    var isFoto = content.tipe == "foto";
+    var isInfografis = content.tipe == "infografis";
     return Column(
       children: [
         Visibility(
-          visible: !(isInfografis || isUsingThumbnail),
+          visible: !(isInfografis || isFoto),
           child: Container(
             // color: Colors.green,
             margin: const EdgeInsets.only(bottom: normal),
@@ -50,7 +54,7 @@ class ContentWidget extends ConsumerWidget {
               maxHeight: 200,
               minWidth: MediaQuery.of(context).size.width,
             ),
-            child: isVideoMode
+            child: isVideo
                 ? YoutubePlayer(
                     controller: YoutubePlayerController(
                         initialVideoId: YoutubePlayer.convertUrlToId(
@@ -80,9 +84,10 @@ class ContentWidget extends ConsumerWidget {
                     : FittedBox(
                         fit: BoxFit.fitHeight,
                         child: Image.network(
-                          isUsingThumbnail
-                              ? "https://$thumbnailUrl/${content.thumbnail}"
-                              : "https://$contentUrl/${content.images}",
+                          // isUsingThumbnail
+                          //     ? "https://$thumbnailUrl/${content.thumbnail}"
+                          //     :
+                          "https://$contentUrl/${content.images}",
                           fit: BoxFit.cover,
                           errorBuilder: (bc, o, st) {
                             return Icon(
@@ -116,7 +121,7 @@ class ContentWidget extends ConsumerWidget {
                     ref.read(kotaIdProvider.notifier).state =
                         content.kotaId ?? 0;
                     ref.read(kotaNameProvider.notifier).state =
-                        content.kotaName ?? "";
+                        content.kotaName ?? "No City";
                     ref.invalidate(tagsIdProvider);
                     ref.invalidate(tagsNameProvider);
                     context.router.replace(const GreenRoute());
@@ -159,8 +164,9 @@ class ContentWidget extends ConsumerWidget {
                                         color: Color(primaryColor),
                                       ),
                                       Text(
-                                        content.kotaName ?? "",
+                                        content.kotaName ?? "No City",
                                         style: const TextStyle(
+                                            fontSize: normal,
                                             color: Color(primaryColor)),
                                       )
                                     ],
@@ -267,7 +273,7 @@ class ContentWidget extends ConsumerWidget {
           child: Column(
             children: [
               Text(
-                /// TODO jangan lupa ganti dengan createdBy
+                /// TODO jangan lupa ganti dengan created by yg asli
                 '${content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
                 style: isGreenMode
                     ? Theme.of(context)
@@ -296,7 +302,7 @@ class ContentWidget extends ConsumerWidget {
                 ),
               ),
               Visibility(
-                visible: isInfografis || isUsingThumbnail,
+                visible: isInfografis || isFoto,
                 child: Container(
                   // color: Colors.green,
                   margin: const EdgeInsets.only(bottom: normal),
@@ -305,7 +311,7 @@ class ContentWidget extends ConsumerWidget {
                     maxHeight: 240,
                     minWidth: MediaQuery.of(context).size.width,
                   ),
-                  child: !isUsingThumbnail // isFoto actually
+                  child: !isFoto // isFoto actually
                       ? ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
@@ -316,12 +322,13 @@ class ContentWidget extends ConsumerWidget {
                                 child: content.listMedia?[i].images != null
                                     ? Center(
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                          // crossAxisAlignment:
+                                          //     CrossAxisAlignment.center,
                                           children: [
                                             Center(
                                               child: SizedBox(
                                                 height: 200,
+                                                width: double.infinity,
                                                 child: FittedBox(
                                                   fit: BoxFit.fitHeight,
                                                   child: Image.network(
@@ -337,6 +344,7 @@ class ContentWidget extends ConsumerWidget {
                                               ),
                                             ),
                                             Container(
+                                              width: double.infinity,
                                               // color: Colors.blueAccent,
                                               padding: const EdgeInsets.only(
                                                   top: normal,
@@ -344,7 +352,7 @@ class ContentWidget extends ConsumerWidget {
                                                   right: huge),
                                               child: Text(
                                                 "${content.listMedia?[i].captions}",
-                                                textAlign: TextAlign.center,
+                                                // textAlign: TextAlign.center,
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -357,9 +365,10 @@ class ContentWidget extends ConsumerWidget {
                       : FittedBox(
                           fit: BoxFit.fitHeight,
                           child: Image.network(
-                            isUsingThumbnail
-                                ? "https://$thumbnailUrl/${content.thumbnail}"
-                                : "https://$contentUrl/${content.images}",
+                            // isUsingThumbnail
+                            //     ? "https://$thumbnailUrl/${content.thumbnail}"
+                            //     :
+                            "https://$contentUrl/${content.images}",
                             fit: BoxFit.cover,
                             errorBuilder: (bc, o, st) {
                               return Icon(
@@ -376,7 +385,7 @@ class ContentWidget extends ConsumerWidget {
                 ),
               ),
               Visibility(
-                visible: !(isInfografis || isUsingThumbnail),
+                visible: !(isInfografis || isFoto),
                 child: Container(
                   constraints: contentId == (content.id ?? -1)
                       ? null
@@ -456,6 +465,7 @@ class ContentWidget extends ConsumerWidget {
                 .toList(),
           ),
         ),
+        SizedBox(height: huge),
       ],
     );
   }
