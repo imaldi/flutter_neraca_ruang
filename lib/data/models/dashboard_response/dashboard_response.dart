@@ -47,7 +47,7 @@ class Datum with _$Datum {
     String? slug,
     String? keterangan,
     String? tipe,
-    @Default(false) @JsonKey(name: "local_like") localLike,
+    @JsonKey(name: "local_like") bool? localLike,
     @JsonKey(name: "kategori_id") int? kategoriId,
     @JsonKey(name: "kategori_name") String? kategoriName,
     @JsonKey(name: "source_id") int? sourceId,

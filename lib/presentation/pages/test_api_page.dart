@@ -26,23 +26,9 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
 
   @override
   Widget build(BuildContext context) {
-    var fotoTerbaru = ref.watch(fotoProvider);
     var contentIndex = ref.watch(currentLikedOrDislikedContentIndexProvider);
     // var dataDashboard = ref.watch(dashBoardProvider);
     var list = ref.watch(contentsProvider);
-    ref.listen(contentsProvider, (previous, next) {
-      var currentItem = next.value?[contentIndex];
-      var previousItem = previous?.value?[contentIndex];
-      if (previousItem?.localLike == false && currentItem?.localLike == true) {
-        print("content is liked");
-        myToast("content liked successfully");
-      }
-
-      if (previousItem?.localLike == true && currentItem?.localLike == false) {
-        print("content is disliked");
-        myToast("content disliked successfully");
-      }
-    });
 
     return Scaffold(
       appBar: AppBar(
@@ -62,20 +48,42 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
                               children: [
                                 Text("Data ke: ${i + 1}"),
                                 Text(data[i].judul.toString()),
-                                InkWell(
-                                  onTap: () {
-                                    ref
-                                        .read(
-                                            currentLikedOrDislikedContentIndexProvider
-                                                .notifier)
-                                        .state = i;
-                                    ref
-                                        .read(contentsProvider.notifier)
-                                        .likeContent(data[i]);
-                                  },
-                                  child: data[i].localLike
-                                      ? Icon(Icons.thumb_up)
-                                      : Icon(Icons.thumb_up_alt_outlined),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        ref
+                                            .read(
+                                                currentLikedOrDislikedContentIndexProvider
+                                                    .notifier)
+                                            .state = i;
+                                      },
+                                      child: (data[i].localLike ?? false)
+                                          ? InkWell(
+                                              onTap: () {
+                                                ref
+                                                    .read(contentsProvider
+                                                        .notifier)
+                                                    .likeContent(data[i]
+                                                        .copyWith(
+                                                            localLike: false));
+                                              },
+                                              child: Icon(Icons.thumb_up))
+                                          : InkWell(
+                                              onTap: () {
+                                                ref
+                                                    .read(contentsProvider
+                                                        .notifier)
+                                                    .likeContent(data[i]
+                                                        .copyWith(
+                                                            localLike: true));
+                                              },
+                                              child: Icon(
+                                                  Icons.thumb_up_alt_outlined)),
+                                    ),
+                                    Text("${data[i].totalLike} Likes")
+                                  ],
                                 ),
                               ],
                             ),

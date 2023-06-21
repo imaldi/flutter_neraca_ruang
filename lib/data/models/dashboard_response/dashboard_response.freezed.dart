@@ -627,7 +627,7 @@ mixin _$Datum {
   String? get keterangan => throw _privateConstructorUsedError;
   String? get tipe => throw _privateConstructorUsedError;
   @JsonKey(name: "local_like")
-  dynamic get localLike => throw _privateConstructorUsedError;
+  bool? get localLike => throw _privateConstructorUsedError;
   @JsonKey(name: "kategori_id")
   int? get kategoriId => throw _privateConstructorUsedError;
   @JsonKey(name: "kategori_name")
@@ -706,7 +706,7 @@ abstract class $DatumCopyWith<$Res> {
       String? slug,
       String? keterangan,
       String? tipe,
-      @JsonKey(name: "local_like") dynamic localLike,
+      @JsonKey(name: "local_like") bool? localLike,
       @JsonKey(name: "kategori_id") int? kategoriId,
       @JsonKey(name: "kategori_name") String? kategoriName,
       @JsonKey(name: "source_id") int? sourceId,
@@ -822,7 +822,7 @@ class _$DatumCopyWithImpl<$Res, $Val extends Datum>
       localLike: freezed == localLike
           ? _value.localLike
           : localLike // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as bool?,
       kategoriId: freezed == kategoriId
           ? _value.kategoriId
           : kategoriId // ignore: cast_nullable_to_non_nullable
@@ -1015,7 +1015,7 @@ abstract class _$$_DatumCopyWith<$Res> implements $DatumCopyWith<$Res> {
       String? slug,
       String? keterangan,
       String? tipe,
-      @JsonKey(name: "local_like") dynamic localLike,
+      @JsonKey(name: "local_like") bool? localLike,
       @JsonKey(name: "kategori_id") int? kategoriId,
       @JsonKey(name: "kategori_name") String? kategoriName,
       @JsonKey(name: "source_id") int? sourceId,
@@ -1128,7 +1128,10 @@ class __$$_DatumCopyWithImpl<$Res> extends _$DatumCopyWithImpl<$Res, _$_Datum>
           ? _value.tipe
           : tipe // ignore: cast_nullable_to_non_nullable
               as String?,
-      localLike: freezed == localLike ? _value.localLike! : localLike,
+      localLike: freezed == localLike
+          ? _value.localLike
+          : localLike // ignore: cast_nullable_to_non_nullable
+              as bool?,
       kategoriId: freezed == kategoriId
           ? _value.kategoriId
           : kategoriId // ignore: cast_nullable_to_non_nullable
@@ -1270,7 +1273,7 @@ class _$_Datum implements _Datum {
       this.slug,
       this.keterangan,
       this.tipe,
-      @JsonKey(name: "local_like") this.localLike = false,
+      @JsonKey(name: "local_like") this.localLike,
       @JsonKey(name: "kategori_id") this.kategoriId,
       @JsonKey(name: "kategori_name") this.kategoriName,
       @JsonKey(name: "source_id") this.sourceId,
@@ -1320,7 +1323,7 @@ class _$_Datum implements _Datum {
   final String? tipe;
   @override
   @JsonKey(name: "local_like")
-  final dynamic localLike;
+  final bool? localLike;
   @override
   @JsonKey(name: "kategori_id")
   final int? kategoriId;
@@ -1439,7 +1442,8 @@ class _$_Datum implements _Datum {
             (identical(other.keterangan, keterangan) ||
                 other.keterangan == keterangan) &&
             (identical(other.tipe, tipe) || other.tipe == tipe) &&
-            const DeepCollectionEquality().equals(other.localLike, localLike) &&
+            (identical(other.localLike, localLike) ||
+                other.localLike == localLike) &&
             (identical(other.kategoriId, kategoriId) ||
                 other.kategoriId == kategoriId) &&
             (identical(other.kategoriName, kategoriName) ||
@@ -1512,7 +1516,7 @@ class _$_Datum implements _Datum {
         slug,
         keterangan,
         tipe,
-        const DeepCollectionEquality().hash(localLike),
+        localLike,
         kategoriId,
         kategoriName,
         sourceId,
@@ -1568,7 +1572,7 @@ abstract class _Datum implements Datum {
       final String? slug,
       final String? keterangan,
       final String? tipe,
-      @JsonKey(name: "local_like") final dynamic localLike,
+      @JsonKey(name: "local_like") final bool? localLike,
       @JsonKey(name: "kategori_id") final int? kategoriId,
       @JsonKey(name: "kategori_name") final String? kategoriName,
       @JsonKey(name: "source_id") final int? sourceId,
@@ -1616,7 +1620,7 @@ abstract class _Datum implements Datum {
   String? get tipe;
   @override
   @JsonKey(name: "local_like")
-  dynamic get localLike;
+  bool? get localLike;
   @override
   @JsonKey(name: "kategori_id")
   int? get kategoriId;

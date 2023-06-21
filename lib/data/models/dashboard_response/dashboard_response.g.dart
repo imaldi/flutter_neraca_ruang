@@ -63,7 +63,7 @@ _$_Datum _$$_DatumFromJson(Map<String, dynamic> json) => _$_Datum(
       slug: json['slug'] as String?,
       keterangan: json['keterangan'] as String?,
       tipe: json['tipe'] as String?,
-      localLike: json['local_like'] ?? false,
+      localLike: json['local_like'] as bool?,
       kategoriId: json['kategori_id'] as int?,
       kategoriName: json['kategori_name'] as String?,
       sourceId: json['source_id'] as int?,

@@ -112,7 +112,13 @@ class Contents extends _$Contents {
     state = AsyncValue.data([
       for (final (stateContent as Datum) in state.value ?? [])
         if (stateContent.id == content.id)
-          stateContent.copyWith(localLike: !stateContent.localLike)
+          stateContent.copyWith(
+              localLike: !(stateContent.localLike ?? false),
+              totalLike: (content.localLike != null)
+                  ? (content.localLike!)
+                      ? (stateContent.totalLike ?? 0) + 1
+                      : (stateContent.totalLike ?? 0) - 1
+                  : stateContent.totalLike)
         else
           stateContent,
     ]);
