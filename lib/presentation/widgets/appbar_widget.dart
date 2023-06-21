@@ -107,31 +107,33 @@ appBarWidget(BuildContext context,
               context.router.replace(const LandingRoute());
             },
             child: Center(child: Image.asset(iconNRAppbar))),
-    bottom: isGreenMode
-        ? PreferredSize(
-            preferredSize: _tabBar.preferredSize,
-            child: ColoredBox(
-                color: const Color(greenModeColor),
-                child: TabBar(
-                  indicatorColor: Colors.transparent,
-                  padding: const EdgeInsets.symmetric(vertical: normal),
-                  tabs: [
-                    Image.asset(iconOtoTr),
-                    Image.asset(iconKonsTr),
-                    Image.asset(iconMadaTr),
-                  ]
-                      .map((e) => Expanded(
-                            child: e,
-                          ))
-                      .toList(),
-                )),
-          )
-        : PreferredSize(
-            preferredSize: _tabBar.preferredSize,
-            child: ColoredBox(
-                color: isGreenMode ? Colors.white : Color(primaryColor),
-                child: _tabBar),
-          ),
+    bottom:
+        // isGreenMode
+        //     ? PreferredSize(
+        //         preferredSize: _tabBar.preferredSize,
+        //         child: ColoredBox(
+        //             color: const Color(greenModeColor),
+        //             child: TabBar(
+        //               indicatorColor: Colors.transparent,
+        //               padding: const EdgeInsets.symmetric(vertical: normal),
+        //               tabs: [
+        //                 Image.asset(iconOtoTr),
+        //                 Image.asset(iconKonsTr),
+        //                 Image.asset(iconMadaTr),
+        //               ]
+        //                   .map((e) => Expanded(
+        //                         child: e,
+        //                       ))
+        //                   .toList(),
+        //             )),
+        //       )
+        //     :
+        PreferredSize(
+      preferredSize: _tabBar.preferredSize,
+      child: ColoredBox(
+          color: isGreenMode ? Color(greenModeColor) : Color(primaryColor),
+          child: _tabBar),
+    ),
     actions: [
       InkWell(
         onTap: () async {

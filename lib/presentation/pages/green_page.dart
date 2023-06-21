@@ -77,9 +77,9 @@ class GreenPageState extends ConsumerState<GreenPage> {
               ),
               isGreenMode: true,
               tabsChild: [
-                Image.asset("assets/images/oto.png"),
-                Image.asset("assets/images/kons.png"),
-                Image.asset("assets/images/mada.png"),
+                Image.asset(iconOtoTr),
+                Image.asset(iconKonsTr),
+                Image.asset(iconMadaTr),
               ], resetStates: () {
             basicResetStates(context, ref);
           }),
