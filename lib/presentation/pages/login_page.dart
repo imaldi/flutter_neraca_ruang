@@ -28,19 +28,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // ref.listen(loggingInProvider, (previous, next) {
-    //   next.when(
-    //       data: (data) {
-    //         if (data) {
-    //           context.router.replace(const LandingRoute());
-    //           print("login listener called");
-    //         }
-    //       },
-    //       error: (o, st) => null,
-    //       loading: () => null);
-    // });
-    var userData = ref.watch(authStatusProvider);
-
+    final textStyle = TextStyle(color: Color(primaryHintColor));
     return Scaffold(
       body: SafeArea(
         child: Container(

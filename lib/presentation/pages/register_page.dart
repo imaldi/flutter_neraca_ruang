@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/async_state_auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:intl/intl.dart';
 import '../../core/consts/assets.dart';
 import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
@@ -26,6 +26,9 @@ class RegisterPage extends ConsumerWidget {
     final kodePosCtlr = TextEditingController();
     final kataSandiCtlr = TextEditingController();
     final konfKtSandiCtlr = TextEditingController();
+    final hintColor = Color(primaryHintColor).withAlpha(120);
+    final textStyle = TextStyle(color: hintColor);
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -42,10 +45,21 @@ class RegisterPage extends ConsumerWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Image.asset(iconNRAppbar),
-                      Text(
-                        "Selamat Datang",
-                        style: Theme.of(context).textTheme.titleLarge,
+                      IntrinsicWidth(
+                        child: Column(
+                          children: [
+                            Container(
+                                width: double.infinity,
+                                child: Image.asset(iconNRAppbar)),
+                            Text(
+                              "Pendaftaran",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: huge,
+                                  color: Color(primaryColor)),
+                            ),
+                          ],
+                        ),
                       ),
                       Row(
                         children: [
@@ -59,8 +73,10 @@ class RegisterPage extends ConsumerWidget {
                                         width: small)),
                                 child: Center(
                                   child: const Text(
-                                    "Masuk dengan email",
-                                    style: TextStyle(fontSize: medium),
+                                    "Daftar dengan email",
+                                    style: TextStyle(
+                                        fontSize: medium,
+                                        color: Color(primaryHintColor)),
                                   ),
                                 )),
                           ),
@@ -70,34 +86,47 @@ class RegisterPage extends ConsumerWidget {
 
                       /// Custom TFF
                       RoundedTextFormField(
-                        hint: "Nama*",
+                        hint: "Nama",
+                        decoration: InputDecoration(hintStyle: textStyle),
                         controller: namaCtlr,
                       ),
 
                       RoundedTextFormField(
                         hint: "Email*",
                         controller: emailCtlr,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          hintStyle: textStyle,
+                        ),
                       ),
 
                       RoundedTextFormField(
                         hint: "Tanggal Lahir",
                         controller: tanggalLahirCtlr,
                         decoration: InputDecoration(
+                            hintStyle: textStyle,
                             suffixIcon: InkWell(
                                 onTap: () async {
                                   var dateChosen = await showDatePicker(
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(1978),
-                                      lastDate: DateTime(2100));
-                                  tanggalLahirCtlr.text =
-                                      dateChosen.toString().substring(0, 10);
+                                      lastDate: DateTime.now());
+                                  if (dateChosen != null)
+                                    tanggalLahirCtlr.text =
+                                        DateFormat("dd-MM-yyyy")
+                                            .format(dateChosen);
+                                  // dateChosen.toString().substring(0, 10);
                                 },
                                 child: Icon(Icons.calendar_month))),
                       ),
                       RoundedTextFormField(
                         hint: "Telepon",
+                        keyboardType: TextInputType.phone,
                         controller: teleponCtlr,
+                        decoration: InputDecoration(
+                          hintStyle: textStyle,
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -105,6 +134,9 @@ class RegisterPage extends ConsumerWidget {
                           RoundedTextFormField(
                             hint: "Kota/Kabupaten",
                             controller: kotaKabCtlr,
+                            decoration: InputDecoration(
+                              hintStyle: textStyle,
+                            ),
                           ),
                           const Text("Aktifkan lokasi?")
                         ],
@@ -112,14 +144,26 @@ class RegisterPage extends ConsumerWidget {
                       RoundedTextFormField(
                         hint: "Kode Pos",
                         controller: kodePosCtlr,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          hintStyle: textStyle,
+                        ),
                       ),
                       RoundedTextFormField(
-                        hint: "Kata Sandi*",
+                        hint: "Kata Sandi",
+                        isObscureText: true,
                         controller: kataSandiCtlr,
+                        decoration: InputDecoration(
+                          hintStyle: textStyle,
+                        ),
                       ),
                       RoundedTextFormField(
-                        hint: "Konfirmasi Kata Sandi*",
+                        hint: "Konfirmasi Kata Sandi",
+                        isObscureText: true,
                         controller: konfKtSandiCtlr,
+                        decoration: InputDecoration(
+                          hintStyle: textStyle,
+                        ),
                       ),
 
                       Container(
@@ -161,7 +205,7 @@ class RegisterPage extends ConsumerWidget {
                                       myToast("Register Failed");
                                     },
                                   );
-                              myToast("OIK");
+                              // myToast("OIK");
                             },
                             child: Text("DAFTAR")),
                       ),
