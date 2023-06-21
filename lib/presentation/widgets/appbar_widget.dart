@@ -71,9 +71,10 @@ appBarWidget(BuildContext context,
   );
   return AppBar(
     elevation: 0,
+    leadingWidth: extra,
     leading: appbarTitle != null && appbarTitle.isNotEmpty
         ? Container(
-            margin: const EdgeInsets.symmetric(horizontal: medium),
+            margin: const EdgeInsets.only(left: normal, top: normal),
             child: InkWell(
               onTap: () {
                 context.router.replace(const LandingRoute());
@@ -87,7 +88,11 @@ appBarWidget(BuildContext context,
         : null,
     title: appbarTitle != null && appbarTitle.isNotEmpty
         ? isGreenMode
-            ? appbarBackgroundImage
+            ? Center(
+                child: Container(
+                    padding: EdgeInsets.only(top: normal, left: extra),
+                    child: appbarBackgroundImage ?? Container()),
+              )
             : Center(
                 child: Stack(
                   alignment: AlignmentDirectional.center,
