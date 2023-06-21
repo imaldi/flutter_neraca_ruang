@@ -118,7 +118,10 @@ class RegisterPage extends ConsumerWidget {
                                             .format(dateChosen);
                                   // dateChosen.toString().substring(0, 10);
                                 },
-                                child: Icon(Icons.calendar_month))),
+                                child: Icon(
+                                  Icons.calendar_month,
+                                  color: Colors.black,
+                                ))),
                       ),
                       RoundedTextFormField(
                         hint: "Telepon",

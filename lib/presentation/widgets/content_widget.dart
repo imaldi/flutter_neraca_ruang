@@ -40,99 +40,62 @@ class ContentWidget extends ConsumerWidget {
     var contentId = ref.watch(selectedContentIdProvider);
     return Column(
       children: [
-        Container(
-          // color: Colors.green,
-          margin: const EdgeInsets.only(bottom: normal),
-          constraints: BoxConstraints(
-            minHeight: 200,
-            maxHeight: 200,
-            minWidth: MediaQuery.of(context).size.width,
-          ),
-          child: isVideoMode
-              ? YoutubePlayer(
-                  controller: YoutubePlayerController(
-                      initialVideoId:
-                          YoutubePlayer.convertUrlToId(content.videoUrl ?? "")!,
-                      flags: const YoutubePlayerFlags(autoPlay: false)),
-                  showVideoProgressIndicator: true,
-                )
-              :
-              // ? Center(child: Builder(builder: (context) {
-              //     YoutubePlayerController _controller = YoutubePlayerController(
-              //       initialVideoId: 'iLnmTe5Q2Qw',
-              //       flags: YoutubePlayerFlags(
-              //         autoPlay: true,
-              //         mute: true,
-              //       ),
-              //     );
-              //     late PlayerState _playerState;
-              //     late YoutubeMetaData _videoMetaData;
-              //     double _volume = 100;
-              //     bool _muted = false;
-              //     bool _isPlayerReady = false;
-              //     void listener() {
-              //       if (_isPlayerReady &&
-              //           mounted &&
-              //           !_controller.value.isFullScreen) {
-              //         setState(() {
-              //           _playerState = _controller.value.playerState;
-              //           _videoMetaData = _controller.metadata;
-              //         });
-              //       }
-              //     }
-              //
-              //     return
-              //       YoutubePlayer(
-              //       controller: _controller,
-              //       showVideoProgressIndicator: true,
-              //       progressIndicatorColor: Colors.amber,
-              //       progressColors: const ProgressBarColors(
-              //         playedColor: Colors.amber,
-              //         handleColor: Colors.amberAccent,
-              //       ),
-              //       onReady: () {
-              //         _controller.addListener(listener);
-              //       },
-              //     );
-              //   }))
-              // :
-              isInfografis
-                  ? ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: content.listMedia?.length ?? 0,
-                      itemBuilder: (c, i) {
-                        return SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: content.listMedia?[i].images != null
-                                ? FittedBox(
-                                    fit: BoxFit.fitHeight,
-                                    child: Image.network(
-                                      content.listMedia?[i].images ?? "",
-                                      errorBuilder: (c, o, s) {
-                                        return const IconWidget(iconError);
-                                      },
-                                    ),
-                                  )
-                                : const IconWidget(iconError));
-                      })
-                  : FittedBox(
-                      fit: BoxFit.fitHeight,
-                      child: Image.network(
-                        isUsingThumbnail
-                            ? "https://$thumbnailUrl/${content.thumbnail}"
-                            : "https://$contentUrl/${content.images}",
-                        fit: BoxFit.cover,
-                        errorBuilder: (bc, o, st) {
-                          return Icon(
-                            Icons.broken_image_outlined,
-                            size: 2 * extra,
-                            color: Color(
-                                isGreenMode ? greenModeColor : primaryColor),
-                          );
-                          // Text(content.images ?? "Image not Found");
-                        },
+        Visibility(
+          visible: !(isInfografis || isUsingThumbnail),
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(bottom: normal),
+            constraints: BoxConstraints(
+              minHeight: 200,
+              maxHeight: 200,
+              minWidth: MediaQuery.of(context).size.width,
+            ),
+            child: isVideoMode
+                ? YoutubePlayer(
+                    controller: YoutubePlayerController(
+                        initialVideoId: YoutubePlayer.convertUrlToId(
+                            content.videoUrl ?? "")!,
+                        flags: const YoutubePlayerFlags(autoPlay: false)),
+                    showVideoProgressIndicator: true,
+                  )
+                : isInfografis
+                    ? ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: content.listMedia?.length ?? 0,
+                        itemBuilder: (c, i) {
+                          return SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: content.listMedia?[i].images != null
+                                  ? FittedBox(
+                                      fit: BoxFit.fitHeight,
+                                      child: Image.network(
+                                        content.listMedia?[i].images ?? "",
+                                        errorBuilder: (c, o, s) {
+                                          return const IconWidget(iconError);
+                                        },
+                                      ),
+                                    )
+                                  : const IconWidget(iconError));
+                        })
+                    : FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Image.network(
+                          isUsingThumbnail
+                              ? "https://$thumbnailUrl/${content.thumbnail}"
+                              : "https://$contentUrl/${content.images}",
+                          fit: BoxFit.cover,
+                          errorBuilder: (bc, o, st) {
+                            return Icon(
+                              Icons.broken_image_outlined,
+                              size: 2 * extra,
+                              color: Color(
+                                  isGreenMode ? greenModeColor : primaryColor),
+                            );
+                            // Text(content.images ?? "Image not Found");
+                          },
+                        ),
                       ),
-                    ),
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: medium),
@@ -142,16 +105,7 @@ class ContentWidget extends ConsumerWidget {
             children: [
               Expanded(
                 child: InkWell(
-                  onTap:
-                      // isGreenMode
-                      //     ? () {
-                      //         basicResetStates(context, ref);
-                      //         // Kenapa ke landing route ya?? haduh
-                      //         // kyk nya ter override dengan inkwell yang lebih di dalam
-                      //         context.router.replace(const LandingRoute());
-                      //       }
-                      //     :
-                      () {
+                  onTap: () {
                     /// FIXME ga tau kenapa disini ada pesan error
                     ref.read(tagsIconLinkProvider.notifier).state =
                         content.petaKota?.kotaIcon2?.replaceAll(" ", "%20") ??
@@ -341,15 +295,98 @@ class ContentWidget extends ConsumerWidget {
                   ),
                 ),
               ),
-              Container(
-                constraints: contentId == (content.id ?? -1)
-                    ? null
-                    : const BoxConstraints(maxHeight: 200),
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: HtmlWidget(
-                    "${content.keterangan}",
-                    textStyle: const TextStyle(color: Colors.black),
+              Visibility(
+                visible: isInfografis || isUsingThumbnail,
+                child: Container(
+                  // color: Colors.green,
+                  margin: const EdgeInsets.only(bottom: normal),
+                  constraints: BoxConstraints(
+                    minHeight: 240, // TODO nanti tambahkan persentase layar
+                    maxHeight: 240,
+                    minWidth: MediaQuery.of(context).size.width,
+                  ),
+                  child: !isUsingThumbnail // isFoto actually
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: content.listMedia?.length ?? 0,
+                          itemBuilder: (c, i) {
+                            return SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: content.listMedia?[i].images != null
+                                    ? Center(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Center(
+                                              child: SizedBox(
+                                                height: 200,
+                                                child: FittedBox(
+                                                  fit: BoxFit.fitHeight,
+                                                  child: Image.network(
+                                                    content.listMedia?[i]
+                                                            .images ??
+                                                        "",
+                                                    errorBuilder: (c, o, s) {
+                                                      return const IconWidget(
+                                                          iconError);
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              // color: Colors.blueAccent,
+                                              padding: const EdgeInsets.only(
+                                                  top: normal,
+                                                  // left: normal,
+                                                  right: huge),
+                                              child: Text(
+                                                "${content.listMedia?[i].captions}",
+                                                textAlign: TextAlign.center,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    : const IconWidget(iconError));
+                          })
+                      : FittedBox(
+                          fit: BoxFit.fitHeight,
+                          child: Image.network(
+                            isUsingThumbnail
+                                ? "https://$thumbnailUrl/${content.thumbnail}"
+                                : "https://$contentUrl/${content.images}",
+                            fit: BoxFit.cover,
+                            errorBuilder: (bc, o, st) {
+                              return Icon(
+                                Icons.broken_image_outlined,
+                                size: 2 * extra,
+                                color: Color(isGreenMode
+                                    ? greenModeColor
+                                    : primaryColor),
+                              );
+                              // Text(content.images ?? "Image not Found");
+                            },
+                          ),
+                        ),
+                ),
+              ),
+              Visibility(
+                visible: !(isInfografis || isUsingThumbnail),
+                child: Container(
+                  constraints: contentId == (content.id ?? -1)
+                      ? null
+                      : const BoxConstraints(maxHeight: 200),
+                  child: SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    child: HtmlWidget(
+                      "${content.keterangan}",
+                      textStyle: const TextStyle(color: Colors.black),
+                    ),
                   ),
                 ),
               ),
