@@ -9,6 +9,7 @@ import 'package:flutter_neraca_ruang/presentation/pages/green_page.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:html/parser.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -19,6 +20,7 @@ import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/helper_functions/menu_icon_name_chooser.dart';
 import '../../core/helper_functions/route_chooser.dart';
 import '../../data/models/dashboard_response/dashboard_response.dart';
+import '../../di.dart';
 import 'IconWidget.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
@@ -40,9 +42,14 @@ class ContentWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var contentId = ref.watch(selectedContentIdProvider);
+    // var contentList = ref.watch(selected)
+    // var content =
     var isVideo = content.tipe == "video";
     var isFoto = content.tipe == "foto";
     var isInfografis = content.tipe == "infografis";
+    // var box = sl<Box<String>>();
+    var isLiked = content.localLike ?? false;
+    // box.containsKey(content.slug ?? "");
     // ref.listen(selectedContentIdProvider, (previous, next) {
     //   if (previous != next) {
     //     ref
@@ -432,16 +439,24 @@ class ContentWidget extends ConsumerWidget {
                 ],
               )),
               InkWell(
-                onTap: () {
-                  // ref
-                  //     .read(likedContentListProviderProvider.notifier)
-                  //     .like(content.id ?? 0, contentSlug: content.slug ?? "");
-                  // myToast("the slug: ${content.slug}");
-                },
-                child: IconWidget(
-                  isGreenMode ? iconSuka2 : iconSuka,
-                  size: huge,
-                ),
+                onTap: isLiked
+                    ? null
+                    : () {
+                        ref
+                            .read(contentsProvider.notifier)
+                            .likeContent(content);
+                        // myToast("the slug: ${content.slug}");
+                      },
+                child: isLiked
+                    ? Icon(
+                        Icons.thumb_up,
+                        color:
+                            Color(isGreenMode ? greenModeColor : primaryColor),
+                      )
+                    : IconWidget(
+                        isGreenMode ? iconSuka2 : iconSuka,
+                        size: huge,
+                      ),
               ),
               FittedBox(
                 child: Row(

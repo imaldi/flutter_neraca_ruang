@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/num_consts.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,8 +23,14 @@ class JurnalPage extends ConsumerStatefulWidget {
 
 class _JurnalPageState extends ConsumerState<JurnalPage> {
   @override
+  void initState() {
+    super.initState();
+    ref.read(contentsProvider.notifier).fetchContent(type: "jurnal", limit: 3);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var jurnalTerbaru = ref.watch(jurnalProvider);
+    var jurnalTerbaru = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
@@ -57,8 +64,8 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
               basicResetStates(context, ref);
             }),
             body: jurnalTerbaru.when(data: (data) {
-              var contentList = data.data?.data;
-              if (contentList == null || contentList.isEmpty) {
+              var contentList = data;
+              if (contentList.isEmpty) {
                 return Center(
                   child: Text("Data Tidak ditemukan"),
                 );

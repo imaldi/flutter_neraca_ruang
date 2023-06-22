@@ -7,6 +7,7 @@ import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
+import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../widgets/IconWidget.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
@@ -23,8 +24,16 @@ class InfografisPage extends ConsumerStatefulWidget {
 
 class _InfografisPageState extends ConsumerState<InfografisPage> {
   @override
+  void initState() {
+    super.initState();
+    ref
+        .read(contentsProvider.notifier)
+        .fetchContent(type: "infografis", limit: 3);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var infografisTerbaru = ref.watch(infografisProvider);
+    var infografisTerbaru = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
@@ -55,8 +64,8 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
             basicResetStates(context, ref);
           }),
           body: infografisTerbaru.when(data: (data) {
-            var contentList = data.data?.data;
-            if (contentList == null || contentList.isEmpty) {
+            var contentList = data;
+            if (contentList.isEmpty) {
               return const Center(
                 child: Text("Data Tidak ditemukan"),
               );

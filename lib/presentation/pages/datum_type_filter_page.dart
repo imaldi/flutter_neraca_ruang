@@ -102,6 +102,8 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                             var isVideoMode = content.tipe == "video";
                             var isInfografis = content.tipe == "infografis";
                             var isUsingThumbnail = content.tipe == "foto";
+                            var isLiked = content.localLike ?? false;
+
                             // var thumbnailUrl = content.thumbnail;
                             return Column(
                               children: [
@@ -575,9 +577,25 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                           const Text("Reads"),
                                         ],
                                       )),
-                                      IconWidget(
-                                        iconSuka,
-                                        size: huge,
+                                      InkWell(
+                                        onTap: isLiked
+                                            ? null
+                                            : () {
+                                                ref
+                                                    .read(contentsProvider
+                                                        .notifier)
+                                                    .likeContent(content);
+                                                // myToast("the slug: ${content.slug}");
+                                              },
+                                        child: isLiked
+                                            ? Icon(
+                                                Icons.thumb_up,
+                                                color: Color(primaryColor),
+                                              )
+                                            : IconWidget(
+                                                iconSuka,
+                                                size: huge,
+                                              ),
                                       ),
                                       FittedBox(
                                         child: Row(

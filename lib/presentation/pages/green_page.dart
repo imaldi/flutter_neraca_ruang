@@ -13,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
+import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/tab_menu_item.dart';
@@ -27,9 +28,15 @@ class GreenPage extends ConsumerStatefulWidget {
 
 class GreenPageState extends ConsumerState<GreenPage> {
   @override
+  void initState() {
+    super.initState();
+    ref.read(contentsProvider.notifier).fetchContent(type: "", limit: 3);
+  }
+
+  @override
   Widget build(BuildContext context) {
     // var kabarTerbaru = ref.watch(kabarProvider);
-    var greenContent = ref.watch(greenPageProvider);
+    var greenContent = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
@@ -87,8 +94,8 @@ class GreenPageState extends ConsumerState<GreenPage> {
           body: Stack(
             children: [
               greenContent.when(data: (data) {
-                var contentList = data.data?.data;
-                if (contentList == null || contentList.isEmpty) {
+                var contentList = data;
+                if (contentList.isEmpty) {
                   return const Center(
                     child: Text("Data Tidak ditemukan"),
                   );

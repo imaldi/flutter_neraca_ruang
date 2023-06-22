@@ -8,6 +8,7 @@ import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
+import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../widgets/IconWidget.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
@@ -23,8 +24,14 @@ class AlbumFotoPage extends ConsumerStatefulWidget {
 
 class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
   @override
+  void initState() {
+    super.initState();
+    ref.read(contentsProvider.notifier).fetchContent(type: "foto", limit: 3);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var fotoTerbaru = ref.watch(fotoProvider);
+    var fotoTerbaru = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
@@ -55,8 +62,8 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
             basicResetStates(context, ref);
           }),
           body: fotoTerbaru.when(data: (data) {
-            var contentList = data.data?.data;
-            if (contentList == null || contentList.isEmpty) {
+            var contentList = data;
+            if (contentList.isEmpty) {
               return Center(
                 child: Text("Data Tidak ditemukan"),
               );

@@ -26,6 +26,8 @@ Future<void> init() async {
   // final authBox = await Hive.openBox<LoginResponse>(authBoxKey);
   final authBox = await Hive.openBox<AuthResponse>(authBoxKey);
   final userBox = await Hive.openBox<Members>(userDataKey);
+  final likedContent = await Hive.openBox<String>(likedContentBoxKey);
   sl.registerLazySingleton<Box<AuthResponse>>(() => authBox);
   sl.registerLazySingleton<Box<Members>>(() => userBox);
+  sl.registerLazySingleton<Box<String>>(() => likedContent);
 }

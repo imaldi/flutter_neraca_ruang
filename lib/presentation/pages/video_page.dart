@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/num_consts.dart';
@@ -22,8 +23,14 @@ class VideoPage extends ConsumerStatefulWidget {
 
 class _VideoPageState extends ConsumerState<VideoPage> {
   @override
+  void initState() {
+    super.initState();
+    ref.read(contentsProvider.notifier).fetchContent(type: "video", limit: 3);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var videoTerbaru = ref.watch(videoProvider);
+    var videoTerbaru = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
@@ -54,8 +61,8 @@ class _VideoPageState extends ConsumerState<VideoPage> {
             basicResetStates(context, ref);
           }),
           body: videoTerbaru.when(data: (data) {
-            var contentList = data.data?.data;
-            if (contentList == null || contentList.isEmpty) {
+            var contentList = data;
+            if (contentList.isEmpty) {
               return Center(
                 child: Text("Data Tidak ditemukan"),
               );

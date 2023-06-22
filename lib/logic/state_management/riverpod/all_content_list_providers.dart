@@ -30,6 +30,9 @@ class Contents extends _$Contents {
       'page': pageNumber.toString(),
       'limit': limit.toString(),
     };
+    if ((type ?? "").isNotEmpty) {
+      queryParameters['tipe'] = type ?? "";
+    }
     // queryParameters['keyword'] = ref.watch(keywordProvider);
     var shouldStartSearchingByTag = ref.watch(startSearchingByTag);
     var shouldStartSearchingByKeyword = ref.watch(startSearchingByKeyword);
@@ -37,6 +40,14 @@ class Contents extends _$Contents {
     var idTagsPihak = ref.watch(tagsPihak);
     var idTagsTopik = ref.watch(tagsTopik);
     var idTagsOtonom = ref.watch(tagsOtonom);
+    var kotaId = ref.watch(kotaIdProvider);
+    if (kotaId != 0) {
+      queryParameters['kota_id'] = kotaId.toString();
+    } else {
+      queryParameters.remove('kota_id');
+    }
+
+    var listBoxKey = sl<Box<String>>();
     if (shouldStartSearchingByTag) {
       queryParameters.remove('keyword');
       ref.invalidate(keywordProvider);
@@ -80,12 +91,19 @@ class Contents extends _$Contents {
       'Accept': 'application/json',
     });
     print("URL fetch latest list from contentProvider: $url");
-    log("result JSON: ${jsonDecode(response.body)}");
+    // log("result JSON: ${jsonDecode(response.body)}");
     // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
     try {
-      final result =
-          DashboardResponse.fromJson(jsonDecode(response.body)).data?.data ??
-              <Datum>[];
+      final result = DashboardResponse.fromJson(jsonDecode(response.body))
+              .data
+              ?.data
+              ?.map((e) {
+            if (listBoxKey.containsKey(e.slug)) {
+              return e.copyWith(localLike: true);
+            }
+            return e;
+          }).toList() ??
+          <Datum>[];
 
       state = const AsyncValue.loading();
       state = await AsyncValue.guard(() async {
@@ -108,20 +126,78 @@ class Contents extends _$Contents {
     // }
   }
 
+  Future<void> unlikeContent(Datum content) async {
+    /// kirim query untuk like content
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+
+    /// simpan data ke persistence / box
+    var box = sl<Box<String>>();
+    if (box.containsKey(content.slug ?? "")) {
+      box.delete(content.slug ?? "");
+    }
+    try {
+      var url = Uri.https(baseUrl, "$updateUnlikeUrl/${content.slug ?? ""}");
+
+      // final json = await http.get(url);
+      final response = await http.patch(url, headers: {
+        'Authorization': token,
+        'Accept': 'application/json',
+      });
+      print("URL unlike content contentProvider: $url");
+      log("result JSON: ${jsonDecode(response.body)}");
+      if (response.statusCode != 200) throw Exception();
+
+      /// ubah dulu secara lokal
+      state = AsyncValue.data([
+        for (final (stateContent as Datum) in state.value ?? [])
+          if (stateContent.id == content.id)
+            stateContent.copyWith(
+                localLike: false, totalLike: (stateContent.totalLike ?? 0) - 1)
+          else
+            stateContent,
+      ]);
+    } catch (_) {
+      state = AsyncValue.error(Error(), StackTrace.current);
+      box.delete(content.slug ?? "");
+      // throw Exception()
+    }
+  }
+
   Future<void> likeContent(Datum content) async {
-    state = AsyncValue.data([
-      for (final (stateContent as Datum) in state.value ?? [])
-        if (stateContent.id == content.id)
-          stateContent.copyWith(
-              localLike: !(stateContent.localLike ?? false),
-              totalLike: (content.localLike != null)
-                  ? (content.localLike!)
-                      ? (stateContent.totalLike ?? 0) + 1
-                      : (stateContent.totalLike ?? 0) - 1
-                  : stateContent.totalLike)
-        else
-          stateContent,
-    ]);
+    /// kirim query untuk like content
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+
+    /// simpan data ke persistence / box
+    var box = sl<Box<String>>();
+    await box.put(content.slug ?? "", content.slug ?? "");
+    try {
+      var url = Uri.https(baseUrl, "$updateLikeUrl/${content.slug ?? ""}");
+
+      // final json = await http.get(url);
+      final response = await http.patch(url, headers: {
+        'Authorization': token,
+        'Accept': 'application/json',
+      });
+      print("URL like content contentProvider: $url");
+      log("result JSON: ${jsonDecode(response.body)}");
+      if (response.statusCode != 200) throw Exception();
+
+      /// ubah dulu secara lokal
+      state = AsyncValue.data([
+        for (final (stateContent as Datum) in state.value ?? [])
+          if (stateContent.id == content.id)
+            stateContent.copyWith(
+                localLike: true, totalLike: (stateContent.totalLike ?? 0) + 1)
+          else
+            stateContent,
+      ]);
+    } catch (_) {
+      state = AsyncValue.error(Error(), StackTrace.current);
+      box.delete(content.slug ?? "");
+      // throw Exception()
+    }
   }
 
   Future<void> markContentAsRed(String contentSlug) async {
