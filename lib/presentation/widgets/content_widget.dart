@@ -470,6 +470,7 @@ class ContentWidget extends ConsumerWidget {
               IconWidget(
                 isGreenMode ? iconTeruskan2 : iconTeruskan,
                 size: huge,
+                onTap: () {},
               ),
             ]
                 .map((e) => Expanded(

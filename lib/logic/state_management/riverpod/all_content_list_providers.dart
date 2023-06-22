@@ -125,7 +125,7 @@ class Contents extends _$Contents {
   }
 
   Future<void> markContentAsRed(String contentSlug) async {
-    state = const AsyncValue.loading();
+    // state = const AsyncValue.loading();
 
     state = AsyncValue.data([
       for (final (stateContent as Datum) in state.value ?? [])

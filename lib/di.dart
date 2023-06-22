@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-
+import 'package:flutter/services.dart';
 import 'core/consts/hive_const.dart';
 import 'data/models/auth_response/auth_response.dart';
 import 'data/models/login_response_deprecated/login_response.dart';
@@ -10,6 +10,10 @@ import 'data/models/login_response_deprecated/login_response.dart';
 final sl = GetIt.instance;
 Future<void> init() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Enable or disable system overlays
+  // SystemChrome
+  //     .setEnabledSystemUIMode(SystemUiMode.)
+  // .setEnabledSystemUIOverlays([]);
 
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
