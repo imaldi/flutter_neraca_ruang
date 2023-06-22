@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/liked_content_list.dart';
 import 'package:flutter_neraca_ruang/presentation/pages/green_page.dart';
@@ -42,6 +43,13 @@ class ContentWidget extends ConsumerWidget {
     var isVideo = content.tipe == "video";
     var isFoto = content.tipe == "foto";
     var isInfografis = content.tipe == "infografis";
+    // ref.listen(selectedContentIdProvider, (previous, next) {
+    //   if (previous != next) {
+    //     ref
+    //         .read(contentsProvider.notifier)
+    //         .markContentAsRed(content.slug ?? "");
+    //   }
+    // });
     return Column(
       children: [
         Visibility(
@@ -283,10 +291,15 @@ class ContentWidget extends ConsumerWidget {
                     : Theme.of(context).textTheme.bodySmall,
               ),
               InkWell(
-                onTap: () {
-                  ref.read(selectedContentIdProvider.notifier).state =
-                      content.id ?? 0;
-                },
+                onTap: contentId != content.id
+                    ? () {
+                        ref.read(selectedContentIdProvider.notifier).state =
+                            content.id ?? 0;
+                        ref
+                            .read(contentsProvider.notifier)
+                            .markContentAsRed(content.slug ?? "");
+                      }
+                    : null,
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: medium),
                   child: Text(

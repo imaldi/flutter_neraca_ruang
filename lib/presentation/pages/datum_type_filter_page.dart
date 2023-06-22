@@ -513,6 +513,10 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                               .read(selectedContentIdProvider
                                                   .notifier)
                                               .state = content.id ?? 0;
+                                          ref
+                                              .read(contentsProvider.notifier)
+                                              .markContentAsRed(
+                                                  content.slug ?? "");
                                         },
                                         child: Container(
                                           margin: const EdgeInsets.symmetric(

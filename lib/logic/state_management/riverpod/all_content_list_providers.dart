@@ -124,6 +124,36 @@ class Contents extends _$Contents {
     ]);
   }
 
+  Future<void> markContentAsRed(String contentSlug) async {
+    state = const AsyncValue.loading();
+
+    state = AsyncValue.data([
+      for (final (stateContent as Datum) in state.value ?? [])
+        if (stateContent.slug == contentSlug)
+          stateContent.copyWith(totalRead: (stateContent.totalRead ?? 0) + 1)
+        else
+          stateContent,
+    ]);
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+
+    try {
+      var url = Uri.https(baseUrl, "$dashboardList/$contentSlug");
+
+      // final json = await http.get(url);
+      final response = await http.get(url, headers: {
+        'Authorization': token,
+        'Accept': 'application/json',
+      });
+      print("URL mark as read latest list from contentProvider: $url");
+      log("result JSON: ${jsonDecode(response.body)}");
+      if (response.statusCode != 200) throw Exception();
+    } catch (_) {
+      state = AsyncValue.error(Error(), StackTrace.current);
+      print("There is an Error");
+    }
+  }
+
   // Future<void> likeContent(String slug) async {
   //   // Map<String, String> queryParameters = {
   //   //   'slug'

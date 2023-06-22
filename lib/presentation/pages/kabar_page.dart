@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/assets.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/liked_content_list.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
@@ -25,8 +26,15 @@ class KabarPage extends ConsumerStatefulWidget {
 
 class _KabarPageState extends ConsumerState<KabarPage> {
   @override
+  void initState() {
+    super.initState();
+    ref.read(contentsProvider.notifier).fetchContent(type: "kabar", limit: 3);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var kabarTerbaru = ref.watch(kabarProvider);
+    // var kabarTerbaru = ref.watch(kabarProvider);
+    var kabarTerbaru = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
@@ -58,7 +66,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
             basicResetStates(context, ref);
           }),
           body: kabarTerbaru.when(data: (data) {
-            var contentList = data.data?.data;
+            var contentList = data;
             if (contentList == null || contentList.isEmpty) {
               return const Center(
                 child: Text("Data Tidak ditemukan"),

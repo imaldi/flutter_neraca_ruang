@@ -14,6 +14,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../core/consts/assets.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
+import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../widgets/drawer_content.dart';
 import '../widgets/scrollable_horizontal_image.dart';
@@ -167,6 +168,10 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                   ref.read(kotaNameProvider.notifier).state =
                                       data[0].kotaName ?? "";
 
+                                  ref
+                                      .read(contentsProvider.notifier)
+                                      .markContentAsRed(data[0].slug ?? "");
+
                                   context.router.replace(const KabarRoute());
                                 },
                                 child: Column(
@@ -235,6 +240,9 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .read(selectedContentIdProvider
                                               .notifier)
                                           .state = data[1].id ?? 0;
+                                      ref
+                                          .read(contentsProvider.notifier)
+                                          .markContentAsRed(data[1].slug ?? "");
                                       context.router
                                           .replace(const JurnalRoute());
                                     },
@@ -343,6 +351,9 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .read(selectedContentIdProvider
                                               .notifier)
                                           .state = data[2].id ?? 0;
+                                      ref
+                                          .read(contentsProvider.notifier)
+                                          .markContentAsRed(data[2].slug ?? "");
                                       context.router
                                           .replace(const InfografisRoute());
                                     },
@@ -414,6 +425,9 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .read(selectedContentIdProvider
                                               .notifier)
                                           .state = data[3].id ?? 0;
+                                      ref
+                                          .read(contentsProvider.notifier)
+                                          .markContentAsRed(data[3].slug ?? "");
                                       context.router
                                           .replace(const VideoRoute());
                                     },
@@ -477,6 +491,9 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .read(selectedContentIdProvider
                                               .notifier)
                                           .state = data[4].id ?? 0;
+                                      ref
+                                          .read(contentsProvider.notifier)
+                                          .markContentAsRed(data[4].slug ?? "");
                                       context.router
                                           .replace(const AlbumFotoRoute());
                                     },
