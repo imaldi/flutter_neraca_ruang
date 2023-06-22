@@ -1,3 +1,4 @@
+import 'package:share_plus/share_plus.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
@@ -485,7 +486,9 @@ class ContentWidget extends ConsumerWidget {
               IconWidget(
                 isGreenMode ? iconTeruskan2 : iconTeruskan,
                 size: huge,
-                onTap: () {},
+                onTap: () {
+                  Share.share('Neraca Ruang at ${content.sourceUrl}');
+                },
               ),
             ]
                 .map((e) => Expanded(

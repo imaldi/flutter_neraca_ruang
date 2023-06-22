@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter_neraca_ruang/core/consts/assets.dart';
 import 'package:flutter_neraca_ruang/core/consts/num_consts.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
@@ -626,6 +627,10 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                       IconWidget(
                                         iconTeruskan,
                                         size: huge,
+                                        onTap: () {
+                                          Share.share(
+                                              'Neraca Ruang at ${content.sourceUrl}');
+                                        },
                                       ),
                                     ]
                                         .map((e) => Expanded(
