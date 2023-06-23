@@ -17,7 +17,6 @@ import '../../core/consts/urls.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/helper_functions/route_chooser.dart';
 import '../../core/router/app_router.dart';
-import '../../data/models/dashboard_response/dashboard_response.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/appbar_widget.dart';
 

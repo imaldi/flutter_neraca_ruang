@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
-import 'package:flutter_neraca_ruang/presentation/widgets/searchable_dropdown.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/tag_searchable_dropdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/sizes.dart';
@@ -78,11 +78,11 @@ class DrawerContent extends ConsumerWidget {
     return Center(
       child: Column(
         children: [
-          SearchableDropdown("TOKOH", listTagsPihak.value ?? <Tags>[],
+          TagSearchableDropdown("TOKOH", listTagsPihak.value ?? <Tags>[],
               onItemTapped: (val) {
             ref.read(tagsPihak.notifier).state = val;
           }),
-          SearchableDropdown(
+          TagSearchableDropdown(
               "TOPIK",
               listTagsTopik.value
                   //     ?.fold<List<Tags>>(<Tags>[],
@@ -100,7 +100,8 @@ class DrawerContent extends ConsumerWidget {
                   <Tags>[], onItemTapped: (val) {
             ref.read(tagsTopik.notifier).state = val;
           }),
-          SearchableDropdown("OTONOM-METER", listTagsOtonom.value ?? <Tags>[],
+          TagSearchableDropdown(
+              "OTONOM-METER", listTagsOtonom.value ?? <Tags>[],
               onItemTapped: (val) {
             ref.read(tagsOtonom.notifier).state = val;
           }),

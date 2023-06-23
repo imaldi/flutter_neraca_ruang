@@ -5,13 +5,8 @@ import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
-import 'package:flutter_neraca_ruang/logic/state_management/riverpod/liked_content_list.dart';
-import 'package:flutter_neraca_ruang/presentation/pages/green_page.dart';
-import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:html/parser.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../core/consts/assets.dart';
@@ -21,7 +16,7 @@ import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/helper_functions/menu_icon_name_chooser.dart';
 import '../../core/helper_functions/route_chooser.dart';
 import '../../data/models/dashboard_response/dashboard_response.dart';
-import '../../di.dart';
+import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import 'IconWidget.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
@@ -43,21 +38,11 @@ class ContentWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var contentId = ref.watch(selectedContentIdProvider);
-    // var contentList = ref.watch(selected)
-    // var content =
     var isVideo = content.tipe == "video";
     var isFoto = content.tipe == "foto";
     var isInfografis = content.tipe == "infografis";
-    // var box = sl<Box<String>>();
     var isLiked = content.localLike ?? false;
-    // box.containsKey(content.slug ?? "");
-    // ref.listen(selectedContentIdProvider, (previous, next) {
-    //   if (previous != next) {
-    //     ref
-    //         .read(contentsProvider.notifier)
-    //         .markContentAsRed(content.slug ?? "");
-    //   }
-    // });
+    var isLogin = ref.watch(authStatusProvider).value != null;
     return Column(
       children: [
         Visibility(

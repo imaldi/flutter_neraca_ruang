@@ -5,19 +5,19 @@ import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
 import '../../data/models/dashboard_response/dashboard_response.dart';
 
-class SearchableDropdown extends StatefulWidget {
+class TagSearchableDropdown extends StatefulWidget {
   final String label;
-  final List<String> items;
-  final void Function(String)? onItemTapped;
-  const SearchableDropdown(this.label, this.items,
+  final List<Tags> items;
+  final void Function(int)? onItemTapped;
+  const TagSearchableDropdown(this.label, this.items,
       {this.onItemTapped, Key? key})
       : super(key: key);
 
   @override
-  _SearchableDropdownState createState() => _SearchableDropdownState();
+  _TagSearchableDropdownState createState() => _TagSearchableDropdownState();
 }
 
-class _SearchableDropdownState extends State<SearchableDropdown> {
+class _TagSearchableDropdownState extends State<TagSearchableDropdown> {
   String? selectedValue;
   final TextEditingController textEditingController = TextEditingController();
 
@@ -49,7 +49,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                 ),
               ),
               items: widget.items
-                  // .map((e) => e.tagsName ?? "")
+                  .map((e) => e.tagsName ?? "")
                   .toSet()
                   .toList()
                   .map((item) => DropdownMenuItem(
@@ -70,7 +70,11 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                 setState(() {
                   selectedValue = value as String;
                   if (widget.onItemTapped != null) {
-                    widget.onItemTapped!(value);
+                    widget.onItemTapped!(widget.items
+                            .where((element) => element.tagsName == value)
+                            .first
+                            .tagsId ??
+                        0);
                   }
                 });
               },

@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../data/models/adsense_response/adsense_response.dart';
 import '../../../data/models/dashboard_response/dashboard_response.dart';
+import '../../../data/models/province_response/province_response.dart';
 
 // TODO: Buat FutureProvider untuk fetch semua konten yang tampil di dashboard
 // var kabarProvider;
@@ -263,18 +264,43 @@ class Repository {
     String token = "Bearer 80|LECLFT9MecjdZfVUGV1ie1xOi3ZocOWKE5FMhhf8";
     // ref.read(userTokenProvider);
     var today = DateTime.now().toString().substring(0, 10);
+    try {
+      var url = Uri.https(baseUrl, adsenseUrl, {'tanggal': today});
 
-    var url = Uri.https(baseUrl, adsenseUrl, {'tanggal': today});
+      final response = await http.get(url, headers: {
+        'Authorization': token,
+        'Accept': 'application/json',
+      });
+
+      print("URL adsense: $url");
+      // log("Response body: ${response.body}");
+
+      return AdsenseResponse.fromJson(jsonDecode(response.body)).data?.data ??
+          <Adsense>[];
+    } catch (e) {
+      throw Error();
+    }
+  }
+}
+
+final provinceListProvider = FutureProvider<List<ProvinceModel>>((ref) async {
+  try {
+    String token = ref.read(userTokenProvider);
+    var url = Uri.https(baseUrl, provinceListUrl);
 
     final response = await http.get(url, headers: {
       'Authorization': token,
       'Accept': 'application/json',
     });
+    print("URL province: $url");
+    print("prov resp body: ${response.body}");
 
-    print("URL adsense: $url");
-    // log("Response body: ${response.body}");
-
-    return AdsenseResponse.fromJson(jsonDecode(response.body)).data?.data ??
-        <Adsense>[];
+    if (response.statusCode == 200) {
+      return ProvinceResponse.fromJson(jsonDecode(response.body)).data ?? [];
+    }
+    throw Error();
+  } catch (e) {
+    print("Error in provider");
+    throw Error();
   }
-}
+});
