@@ -101,7 +101,7 @@ class DrawerContent extends ConsumerWidget {
             ref.read(tagsTopik.notifier).state = val;
           }),
           TagSearchableDropdown(
-              "OTONOM-METER", listTagsOtonom.value ?? <Tags>[],
+              "OTONOMI DAERAH", listTagsOtonom.value ?? <Tags>[],
               onItemTapped: (val) {
             ref.read(tagsOtonom.notifier).state = val;
           }),

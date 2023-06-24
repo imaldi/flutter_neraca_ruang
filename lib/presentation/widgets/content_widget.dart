@@ -357,8 +357,8 @@ class ContentWidget extends ConsumerWidget {
                                                   // left: normal,
                                                   right: huge),
                                               child: Text(
-                                                "${content.listMedia?[i].captions}",
-                                                // textAlign: TextAlign.center,
+                                                "${(content.listMedia?[i].captions?.length ?? 0) > 100 ? "${content.listMedia?[i].captions?.substring(0, 100)}..." : content.listMedia?[i].captions}",
+                                                textAlign: TextAlign.center,
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
