@@ -19,7 +19,7 @@ final passwordProvider = StateProvider((ref) => "");
 final confPasswordProvider = StateProvider((ref) => "");
 final tanggalLahirProvider = StateProvider((ref) => "");
 final telepon = StateProvider((ref) => "");
-final kotaKabIdProvider = StateProvider((ref) => 0);
+// final kotaKabIdProvider = StateProvider((ref) => 0);
 final provinsiIdProvider = StateProvider((ref) => 0);
 
 var registerEvent = StateProvider<bool>((ref) => false);

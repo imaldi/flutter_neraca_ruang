@@ -5,6 +5,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neraca_ruang/core/consts/datum_type.dart';
 import 'package:flutter_neraca_ruang/core/consts/urls.dart';
+import 'package:flutter_neraca_ruang/data/models/kota_kabupaten_response/kota_kabupaten_response.dart';
 import 'package:flutter_neraca_ruang/data/models/simple_dashboard_response/simple_dashboard_response.dart';
 import 'package:flutter_neraca_ruang/data/models/tags_response/tags_response.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -106,8 +107,14 @@ final kotaIdProvider = StateProvider<int>(
     return 0;
   },
 );
+final provIdProvider = StateProvider<int>(
+  (ref) {
+    return 0;
+  },
+);
 
-final kotaNameProvider = StateProvider((ref) => "");
+final provNameProvider = StateProvider<String?>((ref) => null);
+final kotaNameProvider = StateProvider<String?>((ref) => null);
 final keywordProvider = StateProvider((ref) => "");
 
 final tagsIdProvider = StateProvider<int>(
@@ -297,6 +304,30 @@ final provinceListProvider = FutureProvider<List<ProvinceModel>>((ref) async {
 
     if (response.statusCode == 200) {
       return ProvinceResponse.fromJson(jsonDecode(response.body)).data ?? [];
+    }
+    throw Error();
+  } catch (e) {
+    print("Error in provider");
+    throw Error();
+  }
+});
+
+final kabKotaListProvider = FutureProvider<List<KotaKabupaten>>((ref) async {
+  try {
+    var selectedProvId = ref.watch(provIdProvider);
+    String token = ref.read(userTokenProvider);
+    var url = Uri.https(baseUrl, "$kabKotaListUrl/$selectedProvId");
+
+    final response = await http.get(url, headers: {
+      'Authorization': token,
+      'Accept': 'application/json',
+    });
+    print("URL province: $url");
+    print("prov resp body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      return KotaKabupatenResponse.fromJson(jsonDecode(response.body)).data ??
+          [];
     }
     throw Error();
   } catch (e) {

@@ -13,6 +13,7 @@ Future<bool> basicOnWillPop(BuildContext context, WidgetRef ref) {
   return Future.value(false);
 }
 
+/// TODO: coba semua ini nanti di pakaikan modifier .dispose ketika deklarasi
 void basicResetStates(BuildContext context, WidgetRef ref) {
   // ref.read(pageNumberProvider.notifier).state = 1;
   // ref.read(kotaIdProvider.notifier).state = 0;

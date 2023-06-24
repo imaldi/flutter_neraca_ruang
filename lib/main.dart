@@ -28,12 +28,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        hintColor: Color(primaryHintColor).withAlpha(128),
         textTheme: TextTheme(
-            headlineSmall: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: const Color(titleColorText),
-                fontWeight: FontWeight.bold),
-            bodyMedium: const TextStyle(color: Colors.grey),
-            bodySmall: const TextStyle(color: Color(titleColorText))),
+          headlineSmall: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              color: const Color(titleColorText), fontWeight: FontWeight.bold),
+          bodyMedium: const TextStyle(color: Colors.grey),
+          bodySmall: const TextStyle(color: Color(titleColorText)),
+        ),
         appBarTheme: Theme.of(context).appBarTheme.copyWith(
             backgroundColor: Colors.white,
             titleTextStyle: const TextStyle(color: Colors.black),

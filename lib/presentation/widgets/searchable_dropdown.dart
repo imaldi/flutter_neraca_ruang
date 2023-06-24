@@ -1,25 +1,40 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
 import '../../data/models/dashboard_response/dashboard_response.dart';
 
-class SearchableDropdown extends StatefulWidget {
-  final String label;
-  final List<String> items;
-  final void Function(String)? onItemTapped;
-  const SearchableDropdown(this.label, this.items,
-      {this.onItemTapped, Key? key})
+class SearchableDropdown extends ConsumerStatefulWidget {
+  final String? label;
+  final Set<String> items;
+  final void Function(String?)? onItemTapped;
+  final StateProvider<String?> provider;
+  final InputDecoration? decoration;
+  final EdgeInsets? contentPadding;
+  const SearchableDropdown(this.items, this.provider,
+      {this.label,
+      this.onItemTapped,
+      this.contentPadding,
+      this.decoration,
+      Key? key})
       : super(key: key);
 
   @override
   _SearchableDropdownState createState() => _SearchableDropdownState();
 }
 
-class _SearchableDropdownState extends State<SearchableDropdown> {
-  String? selectedValue;
+class _SearchableDropdownState extends ConsumerState<SearchableDropdown> {
   final TextEditingController textEditingController = TextEditingController();
+  String? selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    // selectedValue = widget.selectedValue;
+  }
 
   @override
   void dispose() {
@@ -29,15 +44,21 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    selectedValue = ref.watch(widget.provider);
+
     return Container(
-      margin: const EdgeInsets.all(normal),
+      // color: Colors.blue,
+      margin: const EdgeInsets.symmetric(vertical: normal),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.label,
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-          ),
+          widget.label != null
+              ? Text(
+                  widget.label!,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black),
+                )
+              : Container(),
           DropdownButtonHideUnderline(
             child: DropdownButton2<String>(
               isExpanded: true,
@@ -50,7 +71,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               ),
               items: widget.items
                   // .map((e) => e.tagsName ?? "")
-                  .toSet()
+                  // .toSet()
                   .toList()
                   .map((item) => DropdownMenuItem(
                         value: item,
@@ -67,20 +88,21 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                   .toList(),
               value: selectedValue,
               onChanged: (value) {
-                setState(() {
-                  selectedValue = value as String;
-                  if (widget.onItemTapped != null) {
-                    widget.onItemTapped!(value);
-                  }
-                });
+                // setState(() {
+                // selectedValue = value as String;
+                if (widget.onItemTapped != null) {
+                  widget.onItemTapped!(value);
+                }
+                // });
               },
               buttonStyleData: ButtonStyleData(
-                  padding: const EdgeInsets.all(normal),
-                  height: 40,
-                  width: 200,
+                  // padding: const EdgeInsets.all(normal),
+                  // height: 40,
+                  // width: 200,
                   decoration: BoxDecoration(
-                      border: Border.all(color: const Color(titleColorText)),
-                      borderRadius: BorderRadius.all(Radius.circular(normal)))),
+                      border: Border.all(
+                          color: const Color(primaryColor), width: 4),
+                      borderRadius: BorderRadius.all(Radius.circular(huge)))),
               dropdownStyleData: const DropdownStyleData(
                 maxHeight: 200,
               ),
@@ -103,12 +125,16 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                     expands: true,
                     maxLines: null,
                     controller: textEditingController,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 8,
-                      ),
+                    decoration:
+                        (widget.decoration ?? InputDecoration()).copyWith(
+                      // isDense: true,
+                      contentPadding: widget.contentPadding
+                      // ??
+                      // const EdgeInsets.symmetric(
+                      //   horizontal: 10,
+                      //   vertical: 8,
+                      // )
+                      ,
                       hintText: 'Search for an item...',
                       hintStyle: const TextStyle(fontSize: 12),
                       border: OutlineInputBorder(

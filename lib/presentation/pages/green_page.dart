@@ -40,7 +40,7 @@ class GreenPageState extends ConsumerState<GreenPage> {
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
-    var appbarTitle = kotaName.isNotEmpty
+    var appbarTitle = (kotaName ?? "").isNotEmpty
         ? kotaName
         //     :
         // tagName.isNotEmpty ? tagName
