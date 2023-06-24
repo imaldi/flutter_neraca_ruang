@@ -20,14 +20,16 @@ class RegisterPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final namaCtlr = TextEditingController();
-    final emailCtlr = TextEditingController();
-    final tanggalLahirCtlr = TextEditingController();
-    final teleponCtlr = TextEditingController();
-    final kotaKabCtlr = TextEditingController();
-    final kodePosCtlr = TextEditingController();
-    final kataSandiCtlr = TextEditingController();
-    final konfKtSandiCtlr = TextEditingController();
+    final namaCtlr = TextEditingController(text: ref.watch(nameProvider));
+    final emailCtlr = TextEditingController(text: ref.watch(emailProvider));
+    final tanggalLahirCtlr =
+        TextEditingController(text: ref.watch(tanggalLahirProvider));
+    final teleponCtlr = TextEditingController(text: ref.watch(teleponProvider));
+    final kodePosCtlr = TextEditingController(text: ref.watch(kodePosProvider));
+    final kataSandiCtlr =
+        TextEditingController(text: ref.watch(passwordProvider));
+    final konfKtSandiCtlr =
+        TextEditingController(text: ref.watch(confPasswordProvider));
     final hintColor = Color(primaryHintColor).withAlpha(120);
     final textStyle = TextStyle(color: hintColor);
     final provinceList = ref.watch(provinceListProvider);
@@ -96,13 +98,19 @@ class RegisterPage extends ConsumerWidget {
                       RoundedTextFormField(
                         hint: "Nama",
                         decoration: InputDecoration(hintStyle: textStyle),
-                        controller: namaCtlr,
+                        // controller: namaCtlr,
+                        onChanged: (val) {
+                          ref.read(nameProvider.notifier).state = val;
+                        },
                       ),
 
                       RoundedTextFormField(
-                        hint: "Email*",
-                        controller: emailCtlr,
+                        hint: "Email",
+                        // controller: emailCtlr,
                         keyboardType: TextInputType.emailAddress,
+                        onChanged: (val) {
+                          ref.read(emailProvider.notifier).state = val;
+                        },
                         decoration: InputDecoration(
                           hintStyle: textStyle,
                         ),
@@ -110,7 +118,10 @@ class RegisterPage extends ConsumerWidget {
 
                       RoundedTextFormField(
                         hint: "Tanggal Lahir",
+                        readOnly: true,
                         controller: tanggalLahirCtlr,
+                        // onChanged: (val) {
+                        // },
                         decoration: InputDecoration(
                             hintStyle: textStyle,
                             suffixIcon: InkWell(
@@ -120,10 +131,19 @@ class RegisterPage extends ConsumerWidget {
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(1978),
                                       lastDate: DateTime.now());
-                                  if (dateChosen != null)
-                                    tanggalLahirCtlr.text =
+                                  if (dateChosen != null) {
+                                    ref
+                                            .read(tanggalLahirProvider.notifier)
+                                            .state =
                                         DateFormat("dd-MM-yyyy")
                                             .format(dateChosen);
+                                    ref
+                                            .read(tanggalLahirParamProvider
+                                                .notifier)
+                                            .state =
+                                        DateFormat("yyyy-MM-dd")
+                                            .format(dateChosen);
+                                  }
                                   // dateChosen.toString().substring(0, 10);
                                 },
                                 child: Icon(
@@ -134,7 +154,10 @@ class RegisterPage extends ConsumerWidget {
                       RoundedTextFormField(
                         hint: "Telepon",
                         keyboardType: TextInputType.phone,
-                        controller: teleponCtlr,
+                        // controller: teleponCtlr,
+                        onChanged: (val) {
+                          ref.read(teleponProvider.notifier).state = val;
+                        },
                         decoration: InputDecoration(
                           hintStyle: textStyle,
                         ),
@@ -199,7 +222,10 @@ class RegisterPage extends ConsumerWidget {
                                               },
                                             );
                                           },
-                                          error: (o, st) => Text("Error"),
+                                          error: (o, st) => SearchableDropdown(
+                                              <String>{}, kotaNameProvider,
+                                              contentPadding:
+                                                  const EdgeInsets.all(medium)),
                                           loading: () => SearchableDropdown(
                                                 // "Kab/Kota",
                                                 <String>{},
@@ -212,26 +238,67 @@ class RegisterPage extends ConsumerWidget {
                                   );
                                   // return Text(data.toString());
                                 },
-                                error: (o, st) => Center(
-                                      child: Text("There is an error: $st"),
+                                error: (o, st) => Column(
+                                      children: [
+                                        SearchableDropdown(
+                                          // "Provinsi",
+                                          {},
+                                          provNameProvider,
+                                          contentPadding:
+                                              const EdgeInsets.all(medium),
+                                        ),
+                                        kabKotaList.when(
+                                            data: (data) {
+                                              // return Text("Kab/Kota List: $data");
+                                              return SearchableDropdown(
+                                                // "Kab/Kota",
+                                                {},
+                                                kotaNameProvider,
+                                              );
+                                            },
+                                            error: (o, st) => Text("Error"),
+                                            loading: () => SearchableDropdown(
+                                                  // "Kab/Kota",
+                                                  <String>{},
+                                                  kotaNameProvider,
+                                                ))
+                                      ],
                                     ),
-                                loading: () => CircularProgressIndicator()),
+                                loading: () => Column(
+                                      children: [
+                                        SearchableDropdown(
+                                          // "Provinsi",
+                                          {},
+                                          provNameProvider,
+                                          contentPadding:
+                                              const EdgeInsets.all(medium),
+                                        ),
+                                        kabKotaList.when(
+                                            data: (data) {
+                                              // return Text("Kab/Kota List: $data");
+                                              return SearchableDropdown(
+                                                // "Kab/Kota",
+                                                {},
+                                                kotaNameProvider,
+                                              );
+                                            },
+                                            error: (o, st) =>
+                                                SearchableDropdown(
+                                                  // "Kab/Kota",
+                                                  {},
+                                                  kotaNameProvider,
+                                                ),
+                                            loading: () => SearchableDropdown(
+                                                  // "Kab/Kota",
+                                                  <String>{},
+                                                  kotaNameProvider,
+                                                ))
+                                      ],
+                                    )),
                           ),
                         ],
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          RoundedTextFormField(
-                            hint: "Kota/Kabupaten",
-                            controller: kotaKabCtlr,
-                            decoration: InputDecoration(
-                              hintStyle: textStyle,
-                            ),
-                          ),
-                          const Text("Aktifkan lokasi?")
-                        ],
-                      ),
+
                       RoundedTextFormField(
                         hint: "Kode Pos",
                         controller: kodePosCtlr,
@@ -282,7 +349,7 @@ class RegisterPage extends ConsumerWidget {
                                     email: emailCtlr.text,
                                     password: kataSandiCtlr.text,
                                     cPassword: konfKtSandiCtlr.text,
-                                    tanggalLahir: tanggalLahirCtlr.text,
+                                    // tanggalLahir: tanggalLahirCtlr.text,
                                     fullname: "yyy",
                                     noHp: teleponCtlr.text,
                                     provId: provinceId,

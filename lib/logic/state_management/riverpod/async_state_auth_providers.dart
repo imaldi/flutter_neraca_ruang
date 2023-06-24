@@ -12,13 +12,15 @@ import '../../../core/consts/urls.dart';
 import '../../../di.dart';
 part 'async_state_auth_providers.g.dart';
 
-final usernameProvider = StateProvider((ref) => "");
+final nameProvider = StateProvider((ref) => "");
 final phoneNumberProvider = StateProvider((ref) => "");
 final emailProvider = StateProvider((ref) => "");
 final passwordProvider = StateProvider((ref) => "");
 final confPasswordProvider = StateProvider((ref) => "");
 final tanggalLahirProvider = StateProvider((ref) => "");
-final telepon = StateProvider((ref) => "");
+final tanggalLahirParamProvider = StateProvider((ref) => "");
+final teleponProvider = StateProvider((ref) => "");
+final kodePosProvider = StateProvider((ref) => "");
 // final kotaKabIdProvider = StateProvider((ref) => 0);
 final provinsiIdProvider = StateProvider((ref) => 0);
 
@@ -134,7 +136,7 @@ class AuthStatus extends _$AuthStatus {
     String email = "",
     required String password,
     String cPassword = "",
-    String tanggalLahir = "",
+    // String tanggalLahir = "",
     int kotaId = 0,
     int provId = 0,
     String noHp = "",
@@ -148,6 +150,8 @@ class AuthStatus extends _$AuthStatus {
     String token =
         "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
     Map<String, String> bodyParameters = {};
+    var tanggalLahir = ref.watch(tanggalLahirParamProvider);
+    print("tanggalLahir: $tanggalLahir");
     bodyParameters['type'] = 'username';
     if (username.isNotEmpty) {
       bodyParameters['username'] = username;
@@ -175,7 +179,7 @@ class AuthStatus extends _$AuthStatus {
       bodyParameters['domisili'] = domisili;
     }
     if (provId != 0) {
-      bodyParameters['prov_id'] = provId.toString();
+      bodyParameters['propinsi_id'] = provId.toString();
     }
     if (kotaId != 0) {
       bodyParameters['kota_id'] = kotaId.toString();
@@ -197,17 +201,23 @@ class AuthStatus extends _$AuthStatus {
     log("result JSON: ${jsonDecode(response.body)}");
     // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
     try {
-      final result = AuthResponse.fromJson(jsonDecode(response.body));
-      var authBox = sl<Box<AuthResponse>>();
-      await authBox.put(userDataKey, result);
-      var dataFromBox = authBox.get(userDataKey);
-      print("dataFromBox (register): ${dataFromBox?.toJson()}");
+      if (response.statusCode == 201) {
+        final result = AuthResponse.fromJson(jsonDecode(response.body));
+        var authBox = sl<Box<AuthResponse>>();
+        await authBox.put(userDataKey, result);
+        var dataFromBox = authBox.get(userDataKey);
+        print("dataFromBox (register): ${dataFromBox?.toJson()}");
 
-      // state = const AsyncValue.loading();
-      state = await AsyncValue.guard(() async {
-        return dataFromBox;
-      });
-      if (successCallback != null) successCallback();
+        // state = const AsyncValue.loading();
+        state = await AsyncValue.guard(() async {
+          return dataFromBox;
+        });
+        if (successCallback != null) successCallback();
+      }
+
+      if (response.statusCode == 422) {
+        throw TypeError();
+      }
     } on TypeError {
       // state = const AsyncValue.loading();
       // state = await AsyncValue.guard(() async {
