@@ -36,7 +36,7 @@ class RegisterPage extends ConsumerWidget {
     final kabKotaList = ref.watch(kabKotaListProvider);
     final provinceId = ref.watch(provIdProvider);
     final provinceName = ref.watch(provNameProvider);
-    final kabKotaId = ref.watch(kotaIdProvider);
+    final kabKotaId = ref.watch(kotaIdParamProvider);
     final kabKotaName = ref.watch(kotaNameProvider);
 
     return Scaffold(
@@ -210,8 +210,8 @@ class RegisterPage extends ConsumerWidget {
                                                     .state = val;
 
                                                 ref
-                                                    .read(
-                                                        kotaIdProvider.notifier)
+                                                    .read(kotaIdParamProvider
+                                                        .notifier)
                                                     .state = data
                                                         .firstWhere((element) =>
                                                             (element.name ??
@@ -301,8 +301,11 @@ class RegisterPage extends ConsumerWidget {
 
                       RoundedTextFormField(
                         hint: "Kode Pos",
-                        controller: kodePosCtlr,
+                        // controller: kodePosCtlr,
                         keyboardType: TextInputType.number,
+                        onChanged: (val) {
+                          ref.read(kodePosProvider.notifier).state = val;
+                        },
                         decoration: InputDecoration(
                           hintStyle: textStyle,
                         ),
@@ -310,7 +313,9 @@ class RegisterPage extends ConsumerWidget {
                       RoundedTextFormField(
                         hint: "Kata Sandi",
                         isObscureText: true,
-                        controller: kataSandiCtlr,
+                        onChanged: (val) {
+                          ref.read(passwordProvider.notifier).state = val;
+                        },
                         decoration: InputDecoration(
                           hintStyle: textStyle,
                         ),
@@ -318,7 +323,9 @@ class RegisterPage extends ConsumerWidget {
                       RoundedTextFormField(
                         hint: "Konfirmasi Kata Sandi",
                         isObscureText: true,
-                        controller: konfKtSandiCtlr,
+                        onChanged: (val) {
+                          ref.read(confPasswordProvider.notifier).state = val;
+                        },
                         decoration: InputDecoration(
                           hintStyle: textStyle,
                         ),

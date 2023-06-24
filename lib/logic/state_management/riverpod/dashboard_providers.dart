@@ -98,11 +98,17 @@ var dashBoardProvider = FutureProvider<List<Datum>>((ref) async {
     ..add(infografis.data?.data?.first ?? Datum())
     ..add(video.data?.data?.first ?? Datum())
     ..add(foto.data?.data?.first ?? Datum());
-  print("Dashboard Result: ${theList.length}");
+  log("Dashboard Result: ${theList}");
   return await Future<List<Datum>>(() => theList);
 });
 
 final kotaIdProvider = StateProvider<int>(
+  (ref) {
+    return 0;
+  },
+);
+
+final kotaIdParamProvider = StateProvider<int>(
   (ref) {
     return 0;
   },
@@ -229,14 +235,14 @@ class Repository {
         'Accept': 'application/json',
       });
 
-      print("URL: $url");
+      log("URL: $url");
       // log("Response body content: ${response.body}");
 
       return DashboardResponse.fromJson(jsonDecode(response.body));
     } on TypeError {
       return DashboardResponse();
     } catch (e) {
-      print("Error Type: ${e}");
+      log("Error Type: ${e}");
       throw Exception();
     }
   }
