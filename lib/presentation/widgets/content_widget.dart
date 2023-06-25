@@ -1,3 +1,5 @@
+import 'package:flutter_neraca_ruang/presentation/widgets/comment_widget.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -456,9 +458,25 @@ class ContentWidget extends ConsumerWidget {
                   ],
                 ),
               ),
-              IconWidget(
-                isGreenMode ? iconCommments2 : iconCommments,
-                size: huge,
+              InkWell(
+                onTap: isLogin
+                    ? contentId != content.id
+                        ? () {
+                            ref.read(selectedContentIdProvider.notifier).state =
+                                content.id ?? 0;
+                            ref
+                                .read(contentsProvider.notifier)
+                                .markContentAsRed(content.slug ?? "");
+                          }
+                        : null
+                    : () {
+                        myToast(
+                            "maaf, silahkan login jika ingin memberi komentar");
+                      },
+                child: IconWidget(
+                  isGreenMode ? iconCommments2 : iconCommments,
+                  size: huge,
+                ),
               ),
               FittedBox(
                 child: Row(
@@ -486,6 +504,7 @@ class ContentWidget extends ConsumerWidget {
                 .toList(),
           ),
         ),
+        Visibility(visible: contentId == content.id, child: CommentWidget()),
         SizedBox(height: huge),
       ],
     );

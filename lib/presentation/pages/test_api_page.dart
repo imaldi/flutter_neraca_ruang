@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/comment_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/content_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,63 +40,72 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
       body: Container(
         padding: const EdgeInsets.all(32.0),
         child: Center(
-            child: list.when(
-                data: (data) {
-                  return ListView.builder(
-                      itemCount: data.length,
-                      itemBuilder: (c, i) {
-                        return ContentWidget(data[i]);
-                        // return Card(
-                        //   child: Column(
-                        //     children: [
-                        //       Text("Data ke: ${i + 1}"),
-                        //       Text(data[i].judul.toString()),
-                        //       Row(
-                        //         mainAxisAlignment: MainAxisAlignment.center,
-                        //         children: [
-                        //           InkWell(
-                        //             onTap: () {
-                        //               ref
-                        //                   .read(
-                        //                       currentLikedOrDislikedContentIndexProvider
-                        //                           .notifier)
-                        //                   .state = i;
-                        //             },
-                        //             child: (data[i].localLike ?? false)
-                        //                 ? InkWell(
-                        //                     onTap: () {
-                        //                       ref
-                        //                           .read(contentsProvider
-                        //                               .notifier)
-                        //                           .likeContent(data[i]
-                        //                               .copyWith(
-                        //                                   localLike: false));
-                        //                     },
-                        //                     child: Icon(Icons.thumb_up))
-                        //                 : InkWell(
-                        //                     onTap: () {
-                        //                       ref
-                        //                           .read(contentsProvider
-                        //                               .notifier)
-                        //                           .likeContent(data[i]
-                        //                               .copyWith(
-                        //                                   localLike: true));
-                        //                     },
-                        //                     child: Icon(
-                        //                         Icons.thumb_up_alt_outlined)),
-                        //           ),
-                        //           Text("${data[i].totalLike} Likes")
-                        //         ],
-                        //       ),
-                        //     ],
-                        //   ),
-                        // );
-                      });
-                },
-                error: (e, s) {
-                  Text("Error Bruh");
-                },
-                loading: () => const CircularProgressIndicator())
+            child: SingleChildScrollView(
+          child: Column(
+            children: [
+              CommentWidget(),
+              list.when(
+                  data: (data) {
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: data.length,
+                        itemBuilder: (c, i) {
+                          return ContentWidget(data[i]);
+                          // return Card(
+                          //   child: Column(
+                          //     children: [
+                          //       Text("Data ke: ${i + 1}"),
+                          //       Text(data[i].judul.toString()),
+                          //       Row(
+                          //         mainAxisAlignment: MainAxisAlignment.center,
+                          //         children: [
+                          //           InkWell(
+                          //             onTap: () {
+                          //               ref
+                          //                   .read(
+                          //                       currentLikedOrDislikedContentIndexProvider
+                          //                           .notifier)
+                          //                   .state = i;
+                          //             },
+                          //             child: (data[i].localLike ?? false)
+                          //                 ? InkWell(
+                          //                     onTap: () {
+                          //                       ref
+                          //                           .read(contentsProvider
+                          //                               .notifier)
+                          //                           .likeContent(data[i]
+                          //                               .copyWith(
+                          //                                   localLike: false));
+                          //                     },
+                          //                     child: Icon(Icons.thumb_up))
+                          //                 : InkWell(
+                          //                     onTap: () {
+                          //                       ref
+                          //                           .read(contentsProvider
+                          //                               .notifier)
+                          //                           .likeContent(data[i]
+                          //                               .copyWith(
+                          //                                   localLike: true));
+                          //                     },
+                          //                     child: Icon(
+                          //                         Icons.thumb_up_alt_outlined)),
+                          //           ),
+                          //           Text("${data[i].totalLike} Likes")
+                          //         ],
+                          //       ),
+                          //     ],
+                          //   ),
+                          // );
+                        });
+                  },
+                  error: (e, s) {
+                    return Text("Error Bruh");
+                  },
+                  loading: () => const CircularProgressIndicator()),
+            ],
+          ),
+        )
 
             // fotoTerbaru.when(
             //     data: (foto) {

@@ -92,6 +92,7 @@ class DrawerContent extends ConsumerWidget {
                   //       if ((previousValue.last.tagsName ?? "") !=
                   //           (element.tagsName ?? "")) {
                   //         return [...previousValue, element];
+                  //         return [...previousValue, element];
                   //       } else {
                   //         return previousValue;
                   //       }

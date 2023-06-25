@@ -10,12 +10,14 @@ class RoundedTextFormField extends StatelessWidget {
   final bool isEnabled;
   final bool readOnly;
   final bool isObscureText;
+  final int? maxLines;
   final TextInputType? keyboardType;
   final Function(String)? onChanged;
   const RoundedTextFormField(
       {this.decoration,
       this.controller,
       this.hint,
+      this.maxLines,
       this.onChanged,
       this.readOnly = false,
       this.isEnabled = true,
@@ -38,6 +40,7 @@ class RoundedTextFormField extends StatelessWidget {
           obscureText: isObscureText,
           keyboardType: keyboardType,
           onChanged: onChanged,
+          maxLines: maxLines,
           decoration: (decoration ?? const InputDecoration()).copyWith(
               contentPadding: const EdgeInsets.all(medium),
               enabledBorder: _basicBorder,
