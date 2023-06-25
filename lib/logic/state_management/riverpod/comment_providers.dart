@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:flutter_neraca_ruang/core/dummy_json/fake_comment_response.dart';
 import 'package:flutter_neraca_ruang/core/helper_functions/json_reader.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
@@ -11,21 +13,26 @@ import '../../../core/consts/urls.dart';
 import '../../../data/models/auth_response/auth_response.dart';
 import '../../../data/models/comment_response/comment_response.dart';
 import '../../../di.dart';
-
 part 'comment_providers.g.dart';
 
 @riverpod
 class Comments extends _$Comments {
   @override
   FutureOr<List<CommentModel>> build() async {
-    return _fetchDummyData();
+    return await _fetchDummyData();
   }
 
   Future<List<CommentModel>> _fetchDummyData() async {
-    var jsonStringFromFile = await readJsonFile("fake_comment_response.json");
-    var jsonResult =
-        CommentResponse.fromJson(jsonDecode(jsonStringFromFile)).data ?? [];
-    return jsonResult;
+    try {
+      // var jsonStringFromFile = await readJsonFile(
+      //     '../../../core/dummy_json/fake_comment_response.json');
+      var jsonResult =
+          CommentResponse.fromJson(dummyCommentResponse).data ?? [];
+      return jsonResult;
+    } catch (e) {
+      log("Error message: ${e.toString()}");
+      throw e;
+    }
   }
 
   Future<List<CommentModel>> _fetchCommentFromAPI(String slug) async {

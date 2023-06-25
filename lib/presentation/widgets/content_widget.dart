@@ -464,9 +464,9 @@ class ContentWidget extends ConsumerWidget {
                         ? () {
                             ref.read(selectedContentIdProvider.notifier).state =
                                 content.id ?? 0;
-                            ref
-                                .read(contentsProvider.notifier)
-                                .markContentAsRed(content.slug ?? "");
+                            // ref
+                            //     .read(contentsProvider.notifier)
+                            //     .markContentAsRed(content.slug ?? "");
                           }
                         : null
                     : () {
