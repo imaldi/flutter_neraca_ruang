@@ -6,6 +6,7 @@ import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/models/dashboard_response/dashboard_response.dart';
+import '../../di.dart';
 import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/searchable_dropdown.dart';
@@ -41,6 +42,7 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
         padding: const EdgeInsets.all(32.0),
         child: Center(
             child: SingleChildScrollView(
+          controller: sl<ScrollController>(),
           child: Column(
             children: [
               CommentWidget(),

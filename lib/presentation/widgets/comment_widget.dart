@@ -5,10 +5,12 @@ import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_fiel
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/sizes.dart';
+import '../../di.dart';
+import 'my_scrollable_nested_widget.dart';
 
 class CommentWidget extends ConsumerWidget {
   const CommentWidget({Key? key}) : super(key: key);
-
+  // static final _scrollController = ScrollController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var commentList = ref.watch(commentsProvider);
@@ -32,15 +34,22 @@ class CommentWidget extends ConsumerWidget {
               commentList.when(
                   data: (data) {
                     if (data.length > 0) {
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: data.length,
-                          itemBuilder: (c, i) {
-                            return ListTile(
-                              title: Text("${data[i].komentar}"),
-                              subtitle: Text("by: ${data[i].username}"),
-                            );
-                          });
+                      return Container(
+                        height: 300,
+                        child: MyScrollableNestedWidget(
+                          controller: sl<ScrollController>(),
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: data.length,
+                              // physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (c, i) {
+                                return ListTile(
+                                  title: Text("${data[i].komentar}"),
+                                  subtitle: Text("by: ${data[i].username}"),
+                                );
+                              }),
+                        ),
+                      );
                     }
                     return Center(
                       child: Text("- Belum Ada Komentar -"),
