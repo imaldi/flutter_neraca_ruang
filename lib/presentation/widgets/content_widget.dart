@@ -180,11 +180,9 @@ class ContentWidget extends ConsumerWidget {
                 ),
               ),
               Expanded(
-                child: SizedBox(
-                  height: tagsIconHeightFromFigma,
-
-                  /// sebelumnya ada error disini karena row di bungkus dengan fitted box, jangan pakai begitu lagi
+                child: FittedBox(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       JustTheTooltip(
                         tailBaseWidth: 0,
@@ -195,7 +193,7 @@ class ContentWidget extends ConsumerWidget {
                         // preferredDirection: AxisDirection.up,
                         content: Text(content.tagsPihak?.tagsName ?? ""),
                         child: IconWidget(
-                          content.tagsPihak?.tagsIcon ?? "",
+                          content.tagsPihak?.tagsIcon1 ?? "",
                           margin: const EdgeInsets.symmetric(horizontal: small),
                           isOnlineSource: true,
                           onTap: () {
@@ -204,7 +202,7 @@ class ContentWidget extends ConsumerWidget {
                             ref.read(tagsNameProvider.notifier).state =
                                 content.tagsPihak?.tagsName ?? "";
                             ref.read(tagsIconLinkProvider.notifier).state =
-                                content.tagsPihak?.tagsIcon ?? "";
+                                content.tagsPihak?.tagsIcon1 ?? "";
                             ref.invalidate(kotaIdProvider);
                             ref.invalidate(kotaNameProvider);
                             context.router
@@ -220,7 +218,7 @@ class ContentWidget extends ConsumerWidget {
                         borderRadius: BorderRadius.zero,
                         content: Text(content.tagsTopik?.tagsName ?? ""),
                         child: IconWidget(
-                          content.tagsTopik?.tagsIcon ?? "",
+                          content.tagsTopik?.tagsIcon1 ?? "",
                           margin: const EdgeInsets.symmetric(horizontal: small),
                           isOnlineSource: true,
                           onTap: () {
@@ -229,7 +227,7 @@ class ContentWidget extends ConsumerWidget {
                             ref.read(tagsNameProvider.notifier).state =
                                 content.tagsTopik?.tagsName ?? "";
                             ref.read(tagsIconLinkProvider.notifier).state =
-                                content.tagsTopik?.tagsIcon ?? "";
+                                content.tagsTopik?.tagsIcon1 ?? "";
                             ref.invalidate(kotaIdProvider);
                             ref.invalidate(kotaNameProvider);
                             context.router
@@ -245,7 +243,7 @@ class ContentWidget extends ConsumerWidget {
                         borderRadius: BorderRadius.zero,
                         content: Text(content.tagsOtonomi?.tagsName ?? ""),
                         child: IconWidget(
-                          content.tagsOtonomi?.tagsIcon ?? "",
+                          content.tagsOtonomi?.tagsIcon1 ?? "",
                           margin: const EdgeInsets.symmetric(horizontal: small),
                           isOnlineSource: true,
                           onTap: () {
@@ -254,7 +252,7 @@ class ContentWidget extends ConsumerWidget {
                             ref.read(tagsNameProvider.notifier).state =
                                 content.tagsOtonomi?.tagsName ?? "";
                             ref.read(tagsIconLinkProvider.notifier).state =
-                                content.tagsOtonomi?.tagsIcon ?? "";
+                                content.tagsOtonomi?.tagsIcon1 ?? "";
                             ref.invalidate(kotaIdProvider);
                             ref.invalidate(kotaNameProvider);
                             context.router
@@ -262,7 +260,13 @@ class ContentWidget extends ConsumerWidget {
                           },
                         ),
                       ),
-                    ],
+                    ]
+                        .map((e) => Container(
+                              constraints: const BoxConstraints(
+                                  minHeight: tagsIconHeightFromFigma),
+                              child: e,
+                            ))
+                        .toList(),
                   ),
                 ),
               ),

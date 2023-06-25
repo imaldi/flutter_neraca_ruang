@@ -115,7 +115,11 @@ class Tags with _$Tags {
   const factory Tags({
     @JsonKey(name: "tags_id") int? tagsId,
     @JsonKey(name: "tags_name") String? tagsName,
-    @JsonKey(name: "tags_icon") String? tagsIcon,
+    @JsonKey(name: "tags_icon_1") String? tagsIcon1,
+    @JsonKey(name: "tags_icon_2") String? tagsIcon2,
+    @JsonKey(name: "tags_icon_3") String? tagsIcon3,
+    @JsonKey(name: "tags_icon_4") String? tagsIcon4,
+    @JsonKey(name: "tags_icon_5") String? tagsIcon5,
     @JsonKey(name: "tags_tipe") String? tagsTipe,
   }) = _Tags;
 

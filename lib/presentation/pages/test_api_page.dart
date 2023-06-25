@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/content_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -43,53 +44,52 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
                   return ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (c, i) {
-                        return Builder(builder: (context) {
-                          return Card(
-                            child: Column(
-                              children: [
-                                Text("Data ke: ${i + 1}"),
-                                Text(data[i].judul.toString()),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        ref
-                                            .read(
-                                                currentLikedOrDislikedContentIndexProvider
-                                                    .notifier)
-                                            .state = i;
-                                      },
-                                      child: (data[i].localLike ?? false)
-                                          ? InkWell(
-                                              onTap: () {
-                                                ref
-                                                    .read(contentsProvider
-                                                        .notifier)
-                                                    .likeContent(data[i]
-                                                        .copyWith(
-                                                            localLike: false));
-                                              },
-                                              child: Icon(Icons.thumb_up))
-                                          : InkWell(
-                                              onTap: () {
-                                                ref
-                                                    .read(contentsProvider
-                                                        .notifier)
-                                                    .likeContent(data[i]
-                                                        .copyWith(
-                                                            localLike: true));
-                                              },
-                                              child: Icon(
-                                                  Icons.thumb_up_alt_outlined)),
-                                    ),
-                                    Text("${data[i].totalLike} Likes")
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        });
+                        return ContentWidget(data[i]);
+                        // return Card(
+                        //   child: Column(
+                        //     children: [
+                        //       Text("Data ke: ${i + 1}"),
+                        //       Text(data[i].judul.toString()),
+                        //       Row(
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         children: [
+                        //           InkWell(
+                        //             onTap: () {
+                        //               ref
+                        //                   .read(
+                        //                       currentLikedOrDislikedContentIndexProvider
+                        //                           .notifier)
+                        //                   .state = i;
+                        //             },
+                        //             child: (data[i].localLike ?? false)
+                        //                 ? InkWell(
+                        //                     onTap: () {
+                        //                       ref
+                        //                           .read(contentsProvider
+                        //                               .notifier)
+                        //                           .likeContent(data[i]
+                        //                               .copyWith(
+                        //                                   localLike: false));
+                        //                     },
+                        //                     child: Icon(Icons.thumb_up))
+                        //                 : InkWell(
+                        //                     onTap: () {
+                        //                       ref
+                        //                           .read(contentsProvider
+                        //                               .notifier)
+                        //                           .likeContent(data[i]
+                        //                               .copyWith(
+                        //                                   localLike: true));
+                        //                     },
+                        //                     child: Icon(
+                        //                         Icons.thumb_up_alt_outlined)),
+                        //           ),
+                        //           Text("${data[i].totalLike} Likes")
+                        //         ],
+                        //       ),
+                        //     ],
+                        //   ),
+                        // );
                       });
                 },
                 error: (e, s) {

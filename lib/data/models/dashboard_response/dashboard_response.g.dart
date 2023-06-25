@@ -187,14 +187,22 @@ Map<String, dynamic> _$$_ListMediaElementToJson(_$_ListMediaElement instance) =>
 _$_Tags _$$_TagsFromJson(Map<String, dynamic> json) => _$_Tags(
       tagsId: json['tags_id'] as int?,
       tagsName: json['tags_name'] as String?,
-      tagsIcon: json['tags_icon'] as String?,
+      tagsIcon1: json['tags_icon_1'] as String?,
+      tagsIcon2: json['tags_icon_2'] as String?,
+      tagsIcon3: json['tags_icon_3'] as String?,
+      tagsIcon4: json['tags_icon_4'] as String?,
+      tagsIcon5: json['tags_icon_5'] as String?,
       tagsTipe: json['tags_tipe'] as String?,
     );
 
 Map<String, dynamic> _$$_TagsToJson(_$_Tags instance) => <String, dynamic>{
       'tags_id': instance.tagsId,
       'tags_name': instance.tagsName,
-      'tags_icon': instance.tagsIcon,
+      'tags_icon_1': instance.tagsIcon1,
+      'tags_icon_2': instance.tagsIcon2,
+      'tags_icon_3': instance.tagsIcon3,
+      'tags_icon_4': instance.tagsIcon4,
+      'tags_icon_5': instance.tagsIcon5,
       'tags_tipe': instance.tagsTipe,
     };
 

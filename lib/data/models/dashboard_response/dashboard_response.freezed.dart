@@ -2122,8 +2122,16 @@ mixin _$Tags {
   int? get tagsId => throw _privateConstructorUsedError;
   @JsonKey(name: "tags_name")
   String? get tagsName => throw _privateConstructorUsedError;
-  @JsonKey(name: "tags_icon")
-  String? get tagsIcon => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_icon_1")
+  String? get tagsIcon1 => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_icon_2")
+  String? get tagsIcon2 => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_icon_3")
+  String? get tagsIcon3 => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_icon_4")
+  String? get tagsIcon4 => throw _privateConstructorUsedError;
+  @JsonKey(name: "tags_icon_5")
+  String? get tagsIcon5 => throw _privateConstructorUsedError;
   @JsonKey(name: "tags_tipe")
   String? get tagsTipe => throw _privateConstructorUsedError;
 
@@ -2140,7 +2148,11 @@ abstract class $TagsCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "tags_id") int? tagsId,
       @JsonKey(name: "tags_name") String? tagsName,
-      @JsonKey(name: "tags_icon") String? tagsIcon,
+      @JsonKey(name: "tags_icon_1") String? tagsIcon1,
+      @JsonKey(name: "tags_icon_2") String? tagsIcon2,
+      @JsonKey(name: "tags_icon_3") String? tagsIcon3,
+      @JsonKey(name: "tags_icon_4") String? tagsIcon4,
+      @JsonKey(name: "tags_icon_5") String? tagsIcon5,
       @JsonKey(name: "tags_tipe") String? tagsTipe});
 }
 
@@ -2159,7 +2171,11 @@ class _$TagsCopyWithImpl<$Res, $Val extends Tags>
   $Res call({
     Object? tagsId = freezed,
     Object? tagsName = freezed,
-    Object? tagsIcon = freezed,
+    Object? tagsIcon1 = freezed,
+    Object? tagsIcon2 = freezed,
+    Object? tagsIcon3 = freezed,
+    Object? tagsIcon4 = freezed,
+    Object? tagsIcon5 = freezed,
     Object? tagsTipe = freezed,
   }) {
     return _then(_value.copyWith(
@@ -2171,9 +2187,25 @@ class _$TagsCopyWithImpl<$Res, $Val extends Tags>
           ? _value.tagsName
           : tagsName // ignore: cast_nullable_to_non_nullable
               as String?,
-      tagsIcon: freezed == tagsIcon
-          ? _value.tagsIcon
-          : tagsIcon // ignore: cast_nullable_to_non_nullable
+      tagsIcon1: freezed == tagsIcon1
+          ? _value.tagsIcon1
+          : tagsIcon1 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tagsIcon2: freezed == tagsIcon2
+          ? _value.tagsIcon2
+          : tagsIcon2 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tagsIcon3: freezed == tagsIcon3
+          ? _value.tagsIcon3
+          : tagsIcon3 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tagsIcon4: freezed == tagsIcon4
+          ? _value.tagsIcon4
+          : tagsIcon4 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tagsIcon5: freezed == tagsIcon5
+          ? _value.tagsIcon5
+          : tagsIcon5 // ignore: cast_nullable_to_non_nullable
               as String?,
       tagsTipe: freezed == tagsTipe
           ? _value.tagsTipe
@@ -2192,7 +2224,11 @@ abstract class _$$_TagsCopyWith<$Res> implements $TagsCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "tags_id") int? tagsId,
       @JsonKey(name: "tags_name") String? tagsName,
-      @JsonKey(name: "tags_icon") String? tagsIcon,
+      @JsonKey(name: "tags_icon_1") String? tagsIcon1,
+      @JsonKey(name: "tags_icon_2") String? tagsIcon2,
+      @JsonKey(name: "tags_icon_3") String? tagsIcon3,
+      @JsonKey(name: "tags_icon_4") String? tagsIcon4,
+      @JsonKey(name: "tags_icon_5") String? tagsIcon5,
       @JsonKey(name: "tags_tipe") String? tagsTipe});
 }
 
@@ -2207,7 +2243,11 @@ class __$$_TagsCopyWithImpl<$Res> extends _$TagsCopyWithImpl<$Res, _$_Tags>
   $Res call({
     Object? tagsId = freezed,
     Object? tagsName = freezed,
-    Object? tagsIcon = freezed,
+    Object? tagsIcon1 = freezed,
+    Object? tagsIcon2 = freezed,
+    Object? tagsIcon3 = freezed,
+    Object? tagsIcon4 = freezed,
+    Object? tagsIcon5 = freezed,
     Object? tagsTipe = freezed,
   }) {
     return _then(_$_Tags(
@@ -2219,9 +2259,25 @@ class __$$_TagsCopyWithImpl<$Res> extends _$TagsCopyWithImpl<$Res, _$_Tags>
           ? _value.tagsName
           : tagsName // ignore: cast_nullable_to_non_nullable
               as String?,
-      tagsIcon: freezed == tagsIcon
-          ? _value.tagsIcon
-          : tagsIcon // ignore: cast_nullable_to_non_nullable
+      tagsIcon1: freezed == tagsIcon1
+          ? _value.tagsIcon1
+          : tagsIcon1 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tagsIcon2: freezed == tagsIcon2
+          ? _value.tagsIcon2
+          : tagsIcon2 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tagsIcon3: freezed == tagsIcon3
+          ? _value.tagsIcon3
+          : tagsIcon3 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tagsIcon4: freezed == tagsIcon4
+          ? _value.tagsIcon4
+          : tagsIcon4 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tagsIcon5: freezed == tagsIcon5
+          ? _value.tagsIcon5
+          : tagsIcon5 // ignore: cast_nullable_to_non_nullable
               as String?,
       tagsTipe: freezed == tagsTipe
           ? _value.tagsTipe
@@ -2237,7 +2293,11 @@ class _$_Tags implements _Tags {
   const _$_Tags(
       {@JsonKey(name: "tags_id") this.tagsId,
       @JsonKey(name: "tags_name") this.tagsName,
-      @JsonKey(name: "tags_icon") this.tagsIcon,
+      @JsonKey(name: "tags_icon_1") this.tagsIcon1,
+      @JsonKey(name: "tags_icon_2") this.tagsIcon2,
+      @JsonKey(name: "tags_icon_3") this.tagsIcon3,
+      @JsonKey(name: "tags_icon_4") this.tagsIcon4,
+      @JsonKey(name: "tags_icon_5") this.tagsIcon5,
       @JsonKey(name: "tags_tipe") this.tagsTipe});
 
   factory _$_Tags.fromJson(Map<String, dynamic> json) => _$$_TagsFromJson(json);
@@ -2249,15 +2309,27 @@ class _$_Tags implements _Tags {
   @JsonKey(name: "tags_name")
   final String? tagsName;
   @override
-  @JsonKey(name: "tags_icon")
-  final String? tagsIcon;
+  @JsonKey(name: "tags_icon_1")
+  final String? tagsIcon1;
+  @override
+  @JsonKey(name: "tags_icon_2")
+  final String? tagsIcon2;
+  @override
+  @JsonKey(name: "tags_icon_3")
+  final String? tagsIcon3;
+  @override
+  @JsonKey(name: "tags_icon_4")
+  final String? tagsIcon4;
+  @override
+  @JsonKey(name: "tags_icon_5")
+  final String? tagsIcon5;
   @override
   @JsonKey(name: "tags_tipe")
   final String? tagsTipe;
 
   @override
   String toString() {
-    return 'Tags(tagsId: $tagsId, tagsName: $tagsName, tagsIcon: $tagsIcon, tagsTipe: $tagsTipe)';
+    return 'Tags(tagsId: $tagsId, tagsName: $tagsName, tagsIcon1: $tagsIcon1, tagsIcon2: $tagsIcon2, tagsIcon3: $tagsIcon3, tagsIcon4: $tagsIcon4, tagsIcon5: $tagsIcon5, tagsTipe: $tagsTipe)';
   }
 
   @override
@@ -2268,16 +2340,24 @@ class _$_Tags implements _Tags {
             (identical(other.tagsId, tagsId) || other.tagsId == tagsId) &&
             (identical(other.tagsName, tagsName) ||
                 other.tagsName == tagsName) &&
-            (identical(other.tagsIcon, tagsIcon) ||
-                other.tagsIcon == tagsIcon) &&
+            (identical(other.tagsIcon1, tagsIcon1) ||
+                other.tagsIcon1 == tagsIcon1) &&
+            (identical(other.tagsIcon2, tagsIcon2) ||
+                other.tagsIcon2 == tagsIcon2) &&
+            (identical(other.tagsIcon3, tagsIcon3) ||
+                other.tagsIcon3 == tagsIcon3) &&
+            (identical(other.tagsIcon4, tagsIcon4) ||
+                other.tagsIcon4 == tagsIcon4) &&
+            (identical(other.tagsIcon5, tagsIcon5) ||
+                other.tagsIcon5 == tagsIcon5) &&
             (identical(other.tagsTipe, tagsTipe) ||
                 other.tagsTipe == tagsTipe));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, tagsId, tagsName, tagsIcon, tagsTipe);
+  int get hashCode => Object.hash(runtimeType, tagsId, tagsName, tagsIcon1,
+      tagsIcon2, tagsIcon3, tagsIcon4, tagsIcon5, tagsTipe);
 
   @JsonKey(ignore: true)
   @override
@@ -2297,7 +2377,11 @@ abstract class _Tags implements Tags {
   const factory _Tags(
       {@JsonKey(name: "tags_id") final int? tagsId,
       @JsonKey(name: "tags_name") final String? tagsName,
-      @JsonKey(name: "tags_icon") final String? tagsIcon,
+      @JsonKey(name: "tags_icon_1") final String? tagsIcon1,
+      @JsonKey(name: "tags_icon_2") final String? tagsIcon2,
+      @JsonKey(name: "tags_icon_3") final String? tagsIcon3,
+      @JsonKey(name: "tags_icon_4") final String? tagsIcon4,
+      @JsonKey(name: "tags_icon_5") final String? tagsIcon5,
       @JsonKey(name: "tags_tipe") final String? tagsTipe}) = _$_Tags;
 
   factory _Tags.fromJson(Map<String, dynamic> json) = _$_Tags.fromJson;
@@ -2309,8 +2393,20 @@ abstract class _Tags implements Tags {
   @JsonKey(name: "tags_name")
   String? get tagsName;
   @override
-  @JsonKey(name: "tags_icon")
-  String? get tagsIcon;
+  @JsonKey(name: "tags_icon_1")
+  String? get tagsIcon1;
+  @override
+  @JsonKey(name: "tags_icon_2")
+  String? get tagsIcon2;
+  @override
+  @JsonKey(name: "tags_icon_3")
+  String? get tagsIcon3;
+  @override
+  @JsonKey(name: "tags_icon_4")
+  String? get tagsIcon4;
+  @override
+  @JsonKey(name: "tags_icon_5")
+  String? get tagsIcon5;
   @override
   @JsonKey(name: "tags_tipe")
   String? get tagsTipe;

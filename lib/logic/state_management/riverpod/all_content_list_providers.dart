@@ -6,10 +6,8 @@ import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_p
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../core/consts/hive_const.dart';
 import '../../../core/consts/urls.dart';
 import '../../../data/models/dashboard_response/dashboard_response.dart';
-import '../../../data/models/login_response_deprecated/login_response.dart';
 import '../../../di.dart';
 
 part 'all_content_list_providers.g.dart';
@@ -91,7 +89,7 @@ class Contents extends _$Contents {
       'Accept': 'application/json',
     });
     print("URL fetch latest list from contentProvider: $url");
-    // log("result JSON: ${jsonDecode(response.body)}");
+    log("result JSON: ${jsonDecode(response.body)}");
     // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
     try {
       final result = DashboardResponse.fromJson(jsonDecode(response.body))

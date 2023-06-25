@@ -341,7 +341,8 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                         .tagsPihak?.tagsName ??
                                                     ""),
                                                 child: IconWidget(
-                                                  content.tagsPihak?.tagsIcon ??
+                                                  content.tagsPihak
+                                                          ?.tagsIcon1 ??
                                                       "",
                                                   margin: const EdgeInsets
                                                           .symmetric(
@@ -368,7 +369,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                                 .notifier)
                                                         .state = content
                                                             .tagsPihak
-                                                            ?.tagsIcon ??
+                                                            ?.tagsIcon1 ??
                                                         "";
                                                     ref.invalidate(
                                                         kotaIdProvider);
@@ -391,7 +392,8 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                         .tagsTopik?.tagsName ??
                                                     ""),
                                                 child: IconWidget(
-                                                  content.tagsTopik?.tagsIcon ??
+                                                  content.tagsTopik
+                                                          ?.tagsIcon1 ??
                                                       "",
                                                   margin: const EdgeInsets
                                                           .symmetric(
@@ -418,7 +420,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                                 .notifier)
                                                         .state = content
                                                             .tagsTopik
-                                                            ?.tagsIcon ??
+                                                            ?.tagsIcon1 ??
                                                         "";
                                                     ref.invalidate(
                                                         kotaIdProvider);
@@ -443,7 +445,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                     ""),
                                                 child: IconWidget(
                                                   content.tagsOtonomi
-                                                          ?.tagsIcon ??
+                                                          ?.tagsIcon1 ??
                                                       "",
                                                   margin: const EdgeInsets
                                                           .symmetric(
@@ -470,7 +472,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                                 .notifier)
                                                         .state = content
                                                             .tagsOtonomi
-                                                            ?.tagsIcon ??
+                                                            ?.tagsIcon1 ??
                                                         "";
                                                     ref.invalidate(
                                                         kotaIdProvider);
