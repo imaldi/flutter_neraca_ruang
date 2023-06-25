@@ -21,7 +21,8 @@ part 'comment_providers.g.dart';
 class Comments extends _$Comments {
   @override
   FutureOr<List<CommentModel>> build() async {
-    return await _fetchDummyData();
+    return [];
+    // return await _fetchDummyData();
   }
 
   Future<List<CommentModel>> _fetchDummyData() async {

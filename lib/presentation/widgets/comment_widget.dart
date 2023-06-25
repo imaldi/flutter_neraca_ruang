@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/sizes.dart';
 import '../../di.dart';
+import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import 'my_scrollable_nested_widget.dart';
 
@@ -32,11 +33,10 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
   @override
   Widget build(BuildContext context) {
     String selectedSlug = ref.watch(selectedContentSlugProvider);
+    var isLogin = ref.watch(authStatusProvider).value != null;
 
     var commentList = ref.watch(commentsProvider);
     final TextEditingController textEditingController = TextEditingController();
-    var contentList = ref.watch(contentsProvider);
-    var selectedContentId = ref.watch(selectedContentIdProvider);
 
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -96,55 +96,65 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                         child: Text("There is an error: $st"),
                       ),
                   loading: () => Center(child: CircularProgressIndicator())),
-              RoundedTextFormField(
-                key: textFormKey,
-                hint: "Komentar di sini",
-                maxLines: 3,
-                controller: textEditingController,
-                validator: (val) {
-                  if ((val?.length ?? 0) < 28) {
-                    return "Komentar minimal 28 karakter";
-                  }
-                  return null;
-                },
-                // onChanged: (val) {
-                // },
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(primaryColor),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(huge))),
-                      onPressed: () {
-                        textEditingController.text =
-                            textEditingController.text.trim();
-                        textEditingController.selection =
-                            TextSelection.fromPosition(TextPosition(
-                                offset: textEditingController.text.length));
-
-                        // if (textFormKey.currentState != null &&
-                        //     textFormKey.currentState!.validate()) {
-                        ref.read(commentsProvider.notifier).postCommentAsMember(
-                            selectedSlug, textEditingController.text.trim(),
-                            onSuccess: () {
-                          /// lol kocak
-                          textEditingController.text =
-                              "                            ";
-                          textEditingController.selection =
-                              TextSelection.fromPosition(
-                                  TextPosition(offset: 0));
-                        }, onFailure: (errorMessage) {
-                          print("response body: $errorMessage");
-                        });
-                        // }
+              Visibility(
+                visible: isLogin,
+                child: Column(
+                  children: [
+                    RoundedTextFormField(
+                      key: textFormKey,
+                      hint: "Komentar di sini",
+                      maxLines: 3,
+                      controller: textEditingController,
+                      validator: (val) {
+                        if ((val?.length ?? 0) < 28) {
+                          return "Komentar minimal 28 karakter";
+                        }
+                        return null;
                       },
-                      child: Text("Kirim")),
-                ],
-              )
+                      // onChanged: (val) {
+                      // },
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(primaryColor),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(huge))),
+                            onPressed: () {
+                              textEditingController.text =
+                                  textEditingController.text.trim();
+                              textEditingController.selection =
+                                  TextSelection.fromPosition(TextPosition(
+                                      offset:
+                                          textEditingController.text.length));
+
+                              // if (textFormKey.currentState != null &&
+                              //     textFormKey.currentState!.validate()) {
+                              ref
+                                  .read(commentsProvider.notifier)
+                                  .postCommentAsMember(selectedSlug,
+                                      textEditingController.text.trim(),
+                                      onSuccess: () {
+                                /// lol kocak
+                                textEditingController.text =
+                                    "                            ";
+                                textEditingController.selection =
+                                    TextSelection.fromPosition(
+                                        TextPosition(offset: 0));
+                              }, onFailure: (errorMessage) {
+                                print("response body: $errorMessage");
+                              });
+                              // }
+                            },
+                            child: Text("Kirim")),
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),

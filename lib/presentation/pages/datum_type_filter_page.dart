@@ -615,37 +615,28 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: isLogin
-                                            ? contentId != content.id
-                                                ? () {
-                                                    ref
-                                                        .read(
-                                                            selectedContentIdProvider
-                                                                .notifier)
-                                                        .state = content
-                                                            .id ??
-                                                        0;
-                                                    ref
-                                                        .read(
-                                                            selectedContentSlugProvider
-                                                                .notifier)
-                                                        .state = content
-                                                            .slug ??
-                                                        "";
-                                                    ref
-                                                        .read(commentsProvider
+                                        onTap: contentId != content.id
+                                            ? () {
+                                                ref
+                                                    .read(
+                                                        selectedContentIdProvider
                                                             .notifier)
-                                                        .fetchCommentFromAPI();
+                                                    .state = content.id ?? 0;
+                                                ref
+                                                    .read(
+                                                        selectedContentSlugProvider
+                                                            .notifier)
+                                                    .state = content.slug ?? "";
+                                                ref
+                                                    .read(commentsProvider
+                                                        .notifier)
+                                                    .fetchCommentFromAPI();
 
-                                                    // ref
-                                                    //     .read(contentsProvider.notifier)
-                                                    //     .markContentAsRed(content.slug ?? "");
-                                                  }
-                                                : null
-                                            : () {
-                                                myToast(
-                                                    "maaf, silahkan login jika ingin memberi komentar");
-                                              },
+                                                // ref
+                                                //     .read(contentsProvider.notifier)
+                                                //     .markContentAsRed(content.slug ?? "");
+                                              }
+                                            : null,
                                         child: IconWidget(
                                           iconCommments,
                                           size: huge,

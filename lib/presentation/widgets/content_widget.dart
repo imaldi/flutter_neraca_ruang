@@ -465,27 +465,21 @@ class ContentWidget extends ConsumerWidget {
                 ),
               ),
               InkWell(
-                onTap: isLogin
-                    ? contentId != content.id
-                        ? () {
-                            ref.read(selectedContentIdProvider.notifier).state =
-                                content.id ?? 0;
-                            ref
-                                .read(selectedContentSlugProvider.notifier)
-                                .state = content.slug ?? "";
-                            ref
-                                .read(commentsProvider.notifier)
-                                .fetchCommentFromAPI();
+                onTap: contentId != content.id
+                    ? () {
+                        ref.read(selectedContentIdProvider.notifier).state =
+                            content.id ?? 0;
+                        ref.read(selectedContentSlugProvider.notifier).state =
+                            content.slug ?? "";
+                        ref
+                            .read(commentsProvider.notifier)
+                            .fetchCommentFromAPI();
 
-                            // ref
-                            //     .read(contentsProvider.notifier)
-                            //     .markContentAsRed(content.slug ?? "");
-                          }
-                        : null
-                    : () {
-                        myToast(
-                            "maaf, silahkan login jika ingin memberi komentar");
-                      },
+                        // ref
+                        //     .read(contentsProvider.notifier)
+                        //     .markContentAsRed(content.slug ?? "");
+                      }
+                    : null,
                 child: IconWidget(
                   isGreenMode ? iconCommments2 : iconCommments,
                   size: huge,
