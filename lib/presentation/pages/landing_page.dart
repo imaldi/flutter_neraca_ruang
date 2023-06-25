@@ -165,6 +165,13 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                   ref
                                       .read(selectedContentIdProvider.notifier)
                                       .state = data[0].id ?? 0;
+                                  if (isLogin) {
+                                    ref
+                                        .read(selectedContentSlugProvider
+                                            .notifier)
+                                        .state = data[0].slug ?? "";
+                                  }
+
                                   ref.read(kotaNameProvider.notifier).state =
                                       data[0].kotaName ?? "";
 
@@ -240,9 +247,12 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                           .read(selectedContentIdProvider
                                               .notifier)
                                           .state = data[1].id ?? 0;
-                                      ref
-                                          .read(contentsProvider.notifier)
-                                          .markContentAsRed(data[1].slug ?? "");
+                                      if (isLogin) {
+                                        ref
+                                            .read(selectedContentSlugProvider
+                                                .notifier)
+                                            .state = data[1].slug ?? "";
+                                      }
                                       context.router
                                           .replace(const JurnalRoute());
                                     },
@@ -347,10 +357,12 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                       ref
                                           .read(kotaNameProvider.notifier)
                                           .state = data[2].kotaName ?? "";
-                                      ref
-                                          .read(selectedContentIdProvider
-                                              .notifier)
-                                          .state = data[2].id ?? 0;
+                                      if (isLogin) {
+                                        ref
+                                            .read(selectedContentIdProvider
+                                                .notifier)
+                                            .state = data[2].id ?? 0;
+                                      }
                                       ref
                                           .read(contentsProvider.notifier)
                                           .markContentAsRed(data[2].slug ?? "");
@@ -421,10 +433,12 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                       ref
                                           .read(kotaNameProvider.notifier)
                                           .state = data[3].kotaName ?? "";
-                                      ref
-                                          .read(selectedContentIdProvider
-                                              .notifier)
-                                          .state = data[3].id ?? 0;
+                                      if (isLogin) {
+                                        ref
+                                            .read(selectedContentIdProvider
+                                                .notifier)
+                                            .state = data[3].id ?? 0;
+                                      }
                                       ref
                                           .read(contentsProvider.notifier)
                                           .markContentAsRed(data[3].slug ?? "");
@@ -487,10 +501,12 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                       ref
                                           .read(kotaNameProvider.notifier)
                                           .state = data[4].kotaName ?? "";
-                                      ref
-                                          .read(selectedContentIdProvider
-                                              .notifier)
-                                          .state = data[4].id ?? 0;
+                                      if (isLogin) {
+                                        ref
+                                            .read(selectedContentIdProvider
+                                                .notifier)
+                                            .state = data[4].id ?? 0;
+                                      }
                                       ref
                                           .read(contentsProvider.notifier)
                                           .markContentAsRed(data[4].slug ?? "");

@@ -19,6 +19,7 @@ import '../../core/helper_functions/menu_icon_name_chooser.dart';
 import '../../core/helper_functions/route_chooser.dart';
 import '../../data/models/dashboard_response/dashboard_response.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
+import '../../logic/state_management/riverpod/comment_providers.dart';
 import 'IconWidget.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
@@ -40,6 +41,7 @@ class ContentWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var contentId = ref.watch(selectedContentIdProvider);
+    var selectedSlug = ref.watch(selectedContentSlugProvider);
     var isVideo = content.tipe == "video";
     var isFoto = content.tipe == "foto";
     var isInfografis = content.tipe == "infografis";
@@ -294,6 +296,8 @@ class ContentWidget extends ConsumerWidget {
                     ? () {
                         ref.read(selectedContentIdProvider.notifier).state =
                             content.id ?? 0;
+                        ref.read(selectedContentSlugProvider.notifier).state =
+                            content.slug ?? "";
                         ref
                             .read(contentsProvider.notifier)
                             .markContentAsRed(content.slug ?? "");
@@ -404,7 +408,9 @@ class ContentWidget extends ConsumerWidget {
                       : const BoxConstraints(maxHeight: 200),
                   child: SingleChildScrollView(
                     physics: const NeverScrollableScrollPhysics(),
-                    child: HtmlWidget(
+                    child:
+                        // Text("${content.keterangan}"),
+                        HtmlWidget(
                       "${content.keterangan}",
                       textStyle: const TextStyle(color: Colors.black),
                     ),
@@ -464,6 +470,13 @@ class ContentWidget extends ConsumerWidget {
                         ? () {
                             ref.read(selectedContentIdProvider.notifier).state =
                                 content.id ?? 0;
+                            ref
+                                .read(selectedContentSlugProvider.notifier)
+                                .state = content.slug ?? "";
+                            ref
+                                .read(commentsProvider.notifier)
+                                .fetchCommentFromAPI();
+
                             // ref
                             //     .read(contentsProvider.notifier)
                             //     .markContentAsRed(content.slug ?? "");
@@ -504,7 +517,9 @@ class ContentWidget extends ConsumerWidget {
                 .toList(),
           ),
         ),
-        Visibility(visible: contentId == content.id, child: CommentWidget()),
+        Visibility(
+            visible: contentId == content.id && selectedSlug.isNotEmpty,
+            child: CommentWidget()),
         SizedBox(height: huge),
       ],
     );

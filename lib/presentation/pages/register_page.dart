@@ -173,6 +173,7 @@ class RegisterPage extends ConsumerWidget {
                                         // "Provinsi",
                                         data.map((e) => e.name ?? "").toSet(),
                                         provNameProvider,
+                                        hintText: "Provinsi",
                                         contentPadding:
                                             const EdgeInsets.all(medium),
                                         onItemTapped: (val) {
@@ -201,6 +202,7 @@ class RegisterPage extends ConsumerWidget {
                                                   .map((e) => e.name ?? "")
                                                   .toSet(),
                                               kotaNameProvider,
+                                              hintText: "Kabupaten / Kota",
                                               contentPadding:
                                                   const EdgeInsets.all(medium),
                                               onItemTapped: (val) {
@@ -224,12 +226,14 @@ class RegisterPage extends ConsumerWidget {
                                           },
                                           error: (o, st) => SearchableDropdown(
                                               <String>{}, kotaNameProvider,
+                                              hintText: "Kabupaten / Kota",
                                               contentPadding:
                                                   const EdgeInsets.all(medium)),
                                           loading: () => SearchableDropdown(
                                                 // "Kab/Kota",
                                                 <String>{},
                                                 kotaNameProvider,
+                                                hintText: "Kabupaten / Kota",
                                                 contentPadding:
                                                     const EdgeInsets.all(
                                                         medium),
@@ -244,6 +248,7 @@ class RegisterPage extends ConsumerWidget {
                                           // "Provinsi",
                                           {},
                                           provNameProvider,
+                                          hintText: "Provinsi",
                                           contentPadding:
                                               const EdgeInsets.all(medium),
                                         ),
@@ -254,13 +259,21 @@ class RegisterPage extends ConsumerWidget {
                                                 // "Kab/Kota",
                                                 {},
                                                 kotaNameProvider,
+                                                hintText: "Kabupaten / Kota",
                                               );
                                             },
-                                            error: (o, st) => Text("Error"),
+                                            error: (o, st) =>
+                                                SearchableDropdown(
+                                                  // "Kab/Kota",
+                                                  {},
+                                                  kotaNameProvider,
+                                                  hintText: "Kabupaten / Kota",
+                                                ),
                                             loading: () => SearchableDropdown(
                                                   // "Kab/Kota",
-                                                  <String>{},
+                                                  {},
                                                   kotaNameProvider,
+                                                  hintText: "Kabupaten / Kota",
                                                 ))
                                       ],
                                     ),
@@ -270,6 +283,7 @@ class RegisterPage extends ConsumerWidget {
                                           // "Provinsi",
                                           {},
                                           provNameProvider,
+                                          hintText: "Provinsi",
                                           contentPadding:
                                               const EdgeInsets.all(medium),
                                         ),
@@ -280,6 +294,7 @@ class RegisterPage extends ConsumerWidget {
                                                 // "Kab/Kota",
                                                 {},
                                                 kotaNameProvider,
+                                                hintText: "Kabupaten / Kota",
                                               );
                                             },
                                             error: (o, st) =>
@@ -287,11 +302,13 @@ class RegisterPage extends ConsumerWidget {
                                                   // "Kab/Kota",
                                                   {},
                                                   kotaNameProvider,
+                                                  hintText: "Kabupaten / Kota",
                                                 ),
                                             loading: () => SearchableDropdown(
                                                   // "Kab/Kota",
-                                                  <String>{},
+                                                  {},
                                                   kotaNameProvider,
+                                                  hintText: "Kabupaten / Kota",
                                                 ))
                                       ],
                                     )),

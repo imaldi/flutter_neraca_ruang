@@ -14,11 +14,13 @@ class SearchableDropdown extends ConsumerStatefulWidget {
   final StateProvider<String?> provider;
   final InputDecoration? decoration;
   final EdgeInsets? contentPadding;
+  final String? hintText;
   const SearchableDropdown(this.items, this.provider,
       {this.label,
       this.onItemTapped,
       this.contentPadding,
       this.decoration,
+      this.hintText,
       Key? key})
       : super(key: key);
 
@@ -63,7 +65,7 @@ class _SearchableDropdownState extends ConsumerState<SearchableDropdown> {
             child: DropdownButton2<String>(
               isExpanded: true,
               hint: Text(
-                'Select Item',
+                widget.hintText ?? 'Select Item',
                 style: TextStyle(
                   fontSize: 14,
                   color: Theme.of(context).hintColor,

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter_neraca_ruang/core/dummy_json/fake_comment_response.dart';
 import 'package:flutter_neraca_ruang/core/helper_functions/json_reader.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -13,6 +14,7 @@ import '../../../core/consts/urls.dart';
 import '../../../data/models/auth_response/auth_response.dart';
 import '../../../data/models/comment_response/comment_response.dart';
 import '../../../di.dart';
+import 'dashboard_providers.dart';
 part 'comment_providers.g.dart';
 
 @riverpod
@@ -35,51 +37,80 @@ class Comments extends _$Comments {
     }
   }
 
-  Future<List<CommentModel>> _fetchCommentFromAPI(String slug) async {
+  Future<void> fetchCommentFromAPI() async {
+    state = const AsyncValue.loading();
+    String selectedSlug = ref.watch(selectedContentSlugProvider);
+
     String token =
         "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
-    var url = Uri.https(baseUrl, "$dashboardList/$slug");
+    var url = Uri.https(baseUrl, "$commentListUrl/$selectedSlug");
+
+    print("url fetch comment: $url");
 
     try {
       final response = await http.get(url, headers: {
         'Authorization': token,
         'Accept': 'application/json',
       });
+      log("fetch comment resp code: ${response.statusCode}");
+      log("fetch comment resp body: ${response.body}");
       if (response.statusCode == 200) {
-        return CommentResponse.fromJson(jsonDecode(response.body)).data ?? [];
+        state = await AsyncValue.guard(() async =>
+            CommentResponse.fromJson(jsonDecode(response.body)).data ??
+            <CommentModel>[]);
+      } else {
+        throw Error();
       }
-      throw Error();
-    } catch (_) {
+    } catch (e) {
+      log("error in comment: ${e.toString()}");
+
       state = AsyncValue.error(Error(), StackTrace.current);
     }
-    return [];
+    // return [];
   }
 
-  Future<void> postCommentAsMember(String slug, String komentar) async {
+  Future<void> postCommentAsMember(String slug, String komentar,
+      {required Function() onSuccess,
+      required Function(String) onFailure}) async {
     try {
       var authBox = sl<Box<AuthResponse>>();
       var dataFromBox = authBox.get(userDataKey);
       MemberData userData =
           dataFromBox?.data?.copyWith(token: "") ?? MemberData();
-      print("dataFromBox (login): ${dataFromBox?.toJson()}");
+      print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
       var token = userData.token ?? "";
-      var bodyParameters = {"slug": slug, "komentar": komentar};
+      var bodyParameters = {
+        "slug": slug,
+        "komentar": komentar,
+        "username": userData.members?.username ?? "",
+        "email": userData.members?.email ?? "",
+        "nik": "1592121300980200",
+      };
       var url = Uri.https(
         baseUrl,
-        registerUrl,
+        postCommentUrl,
       );
+      print("Post Comment URL :$url");
 
       // final json = await http.get(url);
       final response = await http.post(url,
           headers: {
             'Authorization': "Bearer $token",
             'Accept': 'application/json',
+            "Content-Type": "application/json",
           },
-          body: bodyParameters);
-      if (response.body != 201) {
+          body: jsonEncode(bodyParameters));
+      log("post comment resp code: ${response.statusCode}");
+      log("post comment resp body: ${response.body}");
+      if (response.statusCode != 201) {
+        onFailure(response.body);
         throw Error();
+      } else {
+        myToast("Sukses Menambahkan Komentar");
+        onSuccess();
       }
-    } catch (_) {
+    } catch (e) {
+      log("error in comment: ${e.toString()}");
       AsyncValue.error(Error(), StackTrace.current);
     }
   }

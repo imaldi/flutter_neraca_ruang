@@ -16,7 +16,7 @@ part 'all_content_list_providers.g.dart';
 class Contents extends _$Contents {
   @override
   FutureOr<List<Datum>> build() async {
-    return fetchContent();
+    return await fetchContent();
   }
 
   Future<List<Datum>> fetchContent(

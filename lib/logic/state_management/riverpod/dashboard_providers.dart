@@ -133,6 +133,11 @@ final tagsNameProvider = StateProvider((ref) => "");
 final tagsIconLinkProvider = StateProvider((ref) => "");
 
 final selectedContentIdProvider = StateProvider<int>((ref) => 0);
+final selectedContentSlugProvider = StateProvider<String>((ref) {
+  // var selectedId = ref.watch(selectedContentIdProvider);
+  //
+  return "";
+});
 
 final pageNumberProvider = StateProvider<int>(
   (ref) => 1,

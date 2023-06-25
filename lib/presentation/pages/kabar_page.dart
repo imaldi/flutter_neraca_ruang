@@ -13,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
+import '../../di.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 
@@ -74,6 +75,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
             }
             return SafeArea(
               child: SingleChildScrollView(
+                controller: sl<ScrollController>(),
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: extra),
                   child: Column(

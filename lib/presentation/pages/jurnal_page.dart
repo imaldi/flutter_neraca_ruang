@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
+import '../../di.dart';
 import '../widgets/IconWidget.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
@@ -71,6 +72,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
                 );
               }
               return SingleChildScrollView(
+                controller: sl<ScrollController>(),
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: extra),
                   child: Column(

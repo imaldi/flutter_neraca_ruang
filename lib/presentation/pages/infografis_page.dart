@@ -7,6 +7,7 @@ import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
+import '../../di.dart';
 import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../widgets/IconWidget.dart';
 import '../widgets/appbar_widget.dart';
@@ -72,6 +73,7 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
             }
             return SafeArea(
               child: SingleChildScrollView(
+                controller: sl<ScrollController>(),
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: extra),
                   child: Column(

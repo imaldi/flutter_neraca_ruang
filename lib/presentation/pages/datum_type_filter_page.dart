@@ -17,8 +17,12 @@ import '../../core/consts/urls.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/helper_functions/route_chooser.dart';
 import '../../core/router/app_router.dart';
+import '../../di.dart';
+import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
+import '../../logic/state_management/riverpod/comment_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/appbar_widget.dart';
+import '../widgets/my_toast.dart';
 
 @RoutePage()
 class DatumTypeFilterPage extends ConsumerStatefulWidget {
@@ -33,6 +37,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
   Widget build(BuildContext context) {
     var list = ref.watch(contentsProvider);
     var contentId = ref.watch(selectedContentIdProvider);
+    var isLogin = ref.watch(authStatusProvider).value != null;
 
     return DefaultTabController(
       length: mainTabLength,
@@ -89,6 +94,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
             }
             return SafeArea(
               child: SingleChildScrollView(
+                controller: sl<ScrollController>(),
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: extra),
                   child: Column(
@@ -608,9 +614,42 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                           ],
                                         ),
                                       ),
-                                      IconWidget(
-                                        iconCommments,
-                                        size: huge,
+                                      InkWell(
+                                        onTap: isLogin
+                                            ? contentId != content.id
+                                                ? () {
+                                                    ref
+                                                        .read(
+                                                            selectedContentIdProvider
+                                                                .notifier)
+                                                        .state = content
+                                                            .id ??
+                                                        0;
+                                                    ref
+                                                        .read(
+                                                            selectedContentSlugProvider
+                                                                .notifier)
+                                                        .state = content
+                                                            .slug ??
+                                                        "";
+                                                    ref
+                                                        .read(commentsProvider
+                                                            .notifier)
+                                                        .fetchCommentFromAPI();
+
+                                                    // ref
+                                                    //     .read(contentsProvider.notifier)
+                                                    //     .markContentAsRed(content.slug ?? "");
+                                                  }
+                                                : null
+                                            : () {
+                                                myToast(
+                                                    "maaf, silahkan login jika ingin memberi komentar");
+                                              },
+                                        child: IconWidget(
+                                          iconCommments,
+                                          size: huge,
+                                        ),
                                       ),
                                       FittedBox(
                                         child: Row(
