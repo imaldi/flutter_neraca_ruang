@@ -16,6 +16,7 @@ import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../di.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
+import '../widgets/social_media_panel_widget.dart';
 
 @RoutePage()
 class KabarPage extends ConsumerStatefulWidget {
@@ -104,42 +105,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
                           ),
                         ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset("assets/images/icon_facebook.png"),
-                                Image.asset("assets/images/icon_ig.png"),
-                                Image.asset("assets/images/icon_twitter.png"),
-                                Image.asset("assets/images/icon_tiktok.png"),
-                                Image.asset("assets/images/icon_youtube.png"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Text(
-                              "neracaruang@neracaruang.com",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      decoration: TextDecoration.underline),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Text(
-                              "Copyright © PT. Semesta Teknologi Indonesia",
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ),
-                        ],
-                      ),
+                      SocialMediaPanelWidget(),
                     ],
                   ),
                 ),

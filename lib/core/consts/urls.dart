@@ -16,3 +16,15 @@ const addLike = "/api/portal/updatelike";
 const addSharedCountUrl = "/api/portal/updateshared";
 const commentListUrl = "/api/portal/listkomentar";
 const postCommentUrl = "/api/portal/komentar";
+
+const fbUrl = "m.facebook.com";
+const fbNeracaRuang =
+    "/neracaruang/?show_switched_toast=0&show_invite_to_follow=0&show_switched_tooltip=0&show_podcast_settings=0&show_community_review_changes=0&show_community_rollback=0&show_follower_visibility_disclosure=0&refsrc=deprecated&_rdr";
+const ytUrl = "www.youtube.com";
+const ytNeracaRuang = "/@jilalmardhani6387";
+const igUrl = "www.instagram.com";
+const igNeracaRuang = "/neracaruang";
+const twUrl = "twitter.com";
+const twNeracaRuang = "/neracaruang";
+const tkUrl = "www.tiktok.com";
+const tkNeracaRuang = "/@neracaruang";

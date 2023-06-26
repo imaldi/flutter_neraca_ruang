@@ -17,6 +17,7 @@ import '../../di.dart';
 import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
+import '../widgets/social_media_panel_widget.dart';
 import '../widgets/tab_menu_item.dart';
 
 @RoutePage()
@@ -136,46 +137,7 @@ class GreenPageState extends ConsumerState<GreenPage> {
                               ),
                             ),
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                        "assets/images/icon_facebook.png"),
-                                    Image.asset("assets/images/icon_ig.png"),
-                                    Image.asset(
-                                        "assets/images/icon_twitter.png"),
-                                    Image.asset(
-                                        "assets/images/icon_tiktok.png"),
-                                    Image.asset(
-                                        "assets/images/icon_youtube.png"),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Text(
-                                  "neracaruang@neracaruang.com",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(
-                                          decoration: TextDecoration.underline),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Text(
-                                  "Copyright © PT. Semesta Teknologi Indonesia",
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                              ),
-                            ],
-                          ),
+                          SocialMediaPanelWidget(),
                         ],
                       ),
                     ),
