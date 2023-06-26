@@ -140,11 +140,14 @@ class ContentWidget extends ConsumerWidget {
                           },
                           child: Row(
                             children: [
-                              IconWidget(
-                                menuIconNameChooser(content.tipe ?? "",
-                                    isGreenMode: isGreenMode),
-                                size: typeIconHeightFromFigma,
-                                // isOnlineSource: true,
+                              SizedBox(
+                                // color: Colors.green,
+                                height: tagsIconHeightFromFigma,
+                                child: IconWidget(
+                                  menuIconNameChooser(content.tipe ?? "",
+                                      isGreenMode: isGreenMode),
+                                  // isOnlineSource: true,
+                                ),
                               ),
                             ],
                           ),
@@ -183,95 +186,95 @@ class ContentWidget extends ConsumerWidget {
                         ),
                 ),
               ),
-              Expanded(
-                child: FittedBox(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      JustTheTooltip(
-                        tailBaseWidth: 0,
-                        tailLength: 0,
-                        elevation: 0,
-                        backgroundColor: Colors.white,
-                        borderRadius: BorderRadius.zero,
-                        // preferredDirection: AxisDirection.up,
-                        content: Text(content.tagsPihak?.tagsName ?? ""),
-                        child: IconWidget(
-                          content.tagsPihak?.tagsIcon1 ?? "",
-                          margin: const EdgeInsets.symmetric(horizontal: small),
-                          isOnlineSource: true,
-                          onTap: () {
-                            ref.read(tagsIdProvider.notifier).state =
-                                content.tagsPihak?.tagsId ?? 0;
-                            ref.read(tagsNameProvider.notifier).state =
-                                content.tagsPihak?.tagsName ?? "";
-                            ref.read(tagsIconLinkProvider.notifier).state =
-                                content.tagsPihak?.tagsIcon1 ?? "";
-                            ref.invalidate(kotaIdProvider);
-                            ref.invalidate(kotaNameProvider);
-                            context.router
-                                .replace(routeChooser(content.tipe ?? ""));
-                          },
-                        ),
+              FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    JustTheTooltip(
+                      tailBaseWidth: 0,
+                      tailLength: 0,
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      borderRadius: BorderRadius.zero,
+                      // preferredDirection: AxisDirection.up,
+                      content: Text(content.tagsPihak?.tagsName ?? ""),
+                      child: IconWidget(
+                        content.tagsPihak?.tagsIcon1 ?? "",
+                        margin: const EdgeInsets.symmetric(horizontal: small),
+                        isOnlineSource: true,
+                        onTap: () {
+                          ref.read(tagsIdProvider.notifier).state =
+                              content.tagsPihak?.tagsId ?? 0;
+                          ref.read(tagsNameProvider.notifier).state =
+                              content.tagsPihak?.tagsName ?? "";
+                          ref.read(tagsIconLinkProvider.notifier).state =
+                              content.tagsPihak?.tagsIcon1 ?? "";
+                          ref.invalidate(kotaIdProvider);
+                          ref.invalidate(kotaNameProvider);
+                          context.router
+                              .replace(routeChooser(content.tipe ?? ""));
+                        },
                       ),
-                      JustTheTooltip(
-                        tailBaseWidth: 0,
-                        tailLength: 0,
-                        elevation: 0,
-                        backgroundColor: Colors.white,
-                        borderRadius: BorderRadius.zero,
-                        content: Text(content.tagsTopik?.tagsName ?? ""),
-                        child: IconWidget(
-                          content.tagsTopik?.tagsIcon1 ?? "",
-                          margin: const EdgeInsets.symmetric(horizontal: small),
-                          isOnlineSource: true,
-                          onTap: () {
-                            ref.read(tagsIdProvider.notifier).state =
-                                content.tagsTopik?.tagsId ?? 0;
-                            ref.read(tagsNameProvider.notifier).state =
-                                content.tagsTopik?.tagsName ?? "";
-                            ref.read(tagsIconLinkProvider.notifier).state =
-                                content.tagsTopik?.tagsIcon1 ?? "";
-                            ref.invalidate(kotaIdProvider);
-                            ref.invalidate(kotaNameProvider);
-                            context.router
-                                .replace(routeChooser(content.tipe ?? ""));
-                          },
-                        ),
+                    ),
+                    JustTheTooltip(
+                      tailBaseWidth: 0,
+                      tailLength: 0,
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      borderRadius: BorderRadius.zero,
+                      content: Text(content.tagsTopik?.tagsName ?? ""),
+                      child: IconWidget(
+                        content.tagsTopik?.tagsIcon1 ?? "",
+                        margin: const EdgeInsets.symmetric(horizontal: small),
+                        isOnlineSource: true,
+                        onTap: () {
+                          ref.read(tagsIdProvider.notifier).state =
+                              content.tagsTopik?.tagsId ?? 0;
+                          ref.read(tagsNameProvider.notifier).state =
+                              content.tagsTopik?.tagsName ?? "";
+                          ref.read(tagsIconLinkProvider.notifier).state =
+                              content.tagsTopik?.tagsIcon1 ?? "";
+                          ref.invalidate(kotaIdProvider);
+                          ref.invalidate(kotaNameProvider);
+                          context.router
+                              .replace(routeChooser(content.tipe ?? ""));
+                        },
                       ),
-                      JustTheTooltip(
-                        tailBaseWidth: 0,
-                        tailLength: 0,
-                        elevation: 0,
-                        backgroundColor: Colors.white,
-                        borderRadius: BorderRadius.zero,
-                        content: Text(content.tagsOtonomi?.tagsName ?? ""),
-                        child: IconWidget(
-                          content.tagsOtonomi?.tagsIcon1 ?? "",
-                          margin: const EdgeInsets.symmetric(horizontal: small),
-                          isOnlineSource: true,
-                          onTap: () {
-                            ref.read(tagsIdProvider.notifier).state =
-                                content.tagsOtonomi?.tagsId ?? 0;
-                            ref.read(tagsNameProvider.notifier).state =
-                                content.tagsOtonomi?.tagsName ?? "";
-                            ref.read(tagsIconLinkProvider.notifier).state =
-                                content.tagsOtonomi?.tagsIcon1 ?? "";
-                            ref.invalidate(kotaIdProvider);
-                            ref.invalidate(kotaNameProvider);
-                            context.router
-                                .replace(routeChooser(content.tipe ?? ""));
-                          },
-                        ),
+                    ),
+                    JustTheTooltip(
+                      tailBaseWidth: 0,
+                      tailLength: 0,
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      borderRadius: BorderRadius.zero,
+                      content: Text(content.tagsOtonomi?.tagsName ?? ""),
+                      child: IconWidget(
+                        content.tagsOtonomi?.tagsIcon1 ?? "",
+                        margin: const EdgeInsets.symmetric(horizontal: small),
+                        isOnlineSource: true,
+                        onTap: () {
+                          ref.read(tagsIdProvider.notifier).state =
+                              content.tagsOtonomi?.tagsId ?? 0;
+                          ref.read(tagsNameProvider.notifier).state =
+                              content.tagsOtonomi?.tagsName ?? "";
+                          ref.read(tagsIconLinkProvider.notifier).state =
+                              content.tagsOtonomi?.tagsIcon1 ?? "";
+                          ref.invalidate(kotaIdProvider);
+                          ref.invalidate(kotaNameProvider);
+                          context.router
+                              .replace(routeChooser(content.tipe ?? ""));
+                        },
                       ),
-                    ]
-                        .map((e) => Container(
-                              constraints: const BoxConstraints(
-                                  minHeight: tagsIconHeightFromFigma),
-                              child: e,
-                            ))
-                        .toList(),
-                  ),
+                    ),
+                  ]
+                      .map((e) => Container(
+                            constraints: const BoxConstraints(
+                              minHeight: tagsIconHeightFromFigma,
+                              maxHeight: tagsIconHeightFromFigma,
+                            ),
+                            child: e,
+                          ))
+                      .toList(),
                 ),
               ),
             ],
