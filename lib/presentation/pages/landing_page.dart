@@ -6,6 +6,7 @@ import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_p
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/appbar_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/bottom_bar_widget.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/main_drawer.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -48,54 +49,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
           context,
           ref: ref,
         ),
-        drawer: Drawer(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                DrawerHeader(
-                    margin: const EdgeInsets.all(0),
-                    decoration: BoxDecoration(
-                        border: Border.all(style: BorderStyle.none)),
-                    child: const Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Icon(Icons.dehaze),
-                      ],
-                    )),
-                DrawerContent(),
-                const SizedBox(
-                  height: 2 * extra,
-                ),
-                Container(
-                    padding: const EdgeInsets.all(big),
-                    margin: const EdgeInsets.symmetric(vertical: big),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(huge))),
-                    child: isLogin
-                        ? InkWell(
-                            onTap: () async {
-                              ref.read(authStatusProvider.notifier).logout(
-                                  successCallback: () {
-                                myToast("Log Out Success");
-                                context.router.pop();
-                              });
-                              // context.router.replace(const LoginRoute());
-                            },
-                            child: const Text("Log Out"))
-                        : InkWell(
-                            onTap: () {
-                              context.router.push(const LoginRoute());
-                            },
-                            child: const Text("Masuk / Daftar"))),
-                SocialMediaPanelWidget(),
-              ],
-            ),
-          ),
-        ),
+        drawer: MainDrawer(),
         body:
 
             /// Testing state persistence from Hive
