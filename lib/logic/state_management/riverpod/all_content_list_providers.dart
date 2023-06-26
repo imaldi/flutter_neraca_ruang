@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -170,6 +171,7 @@ class Contents extends _$Contents {
 
   Future<void> likeContent(Datum content) async {
     /// kirim query untuk like content
+    /// TODO perbaiki nih token yang berantakan di mana mana ini!!!
     String token =
         "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
 
@@ -231,6 +233,29 @@ class Contents extends _$Contents {
     } catch (_) {
       state = AsyncValue.error(Error(), StackTrace.current);
       print("There is an Error");
+    }
+  }
+
+  Future<void> addShareCount(String slug) async {
+    /// TODO perbaiki nih token yang berantakan di mana mana ini!!!
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+
+    try {
+      var url = Uri.https(baseUrl, "$addSharedCountUrl/$slug");
+
+      // final json = await http.get(url);
+      final response = await http.patch(url, headers: {
+        'Authorization': token,
+        'Accept': 'application/json',
+      });
+      print("URL like content contentProvider: $url");
+      log("result JSON: ${jsonDecode(response.body)}");
+      if (response.statusCode != 200) throw Exception();
+      // myToast("Update Shared Count Success");
+    } catch (_) {
+      state = AsyncValue.error(Error(), StackTrace.current);
+      // throw Exception()
     }
   }
 

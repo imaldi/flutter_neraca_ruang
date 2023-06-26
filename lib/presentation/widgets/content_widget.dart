@@ -500,9 +500,13 @@ class ContentWidget extends ConsumerWidget {
               IconWidget(
                 isGreenMode ? iconTeruskan2 : iconTeruskan,
                 size: huge,
-                onTap: () {
-                  Share.share(
+                onTap: () async {
+                  await Share.share(
                       'Neraca Ruang at: https://neracaruang.com/${content.tipe ?? ""}/${content.slug}');
+                  // .then((v) => );
+                  ref
+                      .read(contentsProvider.notifier)
+                      .addShareCount(content.slug ?? "");
                 },
               ),
             ]

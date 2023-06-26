@@ -13,5 +13,6 @@ const adsenseUrl = "/api/admin/adsense";
 const provinceListUrl = "/api/portal/getpropinsi";
 const kabKotaListUrl = "/api/portal/getkota";
 const addLike = "/api/portal/updatelike";
+const addSharedCountUrl = "/api/portal/updateshared";
 const commentListUrl = "/api/portal/listkomentar";
 const postCommentUrl = "/api/portal/komentar";
