@@ -9,6 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/consts/urls.dart';
 import '../../../data/models/dashboard_response/dashboard_response.dart';
 import '../../../di.dart';
+import 'async_state_auth_providers.dart';
 
 part 'all_content_list_providers.g.dart';
 
@@ -16,6 +17,11 @@ part 'all_content_list_providers.g.dart';
 class Contents extends _$Contents {
   @override
   FutureOr<List<Datum>> build() async {
+    var isLogin = ref.watch(authStatusProvider).value != null;
+    if (!isLogin) {
+      var box = sl<Box<String>>();
+      box.clear();
+    }
     return await fetchContent();
   }
 

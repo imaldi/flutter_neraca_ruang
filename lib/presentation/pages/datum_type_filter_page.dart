@@ -660,7 +660,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                         size: huge,
                                         onTap: () {
                                           Share.share(
-                                              'Neraca Ruang at ${content.sourceUrl}');
+                                              'Neraca Ruang at: https://neracaruang.com/${content.tipe ?? ""}/${content.slug}');
                                         },
                                       ),
                                     ]

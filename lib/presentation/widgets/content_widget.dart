@@ -501,7 +501,8 @@ class ContentWidget extends ConsumerWidget {
                 isGreenMode ? iconTeruskan2 : iconTeruskan,
                 size: huge,
                 onTap: () {
-                  Share.share('Neraca Ruang at ${content.sourceUrl}');
+                  Share.share(
+                      'Neraca Ruang at: https://neracaruang.com/${content.tipe ?? ""}/${content.slug}');
                 },
               ),
             ]
