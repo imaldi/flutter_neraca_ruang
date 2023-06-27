@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_neraca_ruang/data/models/auth_response/auth_response.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -26,6 +27,7 @@ final provinsiIdProvider = StateProvider((ref) => 0);
 
 var registerEvent = StateProvider<bool>((ref) => false);
 var loginEvent = StateProvider<bool>((ref) => false);
+var isChangePasswordSuccess = StateProvider<bool?>((ref) => null);
 
 /// TODO, nanti pisahkn method register dan login,
 /// TODO serta buat method init yg pertama2 ngambil dari box, lalu alihkam ke login page kalau null
@@ -295,18 +297,18 @@ class AuthStatus extends _$AuthStatus {
       baseUrl,
       updateMemberUrl,
     );
-
-    // final json = await http.get(url);
-    final response = await http.post(url,
-        headers: {
-          'Authorization': token,
-          'Accept': 'application/json',
-        },
-        body: bodyParameters);
-    print("URL update member: $url");
-    log("result JSON: ${jsonDecode(response.body)}");
-    // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
     try {
+      // final json = await http.get(url);
+      final response = await http.post(url,
+          headers: {
+            'Authorization': token,
+            'Accept': 'application/json',
+          },
+          body: bodyParameters);
+      print("URL update member: $url");
+      log("result JSON: ${jsonDecode(response.body)}");
+      // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
+
       if (response.statusCode == 201) {
         var newMemberData = dataFromBox?.data?.members?.copyWith(
           fullname: bodyParameters['fullname'],
@@ -333,6 +335,43 @@ class AuthStatus extends _$AuthStatus {
     } on TypeError {
       state = AsyncValue.error(TypeError, StackTrace.current);
       if (failureCallback != null) failureCallback();
+    }
+  }
+
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+    required String confPassword,
+  }) async {
+    var url = Uri.https(
+      baseUrl,
+      changePasswordUrl,
+    );
+    Map<String, String> bodyParameters = {};
+    var authBox = sl<Box<AuthResponse>>();
+    var dataFromBox = authBox.get(userDataKey);
+    print("dataFromBox (update member): ${dataFromBox?.toJson()}");
+
+    String token = dataFromBox?.data?.token ?? "";
+    // "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+
+    try {
+      final response = await http.post(url,
+          headers: {
+            'Authorization': token,
+            'Accept': 'application/json',
+          },
+          body: bodyParameters);
+      if (response.statusCode == 201) {
+        ref.read(isChangePasswordSuccess.notifier).state = true;
+        myToast("Password berhasil di ubah");
+      } else {
+        ref.read(isChangePasswordSuccess.notifier).state = false;
+        myToast("Password gagal di ubah");
+      }
+    } catch (_) {
+      ref.read(isChangePasswordSuccess.notifier).state = false;
+      myToast("Password gagal di ubah");
     }
   }
 }
