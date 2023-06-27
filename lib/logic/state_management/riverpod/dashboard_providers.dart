@@ -120,11 +120,12 @@ final kotaNameProfileProvider = FutureProvider<String?>(
         "Authorization": token,
         "Accept": "application/json",
       });
+      print("kota name url: $url");
+      print("kota name resp: ${response.body}");
       if (response.statusCode == 201) {
         return KotaKabupatenSingleResponse.fromJson(jsonDecode(response.body))
-                .data
-                ?.name ??
-            "";
+            .data
+            ?.name;
       }
     } catch (_) {
       return null;
@@ -384,7 +385,7 @@ final kabKotaListProvider = FutureProvider<List<KotaKabupaten>>((ref) async {
       'Authorization': token,
       'Accept': 'application/json',
     });
-    print("URL province: $url");
+    print("URL kab kota list: $url");
     print("prov resp body: ${response.body}");
 
     if (response.statusCode == 200) {

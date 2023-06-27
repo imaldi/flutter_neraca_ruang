@@ -227,4 +227,112 @@ class AuthStatus extends _$AuthStatus {
       if (failureCallback != null) failureCallback();
     }
   }
+
+  Future<void> editMember({
+    String fullname = "",
+    String email = "",
+    int kotaId = 0,
+    int provId = 0,
+    String noHp = "",
+    String kodePos = "",
+    Function? successCallback,
+    Function? failureCallback,
+  }) async {
+    const AsyncValue.loading();
+
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+    Map<String, String> bodyParameters = {};
+    var tanggalLahir = ref.watch(tanggalLahirParamProvider);
+    print("tanggalLahir: $tanggalLahir");
+    var authBox = sl<Box<AuthResponse>>();
+    var dataFromBox = authBox.get(userDataKey);
+    print("dataFromBox (update member): ${dataFromBox?.toJson()}");
+
+    if ((fullname).isNotEmpty) {
+      bodyParameters['fullname'] = fullname;
+    } else {
+      bodyParameters['fullname'] = dataFromBox?.data?.members?.fullname ?? "";
+    }
+    if (email.isNotEmpty) {
+      bodyParameters['email'] = email;
+    } else {
+      bodyParameters['email'] = dataFromBox?.data?.members?.email ?? "";
+    }
+    if (noHp.isNotEmpty) {
+      bodyParameters['no_hp'] = noHp;
+    } else {
+      bodyParameters['no_hp'] = dataFromBox?.data?.members?.noHp ?? "";
+    }
+
+    if (noHp.isNotEmpty) {
+      bodyParameters['kode_pos'] = kodePos;
+    } else {
+      bodyParameters['kode_pos'] = dataFromBox?.data?.members?.kodePos ?? "";
+    }
+
+    if (tanggalLahir.isNotEmpty) {
+      bodyParameters['tanggal_lahir'] = tanggalLahir;
+    } else {
+      bodyParameters['tanggal_lahir'] =
+          dataFromBox?.data?.members?.tanggalLahir ?? "";
+    }
+
+    if (provId != 0) {
+      bodyParameters['propinsi_id'] = provId.toString();
+    } else {
+      bodyParameters['propinsi_id'] =
+          dataFromBox?.data?.members?.propinsiId.toString() ?? "";
+    }
+    if (kotaId != 0) {
+      bodyParameters['kota_id'] = kotaId.toString();
+    } else {
+      bodyParameters['kota_id'] =
+          dataFromBox?.data?.members?.kotaId.toString() ?? "";
+    }
+
+    var url = Uri.https(
+      baseUrl,
+      updateMemberUrl,
+    );
+
+    // final json = await http.get(url);
+    final response = await http.post(url,
+        headers: {
+          'Authorization': token,
+          'Accept': 'application/json',
+        },
+        body: bodyParameters);
+    print("URL update member: $url");
+    log("result JSON: ${jsonDecode(response.body)}");
+    // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
+    try {
+      if (response.statusCode == 201) {
+        var newMemberData = dataFromBox?.data?.members?.copyWith(
+          fullname: bodyParameters['fullname'],
+          email: bodyParameters['email'],
+          noHp: bodyParameters['no_hp'],
+          kodePos: bodyParameters['kode_pos'],
+          tanggalLahir: bodyParameters['tanggal_lahir'],
+          propinsiId:
+              int.tryParse(bodyParameters['propinsi_id'] ?? "0", radix: 0),
+          kotaId: int.tryParse(bodyParameters['kota_id'] ?? "0", radix: 0),
+        );
+        var newData = dataFromBox?.copyWith.data?.call(members: newMemberData);
+        await authBox.delete(userDataKey);
+        await authBox.put(userDataKey, newData ?? AuthResponse());
+        state = await AsyncValue.guard(() async {
+          return authBox.get(userDataKey);
+        });
+        if (successCallback != null) successCallback();
+      }
+
+      if (response.statusCode == 422) {
+        throw TypeError();
+      }
+    } on TypeError {
+      state = AsyncValue.error(TypeError, StackTrace.current);
+      if (failureCallback != null) failureCallback();
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/async_state_auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/colors.dart';
@@ -6,13 +7,16 @@ import '../../core/consts/sizes.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 
 class ProfileImageWidget extends ConsumerWidget {
-  const ProfileImageWidget({Key? key}) : super(key: key);
+  final bool isDisplayingUbahButton;
+  const ProfileImageWidget({this.isDisplayingUbahButton = false, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textColor = Color(primaryColor);
     final textStyle = TextStyle(color: textColor);
     final isEnabled = ref.watch(profileEditMode);
+    final userData = ref.watch(authStatusProvider);
 
     return Stack(
       children: [
@@ -50,7 +54,7 @@ class ProfileImageWidget extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      "Aldi Majid",
+                      "${userData.value?.data?.members?.username ?? ""}",
                       style: textStyle,
                     )
                   ],
@@ -79,7 +83,7 @@ class ProfileImageWidget extends ConsumerWidget {
                     height: huge,
                   ),
                   Visibility(
-                    visible: !isEnabled,
+                    visible: !isEnabled && isDisplayingUbahButton,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: textColor,

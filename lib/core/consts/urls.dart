@@ -2,6 +2,7 @@
 const baseUrl = "api.neracaruang.com"; // prod
 const loginUrl = "/api/member/login";
 const registerUrl = "/api/member/register";
+const updateMemberUrl = "/api/member/update";
 const dashboardList = "/api/portal/content";
 const updateLikeUrl = "/api/portal/updatelike";
 const updateUnlikeUrl = "/api/portal/updateunlike";

@@ -92,7 +92,9 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              ProfileImageWidget(),
+              ProfileImageWidget(
+                isDisplayingUbahButton: true,
+              ),
               Visibility(
                 visible: isEnabled,
                 child: Align(
@@ -121,206 +123,60 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: normal),
                                     child: Text(key))),
-                            (key == "Kota / Kab." && isEnabled)
-                                ? Expanded(
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: provinceList.when(
-                                              data: (data) {
-                                                return Column(
-                                                  children: [
-                                                    SearchableDropdown(
-                                                      // "Provinsi",
-                                                      data
-                                                          .map((e) =>
-                                                              e.name ?? "")
-                                                          .toSet(),
-                                                      provNameProvider,
-                                                      hintText: "Provinsi",
-                                                      contentPadding:
-                                                          const EdgeInsets.all(
-                                                              medium),
-                                                      onItemTapped: (val) {
-                                                        ref
-                                                            .read(
-                                                                kotaNameProvider
-                                                                    .notifier)
-                                                            .state = null;
-                                                        ref
-                                                            .read(
-                                                                provNameProvider
-                                                                    .notifier)
-                                                            .state = val;
-                                                        ref
-                                                            .read(provIdProvider
-                                                                .notifier)
-                                                            .state = data
-                                                                .firstWhere(
-                                                                    (element) =>
-                                                                        (element.name ??
-                                                                            "") ==
-                                                                        val)
-                                                                .id ??
-                                                            0;
-                                                      },
-                                                    ),
-                                                    kabKotaList.when(
-                                                        data: (data) {
-                                                          // return Text("Kab/Kota List: $data");
-                                                          return SearchableDropdown(
-                                                            // "Kab/Kota",
-                                                            data
-                                                                .map((e) =>
-                                                                    e.name ??
-                                                                    "")
-                                                                .toSet(),
-                                                            kotaNameProvider,
-                                                            hintText:
-                                                                "Kabupaten / Kota",
-                                                            contentPadding:
-                                                                const EdgeInsets
-                                                                        .all(
-                                                                    medium),
-                                                            onItemTapped:
-                                                                (val) {
-                                                              ref
-                                                                  .read(kotaNameProvider
-                                                                      .notifier)
-                                                                  .state = val;
-
-                                                              ref
-                                                                  .read(kotaIdParamProvider
-                                                                      .notifier)
-                                                                  .state = data
-                                                                      .firstWhere((element) =>
-                                                                          (element.name ??
-                                                                              "") ==
-                                                                          val)
-                                                                      .id ??
-                                                                  0;
-                                                            },
-                                                          );
-                                                        },
-                                                        error: (o, st) =>
-                                                            SearchableDropdown(
-                                                                <String>{},
-                                                                kotaNameProvider,
-                                                                hintText:
-                                                                    "Kabupaten / Kota",
-                                                                contentPadding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        medium)),
-                                                        loading: () =>
-                                                            SearchableDropdown(
-                                                              // "Kab/Kota",
-                                                              <String>{},
-                                                              kotaNameProvider,
-                                                              hintText:
-                                                                  "Kabupaten / Kota",
-                                                              contentPadding:
-                                                                  const EdgeInsets
-                                                                          .all(
-                                                                      medium),
-                                                            ))
-                                                  ],
-                                                );
-                                                // return Text(data.toString());
-                                              },
-                                              error: (o, st) => Column(
-                                                    children: [
-                                                      SearchableDropdown(
-                                                        // "Provinsi",
-                                                        {},
-                                                        provNameProvider,
-                                                        hintText: "Provinsi",
-                                                        contentPadding:
-                                                            const EdgeInsets
-                                                                .all(medium),
-                                                      ),
-                                                      kabKotaList.when(
-                                                          data: (data) {
-                                                            // return Text("Kab/Kota List: $data");
-                                                            return SearchableDropdown(
-                                                              // "Kab/Kota",
-                                                              {},
-                                                              kotaNameProvider,
-                                                              hintText:
-                                                                  "Kabupaten / Kota",
-                                                            );
-                                                          },
-                                                          error: (o, st) =>
-                                                              SearchableDropdown(
-                                                                // "Kab/Kota",
-                                                                {},
-                                                                kotaNameProvider,
-                                                                hintText:
-                                                                    "Kabupaten / Kota",
-                                                              ),
-                                                          loading: () =>
-                                                              SearchableDropdown(
-                                                                // "Kab/Kota",
-                                                                {},
-                                                                kotaNameProvider,
-                                                                hintText:
-                                                                    "Kabupaten / Kota",
-                                                              ))
-                                                    ],
-                                                  ),
-                                              loading: () => Column(
-                                                    children: [
-                                                      SearchableDropdown(
-                                                        // "Provinsi",
-                                                        {},
-                                                        provNameProvider,
-                                                        hintText: "Provinsi",
-                                                        contentPadding:
-                                                            const EdgeInsets
-                                                                .all(medium),
-                                                      ),
-                                                      kabKotaList.when(
-                                                          data: (data) {
-                                                            // return Text("Kab/Kota List: $data");
-                                                            return SearchableDropdown(
-                                                              // "Kab/Kota",
-                                                              {},
-                                                              kotaNameProvider,
-                                                              hintText:
-                                                                  "Kabupaten / Kota",
-                                                            );
-                                                          },
-                                                          error: (o, st) =>
-                                                              SearchableDropdown(
-                                                                // "Kab/Kota",
-                                                                {},
-                                                                kotaNameProvider,
-                                                                hintText:
-                                                                    "Kabupaten / Kota",
-                                                              ),
-                                                          loading: () =>
-                                                              SearchableDropdown(
-                                                                // "Kab/Kota",
-                                                                {},
-                                                                kotaNameProvider,
-                                                                hintText:
-                                                                    "Kabupaten / Kota",
-                                                              ))
-                                                    ],
-                                                  )),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                : Expanded(
-                                    flex: 4,
-                                    child: RoundedTextFormField(
-                                      isEnabled: isEnabled,
-                                      controller: value,
-                                      hint: key,
-                                      borderRadius: medium,
-                                    ),
-                                  ),
+                            // (key == "Kota / Kab." && isEnabled)
+                            //     ? Expanded(
+                            //         child: Row(
+                            //           children: [
+                            //             Expanded(
+                            //               child: provinceList.when(
+                            //                   data: (data) {
+                            //                     return Column(
+                            //                       children: [
+                            //                         SearchableDropdown(
+                            //                           // "Provinsi",
+                            //                           data
+                            //                               .map((e) =>
+                            //                                   e.name ?? "")
+                            //                               .toSet(),
+                            //                           provNameProvider,
+                            //                           hintText: "Provinsi",
+                            //                           contentPadding:
+                            //                               const EdgeInsets.all(
+                            //                                   medium),
+                            //                           onItemTapped: (val) {
+                            //                             ref
+                            //                                 .read(
+                            //                                     kotaNameProvider
+                            //                                         .notifier)
+                            //                                 .state = null;
+                            //                             ref
+                            //                                 .read(
+                            //                                     provNameProvider
+                            //                                         .notifier)
+                            //                                 .state = val;
+                            //                             ref
+                            //                                 .read(provIdProvider
+                            //                                     .notifier)
+                            //                                 .state = data
+                            //                                     .firstWhere(
+                            //                                         (element) =>
+                            //                                             (element.name ??
+                            //                                                 "") ==
+                            //                                             val)
+                            //                                     .id ??
+                            //                                 0;
+                            //                           },
+                            //                         ),
+                            // :
+                            Expanded(
+                              flex: 4,
+                              child: RoundedTextFormField(
+                                isEnabled: isEnabled,
+                                controller: value,
+                                hint: key,
+                                borderRadius: medium,
+                              ),
+                            ),
                           ],
                         ),
                       )))
