@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../data/models/adsense_response/adsense_response.dart';
 import '../../../data/models/dashboard_response/dashboard_response.dart';
+import '../../../data/models/kota_kabupaten_response/kota_kabupaten_single_response.dart';
 import '../../../data/models/province_response/province_response.dart';
 
 // TODO: Buat FutureProvider untuk fetch semua konten yang tampil di dashboard
@@ -108,6 +109,55 @@ final kotaIdProvider = StateProvider<int>(
   },
 );
 
+final kotaNameProfileProvider = FutureProvider<String?>(
+  (ref) async {
+    // var provId = ref.watch(provIdParamProvider);
+    var kotaId = ref.watch(kotaIdParamProvider);
+    var token = "Bearer 64|ual6zASlLlLpl3hMCX8Y629HrUlaWUPHHI8u946W";
+    try {
+      var url = Uri.https(baseUrl, "/api/admin/datakota/$kotaId");
+      var response = await http.get(url, headers: {
+        "Authorization": token,
+        "Accept": "application/json",
+      });
+      if (response.statusCode == 201) {
+        return KotaKabupatenSingleResponse.fromJson(jsonDecode(response.body))
+                .data
+                ?.name ??
+            "";
+      }
+    } catch (_) {
+      return null;
+    }
+    return null;
+  },
+);
+
+final provNameProfileProvider = FutureProvider<String?>(
+  (ref) async {
+    // var provId = ref.watch(provIdParamProvider);
+    var provId = ref.watch(provIdParamProvider);
+    var token = "Bearer 64|ual6zASlLlLpl3hMCX8Y629HrUlaWUPHHI8u946W";
+    try {
+      var url = Uri.https(baseUrl, "/api/admin/datapropinsi/$provId");
+      var response = await http.get(url, headers: {
+        "Authorization": token,
+        "Accept": "application/json",
+      });
+      if (response.statusCode == 201) {
+        return jsonDecode(response.body)["message"]["name"] ?? "";
+      }
+    } catch (_) {
+      return null;
+    }
+    return null;
+  },
+);
+final provIdParamProvider = StateProvider<int>(
+  (ref) {
+    return 0;
+  },
+);
 final kotaIdParamProvider = StateProvider<int>(
   (ref) {
     return 0;

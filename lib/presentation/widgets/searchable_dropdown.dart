@@ -11,7 +11,7 @@ class SearchableDropdown extends ConsumerStatefulWidget {
   final String? label;
   final Set<String> items;
   final void Function(String?)? onItemTapped;
-  final StateProvider<String?> provider;
+  final ProviderListenable<String?> provider;
   final InputDecoration? decoration;
   final EdgeInsets? contentPadding;
   final String? hintText;
