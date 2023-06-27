@@ -307,7 +307,7 @@ class ContentWidget extends ConsumerWidget {
                       }
                     : null,
                 child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: medium),
+                  margin: const EdgeInsets.only(top: normal, bottom: medium),
                   child: Text(
                     '${content.judul}',
                     style: isGreenMode

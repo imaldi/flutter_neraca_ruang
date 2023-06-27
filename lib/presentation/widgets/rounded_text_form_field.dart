@@ -16,10 +16,12 @@ class RoundedTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
+  final EdgeInsets? padding;
   const RoundedTextFormField(
       {this.decoration,
       this.controller,
       this.hint,
+      this.padding,
       this.autovalidateMode,
       this.maxLines = 1,
       this.onChanged,
@@ -38,7 +40,7 @@ class RoundedTextFormField extends StatelessWidget {
         borderSide: BorderSide(color: Color(primaryColor), width: 4),
         borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? huge)));
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: padding ?? const EdgeInsets.symmetric(vertical: 8.0),
       child: Form(
         key: key,
         child: TextFormField(

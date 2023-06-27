@@ -106,7 +106,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: normal),
+                        margin: const EdgeInsets.symmetric(horizontal: medium),
                         child: MyButton(
                           onPressed: () {
                             ref.read(profileEditMode.notifier).state = false;
@@ -117,7 +117,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                     ),
                     Expanded(
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: normal),
+                        margin: const EdgeInsets.symmetric(horizontal: medium),
                         child: MyButton(
                             child: Text(
                               "Batal",

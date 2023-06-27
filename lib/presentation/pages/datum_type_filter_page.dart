@@ -530,8 +530,8 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                   content.slug ?? "");
                                         },
                                         child: Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: medium),
+                                          margin: const EdgeInsets.only(
+                                              top: normal, bottom: medium),
                                           child: Text(
                                             '${content.judul}',
                                             style:

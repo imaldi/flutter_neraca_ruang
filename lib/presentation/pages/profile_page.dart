@@ -22,8 +22,10 @@ class ProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textColor = Color(primaryColor);
-    final textStyle = TextStyle(color: textColor);
-    final boxDecoration = BoxDecoration(border: Border.all(color: textColor));
+    final textStyle =
+        TextStyle(color: textColor, fontSize: big, fontWeight: FontWeight.w500);
+    final boxDecoration =
+        BoxDecoration(border: Border.all(color: textColor, width: 4.0));
     return DefaultTabController(
       length: mainTabLength,
       child: Scaffold(
@@ -41,17 +43,17 @@ class ProfilePage extends ConsumerWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: {
-                    "Perbarui Akun": () {
-                      myToast("Perbarui Akun");
+                    "Perbaharui Akun": () {
+                      // myToast("Perbarui Akun");
                       context.router.push(EditProfileRoute());
                     },
                     "Ubah Kata Sandi": () {
-                      myToast("Ubah Kata Sandi");
+                      // myToast("Ubah Kata Sandi");
                       context.router.push(ChangePasswordRoute());
                     },
                     "Keluar Akun": () {
                       ///  logout
-                      myToast("Keluar Akun");
+                      // myToast("Keluar Akun");
                       context.router.replace(LandingRoute());
                     }
                   }
@@ -60,7 +62,7 @@ class ProfilePage extends ConsumerWidget {
                             key,
                             InkWell(
                               onTap: value,
-                              child: RoundedContainer(medium,
+                              child: RoundedContainer(big + small,
                                   width: double.infinity,
                                   boxDecoration: boxDecoration,
                                   padding: const EdgeInsets.symmetric(

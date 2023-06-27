@@ -13,12 +13,16 @@ class MyButton extends ConsumerStatefulWidget {
   final Widget? child;
   final bool isSecondary;
   final BoxDecoration? decoration;
+  final double? radius;
+  final EdgeInsets? padding;
   const MyButton(
       {this.child,
       this.onPressed,
       this.textColor,
       this.backGroundColor,
       this.decoration,
+      this.radius,
+      this.padding,
       this.isSecondary = false,
       Key? key})
       : super(key: key);
@@ -40,8 +44,13 @@ class _MyButtonState extends ConsumerState<MyButton> {
             backgroundColor:
                 widget.isSecondary ? Colors.white : Color(primaryColor),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(huge)))),
+                side: BorderSide(color: Color(primaryColor), width: 2),
+                borderRadius:
+                    BorderRadius.all(Radius.circular(widget.radius ?? huge)))),
         onPressed: widget.onPressed ?? () {},
-        child: widget.child ?? Text("OK"));
+        child: Container(
+            padding:
+                widget.padding ?? const EdgeInsets.symmetric(vertical: medium),
+            child: widget.child ?? Text("OK")));
   }
 }

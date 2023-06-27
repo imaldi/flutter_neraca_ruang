@@ -38,44 +38,46 @@ class MainDrawer extends ConsumerWidget {
             ),
             Visibility(
               visible: isLogin,
+              child: InkWell(
+                onTap: () {
+                  context.router.replace(const ProfileRoute());
+                },
+                child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: big, vertical: medium),
+                    margin: const EdgeInsets.only(bottom: medium),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(huge))),
+                    child: const Text("Profil")),
+              ),
+            ),
+            InkWell(
+              onTap: isLogin
+                  ? () async {
+                      ref.read(authStatusProvider.notifier).logout(
+                          successCallback: () {
+                        myToast("Log Out Success");
+                        context.router.pop();
+                      });
+                      // context.router.replace(const LoginRoute());
+                    }
+                  : () {
+                      context.router.push(const LoginRoute());
+                    },
               child: Container(
                   padding: const EdgeInsets.symmetric(
                       horizontal: big, vertical: medium),
-                  margin: const EdgeInsets.only(bottom: medium),
+                  margin: const EdgeInsets.symmetric(vertical: big),
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(huge))),
-                  child: InkWell(
-                      onTap: () {
-                        context.router.replace(const ProfileRoute());
-                      },
-                      child: const Text("Profil"))),
+                  child: isLogin
+                      ? const Text("Log Out")
+                      : const Text("Masuk / Daftar")),
             ),
-            Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: big, vertical: medium),
-                margin: const EdgeInsets.symmetric(vertical: big),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius:
-                        const BorderRadius.all(Radius.circular(huge))),
-                child: isLogin
-                    ? InkWell(
-                        onTap: () async {
-                          ref.read(authStatusProvider.notifier).logout(
-                              successCallback: () {
-                            myToast("Log Out Success");
-                            context.router.pop();
-                          });
-                          // context.router.replace(const LoginRoute());
-                        },
-                        child: const Text("Log Out"))
-                    : InkWell(
-                        onTap: () {
-                          context.router.push(const LoginRoute());
-                        },
-                        child: const Text("Masuk / Daftar"))),
             SocialMediaPanelWidget(),
           ],
         ),

@@ -13,14 +13,15 @@ class KembaliButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textColor = Color(primaryColor);
-    final textStyle = TextStyle(color: textColor);
-    final boxDecoration = BoxDecoration(border: Border.all(color: textColor));
+    final textStyle = TextStyle(color: textColor, fontWeight: FontWeight.w500);
+    final boxDecoration =
+        BoxDecoration(border: Border.all(color: textColor, width: 2));
     return FittedBox(
       child: InkWell(
         onTap: () {
           context.router.replace(const LandingRoute());
         },
-        child: RoundedContainer(medium,
+        child: RoundedContainer(big,
             // width: double.infinity,
             boxDecoration: boxDecoration,
             padding: const EdgeInsets.symmetric(
