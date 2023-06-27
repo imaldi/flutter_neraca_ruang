@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
+import '../../logic/state_management/riverpod/dashboard_providers.dart';
 
-class ProfileImageWidget extends StatelessWidget {
+class ProfileImageWidget extends ConsumerWidget {
   const ProfileImageWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textColor = Color(primaryColor);
     final textStyle = TextStyle(color: textColor);
+    final isEnabled = ref.watch(profileEditMode);
+
     return Stack(
       children: [
         Column(
@@ -74,7 +78,19 @@ class ProfileImageWidget extends StatelessWidget {
                   SizedBox(
                     height: huge,
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text("Alddiii")),
+                  Visibility(
+                    visible: !isEnabled,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: textColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(huge)))),
+                        onPressed: () {
+                          ref.read(profileEditMode.notifier).state = true;
+                        },
+                        child: Text("Ubah")),
+                  ),
                 ],
               ),
             ],

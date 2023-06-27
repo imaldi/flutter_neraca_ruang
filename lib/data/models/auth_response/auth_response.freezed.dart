@@ -416,28 +416,42 @@ mixin _$Members {
   String? get fullname => throw _privateConstructorUsedError;
   @HiveField(3)
   String? get email => throw _privateConstructorUsedError;
+  @JsonKey(name: "no_hp")
   @HiveField(4)
   String? get noHp => throw _privateConstructorUsedError;
+  @JsonKey(name: "tanggal_lahir")
   @HiveField(5)
   String? get tanggalLahir => throw _privateConstructorUsedError;
+  @JsonKey(name: "propinsi_id")
   @HiveField(6)
-  String? get propinsiId => throw _privateConstructorUsedError;
+  int? get propinsiId => throw _privateConstructorUsedError;
+  @JsonKey(name: "kota_id")
   @HiveField(7)
-  String? get kotaId => throw _privateConstructorUsedError;
+  int? get kotaId => throw _privateConstructorUsedError;
+  @JsonKey(name: "is_aktivasi")
   @HiveField(8)
-  String? get isAktivasi => throw _privateConstructorUsedError;
+  bool? get isAktivasi => throw _privateConstructorUsedError;
+  @JsonKey(name: "is_blocked")
   @HiveField(9)
-  String? get isBlocked => throw _privateConstructorUsedError;
+  bool? get isBlocked => throw _privateConstructorUsedError;
+  @JsonKey(name: "aktivasi_at")
   @HiveField(10)
-  String? get aktivasiAt => throw _privateConstructorUsedError;
+  DateTime? get aktivasiAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "blocked_at")
   @HiveField(11)
-  String? get blockedAt => throw _privateConstructorUsedError;
+  DateTime? get blockedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "created_at")
   @HiveField(12)
-  String? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "updated_at")
   @HiveField(13)
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "last_login_at")
   @HiveField(14)
   DateTime? get lastloginAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "kode_pos")
+  @HiveField(15)
+  String? get kodePos => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -454,17 +468,18 @@ abstract class $MembersCopyWith<$Res> {
       @HiveField(1) String? username,
       @HiveField(2) String? fullname,
       @HiveField(3) String? email,
-      @HiveField(4) String? noHp,
-      @HiveField(5) String? tanggalLahir,
-      @HiveField(6) String? propinsiId,
-      @HiveField(7) String? kotaId,
-      @HiveField(8) String? isAktivasi,
-      @HiveField(9) String? isBlocked,
-      @HiveField(10) String? aktivasiAt,
-      @HiveField(11) String? blockedAt,
-      @HiveField(12) String? createdAt,
-      @HiveField(13) DateTime? updatedAt,
-      @HiveField(14) DateTime? lastloginAt});
+      @JsonKey(name: "no_hp") @HiveField(4) String? noHp,
+      @JsonKey(name: "tanggal_lahir") @HiveField(5) String? tanggalLahir,
+      @JsonKey(name: "propinsi_id") @HiveField(6) int? propinsiId,
+      @JsonKey(name: "kota_id") @HiveField(7) int? kotaId,
+      @JsonKey(name: "is_aktivasi") @HiveField(8) bool? isAktivasi,
+      @JsonKey(name: "is_blocked") @HiveField(9) bool? isBlocked,
+      @JsonKey(name: "aktivasi_at") @HiveField(10) DateTime? aktivasiAt,
+      @JsonKey(name: "blocked_at") @HiveField(11) DateTime? blockedAt,
+      @JsonKey(name: "created_at") @HiveField(12) DateTime? createdAt,
+      @JsonKey(name: "updated_at") @HiveField(13) DateTime? updatedAt,
+      @JsonKey(name: "last_login_at") @HiveField(14) DateTime? lastloginAt,
+      @JsonKey(name: "kode_pos") @HiveField(15) String? kodePos});
 }
 
 /// @nodoc
@@ -495,6 +510,7 @@ class _$MembersCopyWithImpl<$Res, $Val extends Members>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? lastloginAt = freezed,
+    Object? kodePos = freezed,
   }) {
     return _then(_value.copyWith(
       memberId: freezed == memberId
@@ -524,31 +540,31 @@ class _$MembersCopyWithImpl<$Res, $Val extends Members>
       propinsiId: freezed == propinsiId
           ? _value.propinsiId
           : propinsiId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       kotaId: freezed == kotaId
           ? _value.kotaId
           : kotaId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       isAktivasi: freezed == isAktivasi
           ? _value.isAktivasi
           : isAktivasi // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool?,
       isBlocked: freezed == isBlocked
           ? _value.isBlocked
           : isBlocked // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool?,
       aktivasiAt: freezed == aktivasiAt
           ? _value.aktivasiAt
           : aktivasiAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       blockedAt: freezed == blockedAt
           ? _value.blockedAt
           : blockedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -557,6 +573,10 @@ class _$MembersCopyWithImpl<$Res, $Val extends Members>
           ? _value.lastloginAt
           : lastloginAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      kodePos: freezed == kodePos
+          ? _value.kodePos
+          : kodePos // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -573,17 +593,18 @@ abstract class _$$_MembersCopyWith<$Res> implements $MembersCopyWith<$Res> {
       @HiveField(1) String? username,
       @HiveField(2) String? fullname,
       @HiveField(3) String? email,
-      @HiveField(4) String? noHp,
-      @HiveField(5) String? tanggalLahir,
-      @HiveField(6) String? propinsiId,
-      @HiveField(7) String? kotaId,
-      @HiveField(8) String? isAktivasi,
-      @HiveField(9) String? isBlocked,
-      @HiveField(10) String? aktivasiAt,
-      @HiveField(11) String? blockedAt,
-      @HiveField(12) String? createdAt,
-      @HiveField(13) DateTime? updatedAt,
-      @HiveField(14) DateTime? lastloginAt});
+      @JsonKey(name: "no_hp") @HiveField(4) String? noHp,
+      @JsonKey(name: "tanggal_lahir") @HiveField(5) String? tanggalLahir,
+      @JsonKey(name: "propinsi_id") @HiveField(6) int? propinsiId,
+      @JsonKey(name: "kota_id") @HiveField(7) int? kotaId,
+      @JsonKey(name: "is_aktivasi") @HiveField(8) bool? isAktivasi,
+      @JsonKey(name: "is_blocked") @HiveField(9) bool? isBlocked,
+      @JsonKey(name: "aktivasi_at") @HiveField(10) DateTime? aktivasiAt,
+      @JsonKey(name: "blocked_at") @HiveField(11) DateTime? blockedAt,
+      @JsonKey(name: "created_at") @HiveField(12) DateTime? createdAt,
+      @JsonKey(name: "updated_at") @HiveField(13) DateTime? updatedAt,
+      @JsonKey(name: "last_login_at") @HiveField(14) DateTime? lastloginAt,
+      @JsonKey(name: "kode_pos") @HiveField(15) String? kodePos});
 }
 
 /// @nodoc
@@ -611,6 +632,7 @@ class __$$_MembersCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? lastloginAt = freezed,
+    Object? kodePos = freezed,
   }) {
     return _then(_$_Members(
       memberId: freezed == memberId
@@ -640,31 +662,31 @@ class __$$_MembersCopyWithImpl<$Res>
       propinsiId: freezed == propinsiId
           ? _value.propinsiId
           : propinsiId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       kotaId: freezed == kotaId
           ? _value.kotaId
           : kotaId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       isAktivasi: freezed == isAktivasi
           ? _value.isAktivasi
           : isAktivasi // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool?,
       isBlocked: freezed == isBlocked
           ? _value.isBlocked
           : isBlocked // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool?,
       aktivasiAt: freezed == aktivasiAt
           ? _value.aktivasiAt
           : aktivasiAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       blockedAt: freezed == blockedAt
           ? _value.blockedAt
           : blockedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -673,6 +695,10 @@ class __$$_MembersCopyWithImpl<$Res>
           ? _value.lastloginAt
           : lastloginAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      kodePos: freezed == kodePos
+          ? _value.kodePos
+          : kodePos // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -687,17 +713,18 @@ class _$_Members implements _Members {
       @HiveField(1) this.username,
       @HiveField(2) this.fullname,
       @HiveField(3) this.email,
-      @HiveField(4) this.noHp,
-      @HiveField(5) this.tanggalLahir,
-      @HiveField(6) this.propinsiId,
-      @HiveField(7) this.kotaId,
-      @HiveField(8) this.isAktivasi,
-      @HiveField(9) this.isBlocked,
-      @HiveField(10) this.aktivasiAt,
-      @HiveField(11) this.blockedAt,
-      @HiveField(12) this.createdAt,
-      @HiveField(13) this.updatedAt,
-      @HiveField(14) this.lastloginAt});
+      @JsonKey(name: "no_hp") @HiveField(4) this.noHp,
+      @JsonKey(name: "tanggal_lahir") @HiveField(5) this.tanggalLahir,
+      @JsonKey(name: "propinsi_id") @HiveField(6) this.propinsiId,
+      @JsonKey(name: "kota_id") @HiveField(7) this.kotaId,
+      @JsonKey(name: "is_aktivasi") @HiveField(8) this.isAktivasi,
+      @JsonKey(name: "is_blocked") @HiveField(9) this.isBlocked,
+      @JsonKey(name: "aktivasi_at") @HiveField(10) this.aktivasiAt,
+      @JsonKey(name: "blocked_at") @HiveField(11) this.blockedAt,
+      @JsonKey(name: "created_at") @HiveField(12) this.createdAt,
+      @JsonKey(name: "updated_at") @HiveField(13) this.updatedAt,
+      @JsonKey(name: "last_login_at") @HiveField(14) this.lastloginAt,
+      @JsonKey(name: "kode_pos") @HiveField(15) this.kodePos});
 
   factory _$_Members.fromJson(Map<String, dynamic> json) =>
       _$$_MembersFromJson(json);
@@ -715,42 +742,57 @@ class _$_Members implements _Members {
   @HiveField(3)
   final String? email;
   @override
+  @JsonKey(name: "no_hp")
   @HiveField(4)
   final String? noHp;
   @override
+  @JsonKey(name: "tanggal_lahir")
   @HiveField(5)
   final String? tanggalLahir;
   @override
+  @JsonKey(name: "propinsi_id")
   @HiveField(6)
-  final String? propinsiId;
+  final int? propinsiId;
   @override
+  @JsonKey(name: "kota_id")
   @HiveField(7)
-  final String? kotaId;
+  final int? kotaId;
   @override
+  @JsonKey(name: "is_aktivasi")
   @HiveField(8)
-  final String? isAktivasi;
+  final bool? isAktivasi;
   @override
+  @JsonKey(name: "is_blocked")
   @HiveField(9)
-  final String? isBlocked;
+  final bool? isBlocked;
   @override
+  @JsonKey(name: "aktivasi_at")
   @HiveField(10)
-  final String? aktivasiAt;
+  final DateTime? aktivasiAt;
   @override
+  @JsonKey(name: "blocked_at")
   @HiveField(11)
-  final String? blockedAt;
+  final DateTime? blockedAt;
   @override
+  @JsonKey(name: "created_at")
   @HiveField(12)
-  final String? createdAt;
+  final DateTime? createdAt;
   @override
+  @JsonKey(name: "updated_at")
   @HiveField(13)
   final DateTime? updatedAt;
   @override
+  @JsonKey(name: "last_login_at")
   @HiveField(14)
   final DateTime? lastloginAt;
+  @override
+  @JsonKey(name: "kode_pos")
+  @HiveField(15)
+  final String? kodePos;
 
   @override
   String toString() {
-    return 'Members(memberId: $memberId, username: $username, fullname: $fullname, email: $email, noHp: $noHp, tanggalLahir: $tanggalLahir, propinsiId: $propinsiId, kotaId: $kotaId, isAktivasi: $isAktivasi, isBlocked: $isBlocked, aktivasiAt: $aktivasiAt, blockedAt: $blockedAt, createdAt: $createdAt, updatedAt: $updatedAt, lastloginAt: $lastloginAt)';
+    return 'Members(memberId: $memberId, username: $username, fullname: $fullname, email: $email, noHp: $noHp, tanggalLahir: $tanggalLahir, propinsiId: $propinsiId, kotaId: $kotaId, isAktivasi: $isAktivasi, isBlocked: $isBlocked, aktivasiAt: $aktivasiAt, blockedAt: $blockedAt, createdAt: $createdAt, updatedAt: $updatedAt, lastloginAt: $lastloginAt, kodePos: $kodePos)';
   }
 
   @override
@@ -784,7 +826,8 @@ class _$_Members implements _Members {
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.lastloginAt, lastloginAt) ||
-                other.lastloginAt == lastloginAt));
+                other.lastloginAt == lastloginAt) &&
+            (identical(other.kodePos, kodePos) || other.kodePos == kodePos));
   }
 
   @JsonKey(ignore: true)
@@ -805,7 +848,8 @@ class _$_Members implements _Members {
       blockedAt,
       createdAt,
       updatedAt,
-      lastloginAt);
+      lastloginAt,
+      kodePos);
 
   @JsonKey(ignore: true)
   @override
@@ -823,21 +867,50 @@ class _$_Members implements _Members {
 
 abstract class _Members implements Members {
   const factory _Members(
-      {@HiveField(0) final int? memberId,
-      @HiveField(1) final String? username,
-      @HiveField(2) final String? fullname,
-      @HiveField(3) final String? email,
-      @HiveField(4) final String? noHp,
-      @HiveField(5) final String? tanggalLahir,
-      @HiveField(6) final String? propinsiId,
-      @HiveField(7) final String? kotaId,
-      @HiveField(8) final String? isAktivasi,
-      @HiveField(9) final String? isBlocked,
-      @HiveField(10) final String? aktivasiAt,
-      @HiveField(11) final String? blockedAt,
-      @HiveField(12) final String? createdAt,
-      @HiveField(13) final DateTime? updatedAt,
-      @HiveField(14) final DateTime? lastloginAt}) = _$_Members;
+      {@HiveField(0)
+          final int? memberId,
+      @HiveField(1)
+          final String? username,
+      @HiveField(2)
+          final String? fullname,
+      @HiveField(3)
+          final String? email,
+      @JsonKey(name: "no_hp")
+      @HiveField(4)
+          final String? noHp,
+      @JsonKey(name: "tanggal_lahir")
+      @HiveField(5)
+          final String? tanggalLahir,
+      @JsonKey(name: "propinsi_id")
+      @HiveField(6)
+          final int? propinsiId,
+      @JsonKey(name: "kota_id")
+      @HiveField(7)
+          final int? kotaId,
+      @JsonKey(name: "is_aktivasi")
+      @HiveField(8)
+          final bool? isAktivasi,
+      @JsonKey(name: "is_blocked")
+      @HiveField(9)
+          final bool? isBlocked,
+      @JsonKey(name: "aktivasi_at")
+      @HiveField(10)
+          final DateTime? aktivasiAt,
+      @JsonKey(name: "blocked_at")
+      @HiveField(11)
+          final DateTime? blockedAt,
+      @JsonKey(name: "created_at")
+      @HiveField(12)
+          final DateTime? createdAt,
+      @JsonKey(name: "updated_at")
+      @HiveField(13)
+          final DateTime? updatedAt,
+      @JsonKey(name: "last_login_at")
+      @HiveField(14)
+          final DateTime? lastloginAt,
+      @JsonKey(name: "kode_pos")
+      @HiveField(15)
+          final String? kodePos}) = _$_Members;
 
   factory _Members.fromJson(Map<String, dynamic> json) = _$_Members.fromJson;
 
@@ -854,38 +927,53 @@ abstract class _Members implements Members {
   @HiveField(3)
   String? get email;
   @override
+  @JsonKey(name: "no_hp")
   @HiveField(4)
   String? get noHp;
   @override
+  @JsonKey(name: "tanggal_lahir")
   @HiveField(5)
   String? get tanggalLahir;
   @override
+  @JsonKey(name: "propinsi_id")
   @HiveField(6)
-  String? get propinsiId;
+  int? get propinsiId;
   @override
+  @JsonKey(name: "kota_id")
   @HiveField(7)
-  String? get kotaId;
+  int? get kotaId;
   @override
+  @JsonKey(name: "is_aktivasi")
   @HiveField(8)
-  String? get isAktivasi;
+  bool? get isAktivasi;
   @override
+  @JsonKey(name: "is_blocked")
   @HiveField(9)
-  String? get isBlocked;
+  bool? get isBlocked;
   @override
+  @JsonKey(name: "aktivasi_at")
   @HiveField(10)
-  String? get aktivasiAt;
+  DateTime? get aktivasiAt;
   @override
+  @JsonKey(name: "blocked_at")
   @HiveField(11)
-  String? get blockedAt;
+  DateTime? get blockedAt;
   @override
+  @JsonKey(name: "created_at")
   @HiveField(12)
-  String? get createdAt;
+  DateTime? get createdAt;
   @override
+  @JsonKey(name: "updated_at")
   @HiveField(13)
   DateTime? get updatedAt;
   @override
+  @JsonKey(name: "last_login_at")
   @HiveField(14)
   DateTime? get lastloginAt;
+  @override
+  @JsonKey(name: "kode_pos")
+  @HiveField(15)
+  String? get kodePos;
   @override
   @JsonKey(ignore: true)
   _$$_MembersCopyWith<_$_Members> get copyWith =>

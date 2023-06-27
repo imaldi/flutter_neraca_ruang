@@ -100,22 +100,23 @@ class MemberAdapter extends TypeAdapter<_$_Members> {
       email: fields[3] as String?,
       noHp: fields[4] as String?,
       tanggalLahir: fields[5] as String?,
-      propinsiId: fields[6] as String?,
-      kotaId: fields[7] as String?,
-      isAktivasi: fields[8] as String?,
-      isBlocked: fields[9] as String?,
-      aktivasiAt: fields[10] as String?,
-      blockedAt: fields[11] as String?,
-      createdAt: fields[12] as String?,
+      propinsiId: fields[6] as int?,
+      kotaId: fields[7] as int?,
+      isAktivasi: fields[8] as bool?,
+      isBlocked: fields[9] as bool?,
+      aktivasiAt: fields[10] as DateTime?,
+      blockedAt: fields[11] as DateTime?,
+      createdAt: fields[12] as DateTime?,
       updatedAt: fields[13] as DateTime?,
       lastloginAt: fields[14] as DateTime?,
+      kodePos: fields[15] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_Members obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.memberId)
       ..writeByte(1)
@@ -145,7 +146,9 @@ class MemberAdapter extends TypeAdapter<_$_Members> {
       ..writeByte(13)
       ..write(obj.updatedAt)
       ..writeByte(14)
-      ..write(obj.lastloginAt);
+      ..write(obj.lastloginAt)
+      ..writeByte(15)
+      ..write(obj.kodePos);
   }
 
   @override
@@ -200,21 +203,28 @@ _$_Members _$$_MembersFromJson(Map<String, dynamic> json) => _$_Members(
       username: json['username'] as String?,
       fullname: json['fullname'] as String?,
       email: json['email'] as String?,
-      noHp: json['noHp'] as String?,
-      tanggalLahir: json['tanggalLahir'] as String?,
-      propinsiId: json['propinsiId'] as String?,
-      kotaId: json['kotaId'] as String?,
-      isAktivasi: json['isAktivasi'] as String?,
-      isBlocked: json['isBlocked'] as String?,
-      aktivasiAt: json['aktivasiAt'] as String?,
-      blockedAt: json['blockedAt'] as String?,
-      createdAt: json['createdAt'] as String?,
-      updatedAt: json['updatedAt'] == null
+      noHp: json['no_hp'] as String?,
+      tanggalLahir: json['tanggal_lahir'] as String?,
+      propinsiId: json['propinsi_id'] as int?,
+      kotaId: json['kota_id'] as int?,
+      isAktivasi: json['is_aktivasi'] as bool?,
+      isBlocked: json['is_blocked'] as bool?,
+      aktivasiAt: json['aktivasi_at'] == null
           ? null
-          : DateTime.parse(json['updatedAt'] as String),
-      lastloginAt: json['lastloginAt'] == null
+          : DateTime.parse(json['aktivasi_at'] as String),
+      blockedAt: json['blocked_at'] == null
           ? null
-          : DateTime.parse(json['lastloginAt'] as String),
+          : DateTime.parse(json['blocked_at'] as String),
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      updatedAt: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
+      lastloginAt: json['last_login_at'] == null
+          ? null
+          : DateTime.parse(json['last_login_at'] as String),
+      kodePos: json['kode_pos'] as String?,
     );
 
 Map<String, dynamic> _$$_MembersToJson(_$_Members instance) =>
@@ -223,15 +233,16 @@ Map<String, dynamic> _$$_MembersToJson(_$_Members instance) =>
       'username': instance.username,
       'fullname': instance.fullname,
       'email': instance.email,
-      'noHp': instance.noHp,
-      'tanggalLahir': instance.tanggalLahir,
-      'propinsiId': instance.propinsiId,
-      'kotaId': instance.kotaId,
-      'isAktivasi': instance.isAktivasi,
-      'isBlocked': instance.isBlocked,
-      'aktivasiAt': instance.aktivasiAt,
-      'blockedAt': instance.blockedAt,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt?.toIso8601String(),
-      'lastloginAt': instance.lastloginAt?.toIso8601String(),
+      'no_hp': instance.noHp,
+      'tanggal_lahir': instance.tanggalLahir,
+      'propinsi_id': instance.propinsiId,
+      'kota_id': instance.kotaId,
+      'is_aktivasi': instance.isAktivasi,
+      'is_blocked': instance.isBlocked,
+      'aktivasi_at': instance.aktivasiAt?.toIso8601String(),
+      'blocked_at': instance.blockedAt?.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
+      'last_login_at': instance.lastloginAt?.toIso8601String(),
+      'kode_pos': instance.kodePos,
     };
