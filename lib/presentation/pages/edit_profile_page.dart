@@ -58,11 +58,27 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
           child: Column(
             children: [
               ProfileImageWidget(),
+              Visibility(
+                visible: isEnabled,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: medium),
+                    child: Text(
+                      "Informasi Akun",
+                      style: TextStyle(
+                          fontSize: big,
+                          color: textColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
               ...content
                   .map((key, value) => MapEntry(
                       key,
                       Padding(
-                        padding: const EdgeInsets.all(medium),
+                        padding: const EdgeInsets.symmetric(horizontal: medium),
                         child: Row(
                           children: [
                             Expanded(
@@ -76,6 +92,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                 isEnabled: isEnabled,
                                 controller: value,
                                 hint: key,
+                                borderRadius: medium,
                               ),
                             ),
                           ],

@@ -12,6 +12,7 @@ class RoundedTextFormField extends StatelessWidget {
   final bool isObscureText;
   final int maxLines;
   final TextInputType? keyboardType;
+  final double? borderRadius;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
@@ -23,18 +24,19 @@ class RoundedTextFormField extends StatelessWidget {
       this.maxLines = 1,
       this.onChanged,
       this.validator,
+      this.borderRadius,
       this.readOnly = false,
       this.isEnabled = true,
       this.isObscureText = false,
       this.keyboardType,
       Key? key})
       : super();
-  static const _basicBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: Color(primaryColor), width: 4),
-      borderRadius: BorderRadius.all(Radius.circular(huge)));
 
   @override
   Widget build(BuildContext context) {
+    final _basicBorder = OutlineInputBorder(
+        borderSide: BorderSide(color: Color(primaryColor), width: 4),
+        borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? huge)));
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Form(
