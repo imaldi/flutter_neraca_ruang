@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../widgets/appbar_widget.dart';
+import '../widgets/kembali_button.dart';
 import '../widgets/my_toast.dart';
 
 @RoutePage()
@@ -77,25 +78,7 @@ class ProfilePage extends ConsumerWidget {
                 ),
               ),
             ),
-            FittedBox(
-              child: InkWell(
-                onTap: () {
-                  context.router.replace(const LandingRoute());
-                },
-                child: RoundedContainer(medium,
-                    // width: double.infinity,
-                    boxDecoration: boxDecoration,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: normal, horizontal: 2 * huge),
-                    margin: const EdgeInsets.symmetric(vertical: medium),
-                    child: Center(
-                      child: Text(
-                        "Kembali",
-                        style: textStyle,
-                      ),
-                    )),
-              ),
-            )
+            KembaliButton(),
           ],
         ),
         bottomNavigationBar: BottomBarWidget(),

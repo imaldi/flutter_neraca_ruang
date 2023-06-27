@@ -83,31 +83,37 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                       )))
                   .values
                   .toList(),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: normal),
-                      child: MyButton(
-                        child: Text("Simpan"),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: normal),
-                      child: MyButton(
-                          child: Text(
-                            "Batal",
-                            style: TextStyle(color: textColor),
-                          ),
-                          isSecondary: true,
+              Visibility(
+                visible: isEnabled,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: normal),
+                        child: MyButton(
                           onPressed: () {
                             ref.read(profileEditMode.notifier).state = false;
-                          }),
+                          },
+                          child: Text("Simpan"),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: normal),
+                        child: MyButton(
+                            child: Text(
+                              "Batal",
+                              style: TextStyle(color: textColor),
+                            ),
+                            isSecondary: true,
+                            onPressed: () {
+                              ref.read(profileEditMode.notifier).state = false;
+                            }),
+                      ),
+                    ),
+                  ],
+                ),
               )
             ],
           ),
