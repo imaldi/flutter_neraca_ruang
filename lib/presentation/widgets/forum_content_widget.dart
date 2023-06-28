@@ -1,4 +1,5 @@
 import 'package:flutter_neraca_ruang/data/models/diskusi_response/diskusi_response.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/forum_comment_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/comment_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:intl/intl.dart';
@@ -199,7 +200,7 @@ class ForumContentWidget extends ConsumerWidget {
                         ref.read(selectedContentSlugProvider.notifier).state =
                             content.threadSlug ?? "";
                         ref
-                            .read(commentsProvider.notifier)
+                            .read(forumCommentsProvider.notifier)
                             .fetchCommentFromAPI();
 
                         // ref
@@ -245,7 +246,7 @@ class ForumContentWidget extends ConsumerWidget {
         ),
         Visibility(
             visible: contentId == content.threadId && selectedSlug.isNotEmpty,
-            child: CommentWidget()),
+            child: CommentWidget(isForum: true)),
         SizedBox(height: huge),
       ],
     );

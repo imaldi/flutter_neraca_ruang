@@ -7,13 +7,17 @@ import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_fiel
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/sizes.dart';
+import '../../data/models/comment_response/comment_response.dart';
+import '../../data/models/forum_comment_response/forum_comment_response.dart';
 import '../../di.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
+import '../../logic/state_management/riverpod/forum_comment_providers.dart';
 import 'my_scrollable_nested_widget.dart';
 
 class CommentWidget extends ConsumerStatefulWidget {
-  const CommentWidget({Key? key}) : super(key: key);
+  final bool isForum;
+  const CommentWidget({this.isForum = false, Key? key}) : super(key: key);
 
   @override
   ConsumerState<CommentWidget> createState() => _CommentWidgetState();
@@ -35,7 +39,8 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
     String selectedSlug = ref.watch(selectedContentSlugProvider);
     var isLogin = ref.watch(authStatusProvider).value != null;
 
-    var commentList = ref.watch(commentsProvider);
+    var commentList =
+        ref.watch(widget.isForum ? forumCommentsProvider : commentsProvider);
     final TextEditingController textEditingController = TextEditingController();
 
     return Container(
@@ -75,11 +80,11 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${data[i].komentar}",
+                                          "${widget.isForum ? (data[i] as ForumCommentModel).replyContent : (data[i] as CommentModel).komentar}",
                                           style: TextStyle(fontSize: medium),
                                         ),
                                         Text(
-                                          "by: ${data[i].username ?? "-"}",
+                                          "by: ${widget.isForum ? (data[i] as ForumCommentModel).createdBy : (data[i] as CommentModel).username ?? "-"}",
                                           style: TextStyle(
                                               color: Color(primaryColor)),
                                         ),
