@@ -41,7 +41,8 @@ class MainDrawer extends ConsumerWidget {
               visible: isLogin,
               child: InkWell(
                 onTap: () {
-                  context.router.replace(const ProfileRoute());
+                  context.router.pop();
+                  context.router.push(const ProfileRoute());
                 },
                 child: Container(
                     padding: const EdgeInsets.symmetric(

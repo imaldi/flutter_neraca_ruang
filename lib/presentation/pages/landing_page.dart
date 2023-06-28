@@ -416,7 +416,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                               ),
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: data[2].listMedia?.length ?? 0,
+                                  itemCount: data[4].listMedia?.length ?? 0,
                                   itemBuilder: (c, i) {
                                     return SizedBox(
                                         width:

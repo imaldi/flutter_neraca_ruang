@@ -52,78 +52,71 @@ class ProfilePage extends ConsumerWidget {
 
     return DefaultTabController(
       length: mainTabLength,
-      child: WillPopScope(
-        onWillPop: () {
-          context.router.replace(const LandingRoute());
-          return Future.value(true);
-        },
-        child: Scaffold(
-          appBar: appBarWidget(
-            context,
-            ref: ref,
-          ),
-          drawer: MainDrawer(),
-          body: Column(
-            children: [
-              ProfileImageWidget(),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: huge),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: {
-                      "Perbaharui Akun": () async {
-                        // myToast("Perbarui Akun");
-                        ref.read(provIdParamProvider.notifier).state =
-                            await userData.value?.data?.members?.propinsiId ??
-                                0;
-                        ref.read(kotaIdParamProvider.notifier).state =
-                            await userData.value?.data?.members?.kotaId ?? 0;
-                        context.router.push(EditProfileRoute());
-                      },
-                      "Ubah Kata Sandi": () {
-                        // myToast("Ubah Kata Sandi");
-                        context.router.push(ChangePasswordRoute());
-                      },
-                      "Keluar Akun": () {
-                        ///  logout
-                        // myToast("Keluar Akun");
-                        ref.read(authStatusProvider.notifier).logout(
-                            successCallback: () {
-                          myToast("Log Out Success");
-                          context.router.pop();
-                        });
-                        context.router.replace(LandingRoute());
-                      }
+      child: Scaffold(
+        appBar: appBarWidget(
+          context,
+          ref: ref,
+        ),
+        drawer: MainDrawer(),
+        body: Column(
+          children: [
+            ProfileImageWidget(),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: huge),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: {
+                    "Perbaharui Akun": () async {
+                      // myToast("Perbarui Akun");
+                      ref.read(provIdParamProvider.notifier).state =
+                          await userData.value?.data?.members?.propinsiId ?? 0;
+                      ref.read(kotaIdParamProvider.notifier).state =
+                          await userData.value?.data?.members?.kotaId ?? 0;
+                      context.router.push(EditProfileRoute());
+                    },
+                    "Ubah Kata Sandi": () {
+                      // myToast("Ubah Kata Sandi");
+                      context.router.push(ChangePasswordRoute());
+                    },
+                    "Keluar Akun": () {
+                      ///  logout
+                      // myToast("Keluar Akun");
+                      ref.read(authStatusProvider.notifier).logout(
+                          successCallback: () {
+                        myToast("Log Out Success");
+                        context.router.pop();
+                      });
+                      context.router.replace(LandingRoute());
                     }
-                        .map((key, value) {
-                          return MapEntry(
-                              key,
-                              InkWell(
-                                onTap: value,
-                                child: RoundedContainer(big + small,
-                                    width: double.infinity,
-                                    boxDecoration: boxDecoration,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: medium),
-                                    child: Center(
-                                      child: Text(
-                                        key,
-                                        style: textStyle,
-                                      ),
-                                    )),
-                              ));
-                        })
-                        .values
-                        .toList(),
-                  ),
+                  }
+                      .map((key, value) {
+                        return MapEntry(
+                            key,
+                            InkWell(
+                              onTap: value,
+                              child: RoundedContainer(big + small,
+                                  width: double.infinity,
+                                  boxDecoration: boxDecoration,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: medium),
+                                  child: Center(
+                                    child: Text(
+                                      key,
+                                      style: textStyle,
+                                    ),
+                                  )),
+                            ));
+                      })
+                      .values
+                      .toList(),
                 ),
               ),
-              KembaliButton(),
-            ],
-          ),
-          bottomNavigationBar: BottomBarWidget(),
+            ),
+            KembaliButton(),
+          ],
         ),
+        bottomNavigationBar: BottomBarWidget(),
       ),
     );
   }
