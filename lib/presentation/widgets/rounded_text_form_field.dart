@@ -11,6 +11,7 @@ class RoundedTextFormField extends StatelessWidget {
   final bool readOnly;
   final bool isObscureText;
   final int maxLines;
+  final int? maxLength;
   final int errorMaxLines;
   final TextInputType? keyboardType;
   final double? borderRadius;
@@ -25,6 +26,7 @@ class RoundedTextFormField extends StatelessWidget {
       this.padding,
       this.autovalidateMode,
       this.maxLines = 1,
+      this.maxLength,
       this.errorMaxLines = 1,
       this.onChanged,
       this.validator,
@@ -46,6 +48,7 @@ class RoundedTextFormField extends StatelessWidget {
       child: Form(
         key: key,
         child: TextFormField(
+            maxLength: maxLength,
             readOnly: readOnly,
             enabled: isEnabled,
             controller: controller,

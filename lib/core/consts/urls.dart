@@ -26,6 +26,7 @@ const getListArchiveDiskusi = "/api/forum/archive";
 const postUsulanDiskusi = "/api/usulan/store";
 const forumCommentListUrl = "/api/forum/listkomentar";
 const forumCommentPostUrl = "/api/forum/komentar";
+const forumUsulanPostUrl = "/api/usulan/store";
 
 // const updateLikeForumUrl = "/api/portal/updatelike";
 

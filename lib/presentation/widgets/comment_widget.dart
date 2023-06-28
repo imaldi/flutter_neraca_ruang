@@ -84,7 +84,7 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                                           style: TextStyle(fontSize: medium),
                                         ),
                                         Text(
-                                          "by: ${widget.isForum ? (data[i] as ForumCommentModel).createdBy ?? "-" : (data[i] as CommentModel).username ?? "-"}",
+                                          "by: ${widget.isForum ? (data[i] as ForumCommentModel).replyBy ?? "-" : (data[i] as CommentModel).username ?? "-"}",
                                           style: TextStyle(
                                               color: Color(primaryColor)),
                                         ),

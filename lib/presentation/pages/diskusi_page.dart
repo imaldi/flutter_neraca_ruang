@@ -18,6 +18,7 @@ import '../widgets/content_widget.dart';
 import '../widgets/forum_content_widget.dart';
 import '../widgets/main_drawer.dart';
 import '../widgets/social_media_panel_widget.dart';
+import '../widgets/usulan_diskusi_widget.dart';
 
 @RoutePage()
 class DiskusiPage extends ConsumerStatefulWidget {
@@ -70,10 +71,11 @@ class _DiskusiPageState extends ConsumerState<DiskusiPage> {
                         itemBuilder: (c, i) {
                           return ForumContentWidget(contentList[i]);
                         }),
-                    Text(
-                      "USULAN DISKUSI",
-                      style: textStyle.copyWith(fontSize: big),
-                    ),
+                    // Text(
+                    //   "USULAN DISKUSI",
+                    //   style: textStyle.copyWith(fontSize: big),
+                    // ),
+                    UsulanDiskusiWidget(),
                     Text(
                       "PUSTAKA DISKUSI TERDAHULU",
                       style: textStyle.copyWith(fontSize: big),

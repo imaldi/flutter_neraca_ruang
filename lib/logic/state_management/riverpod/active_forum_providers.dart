@@ -6,8 +6,11 @@ import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../core/consts/hive_const.dart';
 import '../../../core/consts/urls.dart';
+import '../../../data/models/auth_response/auth_response.dart';
 import '../../../di.dart';
+import '../../../presentation/widgets/my_toast.dart';
 part 'active_forum_providers.g.dart';
 
 @riverpod
@@ -108,7 +111,53 @@ class ActiveForums extends _$ActiveForums {
     }
   }
 
-  Future<void> postUsulanDiskusi(DiskusiModel model) async {}
+  Future<void> addUsulanDiskusi(
+      {required String topikDiskusi,
+      required String abstraksiSingkat,
+      required Function() onSuccess,
+      required Function(String) onFailure}) async {
+    try {
+      // var authBox = sl<Box<AuthResponse>>();
+      // var dataFromBox = authBox.get(userDataKey);
+      // MemberData userData =
+      //     dataFromBox?.data?.copyWith(token: "") ?? MemberData();
+      // print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
+      // var token = "Bearer ${userData.token ?? " "}";
+      // FIXME ini sharusnya pakai token user, bukan portal
+      String token =
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2EtcnVhbmciLCJzdWIiOiI0MTcxMzIwMDg5ODk4OTExIiwiaWF0IjoxNjg3OTg0NzQ2LCJleHAiOjE2OTA1NzY3NDZ9.-uOeTVWqRoWCh7aJqEWg0XxKne0PR9-HH96uu7gZXwc";
+      var bodyParameters = {
+        "topik": topikDiskusi,
+        "abstrak": abstraksiSingkat,
+      };
+      var url = Uri.https(
+        baseUrl,
+        forumUsulanPostUrl,
+      );
+      print("Post Usulan URL :$url");
+
+      // final json = await http.get(url);
+      final response = await http.post(url,
+          headers: {
+            'Authorization': "Bearer $token",
+            'Accept': 'application/json',
+            // "Content-Type": "application/json",
+          },
+          body: bodyParameters);
+      log("post forum Usulan resp code: ${response.statusCode}");
+      log("post forum Usulan resp body: ${response.body}");
+      if (response.statusCode != 201) {
+        onFailure(response.body);
+        throw Error();
+      } else {
+        myToast("Sukses Menambahkan Usulan");
+        onSuccess();
+      }
+    } catch (e) {
+      log("error in forum usulan: ${e.toString()}");
+      AsyncValue.error(Error(), StackTrace.current);
+    }
+  }
 
   //
   // Future<void> addShareCount(String slug) async {
