@@ -352,12 +352,17 @@ class AuthStatus extends _$AuthStatus {
       baseUrl,
       changePasswordUrl,
     );
-    Map<String, String> bodyParameters = {};
+    Map<String, String> bodyParameters = {
+      "password": newPassword,
+      "c_password": confPassword,
+    };
+
+    log("change pwd bodyParam: ${bodyParameters.toString()}");
     var authBox = sl<Box<AuthResponse>>();
     var dataFromBox = authBox.get(userDataKey);
-    print("dataFromBox (update member): ${dataFromBox?.toJson()}");
+    print("dataFromBox (change password): ${dataFromBox?.toJson()}");
 
-    String token = dataFromBox?.data?.token ?? "";
+    String token = "Bearer ${dataFromBox?.data?.token ?? " "}";
     // "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
 
     try {
@@ -367,6 +372,7 @@ class AuthStatus extends _$AuthStatus {
             'Accept': 'application/json',
           },
           body: bodyParameters);
+      log("resp change pwd: ${response.body}");
       if (response.statusCode == 201) {
         ref.read(isChangePasswordSuccess.notifier).state = true;
         myToast("Password berhasil di ubah");

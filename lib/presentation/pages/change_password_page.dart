@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/colors.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
+import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/main_drawer.dart';
@@ -23,7 +24,11 @@ class ChangePasswordPage extends ConsumerWidget {
     final textColor = Color(primaryColor);
     final textStyle = TextStyle(color: textColor);
     final boxDecoration = BoxDecoration(border: Border.all(color: textColor));
-
+    final newPasswordCtrl = TextEditingController();
+    final confNewPasswordCtrl = TextEditingController();
+    final pattern =
+        r'''^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[:;!@#\$%^&*()_+\-=,<>\?\'"]).*''';
+    final regex = RegExp(pattern);
     return DefaultTabController(
       length: mainTabLength,
       child: Scaffold(
@@ -58,12 +63,32 @@ class ChangePasswordPage extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(vertical: medium),
                   hint: "Kata sandi baru",
                   borderRadius: medium,
+                  errorMaxLines: 3,
+                  controller: newPasswordCtrl,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (val) {
+                    if ((val ?? "").length < 8) {
+                      return "Kata Sandi minimal 8 karakter";
+                    }
+                    if (!regex.hasMatch(newPasswordCtrl.text)) {
+                      return "Kata sandi Anda harus lebih dari delapan karakter dan berisi kombinasi angka, huruf, dan karakter khusus (:;!@#\$%^&*()_+-=,.<>/?\'\")";
+                    }
+
+                    return null;
+                  },
                 ),
                 RoundedTextFormField(
                   isObscureText: true,
                   padding: const EdgeInsets.symmetric(vertical: medium),
                   hint: "Tulis ulang sandi",
                   borderRadius: medium,
+                  controller: confNewPasswordCtrl,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (val) {
+                    if ((val ?? "") != newPasswordCtrl.text) {
+                      return "Password Konfirmasi tidak cocok";
+                    }
+                  },
                 ),
                 Text(
                   "Lupa kata sandi Anda?",
@@ -78,6 +103,13 @@ class ChangePasswordPage extends ConsumerWidget {
                       margin: const EdgeInsets.only(right: normal),
                       child: MyButton(
                         radius: medium,
+                        onPressed: () {
+                          ref.read(authStatusProvider.notifier).changePassword(
+                              oldPassword: "",
+                              newPassword: newPasswordCtrl.text,
+                              confPassword: confNewPasswordCtrl.text);
+                          context.router.replace(const ProfileRoute());
+                        },
                         child: Text("Ubah Kata Sandi"),
                       ),
                     ),

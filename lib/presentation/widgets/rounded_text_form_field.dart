@@ -11,6 +11,7 @@ class RoundedTextFormField extends StatelessWidget {
   final bool readOnly;
   final bool isObscureText;
   final int maxLines;
+  final int errorMaxLines;
   final TextInputType? keyboardType;
   final double? borderRadius;
   final Function(String)? onChanged;
@@ -24,6 +25,7 @@ class RoundedTextFormField extends StatelessWidget {
       this.padding,
       this.autovalidateMode,
       this.maxLines = 1,
+      this.errorMaxLines = 1,
       this.onChanged,
       this.validator,
       this.borderRadius,
@@ -58,6 +60,7 @@ class RoundedTextFormField extends StatelessWidget {
                 enabledBorder: _basicBorder,
                 disabledBorder: _basicBorder,
                 focusedBorder: _basicBorder,
+                errorMaxLines: errorMaxLines,
                 hintText: hint ?? "Nama")),
       ),
     );
