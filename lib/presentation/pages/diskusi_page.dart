@@ -40,7 +40,7 @@ class _DiskusiPageState extends ConsumerState<DiskusiPage> {
         ref.read(archivedValuesProvider.notifier).addAll((next.value ?? [])
             .asMap()
             .map((k, v) => MapEntry(v.threadId ?? 0,
-                "${v.threadSubject} ${v.moderatorName} ${DateFormat("dd/mm/yyyy").format(v.threadDate ?? DateTime.now())}")));
+                "${v.threadSubject}, ${v.moderatorName}, ${DateFormat("dd/mm/yyyy").format(v.threadDate ?? DateTime.now())}")));
       }
     });
     var archiveMap = ref.watch(archivedValuesProvider);
