@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/sizes.dart';
 import '../../core/router/app_router.dart';
+import '../../di.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import 'drawer_content.dart';
 import 'my_toast.dart';

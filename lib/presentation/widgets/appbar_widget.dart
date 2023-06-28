@@ -12,6 +12,7 @@ import '../../core/consts/assets.dart';
 import '../../core/consts/colors.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
+import '../../di.dart';
 import 'bottom_bar_widget.dart';
 
 appBarWidget(BuildContext context,
@@ -148,6 +149,16 @@ appBarWidget(BuildContext context,
           child: _tabBar),
     ),
     actions: [
+      if (appbarTitle != null && appbarTitle.isNotEmpty)
+        InkWell(
+          onTap: () {
+            Scaffold.of(context).openDrawer();
+          },
+          child: IconWidget(
+            iconBurger,
+            size: medium,
+          ),
+        ),
       InkWell(
         onTap: () async {
           var dialogController = TextEditingController();

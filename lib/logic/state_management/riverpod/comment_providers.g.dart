@@ -6,7 +6,7 @@ part of 'comment_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$commentsHash() => r'07a7845de4872d6786288c4f1aad419976738668';
+String _$commentsHash() => r'12da21a984f80bad4512f3fbeeb7521f78fb917c';
 
 /// See also [Comments].
 @ProviderFor(Comments)

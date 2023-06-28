@@ -33,6 +33,8 @@ class Contents extends _$Contents {
       int? limit = 5,
       String? type,
       String? keyword}) async {
+    // state = const AsyncValue.loading();
+
     Map<String, String> queryParameters = {
       // 'page': pageNumber.toString(),
       'limit': limit.toString(),
@@ -112,13 +114,11 @@ class Contents extends _$Contents {
           }).toList() ??
           <Datum>[];
 
-      state = const AsyncValue.loading();
       state = await AsyncValue.guard(() async {
         return result;
       });
       // return result;
     } on TypeError {
-      state = const AsyncValue.loading();
       state = await AsyncValue.guard(() async {
         return [];
       });

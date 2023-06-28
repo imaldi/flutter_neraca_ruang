@@ -69,7 +69,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
           }),
           body: kabarTerbaru.when(data: (data) {
             var contentList = data;
-            if (contentList == null || contentList.isEmpty) {
+            if (contentList.isEmpty) {
               return const Center(
                 child: Text("Data Tidak ditemukan"),
               );

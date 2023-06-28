@@ -200,7 +200,9 @@ class ContentWidget extends ConsumerWidget {
                       // preferredDirection: AxisDirection.up,
                       content: Text(content.tagsPihak?.tagsName ?? ""),
                       child: IconWidget(
-                        content.tagsPihak?.tagsIcon1 ?? "",
+                        isGreenMode
+                            ? content.tagsPihak?.tagsIcon2 ?? ""
+                            : content.tagsPihak?.tagsIcon1 ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
@@ -225,7 +227,9 @@ class ContentWidget extends ConsumerWidget {
                       borderRadius: BorderRadius.zero,
                       content: Text(content.tagsTopik?.tagsName ?? ""),
                       child: IconWidget(
-                        content.tagsTopik?.tagsIcon1 ?? "",
+                        isGreenMode
+                            ? content.tagsTopik?.tagsIcon2 ?? ""
+                            : content.tagsTopik?.tagsIcon1 ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
@@ -250,7 +254,9 @@ class ContentWidget extends ConsumerWidget {
                       borderRadius: BorderRadius.zero,
                       content: Text(content.tagsOtonomi?.tagsName ?? ""),
                       child: IconWidget(
-                        content.tagsOtonomi?.tagsIcon1 ?? "",
+                        isGreenMode
+                            ? content.tagsOtonomi?.tagsIcon2 ?? ""
+                            : content.tagsOtonomi?.tagsIcon1 ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
