@@ -88,6 +88,11 @@ class ProfilePage extends ConsumerWidget {
                       "Keluar Akun": () {
                         ///  logout
                         // myToast("Keluar Akun");
+                        ref.read(authStatusProvider.notifier).logout(
+                            successCallback: () {
+                          myToast("Log Out Success");
+                          context.router.pop();
+                        });
                         context.router.replace(LandingRoute());
                       }
                     }

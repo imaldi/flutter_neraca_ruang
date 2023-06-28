@@ -66,7 +66,14 @@ appBarWidget(BuildContext context,
                 }
               },
               child: TabMenuItem("ALBUM FOTO")),
-          TabMenuItem("DISKUSI"),
+          InkWell(
+              onTap: () {
+                context.router.replace(const DiskusiRoute());
+                if (resetStates != null) {
+                  resetStates();
+                }
+              },
+              child: TabMenuItem("DISKUSI")),
         ],
   );
   return AppBar(

@@ -81,6 +81,7 @@ _$_DiskusiModel _$$_DiskusiModelFromJson(Map<String, dynamic> json) =>
       totalRead: json['total_read'] as int?,
       totalLike: json['total_like'] as int?,
       totalKomentar: json['total_komentar'] as int?,
+      localLike: json['local_like'] as bool?,
       activeAt: json['active_at'] == null
           ? null
           : DateTime.parse(json['active_at'] as String),
@@ -108,6 +109,7 @@ Map<String, dynamic> _$$_DiskusiModelToJson(_$_DiskusiModel instance) =>
       'total_read': instance.totalRead,
       'total_like': instance.totalLike,
       'total_komentar': instance.totalKomentar,
+      'local_like': instance.localLike,
       'active_at': instance.activeAt?.toIso8601String(),
       'active_by': instance.activeBy,
       'created_at': instance.createdAt?.toIso8601String(),

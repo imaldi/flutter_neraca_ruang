@@ -21,6 +21,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const KabarPage(),
       );
     },
+    DiskusiRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const DiskusiPage(),
+      );
+    },
     TestApiRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -112,6 +118,20 @@ class KabarRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'KabarRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DiskusiPage]
+class DiskusiRoute extends PageRouteInfo<void> {
+  const DiskusiRoute({List<PageRouteInfo>? children})
+      : super(
+          DiskusiRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DiskusiRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

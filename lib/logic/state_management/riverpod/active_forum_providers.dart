@@ -11,53 +11,72 @@ import '../../../di.dart';
 part 'active_forum_providers.g.dart';
 
 @riverpod
-class ActiveForumProviders extends _$ActiveForumProviders {
+class ActiveForums extends _$ActiveForums {
   @override
   FutureOr<List<DiskusiModel>> build() async {
     return _fetchForumList();
   }
 
   Future<List<DiskusiModel>> _fetchForumList() async {
-    try {} catch (e) {}
+    try {
+      String token =
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+      var url = Uri.https(baseUrl, getListActiveDiskusi);
+
+      // final json = await http.get(url);
+      final response = await http.get(url, headers: {
+        'Authorization': token,
+        'Accept': 'application/json',
+      });
+      log("forum list response: ${response.body}");
+      if (response.statusCode == 200) {
+        return DiskusiResponse.fromJson(jsonDecode(response.body)).data?.data ??
+            [];
+      }
+    } catch (e) {
+      return [];
+    }
     return [];
   }
 
-  // Future<void> likeDiskusi(DiskusiModel content) async {
-  //   /// kirim query untuk like content
-  //   /// TODO perbaiki nih token yang berantakan di mana mana ini!!!
-  //   String token =
-  //       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
-  //
-  //   /// simpan data ke persistence / box
-  //   var box = sl<Box<String>>();
-  //   await box.put(content.slug ?? "", content.slug ?? "");
-  //   try {
-  //     var url = Uri.https(baseUrl, "$updateLikeUrl/${content.slug ?? ""}");
-  //
-  //     // final json = await http.get(url);
-  //     final response = await http.patch(url, headers: {
-  //       'Authorization': token,
-  //       'Accept': 'application/json',
-  //     });
-  //     print("URL like content contentProvider: $url");
-  //     log("result JSON: ${jsonDecode(response.body)}");
-  //     if (response.statusCode != 200) throw Exception();
-  //
-  //     /// ubah dulu secara lokal
-  //     state = AsyncValue.data([
-  //       for (final (stateContent as Datum) in state.value ?? [])
-  //         if (stateContent.id == content.id)
-  //           stateContent.copyWith(
-  //               localLike: true, totalLike: (stateContent.totalLike ?? 0) + 1)
-  //         else
-  //           stateContent,
-  //     ]);
-  //   } catch (_) {
-  //     state = AsyncValue.error(Error(), StackTrace.current);
-  //     box.delete(content.slug ?? "");
-  //     // throw Exception()
-  //   }
-  // }
+  Future<void> likeDiskusi(DiskusiModel content) async {
+    /// kirim query untuk like content
+    /// TODO perbaiki nih token yang berantakan di mana mana ini!!!
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+
+    /// simpan data ke persistence / box
+    /// FIXME, simpan ke box yg berbeda
+    var box = sl<Box<String>>();
+    await box.put(content.threadSlug ?? "", content.threadSlug ?? "");
+    try {
+      var url =
+          Uri.https(baseUrl, "$updateLikeUrl/${content.threadSlug ?? ""}");
+
+      // final json = await http.get(url);
+      final response = await http.patch(url, headers: {
+        'Authorization': token,
+        'Accept': 'application/json',
+      });
+      print("URL like content contentProvider: $url");
+      log("result JSON: ${jsonDecode(response.body)}");
+      if (response.statusCode != 200) throw Exception();
+
+      /// ubah dulu secara lokal
+      state = AsyncValue.data([
+        for (final (stateContent as DiskusiModel) in state.value ?? [])
+          if (stateContent.threadId == content.threadId)
+            stateContent.copyWith(
+                localLike: true, totalLike: (stateContent.totalLike ?? 0) + 1)
+          else
+            stateContent,
+      ]);
+    } catch (_) {
+      state = AsyncValue.error(Error(), StackTrace.current);
+      box.delete(content.threadSlug ?? "");
+      // throw Exception()
+    }
+  }
 
   Future<void> markDiskusiAsRed(String diskusiSlug) async {
     // state = const AsyncValue.loading();

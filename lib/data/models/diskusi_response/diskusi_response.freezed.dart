@@ -659,6 +659,8 @@ mixin _$DiskusiModel {
   int? get totalLike => throw _privateConstructorUsedError;
   @JsonKey(name: "total_komentar")
   int? get totalKomentar => throw _privateConstructorUsedError;
+  @JsonKey(name: "local_like")
+  bool? get localLike => throw _privateConstructorUsedError;
   @JsonKey(name: "active_at")
   DateTime? get activeAt => throw _privateConstructorUsedError;
   @JsonKey(name: "active_by")
@@ -696,6 +698,7 @@ abstract class $DiskusiModelCopyWith<$Res> {
       @JsonKey(name: "total_read") int? totalRead,
       @JsonKey(name: "total_like") int? totalLike,
       @JsonKey(name: "total_komentar") int? totalKomentar,
+      @JsonKey(name: "local_like") bool? localLike,
       @JsonKey(name: "active_at") DateTime? activeAt,
       @JsonKey(name: "active_by") String? activeBy,
       @JsonKey(name: "created_at") DateTime? createdAt,
@@ -730,6 +733,7 @@ class _$DiskusiModelCopyWithImpl<$Res, $Val extends DiskusiModel>
     Object? totalRead = freezed,
     Object? totalLike = freezed,
     Object? totalKomentar = freezed,
+    Object? localLike = freezed,
     Object? activeAt = freezed,
     Object? activeBy = freezed,
     Object? createdAt = freezed,
@@ -796,6 +800,10 @@ class _$DiskusiModelCopyWithImpl<$Res, $Val extends DiskusiModel>
           ? _value.totalKomentar
           : totalKomentar // ignore: cast_nullable_to_non_nullable
               as int?,
+      localLike: freezed == localLike
+          ? _value.localLike
+          : localLike // ignore: cast_nullable_to_non_nullable
+              as bool?,
       activeAt: freezed == activeAt
           ? _value.activeAt
           : activeAt // ignore: cast_nullable_to_non_nullable
@@ -840,6 +848,7 @@ abstract class _$$_DiskusiModelCopyWith<$Res>
       @JsonKey(name: "total_read") int? totalRead,
       @JsonKey(name: "total_like") int? totalLike,
       @JsonKey(name: "total_komentar") int? totalKomentar,
+      @JsonKey(name: "local_like") bool? localLike,
       @JsonKey(name: "active_at") DateTime? activeAt,
       @JsonKey(name: "active_by") String? activeBy,
       @JsonKey(name: "created_at") DateTime? createdAt,
@@ -872,6 +881,7 @@ class __$$_DiskusiModelCopyWithImpl<$Res>
     Object? totalRead = freezed,
     Object? totalLike = freezed,
     Object? totalKomentar = freezed,
+    Object? localLike = freezed,
     Object? activeAt = freezed,
     Object? activeBy = freezed,
     Object? createdAt = freezed,
@@ -938,6 +948,10 @@ class __$$_DiskusiModelCopyWithImpl<$Res>
           ? _value.totalKomentar
           : totalKomentar // ignore: cast_nullable_to_non_nullable
               as int?,
+      localLike: freezed == localLike
+          ? _value.localLike
+          : localLike // ignore: cast_nullable_to_non_nullable
+              as bool?,
       activeAt: freezed == activeAt
           ? _value.activeAt
           : activeAt // ignore: cast_nullable_to_non_nullable
@@ -977,6 +991,7 @@ class _$_DiskusiModel implements _DiskusiModel {
       @JsonKey(name: "total_read") this.totalRead,
       @JsonKey(name: "total_like") this.totalLike,
       @JsonKey(name: "total_komentar") this.totalKomentar,
+      @JsonKey(name: "local_like") this.localLike,
       @JsonKey(name: "active_at") this.activeAt,
       @JsonKey(name: "active_by") this.activeBy,
       @JsonKey(name: "created_at") this.createdAt,
@@ -1031,6 +1046,9 @@ class _$_DiskusiModel implements _DiskusiModel {
   @JsonKey(name: "total_komentar")
   final int? totalKomentar;
   @override
+  @JsonKey(name: "local_like")
+  final bool? localLike;
+  @override
   @JsonKey(name: "active_at")
   final DateTime? activeAt;
   @override
@@ -1045,7 +1063,7 @@ class _$_DiskusiModel implements _DiskusiModel {
 
   @override
   String toString() {
-    return 'DiskusiModel(threadId: $threadId, threadSubject: $threadSubject, threadSlug: $threadSlug, threadDescription: $threadDescription, threadDate: $threadDate, threadThumbnail: $threadThumbnail, threadStart: $threadStart, threadEnd: $threadEnd, moderatorId: $moderatorId, moderatorName: $moderatorName, coModerator: $coModerator, coModeratorName: $coModeratorName, totalRead: $totalRead, totalLike: $totalLike, totalKomentar: $totalKomentar, activeAt: $activeAt, activeBy: $activeBy, createdAt: $createdAt, createdBy: $createdBy)';
+    return 'DiskusiModel(threadId: $threadId, threadSubject: $threadSubject, threadSlug: $threadSlug, threadDescription: $threadDescription, threadDate: $threadDate, threadThumbnail: $threadThumbnail, threadStart: $threadStart, threadEnd: $threadEnd, moderatorId: $moderatorId, moderatorName: $moderatorName, coModerator: $coModerator, coModeratorName: $coModeratorName, totalRead: $totalRead, totalLike: $totalLike, totalKomentar: $totalKomentar, localLike: $localLike, activeAt: $activeAt, activeBy: $activeBy, createdAt: $createdAt, createdBy: $createdBy)';
   }
 
   @override
@@ -1083,6 +1101,8 @@ class _$_DiskusiModel implements _DiskusiModel {
                 other.totalLike == totalLike) &&
             (identical(other.totalKomentar, totalKomentar) ||
                 other.totalKomentar == totalKomentar) &&
+            (identical(other.localLike, localLike) ||
+                other.localLike == localLike) &&
             (identical(other.activeAt, activeAt) ||
                 other.activeAt == activeAt) &&
             (identical(other.activeBy, activeBy) ||
@@ -1112,6 +1132,7 @@ class _$_DiskusiModel implements _DiskusiModel {
         totalRead,
         totalLike,
         totalKomentar,
+        localLike,
         activeAt,
         activeBy,
         createdAt,
@@ -1149,6 +1170,7 @@ abstract class _DiskusiModel implements DiskusiModel {
       @JsonKey(name: "total_read") final int? totalRead,
       @JsonKey(name: "total_like") final int? totalLike,
       @JsonKey(name: "total_komentar") final int? totalKomentar,
+      @JsonKey(name: "local_like") final bool? localLike,
       @JsonKey(name: "active_at") final DateTime? activeAt,
       @JsonKey(name: "active_by") final String? activeBy,
       @JsonKey(name: "created_at") final DateTime? createdAt,
@@ -1202,6 +1224,9 @@ abstract class _DiskusiModel implements DiskusiModel {
   @override
   @JsonKey(name: "total_komentar")
   int? get totalKomentar;
+  @override
+  @JsonKey(name: "local_like")
+  bool? get localLike;
   @override
   @JsonKey(name: "active_at")
   DateTime? get activeAt;

@@ -58,6 +58,7 @@ class DiskusiModel with _$DiskusiModel {
     @JsonKey(name: "total_read") int? totalRead,
     @JsonKey(name: "total_like") int? totalLike,
     @JsonKey(name: "total_komentar") int? totalKomentar,
+    @JsonKey(name: "local_like") bool? localLike,
     @JsonKey(name: "active_at") DateTime? activeAt,
     @JsonKey(name: "active_by") String? activeBy,
     @JsonKey(name: "created_at") DateTime? createdAt,

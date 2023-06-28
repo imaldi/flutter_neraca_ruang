@@ -8,6 +8,7 @@ import '../../presentation/pages/green_page.dart';
 import '../../presentation/pages/infografis_page.dart';
 import '../../presentation/pages/jurnal_page.dart';
 import '../../presentation/pages/kabar_page.dart';
+import '../../presentation/pages/diskusi_page.dart';
 import '../../presentation/pages/landing_page.dart';
 import '../../presentation/pages/login_page.dart';
 import '../../presentation/pages/profile_page.dart';
@@ -29,6 +30,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: InfografisRoute.page),
         AutoRoute(page: VideoRoute.page),
         AutoRoute(page: AlbumFotoRoute.page),
+        AutoRoute(page: DiskusiRoute.page),
         AutoRoute(page: GreenRoute.page),
         // TODO nanti semua pakai route yg ini saja
         AutoRoute(page: DatumTypeFilterRoute.page),
