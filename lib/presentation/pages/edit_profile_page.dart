@@ -50,24 +50,52 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
       "Kota / Kab.": kotaKabController,
       "Kode Pos": kodePosController,
     };
-    ref.listen(authStatusProvider, (previous, next) {
-      if (next.hasValue) {
+    ref.listen(profileEditMode, (previous, next) {
+      if (next) {
         // ini set untuk dapat nama provinsi dan kab.kota
+        print("next profileEditMode data from listen: ${next}");
+        print("next profileEditMode auth data from listen: ${userData}");
         ref.read(provIdParamProvider.notifier).state =
-            next.value?.data?.members?.propinsiId ?? 0;
+            userData.value?.data?.members?.propinsiId ?? 0;
         ref.read(kotaIdParamProvider.notifier).state =
-            next.value?.data?.members?.kotaId ?? 0;
+            userData.value?.data?.members?.kotaId ?? 0;
         // ini untuk set nilai dropdown
         ref.read(provIdProvider.notifier).state =
-            next.value?.data?.members?.propinsiId ?? 0;
+            userData.value?.data?.members?.propinsiId ?? 0;
         ref.read(kotaIdProvider.notifier).state =
-            next.value?.data?.members?.propinsiId ?? 0;
-
-        // ref
-        //     .read(provNameProvider.notifier)
-        //     .state = val;
+            userData.value?.data?.members?.kotaId ?? 0;
       }
     });
+    ref.listen(kabKotaListProvider, (prev, next) {
+      if (next.hasValue) {
+        if (next.value?.every((element) => element != "Dieng") ?? false) {
+          ref.read(kotaNameProvider.notifier).state = null;
+          ref.read(kotaIdParamProvider.notifier).state =
+              userData.value?.data?.members?.kotaId ?? 0;
+          ref.read(kotaIdProvider.notifier).state =
+              userData.value?.data?.members?.kotaId ?? 0;
+        }
+      }
+    });
+    // ref.listen(authStatusProvider, (previous, next) {
+    //   if ((previous?.hasValue ?? false)) {
+    //     // ini set untuk dapat nama provinsi dan kab.kota
+    //     print("prev Auth data from listen: ${previous}");
+    //     ref.read(provIdParamProvider.notifier).state =
+    //         next.value?.data?.members?.propinsiId ?? 0;
+    //     ref.read(kotaIdParamProvider.notifier).state =
+    //         next.value?.data?.members?.kotaId ?? 0;
+    //     // ini untuk set nilai dropdown
+    //     ref.read(provIdProvider.notifier).state =
+    //         next.value?.data?.members?.propinsiId ?? 0;
+    //     ref.read(kotaIdProvider.notifier).state =
+    //         next.value?.data?.members?.kotaId ?? 0;
+    //
+    //     // ref
+    //     //     .read(provNameProvider.notifier)
+    //     //     .state = val;
+    //   }
+    // });
     ref.listen(provNameProfileProvider, (previous, next) {
       if (next.hasValue) {
         ref.read(provNameProvider.notifier).state = next.value;
@@ -95,6 +123,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
               ProfileImageWidget(
                 isDisplayingUbahButton: true,
               ),
+              Text("Nama Provinsi: ${provName.value}"),
+              Text("Nama Kota: ${kotaName.value}"),
               Visibility(
                 visible: isEnabled,
                 child: Align(
@@ -123,60 +153,127 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: normal),
                                     child: Text(key))),
-                            // (key == "Kota / Kab." && isEnabled)
-                            //     ? Expanded(
-                            //         child: Row(
-                            //           children: [
-                            //             Expanded(
-                            //               child: provinceList.when(
-                            //                   data: (data) {
-                            //                     return Column(
-                            //                       children: [
-                            //                         SearchableDropdown(
-                            //                           // "Provinsi",
-                            //                           data
-                            //                               .map((e) =>
-                            //                                   e.name ?? "")
-                            //                               .toSet(),
-                            //                           provNameProvider,
-                            //                           hintText: "Provinsi",
-                            //                           contentPadding:
-                            //                               const EdgeInsets.all(
-                            //                                   medium),
-                            //                           onItemTapped: (val) {
-                            //                             ref
-                            //                                 .read(
-                            //                                     kotaNameProvider
-                            //                                         .notifier)
-                            //                                 .state = null;
-                            //                             ref
-                            //                                 .read(
-                            //                                     provNameProvider
-                            //                                         .notifier)
-                            //                                 .state = val;
-                            //                             ref
-                            //                                 .read(provIdProvider
-                            //                                     .notifier)
-                            //                                 .state = data
-                            //                                     .firstWhere(
-                            //                                         (element) =>
-                            //                                             (element.name ??
-                            //                                                 "") ==
-                            //                                             val)
-                            //                                     .id ??
-                            //                                 0;
-                            //                           },
-                            //                         ),
-                            // :
-                            Expanded(
-                              flex: 4,
-                              child: RoundedTextFormField(
-                                isEnabled: isEnabled,
-                                controller: value,
-                                hint: key,
-                                borderRadius: medium,
-                              ),
-                            ),
+                            (key == "Kota / Kab." && isEnabled)
+                                ? Expanded(
+                                    child: Column(
+                                      children: [
+                                        provinceList.when(
+                                            data: (data) {
+                                              return Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Column(
+                                                          children: [
+                                                            SearchableDropdown(
+                                                              // "Provinsi",
+                                                              data
+                                                                  .map((e) =>
+                                                                      e.name ??
+                                                                      "")
+                                                                  .toSet(),
+                                                              provNameProvider,
+                                                              hintText:
+                                                                  "Provinsi",
+                                                              contentPadding:
+                                                                  const EdgeInsets
+                                                                          .all(
+                                                                      medium),
+                                                              onItemTapped:
+                                                                  (val) {
+                                                                ref
+                                                                    .read(kotaNameProvider
+                                                                        .notifier)
+                                                                    .state = null;
+                                                                ref
+                                                                    .read(provNameProvider
+                                                                        .notifier)
+                                                                    .state = val;
+                                                                ref
+                                                                    .read(provIdProvider
+                                                                        .notifier)
+                                                                    .state = data
+                                                                        .firstWhere((element) =>
+                                                                            (element.name ??
+                                                                                "") ==
+                                                                            val)
+                                                                        .id ??
+                                                                    0;
+                                                              },
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Column(
+                                                          children: [
+                                                            kabKotaList.when(
+                                                                data: (data) {
+                                                                  return Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            Column(
+                                                                          children: [
+                                                                            SearchableDropdown(
+                                                                              // "Kabupaten / Kota",
+                                                                              data.map((e) => e.name ?? "").toSet(),
+                                                                              kotaNameProvider,
+                                                                              hintText: "Kabupaten / Kota",
+                                                                              contentPadding: const EdgeInsets.all(medium),
+                                                                              onItemTapped: (val) {
+                                                                                // ref
+                                                                                //     .read(kotaNameProvider
+                                                                                //         .notifier)
+                                                                                //     .state = null;
+                                                                                ref.read(kotaNameProvider.notifier).state = val;
+                                                                                ref.read(kotaIdProvider.notifier).state = data.firstWhere((element) => (element.name ?? "") == val).id ?? 0;
+                                                                              },
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                                error: (o, st) {
+                                                                  return Container();
+                                                                },
+                                                                loading: () =>
+                                                                    Center(
+                                                                        child:
+                                                                            CircularProgressIndicator())),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                            error: (o, st) {
+                                              return Container();
+                                            },
+                                            loading: () => Center(
+                                                child:
+                                                    CircularProgressIndicator())),
+                                      ],
+                                    ),
+                                  )
+                                : Expanded(
+                                    flex: 4,
+                                    child: RoundedTextFormField(
+                                      isEnabled: isEnabled,
+                                      controller: value,
+                                      hint: key,
+                                      borderRadius: medium,
+                                    ),
+                                  ),
                           ],
                         ),
                       )))

@@ -145,8 +145,10 @@ final provNameProfileProvider = FutureProvider<String?>(
         "Authorization": token,
         "Accept": "application/json",
       });
+      print("kota name url: $url");
+      print("kota name resp: ${response.body}");
       if (response.statusCode == 201) {
-        return jsonDecode(response.body)["message"]["name"] ?? "";
+        return jsonDecode(response.body)["data"]["name"] ?? "";
       }
     } catch (_) {
       return null;
@@ -386,7 +388,7 @@ final kabKotaListProvider = FutureProvider<List<KotaKabupaten>>((ref) async {
       'Accept': 'application/json',
     });
     print("URL kab kota list: $url");
-    print("prov resp body: ${response.body}");
+    log("kota by prov id resp body: ${response.body}");
 
     if (response.statusCode == 200) {
       return KotaKabupatenResponse.fromJson(jsonDecode(response.body)).data ??
