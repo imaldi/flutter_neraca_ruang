@@ -5,6 +5,7 @@ import 'package:flutter_neraca_ruang/presentation/widgets/my_button.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/profile_image_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/consts/colors.dart';
 import '../../core/consts/num_consts.dart';
@@ -50,6 +51,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
       "Kota / Kab.": kotaKabController,
       "Kode Pos": kodePosController,
     };
+    final hintColor = Color(primaryHintColor).withAlpha(120);
+    final textStyle = TextStyle(color: hintColor);
     ref.listen(profileEditMode, (previous, next) {
       if (next) {
         // ini set untuk dapat nama provinsi dan kab.kota
@@ -68,7 +71,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     });
     ref.listen(kabKotaListProvider, (prev, next) {
       if (next.hasValue) {
-        if (next.value?.every((element) => element != "Dieng") ?? false) {
+        if (next.value?.every((element) => element != kotaName) ?? false) {
           ref.read(kotaNameProvider.notifier).state = null;
           ref.read(kotaIdParamProvider.notifier).state =
               userData.value?.data?.members?.kotaId ?? 0;
@@ -233,6 +236,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                                 //     .state = null;
                                                                                 ref.read(kotaNameProvider.notifier).state = val;
                                                                                 ref.read(kotaIdProvider.notifier).state = data.firstWhere((element) => (element.name ?? "") == val).id ?? 0;
+                                                                                // ref.read(kotaIdParamProvider.notifier).state = data.firstWhere((element) => (element.name ?? "") == val).id ?? 0;
                                                                               },
                                                                             )
                                                                           ],
@@ -269,9 +273,55 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                     flex: 4,
                                     child: RoundedTextFormField(
                                       isEnabled: isEnabled,
+                                      readOnly:
+                                          (key == "Tanggal Lahir" && isEnabled),
                                       controller: value,
                                       hint: key,
                                       borderRadius: medium,
+                                      decoration: (key == "Tanggal Lahir" &&
+                                              isEnabled)
+                                          ? InputDecoration(
+                                              hintStyle: textStyle,
+                                              suffixIcon: InkWell(
+                                                  onTap: () async {
+                                                    var dateChosen =
+                                                        await showDatePicker(
+                                                            context: context,
+                                                            initialDate:
+                                                                DateTime.now(),
+                                                            firstDate:
+                                                                DateTime(1978),
+                                                            lastDate:
+                                                                DateTime.now());
+                                                    if (dateChosen != null) {
+                                                      ref
+                                                          .read(
+                                                              tanggalLahirProvider
+                                                                  .notifier)
+                                                          .state = DateFormat(
+                                                              "dd-MM-yyyy")
+                                                          .format(dateChosen);
+                                                      ref
+                                                          .read(
+                                                              tanggalLahirParamProvider
+                                                                  .notifier)
+                                                          .state = DateFormat(
+                                                              "yyyy-MM-dd")
+                                                          .format(dateChosen);
+                                                      tanggalLahirController
+                                                          .clear();
+                                                      tanggalLahirController
+                                                          .text = DateFormat(
+                                                              "yyyy-MM-dd")
+                                                          .format(dateChosen);
+                                                    }
+                                                    // dateChosen.toString().substring(0, 10);
+                                                  },
+                                                  child: Icon(
+                                                    Icons.calendar_month,
+                                                    color: Colors.black,
+                                                  )))
+                                          : null,
                                     ),
                                   ),
                           ],
@@ -288,6 +338,11 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                         margin: const EdgeInsets.symmetric(horizontal: medium),
                         child: MyButton(
                           onPressed: () {
+                            ref.read(authStatusProvider.notifier).editMember(
+                                  email: emailController.text,
+                                  noHp: teleponController.text,
+                                  kodePos: kodePosController.text,
+                                );
                             ref.read(profileEditMode.notifier).state = false;
                           },
                           child: Text("Simpan"),

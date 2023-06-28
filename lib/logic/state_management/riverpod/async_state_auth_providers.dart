@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_neraca_ruang/data/models/auth_response/auth_response.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
@@ -242,14 +243,16 @@ class AuthStatus extends _$AuthStatus {
   }) async {
     const AsyncValue.loading();
 
-    String token =
-        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
     Map<String, String> bodyParameters = {};
     var tanggalLahir = ref.watch(tanggalLahirParamProvider);
+    var kotaId = ref.watch(kotaIdProvider);
+    var provId = ref.watch(provIdProvider);
     print("tanggalLahir: $tanggalLahir");
     var authBox = sl<Box<AuthResponse>>();
     var dataFromBox = authBox.get(userDataKey);
     print("dataFromBox (update member): ${dataFromBox?.toJson()}");
+    String token = "Bearer ${dataFromBox?.data?.token ?? ""}";
+    // "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
 
     if ((fullname).isNotEmpty) {
       bodyParameters['fullname'] = fullname;
@@ -293,6 +296,7 @@ class AuthStatus extends _$AuthStatus {
           dataFromBox?.data?.members?.kotaId.toString() ?? "";
     }
 
+    log("bodyParam: ${bodyParameters.toString()}");
     var url = Uri.https(
       baseUrl,
       updateMemberUrl,
@@ -316,15 +320,16 @@ class AuthStatus extends _$AuthStatus {
           noHp: bodyParameters['no_hp'],
           kodePos: bodyParameters['kode_pos'],
           tanggalLahir: bodyParameters['tanggal_lahir'],
-          propinsiId:
-              int.tryParse(bodyParameters['propinsi_id'] ?? "0", radix: 0),
-          kotaId: int.tryParse(bodyParameters['kota_id'] ?? "0", radix: 0),
+          propinsiId: int.tryParse(bodyParameters['propinsi_id'] ?? "0"),
+          kotaId: int.tryParse(bodyParameters['kota_id'] ?? "0"),
         );
         var newData = dataFromBox?.copyWith.data?.call(members: newMemberData);
         await authBox.delete(userDataKey);
         await authBox.put(userDataKey, newData ?? AuthResponse());
+        var newDataFromBox = authBox.get(userDataKey);
+        log("newDataFromBox: $newDataFromBox");
         state = await AsyncValue.guard(() async {
-          return authBox.get(userDataKey);
+          return newDataFromBox;
         });
         if (successCallback != null) successCallback();
       }

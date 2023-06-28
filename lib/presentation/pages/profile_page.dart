@@ -55,7 +55,7 @@ class ProfilePage extends ConsumerWidget {
       child: WillPopScope(
         onWillPop: () {
           context.router.replace(const LandingRoute());
-          return basicOnWillPop(context, ref);
+          return Future.value(true);
         },
         child: Scaffold(
           appBar: appBarWidget(
