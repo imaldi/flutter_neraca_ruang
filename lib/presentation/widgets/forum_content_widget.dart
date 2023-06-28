@@ -37,19 +37,23 @@ class ForumContentWidget extends ConsumerWidget {
     var isLogin = ref.watch(authStatusProvider).value != null;
     return Column(
       children: [
-        FittedBox(
-          fit: BoxFit.fitHeight,
-          child: Image.network(
-            "${content.threadThumbnail}",
-            fit: BoxFit.cover,
-            errorBuilder: (bc, o, st) {
-              return Icon(
-                Icons.broken_image_outlined,
-                size: 2 * extra,
-                color: Color(primaryColor),
-              );
-              // Text(content.images ?? "Image not Found");
-            },
+        Container(
+          height: 200,
+          width: MediaQuery.of(context).size.width,
+          child: FittedBox(
+            fit: BoxFit.fitHeight,
+            child: Image.network(
+              "${content.threadThumbnail}",
+              fit: BoxFit.cover,
+              errorBuilder: (bc, o, st) {
+                return Icon(
+                  Icons.broken_image_outlined,
+                  size: 2 * extra,
+                  color: Color(primaryColor),
+                );
+                // Text(content.images ?? "Image not Found");
+              },
+            ),
           ),
         ),
         Padding(
@@ -62,7 +66,13 @@ class ForumContentWidget extends ConsumerWidget {
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               InkWell(
-                onTap: contentId != content.threadId ? () {} : null,
+                onTap: contentId != content.threadId
+                    ? () {
+                        ref
+                            .read(activeForumsProvider.notifier)
+                            .markDiskusiAsRed(content.threadSlug ?? "");
+                      }
+                    : null,
                 child: Container(
                   margin: const EdgeInsets.only(top: normal, bottom: medium),
                   child: Text(
