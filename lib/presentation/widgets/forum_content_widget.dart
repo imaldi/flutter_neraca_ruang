@@ -1,6 +1,7 @@
 import 'package:flutter_neraca_ruang/data/models/diskusi_response/diskusi_response.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/comment_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
+import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -60,11 +61,6 @@ class ForumContentWidget extends ConsumerWidget {
           padding: const EdgeInsets.all(medium),
           child: Column(
             children: [
-              Text(
-                /// TODO jangan lupa ganti dengan created by yg asli
-                '${content.threadStart ?? ""} - ${content.threadEnd}',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
               InkWell(
                 onTap: contentId != content.threadId
                     ? () {
@@ -81,6 +77,14 @@ class ForumContentWidget extends ConsumerWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
+              ),
+              Text(
+                /// TODO jangan lupa ganti dengan created by yg asli
+                '${DateFormat(
+                      "dd MMMM",
+                      "id",
+                    ).format(content.threadStart ?? DateTime.now()) ?? ""} - ${DateFormat("dd MMMM yyyy", "id").format(content.threadEnd ?? DateTime.now())}',
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
           ),

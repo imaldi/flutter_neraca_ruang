@@ -23,16 +23,18 @@ class Contents extends _$Contents {
       var box = sl<Box<String>>();
       box.clear();
     }
-    return await fetchContent();
+    return [];
+    // return await fetchContent();
   }
 
-  Future<List<Datum>> fetchContent(
-      {int? pageNumber = 1,
+  Future<void> fetchContent(
+      {
+      // int? pageNumber = 1,
       int? limit = 5,
       String? type,
       String? keyword}) async {
     Map<String, String> queryParameters = {
-      'page': pageNumber.toString(),
+      // 'page': pageNumber.toString(),
       'limit': limit.toString(),
     };
     if ((type ?? "").isNotEmpty) {
@@ -78,7 +80,7 @@ class Contents extends _$Contents {
       }
     }
     // keyword ?? "";
-    print(": $queryParameters");
+    print("query Param fetch content: $queryParameters");
 
     // var authBox = sl<Box<LoginResponse>>();
     // var dataFromBox = authBox.get(userDataKey);
@@ -114,14 +116,14 @@ class Contents extends _$Contents {
       state = await AsyncValue.guard(() async {
         return result;
       });
-      return result;
+      // return result;
     } on TypeError {
       state = const AsyncValue.loading();
       state = await AsyncValue.guard(() async {
         return [];
       });
-      state = AsyncValue.error(TypeError, StackTrace.current);
-      return [];
+      state = await AsyncValue.error(TypeError, StackTrace.current);
+      // return [];
     }
     // finally {
     //   ref.invalidate(startSearching);

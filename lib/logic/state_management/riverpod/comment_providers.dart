@@ -41,9 +41,12 @@ class Comments extends _$Comments {
   Future<void> fetchCommentFromAPI() async {
     state = const AsyncValue.loading();
     String selectedSlug = ref.watch(selectedContentSlugProvider);
+    var authBox = sl<Box<AuthResponse>>();
+    var dataFromBox = authBox.get(userDataKey);
+    print("dataFromBox (change password): ${dataFromBox?.toJson()}");
 
-    String token =
-        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+    String token = "Bearer ${dataFromBox?.data?.token ?? ""}";
+
     var url = Uri.https(baseUrl, "$commentListUrl/$selectedSlug");
 
     print("url fetch comment: $url");

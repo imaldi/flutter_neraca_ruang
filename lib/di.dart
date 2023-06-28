@@ -6,14 +6,12 @@ import 'package:flutter/services.dart';
 import 'core/consts/hive_const.dart';
 import 'data/models/auth_response/auth_response.dart';
 import 'data/models/login_response_deprecated/login_response.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 final sl = GetIt.instance;
 Future<void> init() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Enable or disable system overlays
-  // SystemChrome
-  //     .setEnabledSystemUIMode(SystemUiMode.)
-  // .setEnabledSystemUIOverlays([]);
+  initializeDateFormatting('id');
 
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
