@@ -15,8 +15,10 @@ class SearchableDropdown extends ConsumerStatefulWidget {
   final InputDecoration? decoration;
   final EdgeInsets? contentPadding;
   final String? hintText;
+  final double? borderRadius;
   const SearchableDropdown(this.items, this.provider,
       {this.label,
+      this.borderRadius,
       this.onItemTapped,
       this.contentPadding,
       this.decoration,
@@ -104,7 +106,8 @@ class _SearchableDropdownState extends ConsumerState<SearchableDropdown> {
                   decoration: BoxDecoration(
                       border: Border.all(
                           color: const Color(primaryColor), width: 4),
-                      borderRadius: BorderRadius.all(Radius.circular(huge)))),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(widget.borderRadius ?? huge)))),
               dropdownStyleData: const DropdownStyleData(
                 maxHeight: 200,
               ),
