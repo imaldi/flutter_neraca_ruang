@@ -59,6 +59,64 @@ class ForumContentWidget extends ConsumerWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(medium),
+          child: FittedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                FittedBox(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        child: Icon(
+                          Icons.person,
+                          size: huge,
+                        ),
+                        radius: huge,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("${content.moderatorName}"),
+                            Text("Moderator")
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                FittedBox(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        child: Icon(
+                          Icons.person,
+                          size: huge,
+                        ),
+                        radius: huge,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${content.coModeratorName}",
+                            ),
+                            Text("Co-Moderator")
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(medium),
           child: Column(
             children: [
               InkWell(
