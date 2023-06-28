@@ -85,12 +85,15 @@ class Comments extends _$Comments {
       {required Function() onSuccess,
       required Function(String) onFailure}) async {
     try {
-      var authBox = sl<Box<AuthResponse>>();
-      var dataFromBox = authBox.get(userDataKey);
-      MemberData userData =
-          dataFromBox?.data?.copyWith(token: "") ?? MemberData();
-      print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
-      var token = userData.token ?? "";
+      // var authBox = sl<Box<AuthResponse>>();
+      // var dataFromBox = authBox.get(userDataKey);
+      // MemberData userData =
+      //     dataFromBox?.data?.copyWith(token: "") ?? MemberData();
+      // print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
+      // var token = "Bearer ${userData.token ?? " "}";
+      // FIXME ini sharusnya pakai token user, bukan portal
+      String token =
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2EtcnVhbmciLCJzdWIiOiJhbGRpMTkiLCJpYXQiOjE2ODc3MzMxMDIsImV4cCI6MTY5MDMyNTEwMn0.NeO58NdKNvcV3kD5J0aRFarTiBeEypM337OR0WPWM6I";
       var bodyParameters = {
         "slug": slug,
         "komentar": komentar,
@@ -107,7 +110,7 @@ class Comments extends _$Comments {
             'Authorization': "Bearer $token",
             'Accept': 'application/json',
           },
-          body: jsonEncode(bodyParameters));
+          body: bodyParameters);
       log("post comment resp code: ${response.statusCode}");
       log("post comment resp body: ${response.body}");
       if (response.statusCode != 201) {
