@@ -47,6 +47,7 @@ class ContentWidget extends ConsumerWidget {
     var isInfografis = content.tipe == "infografis";
     var isLiked = content.localLike ?? false;
     var isLogin = ref.watch(authStatusProvider).value != null;
+    var commentList = ref.watch(commentsProvider);
     return Column(
       children: [
         Visibility(
@@ -519,6 +520,7 @@ class ContentWidget extends ConsumerWidget {
                 .toList(),
           ),
         ),
+        // ref.watch(commentProvider)
         Visibility(
             visible: contentId == content.id && selectedSlug.isNotEmpty,
             child: CommentWidget()),

@@ -23,37 +23,37 @@ Map<String, dynamic> _$$_CommentResponseToJson(_$_CommentResponse instance) =>
 _$_CommentModel _$$_CommentModelFromJson(Map<String, dynamic> json) =>
     _$_CommentModel(
       id: json['id'] as int?,
-      contentId: json['contentId'] as int?,
+      contentId: json['content_id'] as int?,
       komentar: json['komentar'] as String?,
-      memberId: json['memberId'] as int?,
-      nikPublic: json['nikPublic'] as String?,
+      memberId: json['member_id'] as int?,
+      nikPublic: json['nik_public'] as String?,
       username: json['username'] as String?,
-      emailPublic: json['emailPublic'] as String?,
-      tipeUser: json['tipeUser'] as String?,
-      komentarAt: json['komentarAt'] == null
+      emailPublic: json['email_public'] as String?,
+      tipeUser: json['tipe_user'] as String?,
+      komentarAt: json['komentar_at'] == null
           ? null
-          : DateTime.parse(json['komentarAt'] as String),
-      isHide: json['isHide'] as int?,
-      hideAt: json['hideAt'] == null
+          : DateTime.parse(json['komentar_at'] as String),
+      isHide: json['is_hide'] as int?,
+      hideAt: json['hide_at'] == null
           ? null
-          : DateTime.parse(json['hideAt'] as String),
-      unhideAt: json['unhideAt'] == null
+          : DateTime.parse(json['hide_at'] as String),
+      unhideAt: json['unhide_at'] == null
           ? null
-          : DateTime.parse(json['unhideAt'] as String),
+          : DateTime.parse(json['unhide_at'] as String),
     );
 
 Map<String, dynamic> _$$_CommentModelToJson(_$_CommentModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'contentId': instance.contentId,
+      'content_id': instance.contentId,
       'komentar': instance.komentar,
-      'memberId': instance.memberId,
-      'nikPublic': instance.nikPublic,
+      'member_id': instance.memberId,
+      'nik_public': instance.nikPublic,
       'username': instance.username,
-      'emailPublic': instance.emailPublic,
-      'tipeUser': instance.tipeUser,
-      'komentarAt': instance.komentarAt?.toIso8601String(),
-      'isHide': instance.isHide,
-      'hideAt': instance.hideAt?.toIso8601String(),
-      'unhideAt': instance.unhideAt?.toIso8601String(),
+      'email_public': instance.emailPublic,
+      'tipe_user': instance.tipeUser,
+      'komentar_at': instance.komentarAt?.toIso8601String(),
+      'is_hide': instance.isHide,
+      'hide_at': instance.hideAt?.toIso8601String(),
+      'unhide_at': instance.unhideAt?.toIso8601String(),
     };

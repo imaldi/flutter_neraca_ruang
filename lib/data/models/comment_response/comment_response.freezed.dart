@@ -184,16 +184,25 @@ CommentModel _$CommentModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CommentModel {
   int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "content_id")
   int? get contentId => throw _privateConstructorUsedError;
   String? get komentar => throw _privateConstructorUsedError;
+  @JsonKey(name: "member_id")
   int? get memberId => throw _privateConstructorUsedError;
+  @JsonKey(name: "nik_public")
   String? get nikPublic => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
+  @JsonKey(name: "email_public")
   String? get emailPublic => throw _privateConstructorUsedError;
+  @JsonKey(name: "tipe_user")
   String? get tipeUser => throw _privateConstructorUsedError;
+  @JsonKey(name: "komentar_at")
   DateTime? get komentarAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "is_hide")
   int? get isHide => throw _privateConstructorUsedError;
+  @JsonKey(name: "hide_at")
   DateTime? get hideAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "unhide_at")
   DateTime? get unhideAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -210,17 +219,17 @@ abstract class $CommentModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      int? contentId,
+      @JsonKey(name: "content_id") int? contentId,
       String? komentar,
-      int? memberId,
-      String? nikPublic,
+      @JsonKey(name: "member_id") int? memberId,
+      @JsonKey(name: "nik_public") String? nikPublic,
       String? username,
-      String? emailPublic,
-      String? tipeUser,
-      DateTime? komentarAt,
-      int? isHide,
-      DateTime? hideAt,
-      DateTime? unhideAt});
+      @JsonKey(name: "email_public") String? emailPublic,
+      @JsonKey(name: "tipe_user") String? tipeUser,
+      @JsonKey(name: "komentar_at") DateTime? komentarAt,
+      @JsonKey(name: "is_hide") int? isHide,
+      @JsonKey(name: "hide_at") DateTime? hideAt,
+      @JsonKey(name: "unhide_at") DateTime? unhideAt});
 }
 
 /// @nodoc
@@ -312,17 +321,17 @@ abstract class _$$_CommentModelCopyWith<$Res>
   @useResult
   $Res call(
       {int? id,
-      int? contentId,
+      @JsonKey(name: "content_id") int? contentId,
       String? komentar,
-      int? memberId,
-      String? nikPublic,
+      @JsonKey(name: "member_id") int? memberId,
+      @JsonKey(name: "nik_public") String? nikPublic,
       String? username,
-      String? emailPublic,
-      String? tipeUser,
-      DateTime? komentarAt,
-      int? isHide,
-      DateTime? hideAt,
-      DateTime? unhideAt});
+      @JsonKey(name: "email_public") String? emailPublic,
+      @JsonKey(name: "tipe_user") String? tipeUser,
+      @JsonKey(name: "komentar_at") DateTime? komentarAt,
+      @JsonKey(name: "is_hide") int? isHide,
+      @JsonKey(name: "hide_at") DateTime? hideAt,
+      @JsonKey(name: "unhide_at") DateTime? unhideAt});
 }
 
 /// @nodoc
@@ -407,17 +416,17 @@ class __$$_CommentModelCopyWithImpl<$Res>
 class _$_CommentModel implements _CommentModel {
   const _$_CommentModel(
       {this.id,
-      this.contentId,
+      @JsonKey(name: "content_id") this.contentId,
       this.komentar,
-      this.memberId,
-      this.nikPublic,
+      @JsonKey(name: "member_id") this.memberId,
+      @JsonKey(name: "nik_public") this.nikPublic,
       this.username,
-      this.emailPublic,
-      this.tipeUser,
-      this.komentarAt,
-      this.isHide,
-      this.hideAt,
-      this.unhideAt});
+      @JsonKey(name: "email_public") this.emailPublic,
+      @JsonKey(name: "tipe_user") this.tipeUser,
+      @JsonKey(name: "komentar_at") this.komentarAt,
+      @JsonKey(name: "is_hide") this.isHide,
+      @JsonKey(name: "hide_at") this.hideAt,
+      @JsonKey(name: "unhide_at") this.unhideAt});
 
   factory _$_CommentModel.fromJson(Map<String, dynamic> json) =>
       _$$_CommentModelFromJson(json);
@@ -425,26 +434,35 @@ class _$_CommentModel implements _CommentModel {
   @override
   final int? id;
   @override
+  @JsonKey(name: "content_id")
   final int? contentId;
   @override
   final String? komentar;
   @override
+  @JsonKey(name: "member_id")
   final int? memberId;
   @override
+  @JsonKey(name: "nik_public")
   final String? nikPublic;
   @override
   final String? username;
   @override
+  @JsonKey(name: "email_public")
   final String? emailPublic;
   @override
+  @JsonKey(name: "tipe_user")
   final String? tipeUser;
   @override
+  @JsonKey(name: "komentar_at")
   final DateTime? komentarAt;
   @override
+  @JsonKey(name: "is_hide")
   final int? isHide;
   @override
+  @JsonKey(name: "hide_at")
   final DateTime? hideAt;
   @override
+  @JsonKey(name: "unhide_at")
   final DateTime? unhideAt;
 
   @override
@@ -514,17 +532,17 @@ class _$_CommentModel implements _CommentModel {
 abstract class _CommentModel implements CommentModel {
   const factory _CommentModel(
       {final int? id,
-      final int? contentId,
+      @JsonKey(name: "content_id") final int? contentId,
       final String? komentar,
-      final int? memberId,
-      final String? nikPublic,
+      @JsonKey(name: "member_id") final int? memberId,
+      @JsonKey(name: "nik_public") final String? nikPublic,
       final String? username,
-      final String? emailPublic,
-      final String? tipeUser,
-      final DateTime? komentarAt,
-      final int? isHide,
-      final DateTime? hideAt,
-      final DateTime? unhideAt}) = _$_CommentModel;
+      @JsonKey(name: "email_public") final String? emailPublic,
+      @JsonKey(name: "tipe_user") final String? tipeUser,
+      @JsonKey(name: "komentar_at") final DateTime? komentarAt,
+      @JsonKey(name: "is_hide") final int? isHide,
+      @JsonKey(name: "hide_at") final DateTime? hideAt,
+      @JsonKey(name: "unhide_at") final DateTime? unhideAt}) = _$_CommentModel;
 
   factory _CommentModel.fromJson(Map<String, dynamic> json) =
       _$_CommentModel.fromJson;
@@ -532,26 +550,35 @@ abstract class _CommentModel implements CommentModel {
   @override
   int? get id;
   @override
+  @JsonKey(name: "content_id")
   int? get contentId;
   @override
   String? get komentar;
   @override
+  @JsonKey(name: "member_id")
   int? get memberId;
   @override
+  @JsonKey(name: "nik_public")
   String? get nikPublic;
   @override
   String? get username;
   @override
+  @JsonKey(name: "email_public")
   String? get emailPublic;
   @override
+  @JsonKey(name: "tipe_user")
   String? get tipeUser;
   @override
+  @JsonKey(name: "komentar_at")
   DateTime? get komentarAt;
   @override
+  @JsonKey(name: "is_hide")
   int? get isHide;
   @override
+  @JsonKey(name: "hide_at")
   DateTime? get hideAt;
   @override
+  @JsonKey(name: "unhide_at")
   DateTime? get unhideAt;
   @override
   @JsonKey(ignore: true)

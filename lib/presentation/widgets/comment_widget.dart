@@ -57,40 +57,41 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
               ),
               commentList.when(
                   data: (data) {
-                    if (data.length > 0) {
-                      return Container(
-                        height: 200,
-                        child: MyScrollableNestedWidget(
-                          controller: sl<ScrollController>(),
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: data.length,
-                              // physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (c, i) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${data[i].komentar}",
-                                          style: TextStyle(fontSize: medium),
-                                        ),
-                                        Text(
-                                          "by: ${data[i].username}",
-                                          style: TextStyle(
-                                              color: Color(primaryColor)),
-                                        ),
-                                      ]),
-                                );
-                              }),
-                        ),
-                      );
-                    }
-                    return Center(
-                      child: Text("- Belum Ada Komentar -"),
+                    // if (data.length > 0) {
+                    // return Text("Data komen: ${data.toString()}");
+                    return Container(
+                      height: 200,
+                      child: MyScrollableNestedWidget(
+                        controller: sl<ScrollController>(),
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: data.length,
+                            // physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (c, i) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${data[i].komentar}",
+                                        style: TextStyle(fontSize: medium),
+                                      ),
+                                      Text(
+                                        "by: ${data[i].username ?? "-"}",
+                                        style: TextStyle(
+                                            color: Color(primaryColor)),
+                                      ),
+                                    ]),
+                              );
+                            }),
+                      ),
                     );
+                    // // }
+                    // // return Center(
+                    // //   child: Text("- Belum Ada Komentar -"),
+                    // // );
                   },
                   error: (o, st) => Center(
                         child: Text("There is an error: $st"),
@@ -144,6 +145,9 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                                 textEditingController.selection =
                                     TextSelection.fromPosition(
                                         TextPosition(offset: 0));
+                                ref
+                                    .read(commentsProvider.notifier)
+                                    .fetchCommentFromAPI();
                               }, onFailure: (errorMessage) {
                                 print("response body: $errorMessage");
                               });

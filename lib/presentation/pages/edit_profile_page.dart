@@ -126,8 +126,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
               ProfileImageWidget(
                 isDisplayingUbahButton: true,
               ),
-              Text("Nama Provinsi: ${provName.value}"),
-              Text("Nama Kota: ${kotaName.value}"),
+              // Text("Nama Provinsi: ${provName.value}"),
+              // Text("Nama Kota: ${kotaName.value}"),
               Visibility(
                 visible: isEnabled,
                 child: Align(

@@ -81,18 +81,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const VideoPage(),
       );
     },
-    InfografisRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const InfografisPage(),
-      );
-    },
-    DatumTypeFilterRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const DatumTypeFilterPage(),
-      );
-    },
     EditProfileRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -103,6 +91,18 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const ChangePasswordPage(),
+      );
+    },
+    InfografisRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const InfografisPage(),
+      );
+    },
+    DatumTypeFilterRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const DatumTypeFilterPage(),
       );
     },
   };
@@ -263,34 +263,6 @@ class VideoRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [InfografisPage]
-class InfografisRoute extends PageRouteInfo<void> {
-  const InfografisRoute({List<PageRouteInfo>? children})
-      : super(
-          InfografisRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'InfografisRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [DatumTypeFilterPage]
-class DatumTypeFilterRoute extends PageRouteInfo<void> {
-  const DatumTypeFilterRoute({List<PageRouteInfo>? children})
-      : super(
-          DatumTypeFilterRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'DatumTypeFilterRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [EditProfilePage]
 class EditProfileRoute extends PageRouteInfo<void> {
   const EditProfileRoute({List<PageRouteInfo>? children})
@@ -314,6 +286,34 @@ class ChangePasswordRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ChangePasswordRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [InfografisPage]
+class InfografisRoute extends PageRouteInfo<void> {
+  const InfografisRoute({List<PageRouteInfo>? children})
+      : super(
+          InfografisRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'InfografisRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DatumTypeFilterPage]
+class DatumTypeFilterRoute extends PageRouteInfo<void> {
+  const DatumTypeFilterRoute({List<PageRouteInfo>? children})
+      : super(
+          DatumTypeFilterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DatumTypeFilterRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

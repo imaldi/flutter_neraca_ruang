@@ -23,17 +23,17 @@ class CommentResponse with _$CommentResponse {
 class CommentModel with _$CommentModel {
   const factory CommentModel({
     int? id,
-    int? contentId,
+    @JsonKey(name: "content_id") int? contentId,
     String? komentar,
-    int? memberId,
-    String? nikPublic,
+    @JsonKey(name: "member_id") int? memberId,
+    @JsonKey(name: "nik_public") String? nikPublic,
     String? username,
-    String? emailPublic,
-    String? tipeUser,
-    DateTime? komentarAt,
-    int? isHide,
-    DateTime? hideAt,
-    DateTime? unhideAt,
+    @JsonKey(name: "email_public") String? emailPublic,
+    @JsonKey(name: "tipe_user") String? tipeUser,
+    @JsonKey(name: "komentar_at") DateTime? komentarAt,
+    @JsonKey(name: "is_hide") int? isHide,
+    @JsonKey(name: "hide_at") DateTime? hideAt,
+    @JsonKey(name: "unhide_at") DateTime? unhideAt,
   }) = _CommentModel;
 
   factory CommentModel.fromJson(Map<String, dynamic> json) =>

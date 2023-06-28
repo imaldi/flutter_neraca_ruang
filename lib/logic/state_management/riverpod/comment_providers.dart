@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:flutter_neraca_ruang/core/dummy_json/fake_comment_response.dart';
 import 'package:flutter_neraca_ruang/core/helper_functions/json_reader.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:http/http.dart' as http;
@@ -39,13 +38,15 @@ class Comments extends _$Comments {
   }
 
   Future<void> fetchCommentFromAPI() async {
-    state = const AsyncValue.loading();
+    // state = const AsyncValue.loading();
     String selectedSlug = ref.watch(selectedContentSlugProvider);
     var authBox = sl<Box<AuthResponse>>();
     var dataFromBox = authBox.get(userDataKey);
     print("dataFromBox (change password): ${dataFromBox?.toJson()}");
 
-    String token = "Bearer ${dataFromBox?.data?.token ?? ""}";
+    // String token = "Bearer ${dataFromBox?.data?.token ?? ""}";
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
 
     var url = Uri.https(baseUrl, "$commentListUrl/$selectedSlug");
 
@@ -58,10 +59,17 @@ class Comments extends _$Comments {
       });
       log("fetch comment resp code: ${response.statusCode}");
       log("fetch comment resp body: ${response.body}");
+      var resultKomen =
+          CommentResponse.fromJson(jsonDecode(response.body)).data ??
+              <CommentModel>[];
+      log("resultKomen: $resultKomen");
       if (response.statusCode == 200) {
-        state = await AsyncValue.guard(() async =>
-            CommentResponse.fromJson(jsonDecode(response.body)).data ??
-            <CommentModel>[]);
+        // var jsonResult =
+        //     CommentResponse.fromJson(dummyCommentResponse).data ?? [];
+        // state = await AsyncValue.guard(() async {
+        //   return jsonResult;
+        // });
+        state = await AsyncValue.data(resultKomen);
       } else {
         throw Error();
       }
@@ -86,9 +94,6 @@ class Comments extends _$Comments {
       var bodyParameters = {
         "slug": slug,
         "komentar": komentar,
-        "username": userData.members?.username ?? "",
-        "email": userData.members?.email ?? "",
-        "nik": "1592121300980200",
       };
       var url = Uri.https(
         baseUrl,
@@ -101,7 +106,6 @@ class Comments extends _$Comments {
           headers: {
             'Authorization': "Bearer $token",
             'Accept': 'application/json',
-            "Content-Type": "application/json",
           },
           body: jsonEncode(bodyParameters));
       log("post comment resp code: ${response.statusCode}");
