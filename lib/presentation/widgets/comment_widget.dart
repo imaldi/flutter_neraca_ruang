@@ -84,7 +84,7 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                                           style: TextStyle(fontSize: medium),
                                         ),
                                         Text(
-                                          "by: ${widget.isForum ? (data[i] as ForumCommentModel).createdBy : (data[i] as CommentModel).username ?? "-"}",
+                                          "by: ${widget.isForum ? (data[i] as ForumCommentModel).createdBy ?? "-" : (data[i] as CommentModel).username ?? "-"}",
                                           style: TextStyle(
                                               color: Color(primaryColor)),
                                         ),
@@ -139,23 +139,44 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
 
                               // if (textFormKey.currentState != null &&
                               //     textFormKey.currentState!.validate()) {
-                              ref
-                                  .read(commentsProvider.notifier)
-                                  .postCommentAsMember(selectedSlug,
-                                      textEditingController.text.trim(),
-                                      onSuccess: () {
-                                /// lol kocak
-                                textEditingController.text =
-                                    "                            ";
-                                textEditingController.selection =
-                                    TextSelection.fromPosition(
-                                        TextPosition(offset: 0));
+                              if (widget.isForum) {
+                                ref
+                                    .read(forumCommentsProvider.notifier)
+                                    .postCommentAsMember(selectedSlug,
+                                        textEditingController.text.trim(),
+                                        onSuccess: () {
+                                  /// lol kocak
+                                  textEditingController.text =
+                                      "                            ";
+                                  textEditingController.selection =
+                                      TextSelection.fromPosition(
+                                          TextPosition(offset: 0));
+                                  ref
+                                      .read(forumCommentsProvider.notifier)
+                                      .fetchCommentFromAPI();
+                                }, onFailure: (errorMessage) {
+                                  print("response body: $errorMessage");
+                                });
+                              } else {
                                 ref
                                     .read(commentsProvider.notifier)
-                                    .fetchCommentFromAPI();
-                              }, onFailure: (errorMessage) {
-                                print("response body: $errorMessage");
-                              });
+                                    .postCommentAsMember(selectedSlug,
+                                        textEditingController.text.trim(),
+                                        onSuccess: () {
+                                  /// lol kocak
+                                  textEditingController.text =
+                                      "                            ";
+                                  textEditingController.selection =
+                                      TextSelection.fromPosition(
+                                          TextPosition(offset: 0));
+                                  ref
+                                      .read(commentsProvider.notifier)
+                                      .fetchCommentFromAPI();
+                                }, onFailure: (errorMessage) {
+                                  print("response body: $errorMessage");
+                                });
+                              }
+
                               // }
                             },
                             child: Text("Kirim")),

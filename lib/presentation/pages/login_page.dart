@@ -2,11 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/consts/sizes.dart';
+import 'package:flutter_neraca_ruang/core/consts/urls.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_container.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/consts/assets.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
@@ -51,11 +53,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           "Selamat Datang",
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
-                        RoundedTextFormField(
-                          isEnabled: false,
-                          decoration: InputDecoration(
-                              label: Center(child: Text("Masuk Dengan Email"))),
-                          // controller: usernameController,
+                        InkWell(
+                          onTap: () async {
+                            myToast("Login by Gmail coming soon!");
+                            // var url = Uri.http(baseUrl, "/api/auth/google");
+                            // if (!await launchUrl(url,
+                            //     mode: LaunchMode.externalApplication)) {
+                            //   throw Exception('Could not launch $url');
+                            // }
+                          },
+                          child: RoundedTextFormField(
+                            isEnabled: false,
+                            decoration: InputDecoration(
+                                label:
+                                    Center(child: Text("Masuk Dengan Email"))),
+                            // controller: usernameController,
+                          ),
                         ),
                         const Text("atau"),
                         RoundedTextFormField(

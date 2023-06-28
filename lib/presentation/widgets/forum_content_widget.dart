@@ -123,6 +123,8 @@ class ForumContentWidget extends ConsumerWidget {
               InkWell(
                 onTap: contentId != content.threadId
                     ? () {
+                        ref.read(selectedContentIdProvider.notifier).state =
+                            content.threadId ?? 0;
                         ref
                             .read(activeForumsProvider.notifier)
                             .markDiskusiAsRed(content.threadSlug ?? "");
