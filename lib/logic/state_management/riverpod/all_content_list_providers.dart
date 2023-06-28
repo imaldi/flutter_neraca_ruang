@@ -59,7 +59,6 @@ class Contents extends _$Contents {
     var listBoxKey = sl<Box<String>>();
     if (shouldStartSearchingByTag) {
       queryParameters.remove('keyword');
-      ref.invalidate(keywordProvider);
       if (idTagsPihak != 0) {
         queryParameters['tags_pihak'] = idTagsPihak.toString();
       }
@@ -74,9 +73,7 @@ class Contents extends _$Contents {
       queryParameters.remove('tags_pihak');
       queryParameters.remove('tags_topik');
       queryParameters.remove('tags_otonomi');
-      ref.invalidate(tagsPihak);
-      ref.invalidate(tagsTopik);
-      ref.invalidate(tagsOtonom);
+
       if (keywordParam.isNotEmpty) {
         queryParameters['keyword'] = keywordParam;
       }
@@ -119,9 +116,9 @@ class Contents extends _$Contents {
       });
       // return result;
     } on TypeError {
-      state = await AsyncValue.guard(() async {
-        return [];
-      });
+      // state = await AsyncValue.guard(() async {
+      //   return [];
+      // });
       state = await AsyncValue.error(TypeError, StackTrace.current);
       // return [];
     }

@@ -7,8 +7,8 @@ import '../router/app_router.dart';
 
 // FIXME nanti perbaiki, bukan begini caranya (Reset satu satu gini, sekarang yang penting jadi saja dulu)
 Future<bool> basicOnWillPop(BuildContext context, WidgetRef ref) {
-  context.router.replace(const LandingRoute());
   basicResetStates(context, ref);
+  context.router.replace(const LandingRoute());
 
   return Future.value(false);
 }
@@ -19,6 +19,8 @@ void basicResetStates(BuildContext context, WidgetRef ref) {
   // ref.read(kotaIdProvider.notifier).state = 0;
   ref.invalidate(pageNumberProvider);
   ref.invalidate(kotaIdProvider);
+  // ref.read(kotaIdProvider.notifier).state = 0;
+  // ref.invalidate(kotaIdParamProvider);
   ref.invalidate(kotaNameProvider);
   ref.invalidate(tagsIdProvider);
   ref.invalidate(tagsNameProvider);

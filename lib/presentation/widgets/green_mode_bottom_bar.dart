@@ -91,13 +91,19 @@ class GreenModeBottomBar extends ConsumerWidget {
                   style: textStyle,
                 )),
           ),
-          RoundedContainer(medium,
-              margin: margin,
-              boxDecoration: boxBorder,
-              child: Text(
-                "DISKUSI",
-                style: textStyle,
-              )),
+          InkWell(
+            onTap: () {
+              context.router.replace(const DiskusiRoute());
+              basicResetStates(context, ref);
+            },
+            child: RoundedContainer(medium,
+                margin: margin,
+                boxDecoration: boxBorder,
+                child: Text(
+                  "DISKUSI",
+                  style: textStyle,
+                )),
+          ),
         ],
       ),
     );

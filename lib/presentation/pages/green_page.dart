@@ -36,6 +36,12 @@ class GreenPageState extends ConsumerState<GreenPage> {
   }
 
   @override
+  void dispose() {
+    basicResetStates(context, ref);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // var kabarTerbaru = ref.watch(kabarProvider);
     var greenContent = ref.watch(contentsProvider);

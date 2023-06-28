@@ -16,6 +16,7 @@ import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../di.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
+import '../widgets/my_toast.dart';
 import '../widgets/social_media_panel_widget.dart';
 
 @RoutePage()
@@ -34,6 +35,12 @@ class _KabarPageState extends ConsumerState<KabarPage> {
   }
 
   @override
+  void dispose() {
+    basicResetStates(context, ref);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // var kabarTerbaru = ref.watch(kabarProvider);
     var kabarTerbaru = ref.watch(contentsProvider);
@@ -49,77 +56,73 @@ class _KabarPageState extends ConsumerState<KabarPage> {
 
     return DefaultTabController(
       length: mainTabLength,
-      child: WillPopScope(
-        onWillPop: () {
-          return basicOnWillPop(context, ref);
-        },
-        child: Scaffold(
-          appBar: appBarWidget(context,
-              ref: ref,
-              appbarTitle: appbarTitle,
-              appbarBackgroundImage: Opacity(
-                opacity: 0.3,
-                child: IconWidget(
-                  iconUrl,
-                  size: huge + medium,
-                  isOnlineSource: true,
-                ),
-              ), resetStates: () {
-            basicResetStates(context, ref);
-          }),
-          body: kabarTerbaru.when(data: (data) {
-            var contentList = data;
-            if (contentList.isEmpty) {
-              return const Center(
-                child: Text("Data Tidak ditemukan"),
-              );
-            }
-            return SafeArea(
-              child: SingleChildScrollView(
-                controller: sl<ScrollController>(),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: extra),
-                  child: Column(
-                    children: [
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: contentList.length,
-                          itemBuilder: (c, i) {
-                            return ContentWidget(contentList![i]);
-                          }),
-                      InkWell(
-                        onTap: () {
-                          ref.read(limitProvider.notifier).state++;
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(medium),
-                          margin: const EdgeInsets.symmetric(vertical: medium),
-                          decoration: const BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(extra))),
-                          child: Text(
-                            "LOAD MORE",
-                            style: TextStyle(color: Colors.white),
-                          ),
+      child: Scaffold(
+        appBar: appBarWidget(context,
+            ref: ref,
+            appbarTitle: appbarTitle,
+            appbarBackgroundImage: Opacity(
+              opacity: 0.3,
+              child: IconWidget(
+                iconUrl,
+                size: huge + medium,
+                isOnlineSource: true,
+              ),
+            ), resetStates: () {
+          basicResetStates(context, ref);
+        }),
+        body: kabarTerbaru.when(data: (data) {
+          var contentList = data;
+          if (contentList.isEmpty) {
+            return const Center(
+              child: Text("Data Tidak ditemukan"),
+            );
+          }
+          return SafeArea(
+            child: SingleChildScrollView(
+              controller: sl<ScrollController>(),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: extra),
+                child: Column(
+                  children: [
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: contentList.length,
+                        itemBuilder: (c, i) {
+                          return ContentWidget(contentList![i]);
+                        }),
+                    InkWell(
+                      onTap: () {
+                        ref.read(limitProvider.notifier).state++;
+                        myToast("limit value: ${ref.watch(limitProvider)}");
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(medium),
+                        margin: const EdgeInsets.symmetric(vertical: medium),
+                        decoration: const BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(extra))),
+                        child: Text(
+                          "LOAD MORE",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      SocialMediaPanelWidget(),
-                    ],
-                  ),
+                    ),
+                    SocialMediaPanelWidget(),
+                  ],
                 ),
               ),
-            );
-          }, error: (o, st) {
-            return const Text("Ada Error");
-          }, loading: () {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
-          bottomNavigationBar: const BottomBarWidget(),
-        ),
+            ),
+          );
+        }, error: (o, st) {
+          return const Text("Ada Error");
+        }, loading: () {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }),
+        bottomNavigationBar: const BottomBarWidget(),
       ),
     );
   }

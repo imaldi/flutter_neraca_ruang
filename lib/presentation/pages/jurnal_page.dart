@@ -31,6 +31,12 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
   }
 
   @override
+  void dispose() {
+    basicResetStates(context, ref);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var jurnalTerbaru = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
@@ -47,77 +53,72 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
       top: false,
       child: DefaultTabController(
         length: mainTabLength,
-        child: WillPopScope(
-          onWillPop: () {
-            return basicOnWillPop(context, ref);
-          },
-          child: Scaffold(
-            appBar: appBarWidget(context,
-                ref: ref,
-                appbarTitle: appbarTitle,
-                appbarBackgroundImage: Opacity(
-                  opacity: 0.3,
-                  child: IconWidget(
-                    iconUrl,
-                    size: huge + medium,
-                    isOnlineSource: true,
-                  ),
-                ), resetStates: () {
-              basicResetStates(context, ref);
-            }),
-            body: jurnalTerbaru.when(data: (data) {
-              var contentList = data;
-              if (contentList.isEmpty) {
-                return Center(
-                  child: Text("Data Tidak ditemukan"),
-                );
-              }
-              return SingleChildScrollView(
-                controller: sl<ScrollController>(),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: extra),
-                  child: Column(
-                    children: [
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: contentList.length,
-                          itemBuilder: (c, i) {
-                            return ContentWidget(contentList![i]);
-                          }),
-                      InkWell(
-                        onTap: () {
-                          ref.read(limitProvider.notifier).state++;
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(medium),
-                          margin: const EdgeInsets.symmetric(vertical: medium),
-                          decoration: const BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(extra))),
-                          child: Text(
-                            "LOAD MORE",
-                            style: TextStyle(color: Colors.white),
-                          ),
+        child: Scaffold(
+          appBar: appBarWidget(context,
+              ref: ref,
+              appbarTitle: appbarTitle,
+              appbarBackgroundImage: Opacity(
+                opacity: 0.3,
+                child: IconWidget(
+                  iconUrl,
+                  size: huge + medium,
+                  isOnlineSource: true,
+                ),
+              ), resetStates: () {
+            basicResetStates(context, ref);
+          }),
+          body: jurnalTerbaru.when(data: (data) {
+            var contentList = data;
+            if (contentList.isEmpty) {
+              return Center(
+                child: Text("Data Tidak ditemukan"),
+              );
+            }
+            return SingleChildScrollView(
+              controller: sl<ScrollController>(),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: extra),
+                child: Column(
+                  children: [
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: contentList.length,
+                        itemBuilder: (c, i) {
+                          return ContentWidget(contentList![i]);
+                        }),
+                    InkWell(
+                      onTap: () {
+                        ref.read(limitProvider.notifier).state++;
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(medium),
+                        margin: const EdgeInsets.symmetric(vertical: medium),
+                        decoration: const BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(extra))),
+                        child: Text(
+                          "LOAD MORE",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      SocialMediaPanelWidget(),
-                    ],
-                  ),
+                    ),
+                    SocialMediaPanelWidget(),
+                  ],
                 ),
-              );
-            }, error: (o, st) {
-              return Center(
-                child: Text("There is an Error"),
-              );
-            }, loading: () {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }),
-            bottomNavigationBar: const BottomBarWidget(),
-          ),
+              ),
+            );
+          }, error: (o, st) {
+            return Center(
+              child: Text("There is an Error"),
+            );
+          }, loading: () {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }),
+          bottomNavigationBar: const BottomBarWidget(),
         ),
       ),
     );
