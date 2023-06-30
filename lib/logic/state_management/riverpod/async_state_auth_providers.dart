@@ -29,6 +29,7 @@ final provinsiIdProvider = StateProvider((ref) => 0);
 var registerEvent = StateProvider<bool>((ref) => false);
 var loginEvent = StateProvider<bool>((ref) => false);
 var isChangePasswordSuccess = StateProvider<bool?>((ref) => null);
+var callbackLinkProvider = StateProvider<String?>((ref) => null);
 
 /// TODO, nanti pisahkn method register dan login,
 /// TODO serta buat method init yg pertama2 ngambil dari box, lalu alihkam ke login page kalau null

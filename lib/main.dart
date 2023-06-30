@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'core/consts/colors.dart';
 import 'core/router/app_router.dart';
 import 'di.dart' as di;
+import 'package:uni_links/uni_links.dart';
+import 'package:flutter/services.dart' show PlatformException;
 
 void main() async {
   await di.init();
@@ -14,6 +17,42 @@ void main() async {
     if (stack is stack_trace.Chain) return stack.toTrace().vmTrace;
     return stack;
   };
+  // Listen for deep links when the app is launched
+  initUniLinks();
+}
+
+void initUniLinks() async {
+  try {
+    // Get the initial deep link when the app is launched
+    final initialLink = await getInitialLink();
+    if ((initialLink ?? "").isNotEmpty) {
+      handleDeepLink(Uri.parse(initialLink ?? "https://neracaruang.com"));
+    }
+  } on PlatformException {
+    // Handle any platform exceptions
+  }
+
+  // Listen for incoming deep links while the app is running
+  uriLinkStream.listen((Uri? deepLink) {
+    handleDeepLink(deepLink ?? Uri.parse("https://neracaruang.com"));
+  }, onError: (err) {
+    // Handle any errors
+  });
+}
+
+void handleDeepLink(Uri deepLink) {
+  myToast(deepLink.toString());
+  // ref.read
+
+  // // Extract the query parameters from the deep link URL
+  // final userId = deepLink.queryParameters['userId'];
+  // final userName = deepLink.queryParameters['userName'];
+  // final userEmail = deepLink.queryParameters['userEmail'];
+  //
+  // // Do whatever you need with the user data
+  // print('User ID: $userId');
+  // print('User Name: $userName');
+  // print('User Email: $userEmail');
 }
 
 class MyApp extends StatelessWidget {

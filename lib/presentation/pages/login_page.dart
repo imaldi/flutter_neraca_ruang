@@ -31,6 +31,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final textStyle = TextStyle(color: Color(primaryHintColor));
+    var callbackUrl = ref.watch(callbackLinkProvider);
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -55,12 +57,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         ),
                         InkWell(
                           onTap: () async {
-                            myToast("Login by Gmail coming soon!");
-                            // var url = Uri.http(baseUrl, "/api/auth/google");
-                            // if (!await launchUrl(url,
-                            //     mode: LaunchMode.externalApplication)) {
-                            //   throw Exception('Could not launch $url');
-                            // }
+                            // myToast("Login by Gmail coming soon!");
+                            var url = Uri.http(baseUrl, "/api/auth/google");
+                            if (!await launchUrl(url,
+                                mode: LaunchMode.externalApplication)) {
+                              throw Exception('Could not launch $url');
+                            }
                           },
                           child: RoundedTextFormField(
                             isEnabled: false,
@@ -130,6 +132,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         SizedBox(
                           height: huge,
                         ),
+                        Text("the Link: ${callbackUrl}"),
                         // RoundedContainer(
                         //   extra,
                         //   margin: const EdgeInsets.all(0),
