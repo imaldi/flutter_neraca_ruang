@@ -9,6 +9,8 @@ import 'di.dart' as di;
 import 'package:uni_links/uni_links.dart';
 import 'package:flutter/services.dart' show PlatformException;
 
+import 'logic/state_management/riverpod/async_state_auth_providers.dart';
+
 void main() async {
   await di.init();
   runApp(ProviderScope(child: MyApp()));
@@ -17,47 +19,22 @@ void main() async {
     if (stack is stack_trace.Chain) return stack.toTrace().vmTrace;
     return stack;
   };
-  // Listen for deep links when the app is launched
-  initUniLinks();
 }
 
-void initUniLinks() async {
-  try {
-    // Get the initial deep link when the app is launched
-    final initialLink = await getInitialLink();
-    if ((initialLink ?? "").isNotEmpty) {
-      handleDeepLink(Uri.parse(initialLink ?? "https://neracaruang.com"));
-    }
-  } on PlatformException {
-    // Handle any platform exceptions
-  }
-
-  // Listen for incoming deep links while the app is running
-  uriLinkStream.listen((Uri? deepLink) {
-    handleDeepLink(deepLink ?? Uri.parse("https://neracaruang.com"));
-  }, onError: (err) {
-    // Handle any errors
-  });
-}
-
-void handleDeepLink(Uri deepLink) {
-  myToast(deepLink.toString());
-  // ref.read
-
-  // // Extract the query parameters from the deep link URL
-  // final userId = deepLink.queryParameters['userId'];
-  // final userName = deepLink.queryParameters['userName'];
-  // final userEmail = deepLink.queryParameters['userEmail'];
-  //
-  // // Do whatever you need with the user data
-  // print('User ID: $userId');
-  // print('User Name: $userName');
-  // print('User Email: $userEmail');
-}
-
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerStatefulWidget {
   MyApp({super.key});
+
+  @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
   final _appRouter = AppRouter();
+  @override
+  void initState() {
+    super.initState();
+    // Listen for deep links when the app is launched
+  }
 
   // This widget is the root of your application.
   @override
