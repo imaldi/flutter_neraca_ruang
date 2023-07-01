@@ -5,9 +5,12 @@ import 'package:flutter_neraca_ruang/logic/state_management/riverpod/async_state
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../core/consts/assets.dart';
 import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
+import '../../core/consts/urls.dart';
+import '../../core/helper_functions/deeplink_handler.dart';
 import '../../core/router/app_router.dart';
 import '../widgets/my_toast.dart';
 import '../widgets/rounded_container.dart';
@@ -74,21 +77,32 @@ class RegisterPage extends ConsumerWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: RoundedContainer(huge,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: normal, horizontal: huge),
-                                boxDecoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Color(primaryColor),
-                                        width: small)),
-                                child: Center(
-                                  child: const Text(
-                                    "Daftar dengan email",
-                                    style: TextStyle(
-                                        fontSize: medium,
-                                        color: Color(primaryHintColor)),
-                                  ),
-                                )),
+                            child: InkWell(
+                              onTap: () async {
+                                var url = Uri.parse(gmailOAuthFullUrl);
+                                initUniLinks(ref, context, "Register");
+
+                                if (!await launchUrl(url,
+                                    mode: LaunchMode.externalApplication)) {
+                                  throw Exception('Could not launch $url');
+                                }
+                              },
+                              child: RoundedContainer(huge,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: normal, horizontal: huge),
+                                  boxDecoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Color(primaryColor),
+                                          width: small)),
+                                  child: Center(
+                                    child: const Text(
+                                      "Daftar dengan email",
+                                      style: TextStyle(
+                                          fontSize: medium,
+                                          color: Color(primaryHintColor)),
+                                    ),
+                                  )),
+                            ),
                           ),
                         ],
                       ),

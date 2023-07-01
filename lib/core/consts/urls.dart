@@ -1,5 +1,7 @@
 // const baseUrl = "neracaruang-api.binerapps.co.id"; // dev
 const baseUrl = "api.neracaruang.com"; // prod
+const gmailOAuthFullUrl =
+    "https://api.neracaruang.com/api/auth/google?mobile=true";
 const loginUrl = "/api/member/login";
 const registerUrl = "/api/member/register";
 const updateMemberUrl = "/api/member/update";

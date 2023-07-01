@@ -14,6 +14,7 @@ import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/consts/assets.dart';
+import '../../core/helper_functions/deeplink_handler.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 
 @RoutePage()
@@ -30,44 +31,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   // var usernameController = TextEditingController(text: '');
   // var passwordController = TextEditingController(text: '');
   // var isLoginListener = ref
-  void initUniLinks(WidgetRef ref) async {
-    try {
-      // Get the initial deep link when the app is launched
-      final initialLink = await getInitialLink();
-      if ((initialLink ?? "").isNotEmpty) {
-        handleDeepLink(
-            ref, Uri.parse(initialLink ?? "https://neracaruang.com"));
-      }
-    } on PlatformException {
-      // Handle any platform exceptions
-    }
-
-    // Listen for incoming deep links while the app is running
-    uriLinkStream.listen((Uri? deepLink) {
-      handleDeepLink(ref, deepLink ?? Uri.parse("https://neracaruang.com"));
-    }, onError: (err) {
-      // Handle any errors
-    });
-  }
-
-  void handleDeepLink(WidgetRef ref, Uri deepLink) {
-    // myToast(deepLink.toString());
-    ref.read(callbackLinkProvider.notifier).state = deepLink.toString();
-    ref.read(authStatusProvider.notifier).loginOAuth(successCallback: () {
-      context.router.replace(LandingRoute());
-      myToast("Login Success");
-    });
-
-    // // Extract the query parameters from the deep link URL
-    // final userId = deepLink.queryParameters['userId'];
-    // final userName = deepLink.queryParameters['userName'];
-    // final userEmail = deepLink.queryParameters['userEmail'];
-    //
-    // // Do whatever you need with the user data
-    // print('User ID: $userId');
-    // print('User Name: $userName');
-    // print('User Email: $userEmail');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,9 +64,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           onTap: () async {
                             // myToast("Login by Gmail coming soon!");
                             // var url = Uri.http(baseUrl, "/api/auth/google");
-                            var url = Uri.parse(
-                                "https://api.neracaruang.com/api/auth/google?mobile=true");
-                            initUniLinks(ref);
+                            var url = Uri.parse(gmailOAuthFullUrl);
+                            initUniLinks(ref, context, "Log In");
 
                             if (!await launchUrl(url,
                                 mode: LaunchMode.externalApplication)) {
