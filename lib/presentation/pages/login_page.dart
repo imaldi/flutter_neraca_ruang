@@ -51,9 +51,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   void handleDeepLink(WidgetRef ref, Uri deepLink) {
-    myToast(deepLink.toString());
+    // myToast(deepLink.toString());
     ref.read(callbackLinkProvider.notifier).state = deepLink.toString();
-    ref.read(authStatusProvider.notifier).loginOAuth(deepLink.toString());
+    ref.read(authStatusProvider.notifier).loginOAuth(successCallback: () {
+      context.router.replace(LandingRoute());
+      myToast("Login Success");
+    });
 
     // // Extract the query parameters from the deep link URL
     // final userId = deepLink.queryParameters['userId'];
@@ -69,8 +72,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final textStyle = TextStyle(color: Color(primaryHintColor));
-    var callbackUrl = ref.watch(callbackLinkProvider);
-    var responseOAuth = ref.watch(authStatusProvider);
+    // var callbackUrl = ref.watch(callbackLinkProvider);
+    // var responseOAuth = ref.watch(authStatusProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -175,9 +178,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         SizedBox(
                           height: huge,
                         ),
-                        Text("the Link: ${callbackUrl ?? ""}"),
-                        Text(
-                            "the Response: ${responseOAuth.value.toString() ?? ""}"),
+                        // Text("the Link: ${callbackUrl ?? ""}"),
+                        // Text(
+                        //     "the Response: ${responseOAuth.value.toString() ?? ""}"),
                         // HtmlWidget("${responseOAuth.value.toString() ?? ""}"),
                         // RoundedContainer(
                         //   extra,

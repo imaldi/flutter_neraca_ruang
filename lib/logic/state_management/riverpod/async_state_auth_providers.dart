@@ -30,61 +30,61 @@ var registerEvent = StateProvider<bool>((ref) => false);
 var loginEvent = StateProvider<bool>((ref) => false);
 var isChangePasswordSuccess = StateProvider<bool?>((ref) => null);
 var callbackLinkProvider = StateProvider<String?>((ref) => null);
-var callbackResponseProvider = FutureProvider<String>((ref) async {
-  var linkCallback = ref.watch(callbackLinkProvider);
-  String token =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
-// Map<String, String> bodyParameters = {};
-// bodyParameters['type'] = 'username';
-// if (username.isNotEmpty) {
-//   bodyParameters['username'] = username;
-// }
-// if (password.isNotEmpty) {
-//   bodyParameters['password'] = password;
-// }
-  ;
-  var url = Uri.parse(linkCallback ?? "https://neracaruang.com");
-
-// Uri.https(
-//   baseUrl,
-//   param.split("https://neracaruang.com").first,
-// );
-
-// final json = await http.get(url);
-  final response = await http.get(
-    url,
-    headers: {
-      'Authorization': token,
-      'Accept': 'application/json',
-    },
-  );
-  print("URL login gmail: $url");
-  log("result JSON: ${jsonDecode(response.body)}");
-  return response.body;
-// log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
-// try {
-//   // final result = AuthResponse.fromJson(jsonDecode(response.body));
-//   // var authBox = sl<Box<AuthResponse>>();
-//   // await authBox.put(userDataKey, result);
-//   // var dataFromBox = authBox.get(userDataKey);
-//   // print("dataFromBox (login): ${dataFromBox?.toJson()}");
+// var callbackResponseProvider = FutureProvider<String>((ref) async {
+//   var linkCallback = ref.watch(callbackLinkProvider);
+//   String token =
+//       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+// // Map<String, String> bodyParameters = {};
+// // bodyParameters['type'] = 'username';
+// // if (username.isNotEmpty) {
+// //   bodyParameters['username'] = username;
+// // }
+// // if (password.isNotEmpty) {
+// //   bodyParameters['password'] = password;
+// // }
+//   ;
+//   var url = Uri.parse(linkCallback ?? "https://neracaruang.com");
 //
-//   // state = const AsyncValue.loading();
-//   // state = await AsyncValue.guard(() async {
-//   //   return dataFromBox;
-//   // });
-//   // if (successCallback != null) successCallback();
-// } on TypeError {
-//   myToast("Type Error");
-//   // state = const AsyncValue.loading();
-//   // state = await AsyncValue.guard(() async {
-//   //   return null;
-//   // });
-//   // state = AsyncValue.error(TypeError, StackTrace.current);
-//   // if (failureCallback != null) failureCallback();
-// }
-//   return "null";
-});
+// // Uri.https(
+// //   baseUrl,
+// //   param.split("https://neracaruang.com").first,
+// // );
+//
+// // final json = await http.get(url);
+//   final response = await http.get(
+//     url,
+//     headers: {
+//       'Authorization': token,
+//       'Accept': 'application/json',
+//     },
+//   );
+//   print("URL login gmail callbackResponseProvider: $url");
+//   log("result JSON: ${jsonDecode(response.body)}");
+//   return response.body;
+// // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
+// // try {
+// //   // final result = AuthResponse.fromJson(jsonDecode(response.body));
+// //   // var authBox = sl<Box<AuthResponse>>();
+// //   // await authBox.put(userDataKey, result);
+// //   // var dataFromBox = authBox.get(userDataKey);
+// //   // print("dataFromBox (login): ${dataFromBox?.toJson()}");
+// //
+// //   // state = const AsyncValue.loading();
+// //   // state = await AsyncValue.guard(() async {
+// //   //   return dataFromBox;
+// //   // });
+// //   // if (successCallback != null) successCallback();
+// // } on TypeError {
+// //   myToast("Type Error");
+// //   // state = const AsyncValue.loading();
+// //   // state = await AsyncValue.guard(() async {
+// //   //   return null;
+// //   // });
+// //   // state = AsyncValue.error(TypeError, StackTrace.current);
+// //   // if (failureCallback != null) failureCallback();
+// // }
+// //   return "null";
+// });
 
 /// TODO, nanti pisahkn method register dan login,
 /// TODO serta buat method init yg pertama2 ngambil dari box, lalu alihkam ke login page kalau null
@@ -103,8 +103,12 @@ class AuthStatus extends _$AuthStatus {
     return null;
   }
 
-  Future<void> loginOAuth(String param) async {
+  Future<void> loginOAuth({
+    Function? successCallback,
+    Function? failureCallback,
+  }) async {
     const AsyncValue.loading();
+    var linkCallback = ref.watch(callbackLinkProvider);
 
     String token =
         "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
@@ -117,7 +121,7 @@ class AuthStatus extends _$AuthStatus {
     //   bodyParameters['password'] = password;
     // }
 
-    var url = Uri.parse(param);
+    var url = Uri.parse(linkCallback ?? "https://neracaruang.com");
 
     // Uri.https(
     //   baseUrl,
@@ -133,6 +137,7 @@ class AuthStatus extends _$AuthStatus {
       },
     );
     print("URL login gmail: $url");
+    log("result Status Code: ${response.statusCode}");
     log("result JSON: ${jsonDecode(response.body)}");
     // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
     try {
@@ -143,16 +148,21 @@ class AuthStatus extends _$AuthStatus {
       print("dataFromBox (login): ${dataFromBox?.toJson()}");
 
       // state = const AsyncValue.loading();
-      state = await AsyncValue.guard(() async {
-        return dataFromBox;
-      });
+      if (response.statusCode == 201) {
+        state = await AsyncValue.guard(() async {
+          return dataFromBox;
+        });
+        if (successCallback != null) successCallback();
+      }
       // if (successCallback != null) successCallback();
     } on TypeError {
-      myToast("Type Error");
+      // myToast("Type Error");
       // state = const AsyncValue.loading();
       // state = await AsyncValue.guard(() async {
       //   return null;
       // });
+      if (failureCallback != null) failureCallback();
+
       state = AsyncValue.error(TypeError, StackTrace.current);
       // if (failureCallback != null) failureCallback();
     }
