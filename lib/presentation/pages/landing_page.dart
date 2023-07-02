@@ -63,86 +63,108 @@ class LandingPageState extends ConsumerState<LandingPage> {
             Center(
                 child: dataDashboard.when(
                     data: (data) {
+                      if (data.every((element) => element.id == null)) {
+                        return Center(
+                            child: Text("Tidak ada konten ditemukan"));
+                      }
                       return SingleChildScrollView(
                         child: Column(
                           children: [
                             /// 1. Kabar
-                            Container(
-                              // margin: const EdgeInsets.only(bottom: normal),
-                              constraints: BoxConstraints(
-                                maxHeight: 200,
-                                minWidth: MediaQuery.of(context).size.width,
-                              ),
-                              child: Image.network(
-                                "https://$contentUrl/${data.first.images}",
-                                fit: BoxFit.cover,
-                                errorBuilder: (bc, o, st) {
-                                  return Text(data.first.images ?? "");
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(normal),
-                              child: InkWell(
-                                onTap: () {
-                                  ref.read(kotaIdProvider.notifier).state =
-                                      data[0].kotaId ?? 0;
-                                  ref
-                                      .read(selectedContentIdProvider.notifier)
-                                      .state = data[0].id ?? 0;
-                                  if (isLogin) {
-                                    ref
-                                        .read(selectedContentSlugProvider
-                                            .notifier)
-                                        .state = data[0].slug ?? "";
-                                  }
-
-                                  ref.read(kotaNameProvider.notifier).state =
-                                      data[0].kotaName ?? "";
-
-                                  ref
-                                      .read(contentsProvider.notifier)
-                                      .markContentAsRed(data[0].slug ?? "");
-
-                                  context.router.replace(const KabarRoute());
-                                },
-                                child: Column(
-                                  children: [
-                                    Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: normal),
-                                        constraints: const BoxConstraints(
-                                            maxWidth: extra, maxHeight: extra),
-                                        child: Image.asset(iconKabar)),
-                                    Text(
-                                      // TODO fix formatting tanggal
-                                      '${data.first.sourceName ?? ""}, ${data.first.sourceDate ?? ""}',
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
+                            Visibility(
+                              visible:
+                                  data.first.id != null || data.first.id != 0,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    // margin: const EdgeInsets.only(bottom: normal),
+                                    constraints: BoxConstraints(
+                                      maxHeight: 200,
+                                      minWidth:
+                                          MediaQuery.of(context).size.width,
                                     ),
-                                    Container(
-                                      margin:
-                                          const EdgeInsets.only(bottom: medium),
-                                      child: Text(
-                                        '${data.first.judul ?? "Kabar"}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall,
-                                        textAlign: TextAlign.center,
+                                    child: Image.network(
+                                      "https://$contentUrl/${data.first.images}",
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (bc, o, st) {
+                                        return Text(data.first.images ?? "");
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(normal),
+                                    child: InkWell(
+                                      onTap: () {
+                                        ref
+                                            .read(kotaIdProvider.notifier)
+                                            .state = data[0].kotaId ?? 0;
+                                        ref
+                                            .read(selectedContentIdProvider
+                                                .notifier)
+                                            .state = data[0].id ?? 0;
+                                        if (isLogin) {
+                                          ref
+                                              .read(selectedContentSlugProvider
+                                                  .notifier)
+                                              .state = data[0].slug ?? "";
+                                        }
+
+                                        ref
+                                            .read(kotaNameProvider.notifier)
+                                            .state = data[0].kotaName ?? "";
+
+                                        ref
+                                            .read(contentsProvider.notifier)
+                                            .markContentAsRed(
+                                                data[0].slug ?? "");
+
+                                        context.router
+                                            .replace(const KabarRoute());
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: normal),
+                                              constraints: const BoxConstraints(
+                                                  maxWidth: extra,
+                                                  maxHeight: extra),
+                                              child: Image.asset(iconKabar)),
+                                          Text(
+                                            // TODO fix formatting tanggal
+                                            '${data.first.sourceName ?? ""}, ${data.first.sourceDate ?? ""}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                bottom: medium),
+                                            child: Text(
+                                              '${data.first.judul ?? "Kabar"}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineSmall,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          Container(
+                                              height: 200,
+                                              child: SingleChildScrollView(
+                                                  physics:
+                                                      const NeverScrollableScrollPhysics(),
+                                                  child: HtmlWidget(
+                                                      "${data.first.keterangan}"))),
+                                        ],
                                       ),
                                     ),
-                                    Container(
-                                        height: 200,
-                                        child: SingleChildScrollView(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            child: HtmlWidget(
-                                                "${data.first.keterangan}"))),
-                                  ],
-                                ),
+                                  ),
+                                  Divider(),
+                                ],
                               ),
                             ),
-                            Divider(),
+
                             Container(
                               // margin: const EdgeInsets.symmetric(vertical: normal),
                               constraints: BoxConstraints(

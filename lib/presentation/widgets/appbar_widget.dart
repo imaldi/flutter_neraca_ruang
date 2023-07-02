@@ -86,6 +86,7 @@ appBarWidget(BuildContext context,
             child: InkWell(
               onTap: () {
                 basicResetStates(context, ref);
+                // ref.invalidate(kotaIdProvider);
                 context.router.replace(const LandingRoute());
               },
               child: IconWidget(
@@ -118,6 +119,8 @@ appBarWidget(BuildContext context,
               )
         : InkWell(
             onTap: () {
+              /// INI FIXNYA, sementara di disable untuk handle ketika hasil null di landing page
+              ref.read(kotaIdProvider.notifier).state = 0;
               context.router.replace(const LandingRoute());
             },
             child: Center(child: Image.asset(iconNRAppbar))),
