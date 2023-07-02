@@ -50,7 +50,7 @@ class _SearchableDropdownState extends ConsumerState<SearchableDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    selectedValue = ref.watch(widget.provider) ?? widget.defaultValue;
+    selectedValue = ref.watch(widget.provider);
 
     return Container(
       // color: Colors.blue,
@@ -92,7 +92,11 @@ class _SearchableDropdownState extends ConsumerState<SearchableDropdown> {
                         ),
                       ))
                   .toList(),
-              value: selectedValue,
+              value: selectedValue ??
+                  ((widget.defaultValue != null &&
+                          widget.items.contains(widget.defaultValue!))
+                      ? widget.defaultValue
+                      : null),
               onChanged: (value) {
                 // setState(() {
                 // selectedValue = value as String;
