@@ -236,7 +236,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                                 //     .state = null;
                                                                                 ref.read(kotaNameProvider.notifier).state = val;
                                                                                 ref.read(kotaIdProvider.notifier).state = data.firstWhere((element) => (element.name ?? "") == val).id ?? 0;
-                                                                                // ref.read(kotaIdParamProvider.notifier).state = data.firstWhere((element) => (element.name ?? "") == val).id ?? 0;
                                                                               },
                                                                             )
                                                                           ],
@@ -343,6 +342,9 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   noHp: teleponController.text,
                                   kodePos: kodePosController.text,
                                 );
+                            ref.read(kotaIdParamProvider.notifier).state =
+                                ref.read(kotaIdProvider) ?? 0;
+
                             ref.read(profileEditMode.notifier).state = false;
                           },
                           child: Text("Simpan"),

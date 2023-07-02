@@ -85,6 +85,7 @@ appBarWidget(BuildContext context,
             margin: const EdgeInsets.only(left: normal, top: normal),
             child: InkWell(
               onTap: () {
+                basicResetStates(context, ref);
                 context.router.replace(const LandingRoute());
               },
               child: IconWidget(

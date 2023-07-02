@@ -20,7 +20,7 @@ void basicResetStates(BuildContext context, WidgetRef ref) {
   ref.invalidate(pageNumberProvider);
   ref.invalidate(kotaIdProvider);
   // ref.read(kotaIdProvider.notifier).state = 0;
-  // ref.invalidate(kotaIdParamProvider);
+  ref.invalidate(kotaIdParamProvider);
   ref.invalidate(kotaNameProvider);
   ref.invalidate(tagsIdProvider);
   ref.invalidate(tagsNameProvider);
@@ -34,6 +34,7 @@ void basicResetStates(BuildContext context, WidgetRef ref) {
   ref.invalidate(tagsPihak);
   ref.invalidate(tagsOtonom);
   ref.invalidate(tagsTopik);
+  ref.invalidate(profileEditMode);
   // ref.read(kotaNameProvider.notifier).state = "";
   // ref.read(tagsIdProvider.notifier).state = 0;
   // ref.read(tagsNameProvider.notifier).state = "";
