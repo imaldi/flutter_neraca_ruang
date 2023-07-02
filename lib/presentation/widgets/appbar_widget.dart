@@ -121,6 +121,8 @@ appBarWidget(BuildContext context,
             onTap: () {
               /// INI FIXNYA, sementara di disable untuk handle ketika hasil null di landing page
               ref.read(kotaIdProvider.notifier).state = 0;
+              basicResetStates(context, ref);
+
               context.router.replace(const LandingRoute());
             },
             child: Center(child: Image.asset(iconNRAppbar))),

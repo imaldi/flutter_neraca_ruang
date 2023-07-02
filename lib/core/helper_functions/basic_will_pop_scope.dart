@@ -20,6 +20,7 @@ void basicResetStates(BuildContext context, WidgetRef ref) {
   ref.invalidate(pageNumberProvider);
   ref.invalidate(kotaIdProvider);
   // ref.read(kotaIdProvider.notifier).state = 0;
+  ref.invalidate(provIdParamProvider);
   ref.invalidate(kotaIdParamProvider);
   ref.invalidate(kotaNameProvider);
   ref.invalidate(tagsIdProvider);

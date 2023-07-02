@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/data/models/kota_kabupaten_response/kota_kabupaten_response.dart';
 import 'package:flutter_neraca_ruang/data/models/province_response/province_response.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/async_state_auth_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_button.dart';
@@ -11,6 +12,7 @@ import 'package:intl/intl.dart';
 import '../../core/consts/colors.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
+import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
@@ -240,7 +242,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                                 //         .notifier)
                                                                                 //     .state = null;
                                                                                 ref.read(kotaNameProvider.notifier).state = val;
-                                                                                ref.read(kotaIdProvider.notifier).state = data.firstWhere((element) => (element.name ?? "") == val, orElse: () => ProvinceModel(id: 0)).id ?? 0;
+                                                                                ref.read(kotaIdProvider.notifier).state = dataKab.firstWhere((element) => (element.name ?? "") == val, orElse: () => KotaKabupaten(id: 0)).id ?? 0;
                                                                               },
                                                                             )
                                                                           ],
@@ -366,7 +368,10 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                             ),
                             isSecondary: true,
                             onPressed: () {
+                              // basicResetStates(context,ref);
                               ref.read(profileEditMode.notifier).state = false;
+                              ref.invalidate(provIdParamProvider);
+                              ref.invalidate(kotaIdProvider);
                             }),
                       ),
                     ),

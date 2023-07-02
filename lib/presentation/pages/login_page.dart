@@ -26,10 +26,10 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  var usernameController = TextEditingController(text: '4171320089898911');
-  var passwordController = TextEditingController(text: 'asdf_123');
-  // var usernameController = TextEditingController(text: '');
-  // var passwordController = TextEditingController(text: '');
+  // var usernameController = TextEditingController(text: '4171320089898911');
+  // var passwordController = TextEditingController(text: 'asdf_123');
+  var usernameController = TextEditingController(text: '');
+  var passwordController = TextEditingController(text: '');
   // var isLoginListener = ref
 
   @override
@@ -88,6 +88,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         RoundedTextFormField(
                           hint: "Kata Sandi",
                           controller: passwordController,
+                          isObscureText: true,
                         ),
                         Container(
                           color: Colors.grey[100],
