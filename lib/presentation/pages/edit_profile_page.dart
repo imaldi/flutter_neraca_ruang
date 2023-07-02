@@ -158,11 +158,13 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                           children: [
                             Expanded(
                                 child: Container(
+                                    color: Colors.amber,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: normal),
                                     child: Text(key))),
                             (key == "Kota / Kab." && isEnabled)
                                 ? Expanded(
+                                    flex: 4,
                                     child: Column(
                                       children: [
                                         provinceList.when(
@@ -184,6 +186,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                               provNameProvider,
                                                               hintText:
                                                                   "Provinsi",
+                                                              borderRadius:
+                                                                  medium,
                                                               contentPadding:
                                                                   const EdgeInsets
                                                                           .all(
@@ -233,6 +237,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                               // "Kabupaten / Kota",
                                                                               dataKab.map((e) => e.name ?? "").toSet(),
                                                                               kotaNameProvider,
+                                                                              borderRadius: medium,
                                                                               defaultValue: kotaName.value,
                                                                               hintText: "Kabupaten / Kota",
                                                                               contentPadding: const EdgeInsets.all(medium),
