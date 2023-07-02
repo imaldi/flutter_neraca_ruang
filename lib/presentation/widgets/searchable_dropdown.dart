@@ -9,6 +9,7 @@ import '../../data/models/dashboard_response/dashboard_response.dart';
 
 class SearchableDropdown extends ConsumerStatefulWidget {
   final String? label;
+  final String? defaultValue;
   final Set<String> items;
   final void Function(String?)? onItemTapped;
   final ProviderListenable<String?> provider;
@@ -18,6 +19,7 @@ class SearchableDropdown extends ConsumerStatefulWidget {
   final double? borderRadius;
   const SearchableDropdown(this.items, this.provider,
       {this.label,
+      this.defaultValue,
       this.borderRadius,
       this.onItemTapped,
       this.contentPadding,
@@ -48,7 +50,7 @@ class _SearchableDropdownState extends ConsumerState<SearchableDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    selectedValue = ref.watch(widget.provider);
+    selectedValue = ref.watch(widget.provider) ?? widget.defaultValue;
 
     return Container(
       // color: Colors.blue,

@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/data/models/province_response/province_response.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/async_state_auth_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_button.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/profile_image_widget.dart';
@@ -101,13 +102,15 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     // });
     ref.listen(provNameProfileProvider, (previous, next) {
       if (next.hasValue) {
+        print("Prov Name next value: ${next}");
         ref.read(provNameProvider.notifier).state = next.value;
         ref.read(kotaNameProvider.notifier).state = null;
       }
     });
 
     ref.listen(kotaNameProfileProvider, (previous, next) {
-      if (next.hasValue) {
+      print("Kota Name next value: ${next}");
+      if (next.hasValue && isEnabled) {
         ref.read(kotaNameProvider.notifier).state = next.value;
       }
     });
@@ -216,7 +219,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                         child: Column(
                                                           children: [
                                                             kabKotaList.when(
-                                                                data: (data) {
+                                                                data:
+                                                                    (dataKab) {
                                                                   return Row(
                                                                     children: [
                                                                       Expanded(
@@ -225,8 +229,9 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                           children: [
                                                                             SearchableDropdown(
                                                                               // "Kabupaten / Kota",
-                                                                              data.map((e) => e.name ?? "").toSet(),
+                                                                              dataKab.map((e) => e.name ?? "").toSet(),
                                                                               kotaNameProvider,
+                                                                              defaultValue: kotaName.value,
                                                                               hintText: "Kabupaten / Kota",
                                                                               contentPadding: const EdgeInsets.all(medium),
                                                                               onItemTapped: (val) {
@@ -235,7 +240,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                                 //         .notifier)
                                                                                 //     .state = null;
                                                                                 ref.read(kotaNameProvider.notifier).state = val;
-                                                                                ref.read(kotaIdProvider.notifier).state = data.firstWhere((element) => (element.name ?? "") == val).id ?? 0;
+                                                                                ref.read(kotaIdProvider.notifier).state = data.firstWhere((element) => (element.name ?? "") == val, orElse: () => ProvinceModel(id: 0)).id ?? 0;
                                                                               },
                                                                             )
                                                                           ],

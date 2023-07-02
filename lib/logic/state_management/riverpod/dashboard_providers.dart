@@ -145,8 +145,8 @@ final provNameProfileProvider = FutureProvider<String?>(
         "Authorization": token,
         "Accept": "application/json",
       });
-      print("kota name url: $url");
-      print("kota name resp: ${response.body}");
+      print("prov name url: $url");
+      print("prov name resp: ${response.body}");
       if (response.statusCode == 201) {
         return jsonDecode(response.body)["data"]["name"] ?? "";
       }
