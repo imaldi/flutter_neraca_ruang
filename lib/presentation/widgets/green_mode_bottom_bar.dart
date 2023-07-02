@@ -20,7 +20,10 @@ class GreenModeBottomBar extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(normal),
       color: Colors.white,
-      child: Row(
+      height: huge + medium,
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
         children: [
           InkWell(
             onTap: () {
