@@ -17,13 +17,13 @@ part 'all_content_list_providers.g.dart';
 @riverpod
 class Contents extends _$Contents {
   @override
-  FutureOr<List<Datum>> build() async {
+  FutureOr<List<Datum>?> build() async {
     var isLogin = ref.watch(authStatusProvider).value != null;
     if (!isLogin) {
       var box = sl<Box<String>>();
       box.clear();
     }
-    return [];
+    return null;
     // return await fetchContent();
   }
 

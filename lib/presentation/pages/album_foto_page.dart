@@ -4,6 +4,7 @@ import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_p
 import 'package:flutter_neraca_ruang/presentation/widgets/green_mode_appbar_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/consts/colors.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
@@ -38,7 +39,6 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
   @override
   Widget build(BuildContext context) {
     var fotoTerbaru = ref.watch(contentsProvider);
-    var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
     var appbarTitle =
@@ -65,9 +65,16 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
         }),
         body: fotoTerbaru.when(data: (data) {
           var contentList = data;
-          if (contentList.isEmpty) {
-            return Center(
+          if (contentList != null && contentList.isEmpty) {
+            return const Center(
               child: Text("Data Tidak ditemukan"),
+            );
+          }
+          if (contentList == null) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color(primaryColor),
+              ),
             );
           }
           return SafeArea(

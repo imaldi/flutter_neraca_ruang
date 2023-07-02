@@ -6,7 +6,7 @@ part of 'archived_forum_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$archivedValuesHash() => r'c526364e766b9c16a889e620dc918bda065df86e';
+String _$archivedValuesHash() => r'8e8bfd5e6c2dcd15804b8c385469d0e208d50565';
 
 /// See also [ArchivedValues].
 @ProviderFor(ArchivedValues)

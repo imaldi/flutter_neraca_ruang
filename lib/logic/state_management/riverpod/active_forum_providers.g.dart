@@ -6,7 +6,7 @@ part of 'active_forum_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$activeForumsHash() => r'2e2fa6cfd86747bc3cce442e958388a0054df6ea';
+String _$activeForumsHash() => r'b5ab48d6c8a072772dd309fad6dfd1652d382842';
 
 /// See also [ActiveForums].
 @ProviderFor(ActiveForums)

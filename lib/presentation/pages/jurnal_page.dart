@@ -6,6 +6,7 @@ import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../di.dart';
@@ -69,9 +70,16 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
           }),
           body: jurnalTerbaru.when(data: (data) {
             var contentList = data;
-            if (contentList.isEmpty) {
-              return Center(
+            if (contentList != null && contentList.isEmpty) {
+              return const Center(
                 child: Text("Data Tidak ditemukan"),
+              );
+            }
+            if (contentList == null) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Color(primaryColor),
+                ),
               );
             }
             return SingleChildScrollView(
@@ -85,7 +93,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: contentList.length,
                         itemBuilder: (c, i) {
-                          return ContentWidget(contentList![i]);
+                          return ContentWidget(contentList[i]);
                         }),
                     InkWell(
                       onTap: () {

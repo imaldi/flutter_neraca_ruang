@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/consts/colors.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
@@ -69,9 +70,16 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
         }),
         body: infografisTerbaru.when(data: (data) {
           var contentList = data;
-          if (contentList.isEmpty) {
+          if (contentList != null && contentList.isEmpty) {
             return const Center(
               child: Text("Data Tidak ditemukan"),
+            );
+          }
+          if (contentList == null) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color(primaryColor),
+              ),
             );
           }
           return SafeArea(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/consts/colors.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
@@ -62,9 +63,16 @@ class _VideoPageState extends ConsumerState<VideoPage> {
           }),
           body: videoTerbaru.when(data: (data) {
             var contentList = data;
-            if (contentList.isEmpty) {
-              return Center(
+            if (contentList != null && contentList.isEmpty) {
+              return const Center(
                 child: Text("Data Tidak ditemukan"),
+              );
+            }
+            if (contentList == null) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Color(primaryColor),
+                ),
               );
             }
             return SafeArea(

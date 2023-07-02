@@ -5,6 +5,7 @@ import 'package:flutter_neraca_ruang/presentation/widgets/content_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/consts/colors.dart';
 import '../../data/models/dashboard_response/dashboard_response.dart';
 import '../../di.dart';
 import '../../logic/state_management/riverpod/all_content_list_providers.dart';
@@ -48,6 +49,18 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
               CommentWidget(),
               list.when(
                   data: (data) {
+                    if (data != null && data.isEmpty) {
+                      return const Center(
+                        child: Text("Data Tidak ditemukan"),
+                      );
+                    }
+                    if (data == null) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: Color(primaryColor),
+                        ),
+                      );
+                    }
                     return ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

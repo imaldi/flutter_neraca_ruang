@@ -103,9 +103,16 @@ class GreenPageState extends ConsumerState<GreenPage> {
             children: [
               greenContent.when(data: (data) {
                 var contentList = data;
-                if (contentList.isEmpty) {
+                if (contentList != null && contentList.isEmpty) {
                   return const Center(
                     child: Text("Data Tidak ditemukan"),
+                  );
+                }
+                if (contentList == null) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Color(greenModeColor),
+                    ),
                   );
                 }
                 return SafeArea(
