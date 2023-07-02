@@ -29,22 +29,22 @@ class KabarPage extends ConsumerStatefulWidget {
 }
 
 class _KabarPageState extends ConsumerState<KabarPage> {
-  @override
-  void initState() {
-    super.initState();
-    ref.read(contentsProvider.notifier).fetchContent(type: "kabar", limit: 3);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   ref.read(contentsProvider.notifier).fetchContent(type: "kabar", limit: 3);
+  // }
 
-  @override
-  void dispose() {
-    basicResetStates(context, ref);
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   basicResetStates(context, ref);
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    // var kabarTerbaru = ref.watch(kabarProvider);
-    var kabarTerbaru = ref.watch(contentsProvider);
+    var kabarTerbaru = ref.watch(kabarProvider);
+    // var kabarTerbaru = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
@@ -72,19 +72,19 @@ class _KabarPageState extends ConsumerState<KabarPage> {
           basicResetStates(context, ref);
         }),
         body: kabarTerbaru.when(data: (data) {
-          var contentList = data;
-          if (contentList != null && contentList.isEmpty) {
+          var contentList = data.data?.data ?? [];
+          if (contentList.isEmpty) {
             return const Center(
               child: Text("Data Tidak ditemukan"),
             );
           }
-          if (contentList == null) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Color(primaryColor),
-              ),
-            );
-          }
+          // if (contentList == null) {
+          //   return const Center(
+          //     child: CircularProgressIndicator(
+          //       color: Color(primaryColor),
+          //     ),
+          //   );
+          // }
           return SafeArea(
             child: SingleChildScrollView(
               controller: sl<ScrollController>(),

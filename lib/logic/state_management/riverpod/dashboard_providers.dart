@@ -233,7 +233,7 @@ final startSearchingByTag = StateProvider<bool>((ref) => false);
 final startSearchingByKeyword = StateProvider<bool>((ref) => false);
 final profileEditMode = StateProvider<bool>((ref) => false);
 
-final limitProvider = StateProvider<int>((ref) => 2);
+final limitProvider = StateProvider<int>((ref) => 5);
 
 final currentLikedOrDislikedContentIndexProvider =
     StateProvider<int>((ref) => 0);

@@ -34,15 +34,15 @@ class DatumTypeFilterPage extends ConsumerStatefulWidget {
 }
 
 class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
-  @override
-  void dispose() {
-    basicResetStates(context, ref);
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // basicResetStates(context, ref);
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    var list = ref.watch(contentsProvider);
+    var list = ref.watch(greenPageProvider);
     var contentId = ref.watch(selectedContentIdProvider);
     var isLogin = ref.watch(authStatusProvider).value != null;
 
@@ -89,19 +89,19 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
           // }
         ),
         body: list.when(data: (data) {
-          var contentList = data;
-          if (contentList != null && contentList.isEmpty) {
+          var contentList = data.data?.data ?? [];
+          if (contentList.isEmpty) {
             return const Center(
               child: Text("Data Tidak ditemukan"),
             );
           }
-          if (contentList == null) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Color(primaryColor),
-              ),
-            );
-          }
+          // if (contentList == null) {
+          //   return const Center(
+          //     child: CircularProgressIndicator(
+          //       color: Color(primaryColor),
+          //     ),
+          //   );
+          // }
           return SafeArea(
             child: SingleChildScrollView(
               controller: sl<ScrollController>(),

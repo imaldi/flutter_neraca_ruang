@@ -23,16 +23,16 @@ class Contents extends _$Contents {
       var box = sl<Box<String>>();
       box.clear();
     }
-    return null;
+    return [];
     // return await fetchContent();
   }
 
-  Future<void> fetchContent(
-      {
-      // int? pageNumber = 1,
-      int? limit = 5,
-      String? type,
-      String? keyword}) async {
+  Future<void> fetchContent({
+    // int? pageNumber = 1,
+    int? limit = 5,
+    String? type,
+    String keyword = "",
+  }) async {
     // state = const AsyncValue.loading();
 
     Map<String, String> queryParameters = {
@@ -45,7 +45,7 @@ class Contents extends _$Contents {
     // queryParameters['keyword'] = ref.watch(keywordProvider);
     var shouldStartSearchingByTag = ref.watch(startSearchingByTag);
     var shouldStartSearchingByKeyword = ref.watch(startSearchingByKeyword);
-    var keywordParam = ref.watch(keywordProvider);
+    // var keywordParam = ref.watch(keywordProvider);
     var idTagsPihak = ref.watch(tagsPihak);
     var idTagsTopik = ref.watch(tagsTopik);
     var idTagsOtonom = ref.watch(tagsOtonom);
@@ -74,8 +74,8 @@ class Contents extends _$Contents {
       queryParameters.remove('tags_topik');
       queryParameters.remove('tags_otonomi');
 
-      if (keywordParam.isNotEmpty) {
-        queryParameters['keyword'] = keywordParam;
+      if ((keyword ?? "").isNotEmpty) {
+        queryParameters['keyword'] = keyword;
       }
     }
     // keyword ?? "";
