@@ -34,7 +34,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
   //   super.initState();
   //   ref.read(contentsProvider.notifier).fetchContent(type: "kabar", limit: 3);
   // }
-
+  //
   // @override
   // void dispose() {
   //   basicResetStates(context, ref);

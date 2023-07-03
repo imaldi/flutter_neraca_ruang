@@ -39,7 +39,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
 
   @override
   Widget build(BuildContext context) {
-    var jurnalTerbaru = ref.watch(jurnalProvider);
+    var jurnalTerbaru = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
@@ -69,19 +69,19 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
             basicResetStates(context, ref);
           }),
           body: jurnalTerbaru.when(data: (data) {
-            var contentList = data.data?.data ?? [];
-            if (contentList.isEmpty) {
+            var contentList = data;
+            if (contentList != null && contentList.isEmpty) {
               return const Center(
                 child: Text("Data Tidak ditemukan"),
               );
             }
-            // if (contentList == null) {
-            //   return const Center(
-            //     child: CircularProgressIndicator(
-            //       color: Color(primaryColor),
-            //     ),
-            //   );
-            // }
+            if (contentList == null) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Color(primaryColor),
+                ),
+              );
+            }
             return SingleChildScrollView(
               controller: sl<ScrollController>(),
               child: Padding(

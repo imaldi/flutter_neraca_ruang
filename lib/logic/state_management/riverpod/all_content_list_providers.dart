@@ -30,10 +30,13 @@ class Contents extends _$Contents {
   Future<void> fetchContent({
     // int? pageNumber = 1,
     int? limit = 5,
+    int? kotaId = 0,
+    int? tagsId = 0,
     String? type,
     String keyword = "",
+    bool shouldStartSearchingByTag = false,
+    bool shouldStartSearchingByKeyword = false,
   }) async {
-    // state = const AsyncValue.loading();
 
     Map<String, String> queryParameters = {
       // 'page': pageNumber.toString(),
@@ -42,19 +45,20 @@ class Contents extends _$Contents {
     if ((type ?? "").isNotEmpty) {
       queryParameters['tipe'] = type ?? "";
     }
+    if (tagsId != 0) {
+      queryParameters['tags_id'] = tagsId.toString();
+    }
+    // var kotaId = ref.watch(kotaIdProvider);
+    if (kotaId != 0) {
+      queryParameters['kota_id'] = kotaId.toString();
+    }
     // queryParameters['keyword'] = ref.watch(keywordProvider);
-    var shouldStartSearchingByTag = ref.watch(startSearchingByTag);
-    var shouldStartSearchingByKeyword = ref.watch(startSearchingByKeyword);
+    // var shouldStartSearchingByTag = ref.watch(startSearchingByTag);
+    // var shouldStartSearchingByKeyword = ref.watch(startSearchingByKeyword);
     // var keywordParam = ref.watch(keywordProvider);
     var idTagsPihak = ref.watch(tagsPihak);
     var idTagsTopik = ref.watch(tagsTopik);
     var idTagsOtonom = ref.watch(tagsOtonom);
-    var kotaId = ref.watch(kotaIdProvider);
-    if (kotaId != 0) {
-      queryParameters['kota_id'] = kotaId.toString();
-    } else {
-      queryParameters.remove('kota_id');
-    }
 
     var listBoxKey = sl<Box<String>>();
     if (shouldStartSearchingByTag) {
@@ -89,17 +93,19 @@ class Contents extends _$Contents {
         "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
     // dataFromBox?.data?.token ?? "";
 
-    var url = Uri.https(baseUrl, dashboardList, queryParameters);
-
-    // final json = await http.get(url);
-    final response = await http.get(url, headers: {
-      'Authorization': token,
-      'Accept': 'application/json',
-    });
-    print("URL fetch latest list from contentProvider: $url");
-    log("result JSON: ${jsonDecode(response.body)}");
-    // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
     try {
+      state = const AsyncValue.loading();
+      var url = Uri.https(baseUrl, dashboardList, queryParameters);
+
+      // final json = await http.get(url);
+      final response = await http.get(url, headers: {
+        'Authorization': token,
+        'Accept': 'application/json',
+      });
+      print("URL fetch latest list from contentProvider: $url");
+      log("result JSON: ${jsonDecode(response.body)}");
+      // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
+
       final result = DashboardResponse.fromJson(jsonDecode(response.body))
               .data
               ?.data

@@ -29,6 +29,9 @@ appBarWidget(BuildContext context,
         [
           InkWell(
               onTap: () {
+                ref.read(contentsProvider.notifier).fetchContent(
+                      type: "kabar",
+                    );
                 context.router.replace(const KabarRoute());
                 if (resetStates != null) {
                   resetStates();
@@ -37,6 +40,9 @@ appBarWidget(BuildContext context,
               child: TabMenuItem("KABAR")),
           InkWell(
               onTap: () {
+                ref.read(contentsProvider.notifier).fetchContent(
+                      type: "jurnal",
+                    );
                 context.router.replace(const JurnalRoute());
                 if (resetStates != null) {
                   resetStates();
@@ -45,6 +51,9 @@ appBarWidget(BuildContext context,
               child: TabMenuItem("JURNAL")),
           InkWell(
               onTap: () {
+                ref.read(contentsProvider.notifier).fetchContent(
+                      type: "infografis",
+                    );
                 context.router.replace(const InfografisRoute());
                 if (resetStates != null) {
                   resetStates();
@@ -53,6 +62,9 @@ appBarWidget(BuildContext context,
               child: TabMenuItem("INFOGRAFIS")),
           InkWell(
               onTap: () {
+                ref.read(contentsProvider.notifier).fetchContent(
+                      type: "video",
+                    );
                 context.router.replace(const VideoRoute());
                 if (resetStates != null) {
                   resetStates();
@@ -61,6 +73,9 @@ appBarWidget(BuildContext context,
               child: TabMenuItem("VIDEO")),
           InkWell(
               onTap: () {
+                ref.read(contentsProvider.notifier).fetchContent(
+                      type: "foto",
+                    );
                 context.router.replace(const AlbumFotoRoute());
                 if (resetStates != null) {
                   resetStates();
@@ -69,6 +84,8 @@ appBarWidget(BuildContext context,
               child: TabMenuItem("ALBUM FOTO")),
           InkWell(
               onTap: () {
+                // ref.read(contentsProvider.notifier).fetchContent(
+                //   type: "kabar",);
                 context.router.replace(const DiskusiRoute());
                 if (resetStates != null) {
                   resetStates();

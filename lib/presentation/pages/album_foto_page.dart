@@ -24,21 +24,21 @@ class AlbumFotoPage extends ConsumerStatefulWidget {
 }
 
 class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
-  @override
-  void initState() {
-    super.initState();
-    ref.read(contentsProvider.notifier).fetchContent(type: "foto", limit: 3);
-  }
-
-  @override
-  void dispose() {
-    basicResetStates(context, ref);
-    super.dispose();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   ref.read(contentsProvider.notifier).fetchContent(type: "foto", limit: 3);
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   basicResetStates(context, ref);
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    var fotoTerbaru = ref.watch(fotoProvider);
+    var fotoTerbaru = ref.watch(contentsProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
     var appbarTitle =
@@ -64,19 +64,19 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
           basicResetStates(context, ref);
         }),
         body: fotoTerbaru.when(data: (data) {
-          var contentList = data.data?.data ?? [];
-          if (contentList.isEmpty) {
+          var contentList = data;
+          if (contentList != null && contentList.isEmpty) {
             return const Center(
               child: Text("Data Tidak ditemukan"),
             );
           }
-          // if (contentList == null) {
-          //   return const Center(
-          //     child: CircularProgressIndicator(
-          //       color: Color(primaryColor),
-          //     ),
-          //   );
-          // }
+          if (contentList == null) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color(primaryColor),
+              ),
+            );
+          }
           return SafeArea(
             child: SingleChildScrollView(
               child: Padding(

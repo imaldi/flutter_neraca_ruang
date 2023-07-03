@@ -42,7 +42,7 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
 
   @override
   Widget build(BuildContext context) {
-    var infografisTerbaru = ref.watch(infografisProvider);
+    var infografisTerbaru = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
@@ -69,19 +69,19 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
           basicResetStates(context, ref);
         }),
         body: infografisTerbaru.when(data: (data) {
-          var contentList = data.data?.data ?? [];
-          if (contentList.isEmpty) {
+          var contentList = data;
+          if (contentList != null && contentList.isEmpty) {
             return const Center(
               child: Text("Data Tidak ditemukan"),
             );
           }
-          // if (contentList == null) {
-          //   return const Center(
-          //     child: CircularProgressIndicator(
-          //       color: Color(primaryColor),
-          //     ),
-          //   );
-          // }
+          if (contentList == null) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color(primaryColor),
+              ),
+            );
+          }
           return SafeArea(
             child: SingleChildScrollView(
               controller: sl<ScrollController>(),
