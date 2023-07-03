@@ -23,6 +23,7 @@ import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../widgets/drawer_content.dart';
 import '../widgets/scrollable_horizontal_image.dart';
 import '../widgets/social_media_panel_widget.dart';
+import '../widgets/tab_menu_item.dart';
 
 @RoutePage()
 class LandingPage extends ConsumerStatefulWidget {

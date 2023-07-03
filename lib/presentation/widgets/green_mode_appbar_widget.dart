@@ -9,32 +9,12 @@ greenModeAppBarWidget(BuildContext context) {
     isScrollable: true,
     indicatorColor: Colors.transparent,
     tabs: [
-      InkWell(
-          onTap: () {
-            context.router.replace(const KabarRoute());
-          },
-          child: TabMenuItem("KABAR")),
-      InkWell(
-          onTap: () {
-            context.router.replace(const JurnalRoute());
-          },
-          child: TabMenuItem("JURNAL")),
-      InkWell(
-          onTap: () {
-            context.router.replace(const InfografisRoute());
-          },
-          child: TabMenuItem("INFOGRAFIS")),
-      InkWell(
-          onTap: () {
-            context.router.replace(const VideoRoute());
-          },
-          child: TabMenuItem("VIDEO")),
-      InkWell(
-          onTap: () {
-            context.router.replace(const AlbumFotoRoute());
-          },
-          child: TabMenuItem("ALBUM FOTO")),
-      TabMenuItem("DISKUSI"),
+      TabMenuItem("KABAR", "kabar"),
+      TabMenuItem("JURNAL", "jurnal"),
+      TabMenuItem("INFOGRAFIS", "infografis"),
+      TabMenuItem("VIDEO", "video"),
+      TabMenuItem("ALBUM FOTO", "foto"),
+      TabMenuItem("DISKUSI", "diskusi"),
     ],
   );
 

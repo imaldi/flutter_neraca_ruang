@@ -14,6 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
+import '../../data/models/dashboard_response/dashboard_response.dart';
 import '../../di.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
@@ -43,18 +44,25 @@ class _KabarPageState extends ConsumerState<KabarPage> {
 
   @override
   Widget build(BuildContext context) {
-    var kabarTerbaru = ref.watch(kabarProvider);
-    // var kabarTerbaru = ref.watch(contentsProvider);
+    // var kabarTerbaru = ref.watch(kabarProvider);
+    var kabarTerbaru = ref.watch(contentsProvider);
     var kotaName = ref.watch(kotaNameProvider);
     var tagName = ref.watch(tagsNameProvider);
     var iconUrl = ref.watch(tagsIconLinkProvider);
-    var likedContent = ref.watch(likedContentListProviderProvider);
+    // var likedContent = ref.watch(likedContentListProviderProvider);
     var appbarTitle =
         // kotaName.isNotEmpty
         //     ? kotaName
         //     :
         tagName.isNotEmpty ? tagName : null;
-
+    ref.listen(tipeKontenProvider, (previous, next) {
+      myToast("tipe: $next");
+      if (next == "kabar") {
+        ref.read(contentsProvider.notifier).fetchContent(
+              type: "kabar",
+            );
+      }
+    });
     return DefaultTabController(
       length: mainTabLength,
       child: Scaffold(
@@ -72,8 +80,8 @@ class _KabarPageState extends ConsumerState<KabarPage> {
           basicResetStates(context, ref);
         }),
         body: kabarTerbaru.when(data: (data) {
-          var contentList = data.data?.data ?? [];
-          if (contentList.isEmpty) {
+          var contentList = data;
+          if (contentList != null && contentList.isEmpty) {
             return const Center(
               child: Text("Data Tidak ditemukan"),
             );
@@ -95,9 +103,9 @@ class _KabarPageState extends ConsumerState<KabarPage> {
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: contentList.length,
+                        itemCount: contentList?.length ?? 0,
                         itemBuilder: (c, i) {
-                          return ContentWidget(contentList[i]);
+                          return ContentWidget(contentList?[i] ?? Datum());
                         }),
                     InkWell(
                       onTap: () {

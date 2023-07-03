@@ -29,17 +29,17 @@ class GreenPage extends ConsumerStatefulWidget {
 }
 
 class GreenPageState extends ConsumerState<GreenPage> {
-  @override
-  void initState() {
-    super.initState();
-    ref.read(contentsProvider.notifier).fetchContent(type: "", limit: 3);
-  }
-
-  @override
-  void dispose() {
-    basicResetStates(context, ref);
-    super.dispose();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   ref.read(contentsProvider.notifier).fetchContent(type: "", limit: 3);
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   basicResetStates(context, ref);
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

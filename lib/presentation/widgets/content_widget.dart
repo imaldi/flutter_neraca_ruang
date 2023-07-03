@@ -128,9 +128,10 @@ class ContentWidget extends ConsumerWidget {
                         content.kotaId ?? 0;
                     ref.read(kotaNameProvider.notifier).state =
                         content.kotaName ?? "No City";
-                    ref
-                        .read(contentsProvider.notifier)
-                        .fetchContent(type: "", tagsId: content.kotaId ?? 0);
+                    ref.read(contentsProvider.notifier).fetchContent(
+                          type: "",
+                          kotaId: content.kotaId ?? 0,
+                        );
                     ref.invalidate(tagsIdProvider);
                     ref.invalidate(tagsNameProvider);
                     context.router.replace(const GreenRoute());

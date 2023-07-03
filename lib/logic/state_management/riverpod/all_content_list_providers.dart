@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,6 +15,8 @@ import 'async_state_auth_providers.dart';
 
 part 'all_content_list_providers.g.dart';
 
+final tipeKontenProvider = StateProvider((ref) => "");
+
 @riverpod
 class Contents extends _$Contents {
   @override
@@ -23,11 +26,12 @@ class Contents extends _$Contents {
       var box = sl<Box<String>>();
       box.clear();
     }
-    return [];
-    // return await fetchContent();
+    // var defaultValue = await ref.watch(kabarProvider.future);
+    // return defaultValue.data?.data ?? [];
+    return await fetchContent(type: "kabar");
   }
 
-  Future<void> fetchContent({
+  Future<List<Datum>?> fetchContent({
     // int? pageNumber = 1,
     int? limit = 5,
     int? kotaId = 0,
@@ -37,7 +41,6 @@ class Contents extends _$Contents {
     bool shouldStartSearchingByTag = false,
     bool shouldStartSearchingByKeyword = false,
   }) async {
-
     Map<String, String> queryParameters = {
       // 'page': pageNumber.toString(),
       'limit': limit.toString(),
@@ -95,37 +98,44 @@ class Contents extends _$Contents {
 
     try {
       state = const AsyncValue.loading();
+
+      // state = await AsyncValue.guard(() async {
+      //   return result;
+      // });
       var url = Uri.https(baseUrl, dashboardList, queryParameters);
 
       // final json = await http.get(url);
       final response = await http.get(url, headers: {
         'Authorization': token,
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
       });
       print("URL fetch latest list from contentProvider: $url");
-      log("result JSON: ${jsonDecode(response.body)}");
+      log("result JSON status code: ${response.statusCode}");
+      log("result JSON: ${response.body}");
       // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
 
-      final result = DashboardResponse.fromJson(jsonDecode(response.body))
-              .data
-              ?.data
-              ?.map((e) {
-            if (listBoxKey.containsKey(e.slug)) {
-              return e.copyWith(localLike: true);
-            }
-            return e;
-          }).toList() ??
-          <Datum>[];
-
+      final result = await DashboardResponse.fromJson(jsonDecode(response.body))
+          .data
+          ?.data
+          ?.map((e) {
+        if (listBoxKey.containsKey(e.slug)) {
+          return e.copyWith(localLike: true);
+        }
+        return e;
+      }).toList();
       state = await AsyncValue.guard(() async {
         return result;
       });
-      // return result;
+      return result;
     } on TypeError {
       // state = await AsyncValue.guard(() async {
       //   return [];
       // });
       state = await AsyncValue.error(TypeError, StackTrace.current);
+      // return [];
+    } catch (e) {
+      myToast("There is an error $e");
       // return [];
     }
     // finally {

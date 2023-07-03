@@ -22,6 +22,7 @@ import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../../logic/state_management/riverpod/comment_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/appbar_widget.dart';
+import '../widgets/comment_widget.dart';
 import '../widgets/my_toast.dart';
 import '../widgets/social_media_panel_widget.dart';
 
@@ -44,6 +45,8 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
   Widget build(BuildContext context) {
     var list = ref.watch(contentsProvider);
     var contentId = ref.watch(selectedContentIdProvider);
+    var selectedSlug = ref.watch(selectedContentSlugProvider);
+
     var isLogin = ref.watch(authStatusProvider).value != null;
 
     return DefaultTabController(
@@ -657,6 +660,10 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                       .toList(),
                                 ),
                               ),
+                              Visibility(
+                                  visible: contentId == content.id &&
+                                      selectedSlug.isNotEmpty,
+                                  child: CommentWidget()),
                             ],
                           );
                         }),

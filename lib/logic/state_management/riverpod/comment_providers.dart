@@ -20,8 +20,8 @@ part 'comment_providers.g.dart';
 class Comments extends _$Comments {
   @override
   FutureOr<List<CommentModel>> build() async {
-    return [];
-    // return await _fetchDummyData();
+    // return [];
+    return await fetchCommentFromAPI();
   }
 
   Future<List<CommentModel>> _fetchDummyData() async {
@@ -37,7 +37,7 @@ class Comments extends _$Comments {
     }
   }
 
-  Future<void> fetchCommentFromAPI() async {
+  Future<List<CommentModel>> fetchCommentFromAPI() async {
     // state = const AsyncValue.loading();
     String selectedSlug = ref.watch(selectedContentSlugProvider);
     var authBox = sl<Box<AuthResponse>>();
@@ -70,6 +70,7 @@ class Comments extends _$Comments {
         //   return jsonResult;
         // });
         state = await AsyncValue.data(resultKomen);
+        return resultKomen;
       } else {
         throw Error();
       }
@@ -77,6 +78,7 @@ class Comments extends _$Comments {
       log("error in comment: ${e.toString()}");
 
       state = AsyncValue.error(Error(), StackTrace.current);
+      return [];
     }
     // return [];
   }

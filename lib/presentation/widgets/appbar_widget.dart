@@ -25,74 +25,14 @@ appBarWidget(BuildContext context,
   final TabBar _tabBar = TabBar(
     isScrollable: !isGreenMode,
     indicatorColor: Colors.transparent,
-    tabs: tabsChild ??
-        [
-          InkWell(
-              onTap: () {
-                ref.read(contentsProvider.notifier).fetchContent(
-                      type: "kabar",
-                    );
-                context.router.replace(const KabarRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
-              },
-              child: TabMenuItem("KABAR")),
-          InkWell(
-              onTap: () {
-                ref.read(contentsProvider.notifier).fetchContent(
-                      type: "jurnal",
-                    );
-                context.router.replace(const JurnalRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
-              },
-              child: TabMenuItem("JURNAL")),
-          InkWell(
-              onTap: () {
-                ref.read(contentsProvider.notifier).fetchContent(
-                      type: "infografis",
-                    );
-                context.router.replace(const InfografisRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
-              },
-              child: TabMenuItem("INFOGRAFIS")),
-          InkWell(
-              onTap: () {
-                ref.read(contentsProvider.notifier).fetchContent(
-                      type: "video",
-                    );
-                context.router.replace(const VideoRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
-              },
-              child: TabMenuItem("VIDEO")),
-          InkWell(
-              onTap: () {
-                ref.read(contentsProvider.notifier).fetchContent(
-                      type: "foto",
-                    );
-                context.router.replace(const AlbumFotoRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
-              },
-              child: TabMenuItem("ALBUM FOTO")),
-          InkWell(
-              onTap: () {
-                // ref.read(contentsProvider.notifier).fetchContent(
-                //   type: "kabar",);
-                context.router.replace(const DiskusiRoute());
-                if (resetStates != null) {
-                  resetStates();
-                }
-              },
-              child: TabMenuItem("DISKUSI")),
-        ],
+    tabs: [
+      TabMenuItem("KABAR", "kabar"),
+      TabMenuItem("JURNAL", "jurnal"),
+      TabMenuItem("INFOGRAFIS", "infografis"),
+      TabMenuItem("VIDEO", "video"),
+      TabMenuItem("ALBUM FOTO", "foto"),
+      TabMenuItem("DISKUSI", "diskusi"),
+    ],
   );
   return AppBar(
     elevation: 0,

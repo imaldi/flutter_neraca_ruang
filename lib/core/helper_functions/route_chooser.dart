@@ -17,6 +17,8 @@ PageRouteInfo routeChooser(String tipe) {
       return const VideoRoute();
     case "foto":
       return const AlbumFotoRoute();
+    case "diskusi":
+      return const DiskusiRoute();
     default:
       return LandingRoute();
   }

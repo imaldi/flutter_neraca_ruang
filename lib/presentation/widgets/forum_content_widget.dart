@@ -170,10 +170,9 @@ class ForumContentWidget extends ConsumerWidget {
                 onTap: isLiked
                     ? null
                     : () {
-                        // TODO cek functionality
-                        ref
-                            .read(activeForumsProvider.notifier)
-                            .likeDiskusi(content);
+                        // This is just from like content
+                        //     .read(activeForumsProvider.notifier)
+                        //     .likeDiskusi(content);
                         // myToast("the slug: ${content.slug}");
                       },
                 child: isLiked
@@ -196,12 +195,12 @@ class ForumContentWidget extends ConsumerWidget {
               ),
               InkWell(
                 onTap: contentId != content.threadId
-                    ? () {
+                    ? () async {
                         ref.read(selectedContentIdProvider.notifier).state =
                             content.threadId ?? 0;
                         ref.read(selectedContentSlugProvider.notifier).state =
                             content.threadSlug ?? "";
-                        ref
+                        await ref
                             .read(forumCommentsProvider.notifier)
                             .fetchCommentFromAPI();
 

@@ -233,7 +233,7 @@ final startSearchingByTag = StateProvider<bool>((ref) => false);
 final startSearchingByKeyword = StateProvider<bool>((ref) => false);
 final profileEditMode = StateProvider<bool>((ref) => false);
 
-final limitProvider = StateProvider<int>((ref) => 5);
+final limitProvider = StateProvider<int>((ref) => 2);
 
 final currentLikedOrDislikedContentIndexProvider =
     StateProvider<int>((ref) => 0);
@@ -270,7 +270,7 @@ class Repository {
     });
 
     Map<String, String> queryParameters = {
-      'page': pageNumber.toString(),
+      // 'page': pageNumber.toString(),
       'limit': limit.toString(),
     };
     if (tipe.isNotEmpty) {

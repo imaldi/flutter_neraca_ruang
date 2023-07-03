@@ -158,7 +158,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                           children: [
                             Expanded(
                                 child: Container(
-                                    color: Colors.amber,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: normal),
                                     child: Text(key))),
