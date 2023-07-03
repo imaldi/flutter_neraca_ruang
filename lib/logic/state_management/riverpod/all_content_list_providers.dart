@@ -28,14 +28,18 @@ class Contents extends _$Contents {
     }
     // var defaultValue = await ref.watch(kabarProvider.future);
     // return defaultValue.data?.data ?? [];
-    return await fetchContent(type: "kabar");
+    return await fetchContent("build method provider", type: "kabar");
   }
 
-  Future<List<Datum>?> fetchContent({
+  Future<List<Datum>?> fetchContent(
+    String calledFrom, {
     // int? pageNumber = 1,
     int? limit = 5,
     int? kotaId = 0,
     int? tagsId = 0,
+    int? idTagsPihak = 0,
+    int? idTagsTopik = 0,
+    int? idTagsOtonom = 0,
     String? type,
     String keyword = "",
     bool shouldStartSearchingByTag = false,
@@ -59,9 +63,9 @@ class Contents extends _$Contents {
     // var shouldStartSearchingByTag = ref.watch(startSearchingByTag);
     // var shouldStartSearchingByKeyword = ref.watch(startSearchingByKeyword);
     // var keywordParam = ref.watch(keywordProvider);
-    var idTagsPihak = ref.watch(tagsPihak);
-    var idTagsTopik = ref.watch(tagsTopik);
-    var idTagsOtonom = ref.watch(tagsOtonom);
+    // var idTagsPihak = ref.watch(tagsPihak);
+    // var idTagsTopik = ref.watch(tagsTopik);
+    // var idTagsOtonom = ref.watch(tagsOtonom);
 
     var listBoxKey = sl<Box<String>>();
     if (shouldStartSearchingByTag) {
@@ -86,7 +90,7 @@ class Contents extends _$Contents {
       }
     }
     // keyword ?? "";
-    print("query Param fetch content: $queryParameters");
+    print("query Param fetch content (from $calledFrom): $queryParameters");
 
     // var authBox = sl<Box<LoginResponse>>();
     // var dataFromBox = authBox.get(userDataKey);
@@ -124,9 +128,11 @@ class Contents extends _$Contents {
         }
         return e;
       }).toList();
-      state = await AsyncValue.guard(() async {
-        return result;
-      });
+      state = await AsyncValue.data(
+          // () async {
+          result
+          // }
+          );
       return result;
     } on TypeError {
       // state = await AsyncValue.guard(() async {

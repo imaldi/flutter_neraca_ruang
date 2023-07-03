@@ -3,6 +3,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/tag_searchable_dropdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -114,7 +115,14 @@ class DrawerContent extends ConsumerWidget {
                   backgroundColor: const Color(primaryColor)),
               onPressed: () {
                 /// suruh server find
-                ref.read(startSearchingByTag.notifier).state = true;
+                // ref.read(startSearchingByTag.notifier).state = true;
+                ref.read(contentsProvider.notifier).fetchContent(
+                      "from tag search",
+                      shouldStartSearchingByTag: true,
+                      idTagsTopik: selectedTopik,
+                      idTagsOtonom: selectedOtonom,
+                      idTagsPihak: selectedPihak,
+                    );
                 context.router.push(const DatumTypeFilterRoute());
               },
               child: const Text("Cari"))

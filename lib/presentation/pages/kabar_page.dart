@@ -59,6 +59,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
       myToast("tipe: $next");
       if (next == "kabar") {
         ref.read(contentsProvider.notifier).fetchContent(
+              "kabar page",
               type: "kabar",
             );
       }

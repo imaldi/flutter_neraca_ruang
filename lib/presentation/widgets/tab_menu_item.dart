@@ -16,6 +16,7 @@ class TabMenuItem extends ConsumerWidget {
     return InkWell(
       onTap: () {
         ref.read(contentsProvider.notifier).fetchContent(
+              "tabs menu",
               type: textValue.toLowerCase(),
             );
         context.router.replace(routeChooser(textValue.toLowerCase()));

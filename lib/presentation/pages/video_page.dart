@@ -26,7 +26,9 @@ class _VideoPageState extends ConsumerState<VideoPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(contentsProvider.notifier).fetchContent(type: "video", limit: 3);
+    ref
+        .read(contentsProvider.notifier)
+        .fetchContent("video page", type: "video", limit: 3);
   }
 
   @override
