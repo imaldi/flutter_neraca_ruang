@@ -13,12 +13,10 @@ class TabMenuItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    var initType = ref.watch(tipeKontenProvider);
     return InkWell(
       onTap: () {
-        ref.read(contentsProvider.notifier).fetchContent(
-              "tabs menu",
-              type: textValue.toLowerCase(),
-            );
+        ref.read(tipeKontenProvider.notifier).state = textValue;
         context.router.replace(routeChooser(textValue.toLowerCase()));
         // if (resetStates != null) {
         //   resetStates();

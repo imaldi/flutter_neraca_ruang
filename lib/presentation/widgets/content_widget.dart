@@ -110,7 +110,8 @@ class ContentWidget extends ConsumerWidget {
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: medium),
-          margin: const EdgeInsets.only(bottom: big),
+          margin:
+              EdgeInsets.only(bottom: (isInfografis || isFoto) ? normal : big),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -313,15 +314,17 @@ class ContentWidget extends ConsumerWidget {
           padding: const EdgeInsets.all(medium),
           child: Column(
             children: [
-              Text(
-                /// TODO jangan lupa ganti dengan created by yg asli
-                '${content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
-                style: isGreenMode
-                    ? Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(color: const Color(greenModeColor))
-                    : Theme.of(context).textTheme.bodySmall,
+              Visibility(
+                visible: !(isInfografis || isFoto),
+                child: Text(
+                  '${content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                  style: isGreenMode
+                      ? Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(color: const Color(greenModeColor))
+                      : Theme.of(context).textTheme.bodySmall,
+                ),
               ),
               InkWell(
                 onTap: contentId != content.id
@@ -346,6 +349,21 @@ class ContentWidget extends ConsumerWidget {
                             ?.copyWith(color: const Color(greenModeColor))
                         : Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: isInfografis || isFoto,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: medium),
+                  child: Text(
+                    '${content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                    style: isGreenMode
+                        ? Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(color: const Color(greenModeColor))
+                        : Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
               ),

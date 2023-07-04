@@ -16,19 +16,24 @@ import 'async_state_auth_providers.dart';
 part 'all_content_list_providers.g.dart';
 
 final tipeKontenProvider = StateProvider((ref) => "");
+// final myContentListProvider = FutureProvider<void>((ref) async {
+//   // final myNotifier = ref.watch(contentsProvider.future);
+//   await myNotifier.initialize();
+// });
 
 @riverpod
 class Contents extends _$Contents {
   @override
   FutureOr<List<Datum>?> build() async {
     var isLogin = ref.watch(authStatusProvider).value != null;
+    var initType = ref.watch(tipeKontenProvider);
     if (!isLogin) {
       var box = sl<Box<String>>();
       box.clear();
     }
     // var defaultValue = await ref.watch(kabarProvider.future);
     // return defaultValue.data?.data ?? [];
-    return await fetchContent("build method provider", type: "kabar");
+    return fetchContent("build method provider", type: initType);
   }
 
   Future<List<Datum>?> fetchContent(
@@ -119,7 +124,7 @@ class Contents extends _$Contents {
       log("result JSON: ${response.body}");
       // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
 
-      final result = await DashboardResponse.fromJson(jsonDecode(response.body))
+      final result = DashboardResponse.fromJson(jsonDecode(response.body))
           .data
           ?.data
           ?.map((e) {
@@ -128,11 +133,9 @@ class Contents extends _$Contents {
         }
         return e;
       }).toList();
-      state = await AsyncValue.data(
-          // () async {
-          result
-          // }
-          );
+      state = await AsyncValue.guard(() async {
+        return result;
+      });
       return result;
     } on TypeError {
       // state = await AsyncValue.guard(() async {
