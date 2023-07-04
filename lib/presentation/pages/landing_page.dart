@@ -156,7 +156,10 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                                   physics:
                                                       const NeverScrollableScrollPhysics(),
                                                   child: HtmlWidget(
-                                                      "${data.first.keterangan}"))),
+                                                    "${data.first.keterangan}",
+                                                    textStyle: TextStyle(
+                                                        color: Colors.grey),
+                                                  ))),
                                         ],
                                       ),
                                     ),

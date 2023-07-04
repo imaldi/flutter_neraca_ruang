@@ -58,8 +58,9 @@ class ForumContentWidget extends ConsumerWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(medium),
+        Container(
+          height: 43,
+          margin: const EdgeInsets.all(medium),
           child: FittedBox(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -86,6 +87,9 @@ class ForumContentWidget extends ConsumerWidget {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(
+                  width: huge,
                 ),
                 FittedBox(
                   child: Row(

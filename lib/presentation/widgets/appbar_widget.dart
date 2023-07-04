@@ -25,14 +25,15 @@ appBarWidget(BuildContext context,
   final TabBar _tabBar = TabBar(
     isScrollable: !isGreenMode,
     indicatorColor: Colors.transparent,
-    tabs: [
-      TabMenuItem("KABAR", "kabar"),
-      TabMenuItem("JURNAL", "jurnal"),
-      TabMenuItem("INFOGRAFIS", "infografis"),
-      TabMenuItem("VIDEO", "video"),
-      TabMenuItem("ALBUM FOTO", "foto"),
-      TabMenuItem("DISKUSI", "diskusi"),
-    ],
+    tabs: tabsChild ??
+        [
+          TabMenuItem("KABAR", "kabar"),
+          TabMenuItem("JURNAL", "jurnal"),
+          TabMenuItem("INFOGRAFIS", "infografis"),
+          TabMenuItem("VIDEO", "video"),
+          TabMenuItem("ALBUM FOTO", "foto"),
+          TabMenuItem("DISKUSI", "diskusi"),
+        ],
   );
   return AppBar(
     elevation: 0,

@@ -13,7 +13,7 @@ class TabMenuItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    var initType = ref.watch(tipeKontenProvider);
+    // var initType = ref.watch(tipeKontenProvider);
     return InkWell(
       onTap: () {
         ref.read(tipeKontenProvider.notifier).state = textValue;
