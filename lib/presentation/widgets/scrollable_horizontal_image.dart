@@ -4,7 +4,11 @@ import '../../core/consts/sizes.dart';
 
 class ScrollableHorizontalImage extends StatefulWidget {
   final List<Widget> children;
-  const ScrollableHorizontalImage(this.children, {Key? key}) : super(key: key);
+  final double? height;
+  final BoxFit? fit;
+  const ScrollableHorizontalImage(this.children,
+      {this.height, this.fit, Key? key})
+      : super(key: key);
 
   @override
   _ScrollableHorizontalImageState createState() =>
@@ -13,6 +17,7 @@ class ScrollableHorizontalImage extends StatefulWidget {
 
 class _ScrollableHorizontalImageState extends State<ScrollableHorizontalImage> {
   ScrollController scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
@@ -22,7 +27,7 @@ class _ScrollableHorizontalImageState extends State<ScrollableHorizontalImage> {
               controller: scrollController,
               scrollDirection: Axis.horizontal,
               child: Container(
-                constraints: const BoxConstraints(maxHeight: 250),
+                constraints: BoxConstraints(maxHeight: widget.height ?? 250),
                 child: Row(
                   children: widget.children
                       // [
@@ -43,7 +48,7 @@ class _ScrollableHorizontalImageState extends State<ScrollableHorizontalImage> {
                                     : MediaQuery.of(context).size.height),
                             child: SizedBox.expand(
                               child: FittedBox(
-                                fit: BoxFit.contain,
+                                fit: widget.fit ?? BoxFit.contain,
                                 child: e,
                               ),
                             ),

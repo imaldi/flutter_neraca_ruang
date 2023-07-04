@@ -588,7 +588,10 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                     ))),
 
                             SocialMediaPanelWidget(),
-                            // TODO implement adsense
+                            SizedBox(
+                              height: 3 * huge,
+                            ),
+
                             Text(
                               "Ads",
                               style: Theme.of(context).textTheme.headlineSmall,
@@ -598,13 +601,19 @@ class LandingPageState extends ConsumerState<LandingPage> {
                               height: normal,
                             ),
                             adsense.when(data: (data) {
-                              return ScrollableHorizontalImage(data.map((e) {
-                                return IconWidget(
-                                  e.banner ?? "",
-                                  isOnlineSource: true,
-                                  size: 250,
-                                );
-                              }).toList());
+                              return ScrollableHorizontalImage(
+                                data.map(
+                                  (e) {
+                                    return IconWidget(
+                                      e.banner ?? "",
+                                      isOnlineSource: true,
+                                      size: 250,
+                                    );
+                                  },
+                                ).toList(),
+                                height: extra,
+                                fit: BoxFit.fitWidth,
+                              );
 
                               // Text("Ada Data: ${data.toString()}");
                             }, error: (o, st) {
