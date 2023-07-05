@@ -65,7 +65,7 @@ var fotoProvider = FutureProvider<DashboardResponse>((ref) async {
   return response;
 });
 
-var adsenseProvider = FutureProvider<List<Adsense>>((ref) async {
+var adsenseProvider = FutureProvider<Adsense>((ref) async {
   final repo = ref.watch(repositoryProvider);
   final response = await repo.fetchAdsense();
   return response;
@@ -332,8 +332,9 @@ class Repository {
     }
   }
 
-  Future<List<Adsense>> fetchAdsense() async {
-    String token = "Bearer 80|LECLFT9MecjdZfVUGV1ie1xOi3ZocOWKE5FMhhf8";
+  Future<Adsense> fetchAdsense() async {
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMxMjkyNzksImV4cCI6MTgzODY0OTI3OX0.TcUp9g0SpOxZ6Im4YYiUurvdRgBRos2V_SboOF8wXyM";
     // ref.read(userTokenProvider);
     var today = DateTime.now().toString().substring(0, 10);
     try {
@@ -347,8 +348,8 @@ class Repository {
       print("URL adsense: $url");
       // log("Response body: ${response.body}");
 
-      return AdsenseResponse.fromJson(jsonDecode(response.body)).data?.data ??
-          <Adsense>[];
+      return AdsenseResponse.fromJson(jsonDecode(response.body)).data ??
+          Adsense();
     } catch (e) {
       throw Error();
     }

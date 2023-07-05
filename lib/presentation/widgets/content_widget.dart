@@ -209,7 +209,11 @@ class ContentWidget extends ConsumerWidget {
                         // isGreenMode
                         //     ? content.tagsPihak?.tagsIcon2 ?? ""
                         //     :
-                        content.tagsPihak?.tagsIcon1 ?? "",
+                        isGreenMode
+                            ? content.tagsPihak?.tagsIcon2 ??
+                                content.tagsPihak?.tagsIcon1 ??
+                                ""
+                            : content.tagsPihak?.tagsIcon1 ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
@@ -218,7 +222,11 @@ class ContentWidget extends ConsumerWidget {
                           ref.read(tagsNameProvider.notifier).state =
                               content.tagsPihak?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
-                              content.tagsPihak?.tagsIcon1 ?? "";
+                              isGreenMode
+                                  ? content.tagsPihak?.tagsIcon2 ??
+                                      content.tagsPihak?.tagsIcon1 ??
+                                      ""
+                                  : content.tagsPihak?.tagsIcon1 ?? "";
                           ref.read(contentsProvider.notifier).fetchContent(
                               "Tag Pihak",
                               type: content.tipe ?? "",
@@ -241,7 +249,11 @@ class ContentWidget extends ConsumerWidget {
                         // isGreenMode
                         //     ? content.tagsTopik?.tagsIcon2 ?? ""
                         //     :
-                        content.tagsTopik?.tagsIcon1 ?? "",
+                        isGreenMode
+                            ? content.tagsTopik?.tagsIcon2 ??
+                                content.tagsTopik?.tagsIcon1 ??
+                                ""
+                            : content.tagsTopik?.tagsIcon1 ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
@@ -250,7 +262,11 @@ class ContentWidget extends ConsumerWidget {
                           ref.read(tagsNameProvider.notifier).state =
                               content.tagsTopik?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
-                              content.tagsTopik?.tagsIcon1 ?? "";
+                              isGreenMode
+                                  ? content.tagsTopik?.tagsIcon2 ??
+                                      content.tagsTopik?.tagsIcon1 ??
+                                      ""
+                                  : content.tagsTopik?.tagsIcon1 ?? "";
                           ref.read(contentsProvider.notifier).fetchContent(
                               "tags topik",
                               type: content.tipe ?? "",
@@ -274,7 +290,11 @@ class ContentWidget extends ConsumerWidget {
                         // isGreenMode
                         //     ? content.tagsOtonomi?.tagsIcon2 ?? ""
                         //     :
-                        content.tagsOtonomi?.tagsIcon1 ?? "",
+                        isGreenMode
+                            ? content.tagsOtonomi?.tagsIcon2 ??
+                                content.tagsOtonomi?.tagsIcon1 ??
+                                ""
+                            : content.tagsOtonomi?.tagsIcon1 ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
@@ -283,7 +303,11 @@ class ContentWidget extends ConsumerWidget {
                           ref.read(tagsNameProvider.notifier).state =
                               content.tagsOtonomi?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
-                              content.tagsOtonomi?.tagsIcon1 ?? "";
+                              isGreenMode
+                                  ? content.tagsOtonomi?.tagsIcon2 ??
+                                      content.tagsOtonomi?.tagsIcon1 ??
+                                      ""
+                                  : content.tagsOtonomi?.tagsIcon1 ?? "";
                           ref.read(contentsProvider.notifier).fetchContent(
                               "tags otonomi",
                               type: content.tipe ?? "",

@@ -11,51 +11,13 @@ _$_AdsenseResponse _$$_AdsenseResponseFromJson(Map<String, dynamic> json) =>
       message: json['message'] as String?,
       data: json['data'] == null
           ? null
-          : AdsenseData.fromJson(json['data'] as Map<String, dynamic>),
+          : Adsense.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_AdsenseResponseToJson(_$_AdsenseResponse instance) =>
     <String, dynamic>{
       'message': instance.message,
       'data': instance.data,
-    };
-
-_$_AdsenseData _$$_AdsenseDataFromJson(Map<String, dynamic> json) =>
-    _$_AdsenseData(
-      currentPage: json['current_page'] as int?,
-      data: (json['data'] as List<dynamic>?)
-          ?.map((e) => Adsense.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      firstPageUrl: json['first_page_url'] as String?,
-      from: json['from'] as int?,
-      lastPage: json['last_page'] as int?,
-      lastPageUrl: json['last_page_url'] as String?,
-      links: (json['links'] as List<dynamic>?)
-          ?.map((e) => Link.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      nextPageUrl: json['next_page_url'] as String?,
-      path: json['path'] as String?,
-      perPage: json['perPage'] as int?,
-      prevPageUrl: json['prev_page_url'] as String?,
-      to: json['to'] as int?,
-      total: json['total'] as int?,
-    );
-
-Map<String, dynamic> _$$_AdsenseDataToJson(_$_AdsenseData instance) =>
-    <String, dynamic>{
-      'current_page': instance.currentPage,
-      'data': instance.data,
-      'first_page_url': instance.firstPageUrl,
-      'from': instance.from,
-      'last_page': instance.lastPage,
-      'last_page_url': instance.lastPageUrl,
-      'links': instance.links,
-      'next_page_url': instance.nextPageUrl,
-      'path': instance.path,
-      'perPage': instance.perPage,
-      'prev_page_url': instance.prevPageUrl,
-      'to': instance.to,
-      'total': instance.total,
     };
 
 _$_Adsense _$$_AdsenseFromJson(Map<String, dynamic> json) => _$_Adsense(
@@ -67,8 +29,12 @@ _$_Adsense _$$_AdsenseFromJson(Map<String, dynamic> json) => _$_Adsense(
           ? null
           : DateTime.parse(json['tanggal_end'] as String),
       banner: json['banner'] as String?,
-      statusAds: json['deleted_at'] as int?,
-      deletedAt: json['deletedAt'] as String?,
+      kotaId: json['kota_id'] as String?,
+      kotaName: json['kota_name'] as String?,
+      propinsiId: json['propinsi_id'] as String?,
+      propinsiName: json['propinsi_name'] as String?,
+      deletedAt: json['deleted_at'] as String?,
+      statusAds: json['status_ads'] as int?,
       deletedBy: json['deleted_by'] as String?,
     );
 
@@ -78,19 +44,11 @@ Map<String, dynamic> _$$_AdsenseToJson(_$_Adsense instance) =>
       'tanggal_start': instance.tanggalStart?.toIso8601String(),
       'tanggal_end': instance.tanggalEnd?.toIso8601String(),
       'banner': instance.banner,
-      'deleted_at': instance.statusAds,
-      'deletedAt': instance.deletedAt,
+      'kota_id': instance.kotaId,
+      'kota_name': instance.kotaName,
+      'propinsi_id': instance.propinsiId,
+      'propinsi_name': instance.propinsiName,
+      'deleted_at': instance.deletedAt,
+      'status_ads': instance.statusAds,
       'deleted_by': instance.deletedBy,
-    };
-
-_$_Link _$$_LinkFromJson(Map<String, dynamic> json) => _$_Link(
-      url: json['url'] as String?,
-      label: json['label'] as String?,
-      active: json['active'] as bool?,
-    );
-
-Map<String, dynamic> _$$_LinkToJson(_$_Link instance) => <String, dynamic>{
-      'url': instance.url,
-      'label': instance.label,
-      'active': instance.active,
     };

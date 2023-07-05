@@ -6,8 +6,9 @@ class ScrollableHorizontalImage extends StatefulWidget {
   final List<Widget> children;
   final double? height;
   final BoxFit? fit;
+  final bool removeArrows;
   const ScrollableHorizontalImage(this.children,
-      {this.height, this.fit, Key? key})
+      {this.height, this.fit, this.removeArrows = false, Key? key})
       : super(key: key);
 
   @override
@@ -56,32 +57,38 @@ class _ScrollableHorizontalImageState extends State<ScrollableHorizontalImage> {
                       .toList(),
                 ),
               )),
-          Align(
-              alignment: Alignment.centerLeft,
-              child: InkWell(
-                onTap: () {
-                  scrollController.animateTo(0,
-                      duration: Duration(seconds: 1), curve: Curves.easeIn);
-                },
-                child: Icon(
-                  Icons.keyboard_arrow_left,
-                  size: extra,
-                ),
-              )),
-          Align(
-              alignment: Alignment.centerRight,
-              child: InkWell(
-                onTap: () {
-                  scrollController.animateTo(
-                      MediaQuery.of(context).size.width * 1.5,
-                      duration: Duration(seconds: 1),
-                      curve: Curves.easeIn);
-                },
-                child: Icon(
-                  Icons.keyboard_arrow_right,
-                  size: extra,
-                ),
-              ))
+          Visibility(
+            visible: !widget.removeArrows,
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: InkWell(
+                  onTap: () {
+                    scrollController.animateTo(0,
+                        duration: Duration(seconds: 1), curve: Curves.easeIn);
+                  },
+                  child: Icon(
+                    Icons.keyboard_arrow_left,
+                    size: extra,
+                  ),
+                )),
+          ),
+          Visibility(
+            visible: !widget.removeArrows,
+            child: Align(
+                alignment: Alignment.centerRight,
+                child: InkWell(
+                  onTap: () {
+                    scrollController.animateTo(
+                        MediaQuery.of(context).size.width * 1.5,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.easeIn);
+                  },
+                  child: Icon(
+                    Icons.keyboard_arrow_right,
+                    size: extra,
+                  ),
+                )),
+          )
         ],
       ),
     );
