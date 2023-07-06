@@ -125,8 +125,9 @@ class ContentWidget extends ConsumerWidget {
 
                     print(
                         "Link Kota 2: ${content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
-                    ref.read(kotaIdProvider.notifier).state =
-                        content.kotaId ?? 0;
+                    // ref.read(kotaIdProvider.notifier).state =
+                    //     content.kotaId ?? 0;
+                    setContentListParams(ref, kotaId: content.kotaId ?? 0);
                     ref.read(kotaNameProvider.notifier).state =
                         content.kotaName ?? "No City";
                     // ref.read(contentsProvider.notifier).fetchContent(
@@ -134,7 +135,7 @@ class ContentWidget extends ConsumerWidget {
                     //       type: "",
                     //       kotaId: content.kotaId ?? 0,
                     //     );
-                    ref.invalidate(tagsIdProvider);
+                    // ref.invalidate(tagsIdProvider);
                     ref.invalidate(tagsNameProvider);
                     context.router.replace(const GreenRoute());
                   },
@@ -217,8 +218,9 @@ class ContentWidget extends ConsumerWidget {
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
-                          ref.read(tagsIdProvider.notifier).state =
-                              content.tagsPihak?.tagsId ?? 0;
+                          setContentListParams(ref,
+                              tagsId: content.tagsPihak?.tagsId ?? 0);
+
                           ref.read(tagsNameProvider.notifier).state =
                               content.tagsPihak?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
@@ -253,8 +255,9 @@ class ContentWidget extends ConsumerWidget {
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
-                          ref.read(tagsIdProvider.notifier).state =
-                              content.tagsTopik?.tagsId ?? 0;
+                          setContentListParams(ref,
+                              tagsId: content.tagsTopik?.tagsId ?? 0);
+
                           ref.read(tagsNameProvider.notifier).state =
                               content.tagsTopik?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
@@ -290,8 +293,9 @@ class ContentWidget extends ConsumerWidget {
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
-                          ref.read(tagsIdProvider.notifier).state =
-                              content.tagsOtonomi?.tagsId ?? 0;
+                          setContentListParams(ref,
+                              tagsId: content.tagsOtonomi?.tagsId ?? 0);
+
                           ref.read(tagsNameProvider.notifier).state =
                               content.tagsOtonomi?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
@@ -540,7 +544,7 @@ class ContentWidget extends ConsumerWidget {
                         /// Hanya menampilkan komentar, tidak menambah jumlah read / melihat detail
                         ref.read(selectedContentSlugProvider.notifier).state =
                             content.slug ?? "";
-                        myToast("Content ID: $contentId");
+                        // myToast("Content ID: $contentId");
                         ref
                             .read(commentsProvider.notifier)
                             .fetchCommentFromAPI();

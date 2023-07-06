@@ -18,6 +18,7 @@ import '../../data/models/dashboard_response/dashboard_response.dart';
 import '../../di.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
+import '../widgets/button_load_more.dart';
 import '../widgets/my_toast.dart';
 import '../widgets/social_media_panel_widget.dart';
 
@@ -108,24 +109,7 @@ class _KabarPageState extends ConsumerState<KabarPage> {
                         itemBuilder: (c, i) {
                           return ContentWidget(contentList?[i] ?? Datum());
                         }),
-                    InkWell(
-                      onTap: () {
-                        ref.read(limitProvider.notifier).state++;
-                        myToast("limit value: ${ref.watch(limitProvider)}");
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(medium),
-                        margin: const EdgeInsets.symmetric(vertical: medium),
-                        decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(extra))),
-                        child: Text(
-                          "LOAD MORE",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
+                    ButtonLoadMore(),
                     SocialMediaPanelWidget(),
                   ],
                 ),

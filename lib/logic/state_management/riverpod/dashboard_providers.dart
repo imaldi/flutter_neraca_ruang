@@ -252,22 +252,22 @@ class Repository {
     var kotaId = ref.watch(kotaIdProvider);
     var selectedContentId = ref.watch(selectedContentIdProvider);
 
-    ref.listen(tagsIdProvider, (oldV, newV) {
-      /// Ini maksudnya ketika tagsId berubah (klik logo kota di halaman detail), maka reset kotaId dan selectedContentId
-      if ((oldV != newV) && (newV != 0)) {
-        ref.read(kotaIdProvider.notifier).update((state) => 0);
-        ref.read(selectedContentIdProvider.notifier).update((state) => 0);
-      }
-    });
-    ref.listen(kotaIdProvider, (oldV, newV) {
-      /// Ini maksudnya ketika kotaId berubah (klik logo kota di halaman detail), maka reset tagsId dan selectedContentId
-      if ((oldV != newV) && (newV != 0)) {
-        ref.read(tagsIdProvider.notifier).update((state) => 0);
-
-        /// FIXME ga tau kenapa disini ada pesan error
-        ref.read(selectedContentIdProvider.notifier).update((state) => 0);
-      }
-    });
+    // ref.listen(tagsIdProvider, (oldV, newV) {
+    //   /// Ini maksudnya ketika tagsId berubah (klik logo kota di halaman detail), maka reset kotaId dan selectedContentId
+    //   if ((oldV != newV) && (newV != 0)) {
+    //     ref.read(kotaIdProvider.notifier).update((state) => 0);
+    //     ref.read(selectedContentIdProvider.notifier).update((state) => 0);
+    //   }
+    // });
+    // ref.listen(kotaIdProvider, (oldV, newV) {
+    //   /// Ini maksudnya ketika kotaId berubah (klik logo kota di halaman detail), maka reset tagsId dan selectedContentId
+    //   if ((oldV != newV) && (newV != 0)) {
+    //     ref.read(tagsIdProvider.notifier).update((state) => 0);
+    //
+    //     /// FIXME ga tau kenapa disini ada pesan error
+    //     ref.read(selectedContentIdProvider.notifier).update((state) => 0);
+    //   }
+    // });
 
     Map<String, String> queryParameters = {
       // 'page': pageNumber.toString(),

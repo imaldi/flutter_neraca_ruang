@@ -5,6 +5,7 @@ import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/button_load_more.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/content_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/green_mode_appbar_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/green_mode_bottom_bar.dart';
@@ -132,24 +133,7 @@ class GreenPageState extends ConsumerState<GreenPage> {
                                   isGreenMode: true,
                                 );
                               }),
-                          InkWell(
-                            onTap: () {
-                              ref.read(limitProvider.notifier).state++;
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(medium),
-                              margin:
-                                  const EdgeInsets.symmetric(vertical: medium),
-                              decoration: const BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(extra))),
-                              child: const Text(
-                                "LOAD MORE",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
+                          ButtonLoadMore(),
                           SocialMediaPanelWidget(
                             isGreenMode: true,
                           ),

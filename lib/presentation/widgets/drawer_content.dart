@@ -116,11 +116,12 @@ class DrawerContent extends ConsumerWidget {
               onPressed: () {
                 /// suruh server find
                 // ref.read(startSearchingByTag.notifier).state = true;
-                ref.read(contentsProvider.notifier).setParams(
-                      tagTopikId: selectedTopik,
-                      tagOtonomId: selectedOtonom,
-                      tagPihakId: selectedPihak,
-                    );
+                setContentListParams(
+                  ref,
+                  tagTopikId: selectedTopik,
+                  tagOtonomId: selectedOtonom,
+                  tagPihakId: selectedPihak,
+                );
                 // ref.read(tagsTopik.notifier).state = selectedTopik;
                 // ref.read(tagsOtonom.notifier).state = selectedOtonom;
                 // ref.read(tagsPihak.notifier).state = selectedPihak;

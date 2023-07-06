@@ -14,6 +14,7 @@ import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
 import '../../di.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
+import '../widgets/button_load_more.dart';
 import '../widgets/content_widget.dart';
 import '../widgets/forum_content_widget.dart';
 import '../widgets/main_drawer.dart';
@@ -108,23 +109,10 @@ class _DiskusiPageState extends ConsumerState<DiskusiPage> {
                       },
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      ref.read(limitProvider.notifier).state++;
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(medium),
-                      margin: const EdgeInsets.symmetric(vertical: medium),
-                      decoration: const BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(extra))),
-                      child: Text(
-                        "LOAD MORE",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
+
+                  /// TODO pastikan ini work di diskusi page
+                  ButtonLoadMore(),
+
                   SocialMediaPanelWidget(),
                 ],
               ),

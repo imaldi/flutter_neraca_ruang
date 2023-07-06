@@ -13,6 +13,7 @@ import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../widgets/IconWidget.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
+import '../widgets/button_load_more.dart';
 import '../widgets/content_widget.dart';
 import '../widgets/green_mode_appbar_widget.dart';
 import '../widgets/social_media_panel_widget.dart';
@@ -98,23 +99,7 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
                             contentList[i],
                           );
                         }),
-                    InkWell(
-                      onTap: () {
-                        ref.read(limitProvider.notifier).state++;
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(medium),
-                        margin: const EdgeInsets.symmetric(vertical: medium),
-                        decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(extra))),
-                        child: Text(
-                          "LOAD MORE",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
+                    ButtonLoadMore(),
                     SocialMediaPanelWidget(),
                   ],
                 ),

@@ -44,49 +44,6 @@ class Contents extends _$Contents {
     );
   }
 
-  void setParams({
-    int? limit,
-    int? kotaId,
-    int? tagsId,
-    int? tagOtonomId,
-    int? tagTopikId,
-    int? tagPihakId,
-    String? tipe,
-    String? keyword,
-  }) {
-    ref.invalidate(kotaIdProvider);
-    ref.invalidate(tagsIdProvider);
-    ref.invalidate(tipeKontenProvider);
-    ref.invalidate(keywordKontenProvider);
-    ref.invalidate(tagsOtonom);
-    ref.invalidate(tagsPihak);
-    ref.invalidate(tagsTopik);
-    // if (limit != 0) {
-    //   ref.read(limitProvider.notifier).state = limit ?? 5;
-    // }
-    if (tagsId != null && tagsId != 0) {
-      ref.read(tagsIdProvider.notifier).state = tagsId;
-    }
-    if (tagOtonomId != null && tagOtonomId != 0) {
-      ref.read(tagsOtonom.notifier).state = tagOtonomId;
-    }
-    if (tagTopikId != null && tagsId != 0) {
-      ref.read(tagsTopik.notifier).state = tagTopikId;
-    }
-    if (tagPihakId != null && tagsId != 0) {
-      ref.read(tagsPihak.notifier).state = tagPihakId;
-    }
-    if (kotaId != null && kotaId != 0) {
-      ref.read(kotaIdProvider.notifier).state = kotaId ?? 5;
-    }
-    if (tipe != null) {
-      ref.read(tipeKontenProvider.notifier).state = tipe;
-    }
-    if (keyword != null) {
-      ref.read(keywordKontenProvider.notifier).state = keyword;
-    }
-  }
-
   Future<List<Datum>?> _fetchContent(String calledFrom) async {
     int? limit = ref.watch(limitProvider);
     int? kotaId = ref.watch(kotaIdProvider);
@@ -329,4 +286,51 @@ class Contents extends _$Contents {
   //     return result;
   //   });
   // }
+}
+
+void setContentListParams(WidgetRef ref,
+    {int? limit,
+    int? kotaId,
+    int? tagsId,
+    int? tagOtonomId,
+    int? tagTopikId,
+    int? tagPihakId,
+    String? tipe,
+    String? keyword,
+    bool resetState = true}) {
+  if (resetState) {
+    ref.invalidate(limitProvider);
+    ref.invalidate(kotaIdProvider);
+    ref.invalidate(tagsIdProvider);
+    ref.invalidate(tipeKontenProvider);
+    ref.invalidate(keywordKontenProvider);
+    ref.invalidate(tagsOtonom);
+    ref.invalidate(tagsPihak);
+    ref.invalidate(tagsTopik);
+  }
+
+  // if (limit != 0) {
+  //   ref.read(limitProvider.notifier).state = limit ?? 5;
+  // }
+  if (tagsId != null && tagsId != 0) {
+    ref.read(tagsIdProvider.notifier).state = tagsId;
+  }
+  if (tagOtonomId != null && tagOtonomId != 0) {
+    ref.read(tagsOtonom.notifier).state = tagOtonomId;
+  }
+  if (tagTopikId != null && tagsId != 0) {
+    ref.read(tagsTopik.notifier).state = tagTopikId;
+  }
+  if (tagPihakId != null && tagsId != 0) {
+    ref.read(tagsPihak.notifier).state = tagPihakId;
+  }
+  if (kotaId != null && kotaId != 0) {
+    ref.read(kotaIdProvider.notifier).state = kotaId ?? 5;
+  }
+  if (tipe != null) {
+    ref.read(tipeKontenProvider.notifier).state = tipe;
+  }
+  if (keyword != null) {
+    ref.read(keywordKontenProvider.notifier).state = keyword;
+  }
 }
