@@ -71,7 +71,6 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                       return Container(
                         height: 200,
                         child: MyScrollableNestedWidget(
-                          controller: sl<ScrollController>(),
                           child: ListView.builder(
                               shrinkWrap: true,
                               itemCount: data.length,

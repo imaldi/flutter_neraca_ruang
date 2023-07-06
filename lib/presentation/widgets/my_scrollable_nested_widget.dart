@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
-class MyScrollableNestedWidget extends StatelessWidget {
+import '../../di.dart';
+
+class MyScrollableNestedWidget extends StatefulWidget {
   final Widget child;
-  final ScrollController controller;
-  const MyScrollableNestedWidget(
-      {required this.child, required this.controller, Key? key})
+  // final ScrollController controller;
+  const MyScrollableNestedWidget({required this.child, Key? key})
       : super(key: key);
+
+  @override
+  State<MyScrollableNestedWidget> createState() =>
+      _MyScrollableNestedWidgetState();
+}
+
+class _MyScrollableNestedWidgetState extends State<MyScrollableNestedWidget> {
+  var controller = sl<ScrollController>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +34,7 @@ class MyScrollableNestedWidget extends StatelessWidget {
         controller.jumpTo(controller.offset + value.overscroll);
         return true;
       },
-      child: child,
+      child: widget.child,
     );
   }
 }
