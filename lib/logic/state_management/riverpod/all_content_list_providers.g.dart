@@ -6,9 +6,15 @@ part of 'all_content_list_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$contentsHash() => r'0c6a8e8620be166edfa3939cceb6800504928a8c';
+String _$contentsHash() => r'76256d63d8e86fe49e6f16cdbd2ba8284ac76ccb';
 
-/// See also [Contents].
+/// NOTE penting, jadi, kalau mau pakai (Async)NotifierProvider, kalau butuh "parameter" di
+/// build method nya,
+/// jangan pakai parameter di functionnya,
+/// tapi sediakan StateProvider/FutureProvider yang menjadi state tersendiri
+/// yang di evaluasi jika terjadi perubahan di suatu tempat (misal merubah state 'keyword' ketika button search di tekan dll)
+///
+/// Copied from [Contents].
 @ProviderFor(Contents)
 final contentsProvider =
     AutoDisposeAsyncNotifierProvider<Contents, List<Datum>?>.internal(

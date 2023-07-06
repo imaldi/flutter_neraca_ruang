@@ -18,6 +18,7 @@ class ProfileImageWidget extends ConsumerWidget {
     final textStyle = TextStyle(color: textColor);
     final isEnabled = ref.watch(profileEditMode);
     final userData = ref.watch(authStatusProvider);
+    final pathController = TextEditingController();
 
     return Stack(
       children: [
@@ -53,12 +54,19 @@ class ProfileImageWidget extends ConsumerWidget {
                         child: SizedOverflowBox(
                           size: Size(medium, medium),
                           child: SizedBox(
+                            /// FIXME, ketika take picture yg lebar, dia lebar max nya "extra"
                             width: extra,
                             // height: extra,
                             child: Center(
                               child: MyImagePickerWidget(
                                   // isEnabled: isEnabled,
                                   enabledRiverpod: profileEditMode,
+                                  functionCallbackSetImageFilePath:
+                                      (randomCode, theXFile) {
+                                    ref
+                                        .read(pathFotoProvider.notifier).state =
+                                        theXFile?.path ?? "";
+                                  },
                                   defaultImagePlaceholder: Icon(
                                     Icons.camera_alt_outlined,
                                     color: Colors.white,

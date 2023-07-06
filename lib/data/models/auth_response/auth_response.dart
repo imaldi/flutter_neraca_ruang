@@ -57,6 +57,8 @@ class Members with _$Members {
     @JsonKey(name: "updated_at") @HiveField(13) DateTime? updatedAt,
     @JsonKey(name: "last_login_at") @HiveField(14) DateTime? lastloginAt,
     @JsonKey(name: "kode_pos") @HiveField(15) String? kodePos,
+    @JsonKey(name: "photo_path") @HiveField(16) String? photoPath,
+    @JsonKey(name: "photo_url") @HiveField(17) String? photoUrl,
   }) = _Members;
 
   factory Members.fromJson(Map<String, dynamic> json) =>

@@ -23,6 +23,7 @@ final tanggalLahirProvider = StateProvider((ref) => "");
 final tanggalLahirParamProvider = StateProvider((ref) => "");
 final teleponProvider = StateProvider((ref) => "");
 final kodePosProvider = StateProvider((ref) => "");
+final pathFotoProvider = StateProvider((ref) => "");
 // final kotaKabIdProvider = StateProvider((ref) => 0);
 final provinsiIdProvider = StateProvider((ref) => 0);
 
@@ -359,10 +360,12 @@ class AuthStatus extends _$AuthStatus {
     int provId = 0,
     String noHp = "",
     String kodePos = "",
+    String filePath = "",
     Function? successCallback,
     Function? failureCallback,
   }) async {
     const AsyncValue.loading();
+    myToast("Path Foto: $filePath");
 
     Map<String, String> bodyParameters = {};
     var tanggalLahir = ref.watch(tanggalLahirParamProvider);
@@ -423,13 +426,18 @@ class AuthStatus extends _$AuthStatus {
       updateMemberUrl,
     );
     try {
+      final request = http.MultipartRequest("POST", url);
+      if ((filePath ?? "").isNotEmpty) {
+        request.files.add(await http.MultipartFile.fromPath('foto', filePath));
+      }
+      request.fields.addAll(bodyParameters);
+      request.headers.addAll({
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+        // 'Content-Type': 'application/json'
+      });
       // final json = await http.get(url);
-      final response = await http.post(url,
-          headers: {
-            'Authorization': token,
-            'Accept': 'application/json',
-          },
-          body: bodyParameters);
+      final response = await http.Response.fromStream(await request.send());
       print("URL update member: $url");
       log("result JSON: ${jsonDecode(response.body)}");
       // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
@@ -461,6 +469,8 @@ class AuthStatus extends _$AuthStatus {
     } on TypeError {
       state = AsyncValue.error(TypeError, StackTrace.current);
       if (failureCallback != null) failureCallback();
+    } catch (e) {
+      myToast("error update member: $e");
     }
   }
 

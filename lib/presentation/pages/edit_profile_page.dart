@@ -330,6 +330,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                         child: MyButton(
                           onPressed: () {
                             ref.read(authStatusProvider.notifier).editMember(
+                                  filePath: ref.read(pathFotoProvider),
                                   email: emailController.text,
                                   noHp: teleponController.text,
                                   kodePos: kodePosController.text,
