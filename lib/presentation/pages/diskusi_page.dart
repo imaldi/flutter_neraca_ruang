@@ -51,82 +51,85 @@ class _DiskusiPageState extends ConsumerState<DiskusiPage> {
           appBar: appBarWidget(context, ref: ref),
           drawer: MainDrawer(),
           bottomNavigationBar: BottomBarWidget(),
-          body: diskusiList.when(data: (data) {
-            var contentList = data;
-            if (contentList.isEmpty) {
-              return Center(
-                child: Text("Data Tidak ditemukan"),
-              );
-            }
-            return SingleChildScrollView(
-              controller: sl<ScrollController>(),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: extra),
-                child: Column(
-                  children: [
-                    ListView.builder(
+          body: SingleChildScrollView(
+            controller: sl<ScrollController>(),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: extra),
+              child: Column(
+                children: [
+                  // Text(
+                  //   "USULAN DISKUSI",
+                  //   style: textStyle.copyWith(fontSize: big),
+                  // ),
+                  diskusiList.when(data: (data) {
+                    var contentList = data;
+                    if (contentList.isEmpty) {
+                      return Container(
+                        height: 300,
+                        child: Center(
+                          child: Text("Data Tidak ditemukan"),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: contentList.length,
                         itemBuilder: (c, i) {
                           return ForumContentWidget(contentList[i]);
-                        }),
-                    // Text(
-                    //   "USULAN DISKUSI",
-                    //   style: textStyle.copyWith(fontSize: big),
-                    // ),
-                    UsulanDiskusiWidget(),
-                    Text(
-                      "PUSTAKA DISKUSI TERDAHULU",
-                      style: textStyle.copyWith(fontSize: big),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: medium),
-                      child: SearchableDropdown(
-                        listArchive,
-                        selectedArchiveValue,
-                        borderRadius: 0,
-                        onItemTapped: (val) {
-                          ref.read(selectedArchiveValue.notifier).state = val;
-                          var theKeyId = archiveMap.keys.firstWhere(
-                              (element) => archiveMap[element] == val,
-                              orElse: null);
-                          ref.read(selectedArchiveId.notifier).state = theKeyId;
-                          // myToast("theKeyId: $theKeyId");
-                        },
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        ref.read(limitProvider.notifier).state++;
+                        });
+                  }, error: (o, st) {
+                    return Center(
+                      child: Text("There is an Error"),
+                    );
+                  }, loading: () {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
+                  UsulanDiskusiWidget(),
+                  Text(
+                    "PUSTAKA DISKUSI TERDAHULU",
+                    style: textStyle.copyWith(fontSize: big),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: medium),
+                    child: SearchableDropdown(
+                      listArchive,
+                      selectedArchiveValue,
+                      borderRadius: 0,
+                      onItemTapped: (val) {
+                        ref.read(selectedArchiveValue.notifier).state = val;
+                        var theKeyId = archiveMap.keys.firstWhere(
+                            (element) => archiveMap[element] == val,
+                            orElse: null);
+                        ref.read(selectedArchiveId.notifier).state = theKeyId;
+                        // myToast("theKeyId: $theKeyId");
                       },
-                      child: Container(
-                        padding: const EdgeInsets.all(medium),
-                        margin: const EdgeInsets.symmetric(vertical: medium),
-                        decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(extra))),
-                        child: Text(
-                          "LOAD MORE",
-                          style: TextStyle(color: Colors.white),
-                        ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      ref.read(limitProvider.notifier).state++;
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(medium),
+                      margin: const EdgeInsets.symmetric(vertical: medium),
+                      decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(extra))),
+                      child: Text(
+                        "LOAD MORE",
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    SocialMediaPanelWidget(),
-                  ],
-                ),
+                  ),
+                  SocialMediaPanelWidget(),
+                ],
               ),
-            );
-          }, error: (o, st) {
-            return Center(
-              child: Text("There is an Error"),
-            );
-          }, loading: () {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
+            ),
+          ),
         ));
   }
 }
