@@ -17,12 +17,13 @@ class TabMenuItem extends ConsumerWidget {
     // var initType = ref.watch(tipeKontenProvider);
     return InkWell(
       onTap: () {
-        ref.read(tipeKontenProvider.notifier).state = textValue;
-        ref.invalidate(kotaIdProvider);
-        ref.invalidate(kotaNameProvider);
-        ref.invalidate(tagsIdProvider);
-        ref.invalidate(tagsNameProvider);
-        ref.invalidate(tagsIconLinkProvider);
+        ref.read(contentsProvider.notifier).setParams(tipe: textValue);
+        // ref.read(tipeKontenProvider.notifier).state = textValue;
+        // ref.invalidate(kotaIdProvider);
+        // ref.invalidate(kotaNameProvider);
+        // ref.invalidate(tagsIdProvider);
+        // ref.invalidate(tagsNameProvider);
+        // ref.invalidate(tagsIconLinkProvider);
         context.router.replace(routeChooser(textValue.toLowerCase()));
         // if (resetStates != null) {
         //   resetStates();

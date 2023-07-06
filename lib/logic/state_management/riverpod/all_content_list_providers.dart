@@ -16,46 +16,96 @@ import 'async_state_auth_providers.dart';
 part 'all_content_list_providers.g.dart';
 
 final tipeKontenProvider = StateProvider((ref) => "");
+final keywordKontenProvider = StateProvider((ref) => "");
 // final myContentListProvider = FutureProvider<void>((ref) async {
 //   // final myNotifier = ref.watch(contentsProvider.future);
 //   await myNotifier.initialize();
 // });
+
+/// NOTE penting, jadi, kalau mau pakai (Async)NotifierProvider, kalau butuh "parameter" di
+/// build method nya,
+/// jangan pakai parameter di functionnya,
+/// tapi sediakan StateProvider/FutureProvider yang menjadi state tersendiri
+/// yang di evaluasi jika terjadi perubahan di suatu tempat (misal merubah state 'keyword' ketika button search di tekan dll)
 
 @riverpod
 class Contents extends _$Contents {
   @override
   FutureOr<List<Datum>?> build() async {
     var isLogin = ref.watch(authStatusProvider).value != null;
-    var initType = ref.watch(tipeKontenProvider);
+
     if (!isLogin) {
       var box = sl<Box<String>>();
       box.clear();
     }
-    // var defaultValue = await ref.watch(kabarProvider.future);
-    // return defaultValue.data?.data ?? [];
-    return fetchContent("build method provider", type: initType);
+    return _fetchContent(
+      "build method provider",
+      // type: initType, keyword: keyword
+    );
   }
 
-  Future<List<Datum>?> fetchContent(
-    String calledFrom, {
-    // int? pageNumber = 1,
-    int? limit = 5,
-    int? kotaId = 0,
-    int? tagsId = 0,
-    int? idTagsPihak = 0,
-    int? idTagsTopik = 0,
-    int? idTagsOtonom = 0,
-    String? type,
-    String keyword = "",
-    bool shouldStartSearchingByTag = false,
-    bool shouldStartSearchingByKeyword = false,
-  }) async {
+  void setParams({
+    int? limit,
+    int? kotaId,
+    int? tagsId,
+    int? tagOtonomId,
+    int? tagTopikId,
+    int? tagPihakId,
+    String? tipe,
+    String? keyword,
+  }) {
+    ref.invalidate(kotaIdProvider);
+    ref.invalidate(tagsIdProvider);
+    ref.invalidate(tipeKontenProvider);
+    ref.invalidate(keywordKontenProvider);
+    ref.invalidate(tagsOtonom);
+    ref.invalidate(tagsPihak);
+    ref.invalidate(tagsTopik);
+    // if (limit != 0) {
+    //   ref.read(limitProvider.notifier).state = limit ?? 5;
+    // }
+    if (tagsId != null && tagsId != 0) {
+      ref.read(tagsIdProvider.notifier).state = tagsId;
+    }
+    if (tagOtonomId != null && tagOtonomId != 0) {
+      ref.read(tagsOtonom.notifier).state = tagOtonomId;
+    }
+    if (tagTopikId != null && tagsId != 0) {
+      ref.read(tagsTopik.notifier).state = tagTopikId;
+    }
+    if (tagPihakId != null && tagsId != 0) {
+      ref.read(tagsPihak.notifier).state = tagPihakId;
+    }
+    if (kotaId != null && kotaId != 0) {
+      ref.read(kotaIdProvider.notifier).state = kotaId ?? 5;
+    }
+    if (tipe != null) {
+      ref.read(tipeKontenProvider.notifier).state = tipe;
+    }
+    if (keyword != null) {
+      ref.read(keywordKontenProvider.notifier).state = keyword;
+    }
+  }
+
+  Future<List<Datum>?> _fetchContent(String calledFrom) async {
+    int? limit = ref.watch(limitProvider);
+    int? kotaId = ref.watch(kotaIdProvider);
+    int? tagsId = ref.watch(tagsIdProvider);
+    var idTagsPihak = ref.watch(tagsPihak);
+    var idTagsTopik = ref.watch(tagsTopik);
+    int? idTagsOtonom = ref.watch(tagsOtonom);
+    var type = ref.watch(tipeKontenProvider);
+    var keyword = ref.watch(keywordKontenProvider);
     Map<String, String> queryParameters = {
       // 'page': pageNumber.toString(),
       'limit': limit.toString(),
     };
+
     if ((type ?? "").isNotEmpty) {
       queryParameters['tipe'] = type ?? "";
+    }
+    if ((keyword ?? "").isNotEmpty) {
+      queryParameters['keyword'] = keyword ?? "";
     }
     if (tagsId != 0) {
       queryParameters['tags_id'] = tagsId.toString();
@@ -64,37 +114,17 @@ class Contents extends _$Contents {
     if (kotaId != 0) {
       queryParameters['kota_id'] = kotaId.toString();
     }
-    // queryParameters['keyword'] = ref.watch(keywordProvider);
-    // var shouldStartSearchingByTag = ref.watch(startSearchingByTag);
-    // var shouldStartSearchingByKeyword = ref.watch(startSearchingByKeyword);
-    // var keywordParam = ref.watch(keywordProvider);
-    // var idTagsPihak = ref.watch(tagsPihak);
-    // var idTagsTopik = ref.watch(tagsTopik);
-    // var idTagsOtonom = ref.watch(tagsOtonom);
 
     var listBoxKey = sl<Box<String>>();
-    if (shouldStartSearchingByTag) {
-      queryParameters.remove('keyword');
-      if (idTagsPihak != 0) {
-        queryParameters['tags_pihak'] = idTagsPihak.toString();
-      }
-      if (idTagsTopik != 0) {
-        queryParameters['tags_topik'] = idTagsTopik.toString();
-      }
-      if (idTagsOtonom != 0) {
-        queryParameters['tags_otonomi'] = idTagsOtonom.toString();
-      }
+    if (idTagsPihak != 0) {
+      queryParameters['tags_pihak'] = idTagsPihak.toString();
     }
-    if (shouldStartSearchingByKeyword) {
-      queryParameters.remove('tags_pihak');
-      queryParameters.remove('tags_topik');
-      queryParameters.remove('tags_otonomi');
-
-      if ((keyword ?? "").isNotEmpty) {
-        queryParameters['keyword'] = keyword;
-      }
+    if (idTagsTopik != 0) {
+      queryParameters['tags_topik'] = idTagsTopik.toString();
     }
-    // keyword ?? "";
+    if (idTagsOtonom != 0) {
+      queryParameters['tags_otonomi'] = idTagsOtonom.toString();
+    }
     print("query Param fetch content (from $calledFrom): $queryParameters");
 
     // var authBox = sl<Box<LoginResponse>>();
@@ -108,12 +138,8 @@ class Contents extends _$Contents {
     try {
       state = const AsyncValue.loading();
 
-      // state = await AsyncValue.guard(() async {
-      //   return result;
-      // });
       var url = Uri.https(baseUrl, dashboardList, queryParameters);
 
-      // final json = await http.get(url);
       final response = await http.get(url, headers: {
         'Authorization': token,
         'Accept': 'application/json',
@@ -138,21 +164,11 @@ class Contents extends _$Contents {
       });
       return result;
     } on TypeError {
-      // state = await AsyncValue.guard(() async {
-      //   return [];
-      // });
       state = await AsyncValue.error(TypeError, StackTrace.current);
-      // return [];
     } catch (e) {
-      myToast("There is an error $e");
-      // return [];
+      // TODO handle "Bad State: Future Already Comleted" later
+      log("There is an error $e");
     }
-    // finally {
-    //   ref.invalidate(startSearching);
-    //   ref.invalidate(tagsPihak);
-    //   ref.invalidate(tagsOtonom);
-    //   ref.invalidate(tagsTopik);
-    // }
   }
 
   Future<void> unlikeContent(Datum content) async {

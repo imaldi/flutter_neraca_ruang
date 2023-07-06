@@ -129,11 +129,11 @@ class ContentWidget extends ConsumerWidget {
                         content.kotaId ?? 0;
                     ref.read(kotaNameProvider.notifier).state =
                         content.kotaName ?? "No City";
-                    ref.read(contentsProvider.notifier).fetchContent(
-                          "Kota Icon",
-                          type: "",
-                          kotaId: content.kotaId ?? 0,
-                        );
+                    // ref.read(contentsProvider.notifier).fetchContent(
+                    //       "Kota Icon",
+                    //       type: "",
+                    //       kotaId: content.kotaId ?? 0,
+                    //     );
                     ref.invalidate(tagsIdProvider);
                     ref.invalidate(tagsNameProvider);
                     context.router.replace(const GreenRoute());
@@ -223,12 +223,12 @@ class ContentWidget extends ConsumerWidget {
                               content.tagsPihak?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
                               content.tagsPihak?.tagsIcon1 ?? "";
-                          ref.read(contentsProvider.notifier).fetchContent(
-                              "Tag Pihak",
-                              type: content.tipe ?? "",
-                              tagsId: content.tagsPihak?.tagsId ?? 0);
-                          ref.invalidate(kotaIdProvider);
-                          ref.invalidate(kotaNameProvider);
+                          // ref.read(contentsProvider.notifier).fetchContent(
+                          //     "Tag Pihak",
+                          //     type: content.tipe ?? "",
+                          //     tagsId: content.tagsPihak?.tagsId ?? 0);
+                          // ref.invalidate(kotaIdProvider);
+                          // ref.invalidate(kotaNameProvider);
                           context.router
                               .replace(routeChooser(content.tipe ?? ""));
                         },
@@ -259,13 +259,13 @@ class ContentWidget extends ConsumerWidget {
                               content.tagsTopik?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
                               content.tagsTopik?.tagsIcon1 ?? "";
-                          ref.read(contentsProvider.notifier).fetchContent(
-                              "tags topik",
-                              type: content.tipe ?? "",
-                              tagsId: content.tagsTopik?.tagsId ?? 0);
-
-                          ref.invalidate(kotaIdProvider);
-                          ref.invalidate(kotaNameProvider);
+                          // ref.read(contentsProvider.notifier).fetchContent(
+                          //     "tags topik",
+                          //     type: content.tipe ?? "",
+                          //     tagsId: content.tagsTopik?.tagsId ?? 0);
+                          //
+                          // ref.invalidate(kotaIdProvider);
+                          // ref.invalidate(kotaNameProvider);
                           context.router
                               .replace(routeChooser(content.tipe ?? ""));
                         },
@@ -296,13 +296,13 @@ class ContentWidget extends ConsumerWidget {
                               content.tagsOtonomi?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
                               content.tagsOtonomi?.tagsIcon1 ?? "";
-                          ref.read(contentsProvider.notifier).fetchContent(
-                              "tags otonomi",
-                              type: content.tipe ?? "",
-                              tagsId: content.tagsOtonomi?.tagsId ?? 0);
-
-                          ref.invalidate(kotaIdProvider);
-                          ref.invalidate(kotaNameProvider);
+                          // ref.read(contentsProvider.notifier).fetchContent(
+                          //     "tags otonomi",
+                          //     type: content.tipe ?? "",
+                          //     tagsId: content.tagsOtonomi?.tagsId ?? 0);
+                          //
+                          // ref.invalidate(kotaIdProvider);
+                          // ref.invalidate(kotaNameProvider);
                           context.router
                               .replace(routeChooser(content.tipe ?? ""));
                         },
@@ -475,6 +475,11 @@ class ContentWidget extends ConsumerWidget {
                         HtmlWidget(
                       "${content.keterangan}",
                       textStyle: const TextStyle(color: Colors.black),
+                      onLoadingBuilder: (bc, e, d) => Center(
+                          child: CircularProgressIndicator(
+                        color:
+                            Color(isGreenMode ? greenModeColor : primaryColor),
+                      )),
                     ),
                   ),
                 ),

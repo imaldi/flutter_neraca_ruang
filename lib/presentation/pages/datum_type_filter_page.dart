@@ -104,9 +104,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
             }
             if (contentList == null) {
               return const Center(
-                child: CircularProgressIndicator(
-                  color: Color(primaryColor),
-                ),
+                child: Text("Hasil pencarian tidak ditemukan"),
               );
             }
             return SafeArea(

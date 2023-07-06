@@ -116,13 +116,14 @@ class DrawerContent extends ConsumerWidget {
               onPressed: () {
                 /// suruh server find
                 // ref.read(startSearchingByTag.notifier).state = true;
-                ref.read(contentsProvider.notifier).fetchContent(
-                      "from tag search",
-                      shouldStartSearchingByTag: true,
-                      idTagsTopik: selectedTopik,
-                      idTagsOtonom: selectedOtonom,
-                      idTagsPihak: selectedPihak,
+                ref.read(contentsProvider.notifier).setParams(
+                      tagTopikId: selectedTopik,
+                      tagOtonomId: selectedOtonom,
+                      tagPihakId: selectedPihak,
                     );
+                // ref.read(tagsTopik.notifier).state = selectedTopik;
+                // ref.read(tagsOtonom.notifier).state = selectedOtonom;
+                // ref.read(tagsPihak.notifier).state = selectedPihak;
                 context.router.push(const DatumTypeFilterRoute());
               },
               child: const Text("Cari"))
