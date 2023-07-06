@@ -57,11 +57,13 @@ class ProfileImageWidget extends ConsumerWidget {
                             // height: extra,
                             child: Center(
                               child: MyImagePickerWidget(
+                                  // isEnabled: isEnabled,
+                                  enabledRiverpod: profileEditMode,
                                   defaultImagePlaceholder: Icon(
-                                Icons.camera_alt_outlined,
-                                color: Colors.white,
-                                size: huge + normal,
-                              )),
+                                    Icons.camera_alt_outlined,
+                                    color: Colors.white,
+                                    size: huge + normal,
+                                  )),
                             ),
                           ),
                         ),

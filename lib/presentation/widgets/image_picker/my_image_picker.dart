@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neraca_ruang/core/consts/assets.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,6 +15,7 @@ import '../../../core/consts/sizes.dart';
 import '../../../core/helper_functions/file_compressor.dart';
 import '../../../core/helper_functions/file_size_check.dart';
 import '../../../core/helper_functions/media_query/media_query_helpers.dart';
+import '../../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../my_confirm_dialog/my_confirm_dialog.dart';
 import '../rounded_container.dart';
 import 'widget_cubit/ImagePickerCubit.dart';
@@ -22,7 +24,7 @@ import 'widget_cubit/ImagePickerCubit.dart';
 //   return true;
 // }
 
-class MyImagePickerWidget extends StatefulWidget {
+class MyImagePickerWidget extends ConsumerStatefulWidget {
   MyImagePickerWidget({
     Key? key,
     this.functionCallbackSetImageFilePath,
@@ -31,6 +33,7 @@ class MyImagePickerWidget extends StatefulWidget {
     this.title,
     this.localImageURL,
     this.defaultImagePlaceholder,
+    this.enabledRiverpod,
     this.customChild,
     // this.checkIsEmpty = _checkIsEmptyDefault
   }) : super(key: key);
@@ -40,6 +43,7 @@ class MyImagePickerWidget extends StatefulWidget {
   final Function(int, XFile?)? functionCallbackSetImageFilePath;
   // bool Function() checkIsEmpty;
   bool isEnabled;
+  StateProvider<bool>? enabledRiverpod;
   String? imageURL;
   String? localImageURL;
   String? title;
@@ -50,7 +54,7 @@ class MyImagePickerWidget extends StatefulWidget {
   _MyImagePickerWidgetState createState() => _MyImagePickerWidgetState();
 }
 
-class _MyImagePickerWidgetState extends State<MyImagePickerWidget> {
+class _MyImagePickerWidgetState extends ConsumerState<MyImagePickerWidget> {
   late XFile? _storedImage;
 
   // File ;
@@ -145,6 +149,9 @@ class _MyImagePickerWidgetState extends State<MyImagePickerWidget> {
         var cubitInst = builderContext.read<ImagePickerCubit>();
 
         var cubitState = builderContext.watch<ImagePickerCubit>().state;
+        final isEnabled = widget.enabledRiverpod != null
+            ? ref.watch(profileEditMode)
+            : cubitState.isEnabled;
 
         if (!cubitState.isInitialized) {
           cubitInst.initLocalImagePickerState(
@@ -156,7 +163,7 @@ class _MyImagePickerWidgetState extends State<MyImagePickerWidget> {
           );
         }
         return InkWell(
-          onTap: cubitState.isEnabled
+          onTap: isEnabled
               ? () {
                   _showDialogPickImageFromGalleryOrCamera(
                       builderContext, cubitState);
