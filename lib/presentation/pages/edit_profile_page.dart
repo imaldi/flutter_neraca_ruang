@@ -83,25 +83,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
         }
       }
     });
-    // ref.listen(authStatusProvider, (previous, next) {
-    //   if ((previous?.hasValue ?? false)) {
-    //     // ini set untuk dapat nama provinsi dan kab.kota
-    //     print("prev Auth data from listen: ${previous}");
-    //     ref.read(provIdParamProvider.notifier).state =
-    //         next.value?.data?.members?.propinsiId ?? 0;
-    //     ref.read(kotaIdParamProvider.notifier).state =
-    //         next.value?.data?.members?.kotaId ?? 0;
-    //     // ini untuk set nilai dropdown
-    //     ref.read(provIdProvider.notifier).state =
-    //         next.value?.data?.members?.propinsiId ?? 0;
-    //     ref.read(kotaIdProvider.notifier).state =
-    //         next.value?.data?.members?.kotaId ?? 0;
-    //
-    //     // ref
-    //     //     .read(provNameProvider.notifier)
-    //     //     .state = val;
-    //   }
-    // });
     ref.listen(provNameProfileProvider, (previous, next) {
       if (next.hasValue) {
         print("Prov Name next value: ${next}");
