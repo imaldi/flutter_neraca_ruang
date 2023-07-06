@@ -529,10 +529,13 @@ class ContentWidget extends ConsumerWidget {
               InkWell(
                 onTap: contentId != content.id
                     ? () {
-                        ref.read(selectedContentIdProvider.notifier).state =
-                            content.id ?? 0;
+                        // ref.read(selectedContentIdProvider.notifier).state =
+                        //     content.id ?? 0;
+
+                        /// Hanya menampilkan komentar, tidak menambah jumlah read / melihat detail
                         ref.read(selectedContentSlugProvider.notifier).state =
                             content.slug ?? "";
+                        myToast("Content ID: $contentId");
                         ref
                             .read(commentsProvider.notifier)
                             .fetchCommentFromAPI();
@@ -580,8 +583,9 @@ class ContentWidget extends ConsumerWidget {
         ),
         // ref.watch(commentProvider)
         Visibility(
-            visible: contentId == content.id && selectedSlug.isNotEmpty,
-            child: CommentWidget()),
+            visible:
+                selectedSlug.isNotEmpty && selectedSlug == (content.slug ?? ""),
+            child: CommentWidget(isGreenPage: isGreenMode)),
         SizedBox(height: huge),
       ],
     );

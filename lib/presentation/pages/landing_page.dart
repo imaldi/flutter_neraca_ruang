@@ -738,7 +738,9 @@ class LandingPageState extends ConsumerState<LandingPage> {
                             }, error: (o, st) {
                               return Text("Ada Error");
                             }, loading: () {
-                              return const CircularProgressIndicator();
+                              return const CircularProgressIndicator(
+                                color: Color(primaryColor),
+                              );
                             })
                           ],
                         ),
@@ -748,7 +750,10 @@ class LandingPageState extends ConsumerState<LandingPage> {
                       const Text("Error Bruh");
                     },
                     loading: () => const UnconstrainedBox(
-                        child: Center(child: CircularProgressIndicator())))),
+                            child: Center(
+                                child: CircularProgressIndicator(
+                          color: Color(primaryColor),
+                        ))))),
 
         bottomNavigationBar:
             const BottomBarWidget(), // This trailing comma makes auto-formatting nicer for build methods.

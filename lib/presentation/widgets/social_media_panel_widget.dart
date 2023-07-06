@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/core/consts/assets.dart';
 import 'package:flutter_neraca_ruang/core/consts/urls.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../core/consts/sizes.dart';
+
 class SocialMediaPanelWidget extends StatelessWidget {
-  const SocialMediaPanelWidget({Key? key}) : super(key: key);
+  final bool isGreenMode;
+
+  const SocialMediaPanelWidget({this.isGreenMode = false, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +31,10 @@ class SocialMediaPanelWidget extends StatelessWidget {
                       throw Exception('Could not launch $url');
                     }
                   },
-                  child: Image.asset("assets/images/icon_facebook.png")),
+                  child: IconWidget(
+                    isGreenMode ? iconFb2 : iconFb,
+                    size: huge,
+                  )),
               InkWell(
                   onTap: () async {
                     var url = Uri.https(igUrl, igNeracaRuang);
@@ -34,7 +44,10 @@ class SocialMediaPanelWidget extends StatelessWidget {
                       throw Exception('Could not launch $url');
                     }
                   },
-                  child: Image.asset("assets/images/icon_ig.png")),
+                  child: IconWidget(
+                    isGreenMode ? iconIg2 : iconIg,
+                    size: huge,
+                  )),
               InkWell(
                   onTap: () async {
                     var url = Uri.https(twUrl, twNeracaRuang);
@@ -44,7 +57,10 @@ class SocialMediaPanelWidget extends StatelessWidget {
                       throw Exception('Could not launch $url');
                     }
                   },
-                  child: Image.asset("assets/images/icon_twitter.png")),
+                  child: IconWidget(
+                    isGreenMode ? iconTw2 : iconTw,
+                    size: huge,
+                  )),
               InkWell(
                   onTap: () async {
                     var url = Uri.https(tkUrl, tkNeracaRuang);
@@ -54,7 +70,10 @@ class SocialMediaPanelWidget extends StatelessWidget {
                       throw Exception('Could not launch $url');
                     }
                   },
-                  child: Image.asset("assets/images/icon_tiktok.png")),
+                  child: IconWidget(
+                    isGreenMode ? iconTt2 : iconTt,
+                    size: huge,
+                  )),
               InkWell(
                   onTap: () async {
                     var url = Uri.https(ytUrl, ytNeracaRuang);
@@ -64,7 +83,10 @@ class SocialMediaPanelWidget extends StatelessWidget {
                       throw Exception('Could not launch $url');
                     }
                   },
-                  child: Image.asset("assets/images/icon_youtube.png")),
+                  child: IconWidget(
+                    isGreenMode ? iconYt2 : iconYt,
+                    size: huge,
+                  )),
             ],
           ),
         ),

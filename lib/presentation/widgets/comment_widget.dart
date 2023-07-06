@@ -17,7 +17,10 @@ import 'my_scrollable_nested_widget.dart';
 
 class CommentWidget extends ConsumerStatefulWidget {
   final bool isForum;
-  const CommentWidget({this.isForum = false, Key? key}) : super(key: key);
+  final bool isGreenPage;
+  const CommentWidget(
+      {this.isForum = false, this.isGreenPage = false, Key? key})
+      : super(key: key);
 
   @override
   ConsumerState<CommentWidget> createState() => _CommentWidgetState();
@@ -42,6 +45,7 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
     var commentList =
         ref.watch(widget.isForum ? forumCommentsProvider : commentsProvider);
     final TextEditingController textEditingController = TextEditingController();
+    var widgetColor = widget.isGreenPage ? greenModeColor : primaryColor;
 
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -54,7 +58,7 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
               Text("Komentar",
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                      color: Color(primaryColor),
+                      color: Color(widgetColor),
                       fontSize: huge,
                       fontWeight: FontWeight.bold)),
               Divider(
@@ -101,7 +105,10 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                   error: (o, st) => Center(
                         child: Text("There is an error: $st"),
                       ),
-                  loading: () => Center(child: CircularProgressIndicator())),
+                  loading: () => Center(
+                          child: CircularProgressIndicator(
+                        color: Color(widgetColor),
+                      ))),
               Visibility(
                 visible: isLogin,
                 child: Column(
@@ -126,7 +133,7 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                       children: [
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(primaryColor),
+                                backgroundColor: Color(widgetColor),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(huge))),
                             onPressed: () {

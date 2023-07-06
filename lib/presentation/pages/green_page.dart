@@ -150,7 +150,9 @@ class GreenPageState extends ConsumerState<GreenPage> {
                               ),
                             ),
                           ),
-                          SocialMediaPanelWidget(),
+                          SocialMediaPanelWidget(
+                            isGreenMode: true,
+                          ),
                         ],
                       ),
                     ),

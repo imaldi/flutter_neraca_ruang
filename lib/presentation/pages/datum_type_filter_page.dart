@@ -636,11 +636,6 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                             ? () {
                                                 ref
                                                     .read(
-                                                        selectedContentIdProvider
-                                                            .notifier)
-                                                    .state = content.id ?? 0;
-                                                ref
-                                                    .read(
                                                         selectedContentSlugProvider
                                                             .notifier)
                                                     .state = content.slug ?? "";
@@ -688,8 +683,8 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                   ),
                                 ),
                                 Visibility(
-                                    visible: contentId == content.id &&
-                                        selectedSlug.isNotEmpty,
+                                    visible: selectedSlug.isNotEmpty &&
+                                        selectedSlug == content.slug,
                                     child: CommentWidget()),
                               ],
                             );
