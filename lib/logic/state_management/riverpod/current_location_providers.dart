@@ -1,9 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter_neraca_ruang/data/models/kota_kabupaten_response/kota_kabupaten_response.dart';
 import 'package:flutter_neraca_ruang/data/models/open_street_map/open_street_map_response.dart';
+import 'package:flutter_neraca_ruang/data/models/province_response/province_response.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+
+import 'dashboard_providers.dart';
 
 part 'current_location_providers.g.dart';
 
@@ -60,6 +65,8 @@ class CurrentLocation extends _$CurrentLocation {
 
   Future<OpenStreetMapResponse> getCurrentAddress(
       double lat, double lon) async {
+    var provList = ref.watch(provinceListProvider).value;
+    var cityList = ref.watch(kabKotaListProvider).value;
     try {
       print("lat: $lat");
       print("lon: $lon");
@@ -72,7 +79,55 @@ class CurrentLocation extends _$CurrentLocation {
       print("addres status code: ${result.statusCode}");
       print("addres response: ${result.body}");
       if (result.statusCode != 200) throw Error();
-      return OpenStreetMapResponse.fromJson(jsonDecode(result.body));
+      var resultObject =
+          OpenStreetMapResponse.fromJson(jsonDecode(result.body));
+      // ref.read(provNameProvider.notifier).state = resultObject.address?.city;
+      var cekJakarta =
+          resultObject.address?.city?.toLowerCase().contains("jakarta") ??
+              false;
+      var namaCityOSM = resultObject.address?.city ?? "";
+      // ini belum bisa detect "Barat" "Selatan" dst, cuma satu kata aja contains
+      for (var provinsi in (provList ?? <ProvinceModel>[]).toList()) {
+        print("Provinsi from location prvdr: ${provinsi.name}");
+        var namaCitySplitted = namaCityOSM.split(" ");
+        for (var kataNama in namaCitySplitted) {
+          if (provinsi.name?.contains(kataNama) ?? false) {
+            ref.read(provNameProvider.notifier).state = provinsi.name;
+            ref.read(provIdProvider.notifier).state = provinsi.id ?? 0;
+            myToast("Ketemu");
+          }
+        }
+      }
+
+      // ini nyari nama provinsi, kalau ada yg sama persis gaskan, kalau nggak ya sudah search salah satu kata kyk di atas
+      if ((provList ?? [])
+          .map((e) => e.name ?? "")
+          .contains(resultObject.address?.city)) {
+        ref.read(provIdProvider.notifier).state = provList
+                ?.firstWhere(
+                    (element) => element.name == resultObject.address?.city,
+                    orElse: () => ProvinceModel(id: 0))
+                .id ??
+            0;
+        ref.read(provNameProvider.notifier).state = resultObject.address?.city;
+      }
+
+      /// ini nyari nama kota, kalau ada yg cocok gaskan, kalau nggak ya sudah
+      if ((cityList ?? [])
+          .map((e) => e.name ?? "")
+          .contains(resultObject.address?.cityDistrict)) {
+        ref.read(kotaIdProvider.notifier).state = cityList
+                ?.firstWhere(
+                    (element) =>
+                        element.name == resultObject.address?.cityDistrict,
+                    orElse: () => KotaKabupaten(id: 0))
+                .id ??
+            0;
+        ref.read(kotaNameProvider.notifier).state =
+            resultObject.address?.cityDistrict;
+      }
+
+      return resultObject;
     } catch (e) {
       return OpenStreetMapResponse();
     }
