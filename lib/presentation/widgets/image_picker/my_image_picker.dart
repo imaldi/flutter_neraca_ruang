@@ -31,25 +31,27 @@ class MyImagePickerWidget extends StatefulWidget {
     this.title,
     this.localImageURL,
     this.defaultImagePlaceholder,
+    this.customChild,
     // this.checkIsEmpty = _checkIsEmptyDefault
   }) : super(key: key);
 
   // File? issuerImage;
   // final void Function(int, File?) setImageFilePath;
-  final Function(int, File?)? functionCallbackSetImageFilePath;
+  final Function(int, XFile?)? functionCallbackSetImageFilePath;
   // bool Function() checkIsEmpty;
   bool isEnabled;
   String? imageURL;
   String? localImageURL;
   String? title;
   Widget? defaultImagePlaceholder;
+  Widget? customChild;
 
   @override
   _MyImagePickerWidgetState createState() => _MyImagePickerWidgetState();
 }
 
 class _MyImagePickerWidgetState extends State<MyImagePickerWidget> {
-  late File _storedImage;
+  late XFile? _storedImage;
 
   // File ;
   Future _takePicture(BuildContext context, ImagePickerCubitState state) async {
@@ -65,18 +67,18 @@ class _MyImagePickerWidgetState extends State<MyImagePickerWidget> {
     });
     print("pickedFile path : ${pickedFile?.path}");
 
-    _storedImage = File(pickedFile?.path ?? "");
-    print(
-        "image size in widget: ${fileSizeCheckInMB(_storedImage.readAsBytesSync().lengthInBytes)} MB");
+    _storedImage = pickedFile;
+    // print(
+    //     "image size in widget: ${fileSizeCheckInMB(_storedImage.readAsBytesSync().lengthInBytes)} MB");
 
     _storedImage = await fileCompressor(_storedImage);
-    print(
-        "image size after Compressed: ${fileSizeCheckInMB(_storedImage.readAsBytesSync().lengthInBytes)} MB");
+    // print(
+    //     "image size after Compressed: ${fileSizeCheckInMB(_storedImage.readAsBytesSync().lengthInBytes)} MB");
 
     cubit.updateState(storedImage: _storedImage);
     widget.functionCallbackSetImageFilePath?.call(69, _storedImage);
     // widget.setImageFilePath(0,_storedImage);
-    print("_storedImage path : ${_storedImage.path}");
+    // print("_storedImage path : ${_storedImage.path}");
     cubit.updateState(storedImage: _storedImage);
 
     FocusScope.of(context).unfocus();
@@ -99,18 +101,18 @@ class _MyImagePickerWidgetState extends State<MyImagePickerWidget> {
 
     print("pickedFile path : ${pickedFile?.path}");
 
-    _storedImage = File(pickedFile?.path ?? "");
-    print(
-        "image size in widget: ${fileSizeCheckInMB(_storedImage.readAsBytesSync().lengthInBytes)} MB");
+    _storedImage = pickedFile;
+    // print(
+    //     "image size in widget: ${fileSizeCheckInMB(_storedImage.readAsBytesSync().lengthInBytes)} MB");
     _storedImage = await fileCompressor(_storedImage);
-    print(
-        "image size after Compressed: ${fileSizeCheckInMB(_storedImage.readAsBytesSync().lengthInBytes)} MB");
+    // print(
+    //     "image size after Compressed: ${fileSizeCheckInMB(_storedImage.readAsBytesSync().lengthInBytes)} MB");
 
     cubit.updateState(storedImage: _storedImage);
 
     widget.functionCallbackSetImageFilePath?.call(0, _storedImage);
 
-    print("_storedImage path : ${_storedImage.path}");
+    // print("_storedImage path : ${_storedImage.path}");
     FocusScope.of(context).unfocus();
 
     // print("issuerImage from detail page path : ${widget.issuerImage?.path}");
@@ -162,90 +164,42 @@ class _MyImagePickerWidgetState extends State<MyImagePickerWidget> {
                   // _pickFile();
                 }
               : null,
-          child: Container(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: widthScreen(context) * 0.8,
-                  width: widthScreen(context) * 0.8,
-                  child: RoundedContainer(normal,
-                      // height: sizeHuge * 4,
-                      // width:
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              height: widthScreen(context) * 0.4,
-                              width: widthScreen(context) * 0.4,
-                              child: FittedBox(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(small),
-                                  child: RoundedContainer(
-                                    normal,
-                                    // height: widthScreen(context) * 0.4,
-                                    // width: widthScreen(context) * 0.4,
-                                    boxDecoration: const BoxDecoration(
-                                        color: Color(primaryColor)),
-                                    child: IconWidget(iconIg),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: (cubitState.imageURL == null)
-                                ? cubitState.storedImage == null
-                                    ? widget.defaultImagePlaceholder ??
-                                        const _DefaultIconPlaceholder()
-                                    : Image.file(cubitState.storedImage!,
-                                        errorBuilder: (BuildContext context,
-                                            Object exception,
-                                            StackTrace? stackTrace) {
-                                        // setState(() {
-                                        cubitState.imageURL = null;
-                                        // });
-                                        return widget.defaultImagePlaceholder ??
-                                            const _DefaultIconPlaceholder();
-                                      })
-                                : (cubitState.localImageURL !=
-                                            cubitState.imageURL &&
-                                        cubitState.localImageURL != null &&
-                                        cubitState.storedImage != null)
-                                    ? Image.file(cubitState.storedImage!,
-                                        errorBuilder: (BuildContext context,
-                                            Object exception,
-                                            StackTrace? stackTrace) {
-                                        // setState(() {
-                                        cubitState.imageURL = null;
-                                        // });
-                                        return widget.defaultImagePlaceholder ??
-                                            const _DefaultIconPlaceholder();
-                                      })
-                                    : Image.network(
-                                        cubitState.imageURL!,
-                                        errorBuilder: (BuildContext context,
-                                            Object exception,
-                                            StackTrace? stackTrace) {
-                                          // setState(() {
-                                          cubitState.imageURL = null;
-                                          // });
-                                          return widget
-                                                  .defaultImagePlaceholder ??
-                                              const _DefaultIconPlaceholder();
-                                        },
-                                      ),
-                          )
-                        ],
-                      )),
-                ),
-                Visibility(
-                    visible: cubitState.title != null,
-                    child: Container(
-                        padding: const EdgeInsets.all(normal),
-                        child: Text("${cubitState.title ?? ""}")))
-              ],
-            ),
-          ),
+          child: (cubitState.imageURL == null)
+              ? cubitState.storedImage == null
+                  ? widget.defaultImagePlaceholder ??
+                      const _DefaultIconPlaceholder()
+                  : Image.file(File(cubitState.storedImage?.path ?? ""),
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                      // setState(() {
+                      cubitState.imageURL = null;
+                      // });
+                      return widget.defaultImagePlaceholder ??
+                          const _DefaultIconPlaceholder();
+                    })
+              : (cubitState.localImageURL != cubitState.imageURL &&
+                      cubitState.localImageURL != null &&
+                      cubitState.storedImage != null)
+                  ? Image.file(File(cubitState.storedImage?.path ?? ""),
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                      // setState(() {
+                      cubitState.imageURL = null;
+                      // });
+                      return widget.defaultImagePlaceholder ??
+                          const _DefaultIconPlaceholder();
+                    })
+                  : Image.network(
+                      cubitState.imageURL!,
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                        // setState(() {
+                        cubitState.imageURL = null;
+                        // });
+                        return widget.defaultImagePlaceholder ??
+                            const _DefaultIconPlaceholder();
+                      },
+                    ),
         );
       }),
     );

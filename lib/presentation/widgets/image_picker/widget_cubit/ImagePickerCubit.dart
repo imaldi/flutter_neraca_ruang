@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
 
 // import 'package:meta/meta.dart';
 
@@ -24,7 +25,7 @@ class ImagePickerCubit extends Cubit<ImagePickerCubitState> {
   }
 
   void updateState(
-      {File? storedImage,
+      {XFile? storedImage,
       bool? isEnabled,
       String? imageURL,
       String? title,

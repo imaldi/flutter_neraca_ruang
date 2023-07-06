@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/async_state_auth_providers.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/image_picker/my_image_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/colors.dart';
@@ -32,6 +33,8 @@ class ProfileImageWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
+                      // height: huge,
+                      // width: huge,
                       padding: const EdgeInsets.all(small),
                       decoration: BoxDecoration(
                         color: Colors.transparent,
@@ -45,11 +48,22 @@ class ProfileImageWidget extends ConsumerWidget {
                           color: textColor,
                           shape: BoxShape.circle,
                         ),
+                        clipBehavior: Clip.antiAlias,
                         padding: const EdgeInsets.all(big),
-                        child: Icon(
-                          Icons.camera_alt_outlined,
-                          color: Colors.white,
-                          size: huge + normal,
+                        child: SizedOverflowBox(
+                          size: Size(medium, medium),
+                          child: SizedBox(
+                            width: extra,
+                            // height: extra,
+                            child: Center(
+                              child: MyImagePickerWidget(
+                                  defaultImagePlaceholder: Icon(
+                                Icons.camera_alt_outlined,
+                                color: Colors.white,
+                                size: huge + normal,
+                              )),
+                            ),
+                          ),
                         ),
                       ),
                     ),

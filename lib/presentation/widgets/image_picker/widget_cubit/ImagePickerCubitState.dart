@@ -2,13 +2,13 @@ part of 'ImagePickerCubit.dart';
 
 class ImagePickerCubitState extends Equatable {
   bool isInitialized;
-  File? storedImage;
+  XFile? storedImage;
   bool isEnabled;
   String? imageURL;
   String? title;
   String? localImageURL;
 
-  ImagePickerCubitState( {
+  ImagePickerCubitState({
     this.isInitialized = true,
     this.storedImage,
     this.isEnabled = true,
@@ -19,11 +19,11 @@ class ImagePickerCubitState extends Equatable {
 
   @override
   List<Object?> get props => [
-    isInitialized,
-    storedImage,
-    isEnabled,
-    imageURL,
-    title,
-    localImageURL,
-  ];
+        isInitialized,
+        storedImage,
+        isEnabled,
+        imageURL,
+        title,
+        localImageURL,
+      ];
 }
