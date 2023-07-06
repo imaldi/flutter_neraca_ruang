@@ -55,15 +55,15 @@ class _KabarPageState extends ConsumerState<KabarPage> {
         //     ? kotaName
         //     :
         tagName.isNotEmpty ? tagName : null;
-    ref.listen(tipeKontenProvider, (previous, next) {
-      myToast("tipe: $next");
-      if (next == "kabar") {
-        ref.read(contentsProvider.notifier).fetchContent(
-              "kabar page",
-              type: "kabar",
-            );
-      }
-    });
+    // ref.listen(tipeKontenProvider, (previous, next) {
+    //   myToast("tipe: $next");
+    //   if (next == "kabar") {
+    //     ref.read(contentsProvider.notifier).fetchContent(
+    //           "kabar page",
+    //           type: "kabar",
+    //         );
+    //   }
+    // });
     return DefaultTabController(
       length: mainTabLength,
       child: Scaffold(

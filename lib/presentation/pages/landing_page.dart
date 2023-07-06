@@ -98,19 +98,20 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                     padding: const EdgeInsets.all(normal),
                                     child: InkWell(
                                       onTap: () {
+                                        // merubah kota Id (untuk apa lupa)
                                         ref
                                             .read(kotaIdProvider.notifier)
                                             .state = data[0].kotaId ?? 0;
+                                        // merubah content id (untuk melihat komentar)
                                         ref
                                             .read(selectedContentIdProvider
                                                 .notifier)
                                             .state = data[0].id ?? 0;
-                                        if (isLogin) {
-                                          ref
-                                              .read(selectedContentSlugProvider
-                                                  .notifier)
-                                              .state = data[0].slug ?? "";
-                                        }
+                                        // untuk melihat komentar
+                                        ref
+                                            .read(selectedContentSlugProvider
+                                                .notifier)
+                                            .state = data[0].slug ?? "";
 
                                         ref
                                             .read(kotaNameProvider.notifier)
@@ -120,6 +121,10 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                             .read(contentsProvider.notifier)
                                             .markContentAsRed(
                                                 data[0].slug ?? "");
+
+                                        ref
+                                            .read(tipeKontenProvider.notifier)
+                                            .state = "kabar";
 
                                         context.router
                                             .replace(const KabarRoute());
@@ -208,13 +213,18 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                                       selectedContentIdProvider
                                                           .notifier)
                                                   .state = data[1].id ?? 0;
-                                              if (isLogin) {
-                                                ref
-                                                    .read(
-                                                        selectedContentSlugProvider
-                                                            .notifier)
-                                                    .state = data[1].slug ?? "";
-                                              }
+
+                                              ref
+                                                  .read(
+                                                      selectedContentSlugProvider
+                                                          .notifier)
+                                                  .state = data[1].slug ?? "";
+
+                                              ref
+                                                  .read(tipeKontenProvider
+                                                      .notifier)
+                                                  .state = "jurnal";
+
                                               context.router
                                                   .replace(const JurnalRoute());
                                             },
@@ -340,18 +350,23 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                                           .notifier)
                                                       .state =
                                                   data[2].kotaName ?? "";
-                                              if (isLogin) {
-                                                ref
-                                                    .read(
-                                                        selectedContentIdProvider
-                                                            .notifier)
-                                                    .state = data[2].id ?? 0;
-                                              }
+
+                                              ref
+                                                  .read(
+                                                      selectedContentIdProvider
+                                                          .notifier)
+                                                  .state = data[2].id ?? 0;
+
                                               ref
                                                   .read(
                                                       contentsProvider.notifier)
                                                   .markContentAsRed(
                                                       data[2].slug ?? "");
+                                              ref
+                                                  .read(tipeKontenProvider
+                                                      .notifier)
+                                                  .state = "infografis";
+
                                               context.router.replace(
                                                   const InfografisRoute());
                                             },
@@ -445,18 +460,23 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                                           .notifier)
                                                       .state =
                                                   data[3].kotaName ?? "";
-                                              if (isLogin) {
-                                                ref
-                                                    .read(
-                                                        selectedContentIdProvider
-                                                            .notifier)
-                                                    .state = data[3].id ?? 0;
-                                              }
+
+                                              ref
+                                                  .read(
+                                                      selectedContentIdProvider
+                                                          .notifier)
+                                                  .state = data[3].id ?? 0;
+
                                               ref
                                                   .read(
                                                       contentsProvider.notifier)
                                                   .markContentAsRed(
                                                       data[3].slug ?? "");
+                                              ref
+                                                  .read(tipeKontenProvider
+                                                      .notifier)
+                                                  .state = "video";
+
                                               context.router
                                                   .replace(const VideoRoute());
                                             },
@@ -554,18 +574,21 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                                           .notifier)
                                                       .state =
                                                   data[4].kotaName ?? "";
-                                              if (isLogin) {
-                                                ref
-                                                    .read(
-                                                        selectedContentIdProvider
-                                                            .notifier)
-                                                    .state = data[4].id ?? 0;
-                                              }
+                                              ref
+                                                  .read(
+                                                      selectedContentIdProvider
+                                                          .notifier)
+                                                  .state = data[4].id ?? 0;
                                               ref
                                                   .read(
                                                       contentsProvider.notifier)
                                                   .markContentAsRed(
                                                       data[4].slug ?? "");
+                                              ref
+                                                  .read(tipeKontenProvider
+                                                      .notifier)
+                                                  .state = "foto";
+
                                               context.router.replace(
                                                   const AlbumFotoRoute());
                                             },
