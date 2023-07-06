@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:flutter/services.dart';
 import 'core/consts/hive_const.dart';
 import 'data/models/auth_response/auth_response.dart';
-import 'data/models/login_response_deprecated/login_response.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 final sl = GetIt.instance;
@@ -31,4 +30,24 @@ Future<void> init() async {
   sl.registerLazySingleton<Box<AuthResponse>>(() => authBox);
   sl.registerLazySingleton<Box<Members>>(() => userBox);
   sl.registerLazySingleton<Box<String>>(() => likedContent);
+
+  /// Permission
+  var statusCamera = await Permission.camera.status;
+  var statusStorage = await Permission.storage.status;
+  var statusLocation = await Permission.locationWhenInUse.status;
+
+  if (statusLocation.isDenied) await Permission.locationWhenInUse.request();
+  if (statusLocation.isPermanentlyDenied) openAppSettings();
+  if (statusCamera.isDenied) await Permission.camera.request();
+  if (await Permission.camera.isPermanentlyDenied) {
+    openAppSettings();
+  }
+  if (statusStorage.isDenied) {
+    await Permission.storage.request();
+  }
+
+  if (await Permission.manageExternalStorage.status.isDenied ||
+      await Permission.manageExternalStorage.isPermanentlyDenied) {
+    await Permission.manageExternalStorage.request();
+  }
 }

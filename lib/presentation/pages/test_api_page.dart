@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/current_location_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/comment_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/content_widget.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/image_picker/my_image_picker.dart';
@@ -32,9 +33,7 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
 
   @override
   Widget build(BuildContext context) {
-    var contentIndex = ref.watch(currentLikedOrDislikedContentIndexProvider);
-    // var dataDashboard = ref.watch(dashBoardProvider);
-    var list = ref.watch(contentsProvider);
+    var locationState = ref.watch(currentLocationProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -46,8 +45,12 @@ class _TestApiPageState extends ConsumerState<TestApiPage> {
             child: SingleChildScrollView(
           controller: sl<ScrollController>(),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MyImagePickerWidget(),
+              locationState.when(
+                  data: (data) => Text("Lokasi saat ini: $data"),
+                  error: (o, st) => Text("Ada Error"),
+                  loading: () => CircularProgressIndicator())
             ],
           ),
         )
