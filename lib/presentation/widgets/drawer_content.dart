@@ -121,6 +121,7 @@ class DrawerContent extends ConsumerWidget {
                   tagTopikId: selectedTopik,
                   tagOtonomId: selectedOtonom,
                   tagPihakId: selectedPihak,
+                  resetTipe: true,
                 );
                 // ref.read(tagsTopik.notifier).state = selectedTopik;
                 // ref.read(tagsOtonom.notifier).state = selectedOtonom;

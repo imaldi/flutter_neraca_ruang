@@ -17,7 +17,10 @@ class TabMenuItem extends ConsumerWidget {
     // var initType = ref.watch(tipeKontenProvider);
     return InkWell(
       onTap: () {
-        setContentListParams(ref, tipe: textValue);
+        setContentListParams(
+          ref,
+          tipe: textValue,
+        );
         // ref.read(tipeKontenProvider.notifier).state = textValue;
         // ref.invalidate(kotaIdProvider);
         // ref.invalidate(kotaNameProvider);

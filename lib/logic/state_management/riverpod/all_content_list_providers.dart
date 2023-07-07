@@ -288,25 +288,30 @@ class Contents extends _$Contents {
   // }
 }
 
-void setContentListParams(WidgetRef ref,
-    {int? limit,
-    int? kotaId,
-    int? tagsId,
-    int? tagOtonomId,
-    int? tagTopikId,
-    int? tagPihakId,
-    String? tipe,
-    String? keyword,
-    bool resetState = true}) {
-  if (resetState) {
-    ref.invalidate(limitProvider);
-    ref.invalidate(kotaIdProvider);
-    ref.invalidate(tagsIdProvider);
+void setContentListParams(
+  WidgetRef ref, {
+  int? limit,
+  int? kotaId,
+  int? tagsId,
+  int? tagOtonomId,
+  int? tagTopikId,
+  int? tagPihakId,
+  String? tipe,
+  String? keyword,
+  // bool resetState = true,
+  bool resetTipe = false,
+}) {
+  // if (resetState) {
+  ref.invalidate(limitProvider);
+  ref.invalidate(kotaIdProvider);
+  ref.invalidate(tagsIdProvider);
+  ref.invalidate(keywordKontenProvider);
+  ref.invalidate(tagsOtonom);
+  ref.invalidate(tagsPihak);
+  ref.invalidate(tagsTopik);
+  // }
+  if (resetTipe) {
     ref.invalidate(tipeKontenProvider);
-    ref.invalidate(keywordKontenProvider);
-    ref.invalidate(tagsOtonom);
-    ref.invalidate(tagsPihak);
-    ref.invalidate(tagsTopik);
   }
 
   // if (limit != 0) {

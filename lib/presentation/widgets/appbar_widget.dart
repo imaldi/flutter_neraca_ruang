@@ -142,8 +142,11 @@ appBarWidget(BuildContext context,
                             basicResetStates(context, ref);
                             ref.read(keywordProvider.notifier).state =
                                 dialogController.text;
-                            setContentListParams(ref,
-                                keyword: dialogController.text);
+                            setContentListParams(
+                              ref,
+                              keyword: dialogController.text,
+                              resetTipe: true,
+                            );
                             context.router.push(const DatumTypeFilterRoute());
                           },
                           style: ElevatedButton.styleFrom(

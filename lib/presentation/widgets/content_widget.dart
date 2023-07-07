@@ -127,7 +127,11 @@ class ContentWidget extends ConsumerWidget {
                         "Link Kota 2: ${content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
                     // ref.read(kotaIdProvider.notifier).state =
                     //     content.kotaId ?? 0;
-                    setContentListParams(ref, kotaId: content.kotaId ?? 0);
+                    setContentListParams(
+                      ref,
+                      kotaId: content.kotaId ?? 0,
+                      resetTipe: true,
+                    );
                     ref.read(kotaNameProvider.notifier).state =
                         content.kotaName ?? "No City";
                     // ref.read(contentsProvider.notifier).fetchContent(
@@ -142,7 +146,7 @@ class ContentWidget extends ConsumerWidget {
                   child: isGreenMode
                       ? InkWell(
                           onTap: () {
-                            basicResetStates(context, ref);
+                            setContentListParams(ref, tipe: content.tipe ?? "");
                             context.router
                                 .replace(routeChooser(content.tipe ?? ""));
                           },
@@ -219,6 +223,7 @@ class ContentWidget extends ConsumerWidget {
                         isOnlineSource: true,
                         onTap: () {
                           setContentListParams(ref,
+                              tipe: content.tipe ?? "",
                               tagsId: content.tagsPihak?.tagsId ?? 0);
 
                           ref.read(tagsNameProvider.notifier).state =
@@ -256,6 +261,7 @@ class ContentWidget extends ConsumerWidget {
                         isOnlineSource: true,
                         onTap: () {
                           setContentListParams(ref,
+                              tipe: content.tipe ?? "",
                               tagsId: content.tagsTopik?.tagsId ?? 0);
 
                           ref.read(tagsNameProvider.notifier).state =
@@ -294,6 +300,7 @@ class ContentWidget extends ConsumerWidget {
                         isOnlineSource: true,
                         onTap: () {
                           setContentListParams(ref,
+                              tipe: content.tipe ?? "",
                               tagsId: content.tagsOtonomi?.tagsId ?? 0);
 
                           ref.read(tagsNameProvider.notifier).state =

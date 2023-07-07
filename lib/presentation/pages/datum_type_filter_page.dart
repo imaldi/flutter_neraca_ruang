@@ -273,13 +273,16 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
 
                                             print(
                                                 "Link Kota 2: ${content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
-                                            ref
-                                                .read(kotaIdProvider.notifier)
-                                                .state = content.kotaId ?? 0;
+                                            setContentListParams(
+                                              ref,
+                                              // tipe: content.tipe ?? "",
+                                              kotaId: content.kotaId ?? 0,
+                                              resetTipe: true,
+                                            );
                                             ref
                                                 .read(kotaNameProvider.notifier)
                                                 .state = content.kotaName ?? "";
-                                            ref.invalidate(tagsIdProvider);
+                                            // ref.invalidate(tagsIdProvider);
                                             ref.invalidate(tagsNameProvider);
                                             context.router
                                                 .replace(const GreenRoute());
@@ -370,13 +373,13 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                       horizontal: small),
                                                   isOnlineSource: true,
                                                   onTap: () {
-                                                    ref
-                                                        .read(tagsIdProvider
-                                                            .notifier)
-                                                        .state = content
-                                                            .tagsPihak
-                                                            ?.tagsId ??
-                                                        0;
+                                                    setContentListParams(ref,
+                                                        tipe:
+                                                            content.tipe ?? "",
+                                                        tagsId: content
+                                                                .tagsPihak
+                                                                ?.tagsId ??
+                                                            0);
                                                     ref
                                                         .read(tagsNameProvider
                                                             .notifier)
@@ -392,8 +395,8 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                             .tagsPihak
                                                             ?.tagsIcon1 ??
                                                         "";
-                                                    ref.invalidate(
-                                                        kotaIdProvider);
+                                                    // ref.invalidate(
+                                                    //     kotaIdProvider);
                                                     ref.invalidate(
                                                         kotaNameProvider);
                                                     context.router.replace(
@@ -421,13 +424,13 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                       horizontal: small),
                                                   isOnlineSource: true,
                                                   onTap: () {
-                                                    ref
-                                                        .read(tagsIdProvider
-                                                            .notifier)
-                                                        .state = content
-                                                            .tagsTopik
-                                                            ?.tagsId ??
-                                                        0;
+                                                    setContentListParams(ref,
+                                                        tipe:
+                                                            content.tipe ?? "",
+                                                        tagsId: content
+                                                                .tagsTopik
+                                                                ?.tagsId ??
+                                                            0);
                                                     ref
                                                         .read(tagsNameProvider
                                                             .notifier)
@@ -443,8 +446,8 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                             .tagsTopik
                                                             ?.tagsIcon1 ??
                                                         "";
-                                                    ref.invalidate(
-                                                        kotaIdProvider);
+                                                    // ref.invalidate(
+                                                    //     kotaIdProvider);
                                                     ref.invalidate(
                                                         kotaNameProvider);
                                                     context.router.replace(
@@ -473,13 +476,13 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                       horizontal: small),
                                                   isOnlineSource: true,
                                                   onTap: () {
-                                                    ref
-                                                        .read(tagsIdProvider
-                                                            .notifier)
-                                                        .state = content
-                                                            .tagsOtonomi
-                                                            ?.tagsId ??
-                                                        0;
+                                                    setContentListParams(ref,
+                                                        tipe:
+                                                            content.tipe ?? "",
+                                                        tagsId: content
+                                                                .tagsOtonomi
+                                                                ?.tagsId ??
+                                                            0);
                                                     ref
                                                         .read(tagsNameProvider
                                                             .notifier)
@@ -495,8 +498,8 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                             .tagsOtonomi
                                                             ?.tagsIcon1 ??
                                                         "";
-                                                    ref.invalidate(
-                                                        kotaIdProvider);
+                                                    // ref.invalidate(
+                                                    //     kotaIdProvider);
                                                     ref.invalidate(
                                                         kotaNameProvider);
                                                     context.router.replace(
