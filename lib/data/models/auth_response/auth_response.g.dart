@@ -192,20 +192,20 @@ _$_MemberData _$$_MemberDataFromJson(Map<String, dynamic> json) =>
           ? null
           : Members.fromJson(json['members'] as Map<String, dynamic>),
       token: json['token'] as String?,
-      loginDate: json['loginDate'] == null
+      loginDate: json['login_date'] == null
           ? null
-          : DateTime.parse(json['loginDate'] as String),
+          : DateTime.parse(json['login_date'] as String),
     );
 
 Map<String, dynamic> _$$_MemberDataToJson(_$_MemberData instance) =>
     <String, dynamic>{
       'members': instance.members?.toJson(),
       'token': instance.token,
-      'loginDate': instance.loginDate?.toIso8601String(),
+      'login_date': instance.loginDate?.toIso8601String(),
     };
 
 _$_Members _$$_MembersFromJson(Map<String, dynamic> json) => _$_Members(
-      memberId: json['memberId'] as int?,
+      memberId: json['member_id'] as int?,
       username: json['username'] as String?,
       fullname: json['fullname'] as String?,
       email: json['email'] as String?,
@@ -237,7 +237,7 @@ _$_Members _$$_MembersFromJson(Map<String, dynamic> json) => _$_Members(
 
 Map<String, dynamic> _$$_MembersToJson(_$_Members instance) =>
     <String, dynamic>{
-      'memberId': instance.memberId,
+      'member_id': instance.memberId,
       'username': instance.username,
       'fullname': instance.fullname,
       'email': instance.email,

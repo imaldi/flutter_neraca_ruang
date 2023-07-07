@@ -203,6 +203,7 @@ mixin _$MemberData {
   Members? get members => throw _privateConstructorUsedError;
   @HiveField(1)
   String? get token => throw _privateConstructorUsedError;
+  @JsonKey(name: "login_date")
   @HiveField(2)
   DateTime? get loginDate => throw _privateConstructorUsedError;
 
@@ -221,7 +222,7 @@ abstract class $MemberDataCopyWith<$Res> {
   $Res call(
       {@HiveField(0) Members? members,
       @HiveField(1) String? token,
-      @HiveField(2) DateTime? loginDate});
+      @JsonKey(name: "login_date") @HiveField(2) DateTime? loginDate});
 
   $MembersCopyWith<$Res>? get members;
 }
@@ -283,7 +284,7 @@ abstract class _$$_MemberDataCopyWith<$Res>
   $Res call(
       {@HiveField(0) Members? members,
       @HiveField(1) String? token,
-      @HiveField(2) DateTime? loginDate});
+      @JsonKey(name: "login_date") @HiveField(2) DateTime? loginDate});
 
   @override
   $MembersCopyWith<$Res>? get members;
@@ -329,7 +330,7 @@ class _$_MemberData implements _MemberData {
   const _$_MemberData(
       {@HiveField(0) this.members,
       @HiveField(1) this.token,
-      @HiveField(2) this.loginDate});
+      @JsonKey(name: "login_date") @HiveField(2) this.loginDate});
 
   factory _$_MemberData.fromJson(Map<String, dynamic> json) =>
       _$$_MemberDataFromJson(json);
@@ -341,6 +342,7 @@ class _$_MemberData implements _MemberData {
   @HiveField(1)
   final String? token;
   @override
+  @JsonKey(name: "login_date")
   @HiveField(2)
   final DateTime? loginDate;
 
@@ -380,9 +382,13 @@ class _$_MemberData implements _MemberData {
 
 abstract class _MemberData implements MemberData {
   const factory _MemberData(
-      {@HiveField(0) final Members? members,
-      @HiveField(1) final String? token,
-      @HiveField(2) final DateTime? loginDate}) = _$_MemberData;
+      {@HiveField(0)
+          final Members? members,
+      @HiveField(1)
+          final String? token,
+      @JsonKey(name: "login_date")
+      @HiveField(2)
+          final DateTime? loginDate}) = _$_MemberData;
 
   factory _MemberData.fromJson(Map<String, dynamic> json) =
       _$_MemberData.fromJson;
@@ -394,6 +400,7 @@ abstract class _MemberData implements MemberData {
   @HiveField(1)
   String? get token;
   @override
+  @JsonKey(name: "login_date")
   @HiveField(2)
   DateTime? get loginDate;
   @override
@@ -408,6 +415,7 @@ Members _$MembersFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Members {
+  @JsonKey(name: "member_id")
   @HiveField(0)
   int? get memberId => throw _privateConstructorUsedError;
   @HiveField(1)
@@ -470,7 +478,7 @@ abstract class $MembersCopyWith<$Res> {
       _$MembersCopyWithImpl<$Res, Members>;
   @useResult
   $Res call(
-      {@HiveField(0) int? memberId,
+      {@JsonKey(name: "member_id") @HiveField(0) int? memberId,
       @HiveField(1) String? username,
       @HiveField(2) String? fullname,
       @HiveField(3) String? email,
@@ -607,7 +615,7 @@ abstract class _$$_MembersCopyWith<$Res> implements $MembersCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@HiveField(0) int? memberId,
+      {@JsonKey(name: "member_id") @HiveField(0) int? memberId,
       @HiveField(1) String? username,
       @HiveField(2) String? fullname,
       @HiveField(3) String? email,
@@ -739,7 +747,7 @@ class __$$_MembersCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$_Members implements _Members {
   const _$_Members(
-      {@HiveField(0) this.memberId,
+      {@JsonKey(name: "member_id") @HiveField(0) this.memberId,
       @HiveField(1) this.username,
       @HiveField(2) this.fullname,
       @HiveField(3) this.email,
@@ -762,6 +770,7 @@ class _$_Members implements _Members {
       _$$_MembersFromJson(json);
 
   @override
+  @JsonKey(name: "member_id")
   @HiveField(0)
   final int? memberId;
   @override
@@ -913,7 +922,8 @@ class _$_Members implements _Members {
 
 abstract class _Members implements Members {
   const factory _Members(
-      {@HiveField(0)
+      {@JsonKey(name: "member_id")
+      @HiveField(0)
           final int? memberId,
       @HiveField(1)
           final String? username,
@@ -967,6 +977,7 @@ abstract class _Members implements Members {
   factory _Members.fromJson(Map<String, dynamic> json) = _$_Members.fromJson;
 
   @override
+  @JsonKey(name: "member_id")
   @HiveField(0)
   int? get memberId;
   @override

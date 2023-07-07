@@ -94,7 +94,6 @@ class CurrentLocation extends _$CurrentLocation {
           if (provinsi.name?.contains(kataNama) ?? false) {
             ref.read(provNameProvider.notifier).state = provinsi.name;
             ref.read(provIdProvider.notifier).state = provinsi.id ?? 0;
-            myToast("Ketemu");
           }
         }
       }
@@ -103,28 +102,36 @@ class CurrentLocation extends _$CurrentLocation {
       if ((provList ?? [])
           .map((e) => e.name ?? "")
           .contains(resultObject.address?.city)) {
-        ref.read(provIdProvider.notifier).state = provList
+        var selectedProvId = provList
                 ?.firstWhere(
                     (element) => element.name == resultObject.address?.city,
                     orElse: () => ProvinceModel(id: 0))
                 .id ??
             0;
-        ref.read(provNameProvider.notifier).state = resultObject.address?.city;
+        ref.read(provIdParamProvider.notifier).state = selectedProvId;
+        ref.read(provIdProvider.notifier).state = selectedProvId;
+        // ref.read(provNameProfileProvider.notifier).state = resultObject.address?.city;
       }
 
       /// ini nyari nama kota, kalau ada yg cocok gaskan, kalau nggak ya sudah
       if ((cityList ?? [])
           .map((e) => e.name ?? "")
           .contains(resultObject.address?.cityDistrict)) {
-        ref.read(kotaIdProvider.notifier).state = cityList
+        var selectedCityId = cityList
                 ?.firstWhere(
                     (element) =>
-                        element.name == resultObject.address?.cityDistrict,
+                        element.name?.contains(
+                            resultObject.address?.cityDistrict ?? "") ??
+                        false,
                     orElse: () => KotaKabupaten(id: 0))
                 .id ??
             0;
-        ref.read(kotaNameProvider.notifier).state =
-            resultObject.address?.cityDistrict;
+        ref.read(kotaIdParamProvider.notifier).state = selectedCityId;
+        ref.read(kotaIdProvider.notifier).state = selectedCityId;
+        // myToast("Ketemu");
+
+        // ref.read(kotaNameProfileProvider.notifier).state =
+        //     resultObject.address?.cityDistrict;
       }
 
       return resultObject;

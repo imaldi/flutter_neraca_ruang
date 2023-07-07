@@ -29,7 +29,7 @@ class MemberData with _$MemberData {
   const factory MemberData({
     @HiveField(0) Members? members,
     @HiveField(1) String? token,
-    @HiveField(2) DateTime? loginDate,
+    @JsonKey(name: "login_date") @HiveField(2) DateTime? loginDate,
   }) = _MemberData;
 
   factory MemberData.fromJson(Map<String, dynamic> json) =>
@@ -41,7 +41,7 @@ class Members with _$Members {
   @HiveType(typeId: memberTypeId, adapterName: 'MemberAdapter')
   @JsonSerializable(explicitToJson: true)
   const factory Members({
-    @HiveField(0) int? memberId,
+    @JsonKey(name: "member_id") @HiveField(0) int? memberId,
     @HiveField(1) String? username,
     @HiveField(2) String? fullname,
     @HiveField(3) String? email,

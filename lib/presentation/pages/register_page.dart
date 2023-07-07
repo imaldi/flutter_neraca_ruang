@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/async_state_auth_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_confirm_dialog/my_confirm_dialog.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,6 +13,8 @@ import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
 import '../../core/helper_functions/deeplink_handler.dart';
 import '../../core/router/app_router.dart';
+import '../../data/models/kota_kabupaten_response/kota_kabupaten_response.dart';
+import '../../logic/state_management/riverpod/current_location_providers.dart';
 import '../widgets/my_toast.dart';
 import '../widgets/rounded_container.dart';
 import '../widgets/rounded_text_form_field.dart';
@@ -41,6 +44,11 @@ class RegisterPage extends ConsumerWidget {
     final provinceName = ref.watch(provNameProvider);
     final kabKotaId = ref.watch(kotaIdParamProvider);
     final kabKotaName = ref.watch(kotaNameProvider);
+    var provName = ref.watch(provNameProfileProvider);
+    var kotaName = ref.watch(kotaNameProfileProvider);
+    var detectLokasi = ref.watch(isDetectLokasi);
+    var locationState =
+        detectLokasi ? ref.watch(currentLocationProvider) : null;
 
     return Scaffold(
       body: SafeArea(
@@ -176,157 +184,153 @@ class RegisterPage extends ConsumerWidget {
                           hintStyle: textStyle,
                         ),
                       ),
-                      Row(
+                      Column(
                         children: [
-                          Expanded(
-                            child: provinceList.when(
-                                data: (data) {
-                                  return Column(
-                                    children: [
-                                      SearchableDropdown(
-                                        // "Provinsi",
-                                        data.map((e) => e.name ?? "").toSet(),
-                                        provNameProvider,
-                                        hintText: "Provinsi",
-                                        contentPadding:
-                                            const EdgeInsets.all(medium),
-                                        onItemTapped: (val) {
-                                          ref
-                                              .read(kotaNameProvider.notifier)
-                                              .state = null;
-                                          ref
-                                              .read(provNameProvider.notifier)
-                                              .state = val;
-                                          ref
-                                              .read(provIdProvider.notifier)
-                                              .state = data
-                                                  .firstWhere((element) =>
-                                                      (element.name ?? "") ==
-                                                      val)
-                                                  .id ??
-                                              0;
-                                        },
-                                      ),
-                                      kabKotaList.when(
-                                          data: (data) {
-                                            // return Text("Kab/Kota List: $data");
-                                            return SearchableDropdown(
-                                              // "Kab/Kota",
-                                              data
-                                                  .map((e) => e.name ?? "")
-                                                  .toSet(),
-                                              kotaNameProvider,
-                                              hintText: "Kabupaten / Kota",
-                                              contentPadding:
-                                                  const EdgeInsets.all(medium),
-                                              onItemTapped: (val) {
-                                                ref
-                                                    .read(kotaNameProvider
-                                                        .notifier)
-                                                    .state = val;
-
-                                                ref
-                                                    .read(kotaIdParamProvider
-                                                        .notifier)
-                                                    .state = data
-                                                        .firstWhere((element) =>
-                                                            (element.name ??
-                                                                "") ==
-                                                            val)
-                                                        .id ??
-                                                    0;
-                                              },
-                                            );
-                                          },
-                                          error: (o, st) => SearchableDropdown(
-                                              <String>{}, kotaNameProvider,
-                                              hintText: "Kabupaten / Kota",
-                                              contentPadding:
-                                                  const EdgeInsets.all(medium)),
-                                          loading: () => SearchableDropdown(
-                                                // "Kab/Kota",
-                                                <String>{},
-                                                kotaNameProvider,
-                                                hintText: "Kabupaten / Kota",
+                          provinceList.when(
+                              data: (data) {
+                                return Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              SearchableDropdown(
+                                                // "Provinsi",
+                                                data
+                                                    .map((e) => e.name ?? "")
+                                                    .toSet(),
+                                                provNameProvider,
+                                                defaultValue: provName.value,
+                                                hintText: "Provinsi",
+                                                borderRadius: huge,
                                                 contentPadding:
                                                     const EdgeInsets.all(
                                                         medium),
-                                              ))
-                                    ],
-                                  );
-                                  // return Text(data.toString());
-                                },
-                                error: (o, st) => Column(
-                                      children: [
-                                        SearchableDropdown(
-                                          // "Provinsi",
-                                          {},
-                                          provNameProvider,
-                                          hintText: "Provinsi",
-                                          contentPadding:
-                                              const EdgeInsets.all(medium),
+                                                onItemTapped: (val) {
+                                                  ref
+                                                      .read(kotaNameProvider
+                                                          .notifier)
+                                                      .state = null;
+                                                  ref
+                                                      .read(provNameProvider
+                                                          .notifier)
+                                                      .state = val;
+                                                  ref
+                                                      .read(provIdProvider
+                                                          .notifier)
+                                                      .state = data
+                                                          .firstWhere((element) =>
+                                                              (element.name ??
+                                                                  "") ==
+                                                              val)
+                                                          .id ??
+                                                      0;
+                                                },
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                        kabKotaList.when(
-                                            data: (data) {
-                                              // return Text("Kab/Kota List: $data");
-                                              return SearchableDropdown(
-                                                // "Kab/Kota",
-                                                {},
-                                                kotaNameProvider,
-                                                hintText: "Kabupaten / Kota",
-                                              );
-                                            },
-                                            error: (o, st) =>
-                                                SearchableDropdown(
-                                                  // "Kab/Kota",
-                                                  {},
-                                                  kotaNameProvider,
-                                                  hintText: "Kabupaten / Kota",
-                                                ),
-                                            loading: () => SearchableDropdown(
-                                                  // "Kab/Kota",
-                                                  {},
-                                                  kotaNameProvider,
-                                                  hintText: "Kabupaten / Kota",
-                                                ))
                                       ],
                                     ),
-                                loading: () => Column(
+                                    Row(
                                       children: [
-                                        SearchableDropdown(
-                                          // "Provinsi",
-                                          {},
-                                          provNameProvider,
-                                          hintText: "Provinsi",
-                                          contentPadding:
-                                              const EdgeInsets.all(medium),
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              kabKotaList.when(
+                                                  data: (dataKab) {
+                                                    return Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: Column(
+                                                            children: [
+                                                              SearchableDropdown(
+                                                                // "Kabupaten / Kota",
+                                                                dataKab
+                                                                    .map((e) =>
+                                                                        e.name ??
+                                                                        "")
+                                                                    .toSet(),
+                                                                kotaNameProvider,
+                                                                borderRadius:
+                                                                    huge,
+                                                                defaultValue:
+                                                                    kotaName
+                                                                        .value,
+                                                                hintText:
+                                                                    "Kabupaten / Kota",
+                                                                contentPadding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        medium),
+                                                                onItemTapped:
+                                                                    (val) {
+                                                                  // ref
+                                                                  //     .read(kotaNameProvider
+                                                                  //         .notifier)
+                                                                  //     .state = null;
+                                                                  ref
+                                                                      .read(kotaNameProvider
+                                                                          .notifier)
+                                                                      .state = val;
+                                                                  ref
+                                                                      .read(kotaIdProvider
+                                                                          .notifier)
+                                                                      .state = dataKab
+                                                                          .firstWhere(
+                                                                              (element) => (element.name ?? "") == val,
+                                                                              orElse: () => KotaKabupaten(id: 0))
+                                                                          .id ??
+                                                                      0;
+                                                                },
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                  error: (o, st) {
+                                                    return Container();
+                                                  },
+                                                  loading: () => Center(
+                                                      child:
+                                                          CircularProgressIndicator())),
+                                            ],
+                                          ),
                                         ),
-                                        kabKotaList.when(
-                                            data: (data) {
-                                              // return Text("Kab/Kota List: $data");
-                                              return SearchableDropdown(
-                                                // "Kab/Kota",
-                                                {},
-                                                kotaNameProvider,
-                                                hintText: "Kabupaten / Kota",
-                                              );
-                                            },
-                                            error: (o, st) =>
-                                                SearchableDropdown(
-                                                  // "Kab/Kota",
-                                                  {},
-                                                  kotaNameProvider,
-                                                  hintText: "Kabupaten / Kota",
-                                                ),
-                                            loading: () => SearchableDropdown(
-                                                  // "Kab/Kota",
-                                                  {},
-                                                  kotaNameProvider,
-                                                  hintText: "Kabupaten / Kota",
-                                                ))
                                       ],
-                                    )),
-                          ),
+                                    ),
+                                  ],
+                                );
+                              },
+                              error: (o, st) {
+                                return Container();
+                              },
+                              loading: () =>
+                                  Center(child: CircularProgressIndicator())),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                // ref.watch(currentLocationProvider);
+                                myConfirmDialog(context,
+                                    title: "Aktifkan Lokasi?",
+                                    positiveButtonText: "Ya",
+                                    negativeButtonText: "Batal",
+                                    positiveButton: () {
+                                  ref.read(isDetectLokasi.notifier).state =
+                                      true;
+                                  myToast("GPS Diaktifkan");
+                                }, negativeButton: () {
+                                  context.router.pop();
+                                });
+                              },
+                              child: Text("Aktifkan Lokasi?")),
                         ],
                       ),
 
@@ -388,7 +392,7 @@ class RegisterPage extends ConsumerWidget {
                                     password: kataSandiCtlr.text,
                                     cPassword: konfKtSandiCtlr.text,
                                     // tanggalLahir: tanggalLahirCtlr.text,
-                                    fullname: "yyy",
+                                    fullname: namaCtlr.text,
                                     noHp: teleponCtlr.text,
                                     provId: provinceId,
                                     kotaId: kabKotaId,
@@ -397,8 +401,8 @@ class RegisterPage extends ConsumerWidget {
                                       context.router
                                           .replace(const LandingRoute());
                                     },
-                                    failureCallback: () {
-                                      myToast("Register Failed");
+                                    failureCallback: (message) {
+                                      myToast("Register Failed: $message");
                                     },
                                   );
                               // myToast("OIK");

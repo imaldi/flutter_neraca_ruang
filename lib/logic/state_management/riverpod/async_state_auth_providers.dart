@@ -27,6 +27,8 @@ final pathFotoProvider = StateProvider((ref) => "");
 // final kotaKabIdProvider = StateProvider((ref) => 0);
 final provinsiIdProvider = StateProvider((ref) => 0);
 
+final isDetectLokasi = StateProvider<bool>((ref) => false);
+
 var registerEvent = StateProvider<bool>((ref) => false);
 var loginEvent = StateProvider<bool>((ref) => false);
 var isChangePasswordSuccess = StateProvider<bool?>((ref) => null);
@@ -268,7 +270,7 @@ class AuthStatus extends _$AuthStatus {
     // FIXME, nanti tanyakan kejelasan field domisili di layout dan API
     String domisili = "jaksel",
     Function? successCallback,
-    Function? failureCallback,
+    Function(String)? failureCallback,
   }) async {
     const AsyncValue.loading();
 
@@ -323,33 +325,42 @@ class AuthStatus extends _$AuthStatus {
         },
         body: bodyParameters);
     print("URL register: $url");
+    log("statuscode JSON: ${response.statusCode}");
     log("result JSON: ${jsonDecode(response.body)}");
     // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
     try {
       if (response.statusCode == 201) {
-        final result = AuthResponse.fromJson(jsonDecode(response.body));
-        var authBox = sl<Box<AuthResponse>>();
-        await authBox.put(userDataKey, result);
-        var dataFromBox = authBox.get(userDataKey);
-        print("dataFromBox (register): ${dataFromBox?.toJson()}");
+        // final result = AuthResponse.fromJson(jsonDecode(response.body));
+        // if (successCallback != null) successCallback();
 
-        // state = const AsyncValue.loading();
-        state = await AsyncValue.guard(() async {
-          return dataFromBox;
-        });
-        if (successCallback != null) successCallback();
+        login(
+            username: username,
+            password: password,
+            successCallback: successCallback);
+
+        // var authBox = sl<Box<AuthResponse>>();
+        // await authBox.put(userDataKey, result);
+        // var dataFromBox = authBox.get(userDataKey);
+        // print("dataFromBox (register): ${dataFromBox?.toJson()}");
+        //
+        // // state = const AsyncValue.loading();
+        // state = await AsyncValue.guard(() async {
+        //   return dataFromBox;
+        // });
       }
 
-      if (response.statusCode == 422) {
-        throw TypeError();
-      }
+      // if (response.statusCode == 422) {
+      //   throw TypeError();
+      // }
     } on TypeError {
       // state = const AsyncValue.loading();
       // state = await AsyncValue.guard(() async {
       //   return null;
       // });
       state = AsyncValue.error(TypeError, StackTrace.current);
-      if (failureCallback != null) failureCallback();
+      if (failureCallback != null) failureCallback("Type Error");
+    } catch (e) {
+      if (failureCallback != null) failureCallback(e.toString());
     }
   }
 
@@ -365,7 +376,7 @@ class AuthStatus extends _$AuthStatus {
     Function? failureCallback,
   }) async {
     const AsyncValue.loading();
-    myToast("Path Foto: $filePath");
+    // myToast("Path Foto: $filePath");
 
     Map<String, String> bodyParameters = {};
     var tanggalLahir = ref.watch(tanggalLahirParamProvider);
