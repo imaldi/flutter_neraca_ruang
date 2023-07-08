@@ -106,11 +106,10 @@ appBarWidget(BuildContext context,
         //       )
         //     :
         PreferredSize(
-      preferredSize:
-          isGreenMode ? Size.fromHeight(huge) : _tabBar.preferredSize,
+      preferredSize: _tabBar.preferredSize,
       child: ColoredBox(
           color: isGreenMode ? Color(greenModeColor) : Color(primaryColor),
-          child: _tabBar),
+          child: SizedBox(height: huge, child: _tabBar)),
     ),
     actions: [
       if (appbarTitle != null && appbarTitle.isNotEmpty)
