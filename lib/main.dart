@@ -7,7 +7,8 @@ import 'core/consts/colors.dart';
 import 'core/router/app_router.dart';
 import 'di.dart' as di;
 import 'package:uni_links/uni_links.dart';
-import 'package:flutter/services.dart' show PlatformException;
+import 'package:flutter/services.dart'
+    show PlatformException, SystemChrome, SystemUiOverlayStyle;
 
 import 'logic/state_management/riverpod/async_state_auth_providers.dart';
 
@@ -39,6 +40,11 @@ class _MyAppState extends ConsumerState<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.white, // Make the status bar transparent
+      statusBarBrightness:
+          Brightness.dark, // Use light text/icons for the status bar
+    ));
     return MaterialApp.router(
       title: 'Flutter Neraca Ruang',
       debugShowCheckedModeBanner: false,

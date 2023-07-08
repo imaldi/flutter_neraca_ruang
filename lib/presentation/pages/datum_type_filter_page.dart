@@ -55,60 +55,60 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
         onWillPop: () {
           return basicOnWillPop(context, ref);
         },
-        child: Scaffold(
-          appBar: appBarWidget(
-            context, ref: ref,
-            // appbarTitle: appbarTitle,
-            // appbarBackgroundImage: Center(
-            //   child: Row(
-            //     children: [
-            //       Expanded(
-            //         child: IconWidget(
-            //           // 'assets/icons/icon_daerah/${appbarTitle?.toLowerCase().replaceAll(" ", "_")}_2.png',
-            //           iconUrl,
-            //           size: huge + medium,
-            //           isOnlineSource: true,
-            //           customOnErrorWidget: Column(
-            //             children: [
-            //               Icon(
-            //                 Icons.location_city,
-            //                 color: Color(greenModeColor),
-            //               ),
-            //               Text(
-            //                 appbarTitle ?? "",
-            //                 style:
-            //                 const TextStyle(color: Color(greenModeColor)),
-            //               )
-            //             ],
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // isGreenMode: true,
-            // tabsChild: [
-            //   Image.asset("assets/images/oto.png"),
-            //   Image.asset("assets/images/kons.png"),
-            //   Image.asset("assets/images/mada.png"),
-            // ], resetStates: () {
-            //   basicResetStates(context, ref);
-            // }
-          ),
-          body: list.when(data: (data) {
-            var contentList = data;
-            if (contentList != null && contentList.isEmpty) {
-              return const Center(
-                child: Text("Data Tidak ditemukan"),
-              );
-            }
-            if (contentList == null) {
-              return const Center(
-                child: Text("Hasil pencarian tidak ditemukan"),
-              );
-            }
-            return SafeArea(
-              child: SingleChildScrollView(
+        child: SafeArea(
+          child: Scaffold(
+            appBar: appBarWidget(
+              context, ref: ref,
+              // appbarTitle: appbarTitle,
+              // appbarBackgroundImage: Center(
+              //   child: Row(
+              //     children: [
+              //       Expanded(
+              //         child: IconWidget(
+              //           // 'assets/icons/icon_daerah/${appbarTitle?.toLowerCase().replaceAll(" ", "_")}_2.png',
+              //           iconUrl,
+              //           size: huge + medium,
+              //           isOnlineSource: true,
+              //           customOnErrorWidget: Column(
+              //             children: [
+              //               Icon(
+              //                 Icons.location_city,
+              //                 color: Color(greenModeColor),
+              //               ),
+              //               Text(
+              //                 appbarTitle ?? "",
+              //                 style:
+              //                 const TextStyle(color: Color(greenModeColor)),
+              //               )
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // isGreenMode: true,
+              // tabsChild: [
+              //   Image.asset("assets/images/oto.png"),
+              //   Image.asset("assets/images/kons.png"),
+              //   Image.asset("assets/images/mada.png"),
+              // ], resetStates: () {
+              //   basicResetStates(context, ref);
+              // }
+            ),
+            body: list.when(data: (data) {
+              var contentList = data;
+              if (contentList != null && contentList.isEmpty) {
+                return const Center(
+                  child: Text("Data Tidak ditemukan"),
+                );
+              }
+              if (contentList == null) {
+                return const Center(
+                  child: Text("Hasil pencarian tidak ditemukan"),
+                );
+              }
+              return SingleChildScrollView(
                 controller: sl<ScrollController>(),
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: extra),
@@ -711,17 +711,17 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                     ],
                   ),
                 ),
-              ),
-            );
-          }, error: (o, st) {
-            return Center(child: const Text("Keyword Not Found"));
-          }, loading: () {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Color(primaryColor),
-              ),
-            );
-          }),
+              );
+            }, error: (o, st) {
+              return Center(child: const Text("Keyword Not Found"));
+            }, loading: () {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Color(primaryColor),
+                ),
+              );
+            }),
+          ),
         ),
       ),
     );

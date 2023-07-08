@@ -55,36 +55,36 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
 
     return DefaultTabController(
       length: mainTabLength,
-      child: Scaffold(
-        appBar: appBarWidget(context,
-            ref: ref,
-            appbarTitle: appbarTitle,
-            appbarBackgroundImage: Opacity(
-              opacity: 0.3,
-              child: IconWidget(
-                iconUrl,
-                size: huge + medium,
-                isOnlineSource: true,
-              ),
-            ), resetStates: () {
-          basicResetStates(context, ref);
-        }),
-        body: infografisTerbaru.when(data: (data) {
-          var contentList = data;
-          if (contentList != null && contentList.isEmpty) {
-            return const Center(
-              child: Text("Data Tidak ditemukan"),
-            );
-          }
-          if (contentList == null) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Color(primaryColor),
-              ),
-            );
-          }
-          return SafeArea(
-            child: SingleChildScrollView(
+      child: SafeArea(
+        child: Scaffold(
+          appBar: appBarWidget(context,
+              ref: ref,
+              appbarTitle: appbarTitle,
+              appbarBackgroundImage: Opacity(
+                opacity: 0.3,
+                child: IconWidget(
+                  iconUrl,
+                  size: huge + medium,
+                  isOnlineSource: true,
+                ),
+              ), resetStates: () {
+            basicResetStates(context, ref);
+          }),
+          body: infografisTerbaru.when(data: (data) {
+            var contentList = data;
+            if (contentList != null && contentList.isEmpty) {
+              return const Center(
+                child: Text("Data Tidak ditemukan"),
+              );
+            }
+            if (contentList == null) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Color(primaryColor),
+                ),
+              );
+            }
+            return SingleChildScrollView(
               controller: sl<ScrollController>(),
               child: Padding(
                 padding: const EdgeInsets.only(bottom: extra),
@@ -104,18 +104,18 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
                   ],
                 ),
               ),
-            ),
-          );
-        }, error: (o, st) {
-          return Center(
-            child: Text("There is an Error"),
-          );
-        }, loading: () {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }),
-        bottomNavigationBar: const BottomBarWidget(),
+            );
+          }, error: (o, st) {
+            return Center(
+              child: Text("There is an Error"),
+            );
+          }, loading: () {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }),
+          bottomNavigationBar: const BottomBarWidget(),
+        ),
       ),
     );
   }

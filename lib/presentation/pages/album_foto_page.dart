@@ -50,36 +50,36 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
 
     return DefaultTabController(
       length: mainTabLength,
-      child: Scaffold(
-        appBar: appBarWidget(context,
-            ref: ref,
-            appbarTitle: appbarTitle,
-            appbarBackgroundImage: Opacity(
-              opacity: 0.3,
-              child: IconWidget(
-                iconUrl,
-                size: huge + medium,
-                isOnlineSource: true,
-              ),
-            ), resetStates: () {
-          basicResetStates(context, ref);
-        }),
-        body: fotoTerbaru.when(data: (data) {
-          var contentList = data;
-          if (contentList != null && contentList.isEmpty) {
-            return const Center(
-              child: Text("Data Tidak ditemukan"),
-            );
-          }
-          if (contentList == null) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Color(primaryColor),
-              ),
-            );
-          }
-          return SafeArea(
-            child: SingleChildScrollView(
+      child: SafeArea(
+        child: Scaffold(
+          appBar: appBarWidget(context,
+              ref: ref,
+              appbarTitle: appbarTitle,
+              appbarBackgroundImage: Opacity(
+                opacity: 0.3,
+                child: IconWidget(
+                  iconUrl,
+                  size: huge + medium,
+                  isOnlineSource: true,
+                ),
+              ), resetStates: () {
+            basicResetStates(context, ref);
+          }),
+          body: fotoTerbaru.when(data: (data) {
+            var contentList = data;
+            if (contentList != null && contentList.isEmpty) {
+              return const Center(
+                child: Text("Data Tidak ditemukan"),
+              );
+            }
+            if (contentList == null) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Color(primaryColor),
+                ),
+              );
+            }
+            return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: extra),
                 child: Column(
@@ -131,18 +131,18 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
                   ],
                 ),
               ),
-            ),
-          );
-        }, error: (o, st) {
-          return Center(
-            child: Text("There is an Error: ${st}"),
-          );
-        }, loading: () {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }),
-        bottomNavigationBar: const BottomBarWidget(),
+            );
+          }, error: (o, st) {
+            return Center(
+              child: Text("There is an Error: ${st}"),
+            );
+          }, loading: () {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }),
+          bottomNavigationBar: const BottomBarWidget(),
+        ),
       ),
     );
   }

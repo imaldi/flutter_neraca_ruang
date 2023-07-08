@@ -61,63 +61,63 @@ class GreenPageState extends ConsumerState<GreenPage> {
         onWillPop: () {
           return basicOnWillPop(context, ref);
         },
-        child: Scaffold(
-          appBar: appBarWidget(context,
-              ref: ref,
-              appbarTitle: appbarTitle,
-              appbarBackgroundImage: Center(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: IconWidget(
-                        // 'assets/icons/icon_daerah/${appbarTitle?.toLowerCase().replaceAll(" ", "_")}_2.png',
-                        iconUrl,
-                        size: huge + medium,
-                        isOnlineSource: true,
-                        customOnErrorWidget: Column(
-                          children: [
-                            const Icon(
-                              Icons.location_city,
-                              color: Color(greenModeColor),
-                            ),
-                            Text(
-                              appbarTitle ?? "",
-                              style:
-                                  const TextStyle(color: Color(greenModeColor)),
-                            )
-                          ],
+        child: SafeArea(
+          child: Scaffold(
+            appBar: appBarWidget(context,
+                ref: ref,
+                appbarTitle: appbarTitle,
+                appbarBackgroundImage: Center(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: IconWidget(
+                          // 'assets/icons/icon_daerah/${appbarTitle?.toLowerCase().replaceAll(" ", "_")}_2.png',
+                          iconUrl,
+                          size: huge + medium,
+                          isOnlineSource: true,
+                          customOnErrorWidget: Column(
+                            children: [
+                              const Icon(
+                                Icons.location_city,
+                                color: Color(greenModeColor),
+                              ),
+                              Text(
+                                appbarTitle ?? "",
+                                style: const TextStyle(
+                                    color: Color(greenModeColor)),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              isGreenMode: true,
-              tabsChild: [
-                Image.asset(iconOtoTr),
-                Image.asset(iconKonsTr),
-                Image.asset(iconMadaTr),
-              ], resetStates: () {
-            basicResetStates(context, ref);
-          }),
-          body: Stack(
-            children: [
-              greenContent.when(data: (data) {
-                var contentList = data;
-                if (contentList != null && contentList.isEmpty) {
-                  return const Center(
-                    child: Text("Data Tidak ditemukan"),
-                  );
-                }
-                if (contentList == null) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: Color(greenModeColor),
-                    ),
-                  );
-                }
-                return SafeArea(
-                  child: SingleChildScrollView(
+                isGreenMode: true,
+                tabsChild: [
+                  Image.asset(iconOtoTr),
+                  Image.asset(iconKonsTr),
+                  Image.asset(iconMadaTr),
+                ], resetStates: () {
+              basicResetStates(context, ref);
+            }),
+            body: Stack(
+              children: [
+                greenContent.when(data: (data) {
+                  var contentList = data;
+                  if (contentList != null && contentList.isEmpty) {
+                    return const Center(
+                      child: Text("Data Tidak ditemukan"),
+                    );
+                  }
+                  if (contentList == null) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(greenModeColor),
+                      ),
+                    );
+                  }
+                  return SingleChildScrollView(
                     controller: sl<ScrollController>(),
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: extra),
@@ -140,19 +140,19 @@ class GreenPageState extends ConsumerState<GreenPage> {
                         ],
                       ),
                     ),
-                  ),
-                );
-              }, error: (o, st) {
-                return const Text("Ada Error");
-              }, loading: () {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Color(greenModeColor),
-                  ),
-                );
-              }),
-              Positioned(bottom: 0, child: GreenModeBottomBar()),
-            ],
+                  );
+                }, error: (o, st) {
+                  return const Text("Ada Error");
+                }, loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Color(greenModeColor),
+                    ),
+                  );
+                }),
+                Positioned(bottom: 0, child: GreenModeBottomBar()),
+              ],
+            ),
           ),
         ),
       ),

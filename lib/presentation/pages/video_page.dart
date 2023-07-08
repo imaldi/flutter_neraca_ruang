@@ -38,10 +38,7 @@ class _VideoPageState extends ConsumerState<VideoPage> {
 
     return DefaultTabController(
       length: mainTabLength,
-      child: WillPopScope(
-        onWillPop: () {
-          return basicOnWillPop(context, ref);
-        },
+      child: SafeArea(
         child: Scaffold(
           appBar: appBarWidget(context,
               ref: ref,

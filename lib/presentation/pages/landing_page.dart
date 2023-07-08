@@ -267,7 +267,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                               child: HtmlWidget(
                                                 "${data[1].keterangan}",
                                                 textStyle: TextStyle(
-                                                    color: Colors.black),
+                                                    color: Colors.grey),
                                               ),
                                             ),
                                           )

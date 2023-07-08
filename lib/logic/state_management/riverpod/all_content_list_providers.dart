@@ -17,6 +17,7 @@ part 'all_content_list_providers.g.dart';
 
 final tipeKontenProvider = StateProvider((ref) => "");
 final keywordKontenProvider = StateProvider((ref) => "");
+final commentTextSizeProvider = StateProvider((ref) => 0);
 // final myContentListProvider = FutureProvider<void>((ref) async {
 //   // final myNotifier = ref.watch(contentsProvider.future);
 //   await myNotifier.initialize();

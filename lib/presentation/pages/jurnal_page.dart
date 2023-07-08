@@ -55,63 +55,65 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
       top: false,
       child: DefaultTabController(
         length: mainTabLength,
-        child: Scaffold(
-          appBar: appBarWidget(context,
-              ref: ref,
-              appbarTitle: appbarTitle,
-              appbarBackgroundImage: Opacity(
-                opacity: 0.3,
-                child: IconWidget(
-                  iconUrl,
-                  size: huge + medium,
-                  isOnlineSource: true,
+        child: SafeArea(
+          child: Scaffold(
+            appBar: appBarWidget(context,
+                ref: ref,
+                appbarTitle: appbarTitle,
+                appbarBackgroundImage: Opacity(
+                  opacity: 0.3,
+                  child: IconWidget(
+                    iconUrl,
+                    size: huge + medium,
+                    isOnlineSource: true,
+                  ),
+                ), resetStates: () {
+              basicResetStates(context, ref);
+            }),
+            body: jurnalTerbaru.when(data: (data) {
+              var contentList = data;
+              if (contentList != null && contentList.isEmpty) {
+                return const Center(
+                  child: Text("Data Tidak ditemukan"),
+                );
+              }
+              if (contentList == null) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Color(primaryColor),
+                  ),
+                );
+              }
+              return SingleChildScrollView(
+                controller: sl<ScrollController>(),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: extra),
+                  child: Column(
+                    children: [
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: contentList.length,
+                          itemBuilder: (c, i) {
+                            return ContentWidget(contentList[i]);
+                          }),
+                      ButtonLoadMore(),
+                      SocialMediaPanelWidget(),
+                    ],
+                  ),
                 ),
-              ), resetStates: () {
-            basicResetStates(context, ref);
-          }),
-          body: jurnalTerbaru.when(data: (data) {
-            var contentList = data;
-            if (contentList != null && contentList.isEmpty) {
-              return const Center(
-                child: Text("Data Tidak ditemukan"),
               );
-            }
-            if (contentList == null) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Color(primaryColor),
-                ),
+            }, error: (o, st) {
+              return Center(
+                child: Text("There is an Error"),
               );
-            }
-            return SingleChildScrollView(
-              controller: sl<ScrollController>(),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: extra),
-                child: Column(
-                  children: [
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: contentList.length,
-                        itemBuilder: (c, i) {
-                          return ContentWidget(contentList[i]);
-                        }),
-                    ButtonLoadMore(),
-                    SocialMediaPanelWidget(),
-                  ],
-                ),
-              ),
-            );
-          }, error: (o, st) {
-            return Center(
-              child: Text("There is an Error"),
-            );
-          }, loading: () {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
-          bottomNavigationBar: const BottomBarWidget(),
+            }, loading: () {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }),
+            bottomNavigationBar: const BottomBarWidget(),
+          ),
         ),
       ),
     );
