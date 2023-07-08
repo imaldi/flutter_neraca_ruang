@@ -65,6 +65,8 @@ class CurrentLocation extends _$CurrentLocation {
 
   Future<OpenStreetMapResponse> getCurrentAddress(
       double lat, double lon) async {
+    ref.invalidate(kotaNameProvider);
+    ref.invalidate(kotaNameProfileProvider);
     var provList = ref.watch(provinceListProvider).value;
     var cityList = ref.watch(kabKotaListProvider).value;
     try {
@@ -108,6 +110,7 @@ class CurrentLocation extends _$CurrentLocation {
                     orElse: () => ProvinceModel(id: 0))
                 .id ??
             0;
+
         ref.read(provIdParamProvider.notifier).state = selectedProvId;
         ref.read(provIdProvider.notifier).state = selectedProvId;
         // ref.read(provNameProfileProvider.notifier).state = resultObject.address?.city;

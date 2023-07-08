@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/login_pop_up.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/rounded_container.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/social_media_panel_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -65,8 +67,27 @@ class MainDrawer extends ConsumerWidget {
                       });
                       // context.router.replace(const LoginRoute());
                     }
-                  : () {
-                      context.router.push(const LoginRoute());
+                  : () async {
+                      // context.router.push(const LoginRoute());
+                      await context.router.pop();
+                      showDialog(
+                          context: context,
+                          builder: (c) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    huge), // Set the desired corner radius here
+                              ),
+                              child: IntrinsicHeight(
+                                child: IntrinsicWidth(
+                                  child: RoundedContainer(
+                                    huge,
+                                    child: LoginPopUp(),
+                                  ),
+                                ),
+                              ),
+                            );
+                          });
                     },
               child: Container(
                   padding: const EdgeInsets.symmetric(
