@@ -74,7 +74,12 @@ class ForumNestedCommentListview extends ConsumerWidget {
                         children: [
                           InkWell(
                             onTap: isLiked
-                                ? null
+                                ? () {
+                                    ref
+                                        .read(forumCommentsProvider.notifier)
+                                        .unlikeComment(currentReply ??
+                                            ForumCommentModel());
+                                  }
                                 : () {
                                     ref
                                         .read(forumCommentsProvider.notifier)
@@ -89,7 +94,7 @@ class ForumNestedCommentListview extends ConsumerWidget {
                                   )
                                 : IconWidget(
                                     iconSuka,
-                                    size: huge,
+                                    size: medium + normal,
                                   ),
                           ),
                           Text(" ${currentReply?.totalLike ?? 0} "),
