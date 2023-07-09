@@ -463,9 +463,15 @@ mixin _$Members {
   @JsonKey(name: "photo_path")
   @HiveField(16)
   String? get photoPath => throw _privateConstructorUsedError;
-  @JsonKey(name: "photo_url")
+  @JsonKey(name: "foto_moderator")
   @HiveField(17)
   String? get photoUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: "propinsi_name")
+  @HiveField(18)
+  String? get propinsiName => throw _privateConstructorUsedError;
+  @JsonKey(name: "kota_name")
+  @HiveField(19)
+  String? get kotaName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -495,7 +501,9 @@ abstract class $MembersCopyWith<$Res> {
       @JsonKey(name: "last_login_at") @HiveField(14) DateTime? lastloginAt,
       @JsonKey(name: "kode_pos") @HiveField(15) String? kodePos,
       @JsonKey(name: "photo_path") @HiveField(16) String? photoPath,
-      @JsonKey(name: "photo_url") @HiveField(17) String? photoUrl});
+      @JsonKey(name: "foto_moderator") @HiveField(17) String? photoUrl,
+      @JsonKey(name: "propinsi_name") @HiveField(18) String? propinsiName,
+      @JsonKey(name: "kota_name") @HiveField(19) String? kotaName});
 }
 
 /// @nodoc
@@ -529,6 +537,8 @@ class _$MembersCopyWithImpl<$Res, $Val extends Members>
     Object? kodePos = freezed,
     Object? photoPath = freezed,
     Object? photoUrl = freezed,
+    Object? propinsiName = freezed,
+    Object? kotaName = freezed,
   }) {
     return _then(_value.copyWith(
       memberId: freezed == memberId
@@ -603,6 +613,14 @@ class _$MembersCopyWithImpl<$Res, $Val extends Members>
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      propinsiName: freezed == propinsiName
+          ? _value.propinsiName
+          : propinsiName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kotaName: freezed == kotaName
+          ? _value.kotaName
+          : kotaName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -632,7 +650,9 @@ abstract class _$$_MembersCopyWith<$Res> implements $MembersCopyWith<$Res> {
       @JsonKey(name: "last_login_at") @HiveField(14) DateTime? lastloginAt,
       @JsonKey(name: "kode_pos") @HiveField(15) String? kodePos,
       @JsonKey(name: "photo_path") @HiveField(16) String? photoPath,
-      @JsonKey(name: "photo_url") @HiveField(17) String? photoUrl});
+      @JsonKey(name: "foto_moderator") @HiveField(17) String? photoUrl,
+      @JsonKey(name: "propinsi_name") @HiveField(18) String? propinsiName,
+      @JsonKey(name: "kota_name") @HiveField(19) String? kotaName});
 }
 
 /// @nodoc
@@ -663,6 +683,8 @@ class __$$_MembersCopyWithImpl<$Res>
     Object? kodePos = freezed,
     Object? photoPath = freezed,
     Object? photoUrl = freezed,
+    Object? propinsiName = freezed,
+    Object? kotaName = freezed,
   }) {
     return _then(_$_Members(
       memberId: freezed == memberId
@@ -737,6 +759,14 @@ class __$$_MembersCopyWithImpl<$Res>
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      propinsiName: freezed == propinsiName
+          ? _value.propinsiName
+          : propinsiName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      kotaName: freezed == kotaName
+          ? _value.kotaName
+          : kotaName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -764,7 +794,9 @@ class _$_Members implements _Members {
       @JsonKey(name: "last_login_at") @HiveField(14) this.lastloginAt,
       @JsonKey(name: "kode_pos") @HiveField(15) this.kodePos,
       @JsonKey(name: "photo_path") @HiveField(16) this.photoPath,
-      @JsonKey(name: "photo_url") @HiveField(17) this.photoUrl});
+      @JsonKey(name: "foto_moderator") @HiveField(17) this.photoUrl,
+      @JsonKey(name: "propinsi_name") @HiveField(18) this.propinsiName,
+      @JsonKey(name: "kota_name") @HiveField(19) this.kotaName});
 
   factory _$_Members.fromJson(Map<String, dynamic> json) =>
       _$$_MembersFromJson(json);
@@ -835,13 +867,21 @@ class _$_Members implements _Members {
   @HiveField(16)
   final String? photoPath;
   @override
-  @JsonKey(name: "photo_url")
+  @JsonKey(name: "foto_moderator")
   @HiveField(17)
   final String? photoUrl;
+  @override
+  @JsonKey(name: "propinsi_name")
+  @HiveField(18)
+  final String? propinsiName;
+  @override
+  @JsonKey(name: "kota_name")
+  @HiveField(19)
+  final String? kotaName;
 
   @override
   String toString() {
-    return 'Members(memberId: $memberId, username: $username, fullname: $fullname, email: $email, noHp: $noHp, tanggalLahir: $tanggalLahir, propinsiId: $propinsiId, kotaId: $kotaId, isAktivasi: $isAktivasi, isBlocked: $isBlocked, aktivasiAt: $aktivasiAt, blockedAt: $blockedAt, createdAt: $createdAt, updatedAt: $updatedAt, lastloginAt: $lastloginAt, kodePos: $kodePos, photoPath: $photoPath, photoUrl: $photoUrl)';
+    return 'Members(memberId: $memberId, username: $username, fullname: $fullname, email: $email, noHp: $noHp, tanggalLahir: $tanggalLahir, propinsiId: $propinsiId, kotaId: $kotaId, isAktivasi: $isAktivasi, isBlocked: $isBlocked, aktivasiAt: $aktivasiAt, blockedAt: $blockedAt, createdAt: $createdAt, updatedAt: $updatedAt, lastloginAt: $lastloginAt, kodePos: $kodePos, photoPath: $photoPath, photoUrl: $photoUrl, propinsiName: $propinsiName, kotaName: $kotaName)';
   }
 
   @override
@@ -880,31 +920,38 @@ class _$_Members implements _Members {
             (identical(other.photoPath, photoPath) ||
                 other.photoPath == photoPath) &&
             (identical(other.photoUrl, photoUrl) ||
-                other.photoUrl == photoUrl));
+                other.photoUrl == photoUrl) &&
+            (identical(other.propinsiName, propinsiName) ||
+                other.propinsiName == propinsiName) &&
+            (identical(other.kotaName, kotaName) ||
+                other.kotaName == kotaName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      memberId,
-      username,
-      fullname,
-      email,
-      noHp,
-      tanggalLahir,
-      propinsiId,
-      kotaId,
-      isAktivasi,
-      isBlocked,
-      aktivasiAt,
-      blockedAt,
-      createdAt,
-      updatedAt,
-      lastloginAt,
-      kodePos,
-      photoPath,
-      photoUrl);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        memberId,
+        username,
+        fullname,
+        email,
+        noHp,
+        tanggalLahir,
+        propinsiId,
+        kotaId,
+        isAktivasi,
+        isBlocked,
+        aktivasiAt,
+        blockedAt,
+        createdAt,
+        updatedAt,
+        lastloginAt,
+        kodePos,
+        photoPath,
+        photoUrl,
+        propinsiName,
+        kotaName
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -970,9 +1017,15 @@ abstract class _Members implements Members {
       @JsonKey(name: "photo_path")
       @HiveField(16)
           final String? photoPath,
-      @JsonKey(name: "photo_url")
+      @JsonKey(name: "foto_moderator")
       @HiveField(17)
-          final String? photoUrl}) = _$_Members;
+          final String? photoUrl,
+      @JsonKey(name: "propinsi_name")
+      @HiveField(18)
+          final String? propinsiName,
+      @JsonKey(name: "kota_name")
+      @HiveField(19)
+          final String? kotaName}) = _$_Members;
 
   factory _Members.fromJson(Map<String, dynamic> json) = _$_Members.fromJson;
 
@@ -1042,9 +1095,17 @@ abstract class _Members implements Members {
   @HiveField(16)
   String? get photoPath;
   @override
-  @JsonKey(name: "photo_url")
+  @JsonKey(name: "foto_moderator")
   @HiveField(17)
   String? get photoUrl;
+  @override
+  @JsonKey(name: "propinsi_name")
+  @HiveField(18)
+  String? get propinsiName;
+  @override
+  @JsonKey(name: "kota_name")
+  @HiveField(19)
+  String? get kotaName;
   @override
   @JsonKey(ignore: true)
   _$$_MembersCopyWith<_$_Members> get copyWith =>

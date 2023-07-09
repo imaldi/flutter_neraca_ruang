@@ -112,13 +112,15 @@ class MemberAdapter extends TypeAdapter<_$_Members> {
       kodePos: fields[15] as String?,
       photoPath: fields[16] as String?,
       photoUrl: fields[17] as String?,
+      propinsiName: fields[18] as String?,
+      kotaName: fields[19] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_Members obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(20)
       ..writeByte(0)
       ..write(obj.memberId)
       ..writeByte(1)
@@ -154,7 +156,11 @@ class MemberAdapter extends TypeAdapter<_$_Members> {
       ..writeByte(16)
       ..write(obj.photoPath)
       ..writeByte(17)
-      ..write(obj.photoUrl);
+      ..write(obj.photoUrl)
+      ..writeByte(18)
+      ..write(obj.propinsiName)
+      ..writeByte(19)
+      ..write(obj.kotaName);
   }
 
   @override
@@ -232,7 +238,9 @@ _$_Members _$$_MembersFromJson(Map<String, dynamic> json) => _$_Members(
           : DateTime.parse(json['last_login_at'] as String),
       kodePos: json['kode_pos'] as String?,
       photoPath: json['photo_path'] as String?,
-      photoUrl: json['photo_url'] as String?,
+      photoUrl: json['foto_moderator'] as String?,
+      propinsiName: json['propinsi_name'] as String?,
+      kotaName: json['kota_name'] as String?,
     );
 
 Map<String, dynamic> _$$_MembersToJson(_$_Members instance) =>
@@ -254,5 +262,7 @@ Map<String, dynamic> _$$_MembersToJson(_$_Members instance) =>
       'last_login_at': instance.lastloginAt?.toIso8601String(),
       'kode_pos': instance.kodePos,
       'photo_path': instance.photoPath,
-      'photo_url': instance.photoUrl,
+      'foto_moderator': instance.photoUrl,
+      'propinsi_name': instance.propinsiName,
+      'kota_name': instance.kotaName,
     };

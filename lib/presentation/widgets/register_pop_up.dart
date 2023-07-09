@@ -17,6 +17,7 @@ import '../../data/models/kota_kabupaten_response/kota_kabupaten_response.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../../logic/state_management/riverpod/current_location_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
+import 'login_pop_up.dart';
 import 'my_confirm_dialog/my_confirm_dialog.dart';
 import 'my_toast.dart';
 
@@ -387,7 +388,7 @@ class RegisterPopUp extends ConsumerWidget {
                                 kotaId: kabKotaId,
                                 successCallback: () {
                                   myToast("Register Success");
-                                  context.router.replace(const LandingRoute());
+                                  context.router.pop();
                                 },
                                 failureCallback: (message) {
                                   myToast("Register Failed: $message");
@@ -399,8 +400,26 @@ class RegisterPopUp extends ConsumerWidget {
                   ),
                   Text("Sudah memiliki akun?"),
                   InkWell(
-                    onTap: () {
-                      context.router.pop();
+                    onTap: () async {
+                      await context.router.pop();
+                      showDialog(
+                          context: context,
+                          builder: (c) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    huge), // Set the desired corner radius here
+                              ),
+                              child: IntrinsicHeight(
+                                child: IntrinsicWidth(
+                                  child: RoundedContainer(
+                                    huge,
+                                    child: LoginPopUp(),
+                                  ),
+                                ),
+                              ),
+                            );
+                          });
                     },
                     child: Text(
                       "MASUK",

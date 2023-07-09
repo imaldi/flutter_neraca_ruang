@@ -101,8 +101,7 @@ class LoginPopUp extends ConsumerWidget {
                                   password: passwordController.text,
                                   successCallback: () {
                                     myToast("Log In Success");
-                                    context.router
-                                        .replace(const LandingRoute());
+                                    context.router.pop();
                                   },
                                   failureCallback: () {
                                     myToast("Log In Failed");

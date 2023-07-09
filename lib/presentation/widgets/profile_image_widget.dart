@@ -60,11 +60,14 @@ class ProfileImageWidget extends ConsumerWidget {
                             child: Center(
                               child: MyImagePickerWidget(
                                   // isEnabled: isEnabled,
+                                  imageURL:
+                                      userData.value?.data?.members?.photoUrl ??
+                                          "",
                                   enabledRiverpod: profileEditMode,
+                                  fotoUrlRiverpod: profileImageUrlProvider,
                                   functionCallbackSetImageFilePath:
                                       (randomCode, theXFile) {
-                                    ref
-                                        .read(pathFotoProvider.notifier).state =
+                                    ref.read(pathFotoProvider.notifier).state =
                                         theXFile?.path ?? "";
                                   },
                                   defaultImagePlaceholder: Icon(

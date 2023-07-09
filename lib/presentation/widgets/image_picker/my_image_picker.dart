@@ -34,6 +34,7 @@ class MyImagePickerWidget extends ConsumerStatefulWidget {
     this.localImageURL,
     this.defaultImagePlaceholder,
     this.enabledRiverpod,
+    this.fotoUrlRiverpod,
     this.customChild,
     // this.checkIsEmpty = _checkIsEmptyDefault
   }) : super(key: key);
@@ -43,7 +44,8 @@ class MyImagePickerWidget extends ConsumerStatefulWidget {
   final Function(int, XFile?)? functionCallbackSetImageFilePath;
   // bool Function() checkIsEmpty;
   bool isEnabled;
-  StateProvider<bool>? enabledRiverpod;
+  ProviderListenable<bool>? enabledRiverpod;
+  ProviderListenable<String?>? fotoUrlRiverpod;
   String? imageURL;
   String? localImageURL;
   String? title;
@@ -66,6 +68,9 @@ class _MyImagePickerWidgetState extends ConsumerState<MyImagePickerWidget> {
         .pickImage(source: ImageSource.camera)
         .whenComplete(() {
       // setState(() {});
+      // fixme nanti ganti dengan provider yg lebih umum
+      if (widget.fotoUrlRiverpod != null)
+        ref.invalidate(profileImageUrlProvider);
       context.router.pop();
       // Navigator.of(context).pop();
     });
@@ -101,6 +106,9 @@ class _MyImagePickerWidgetState extends ConsumerState<MyImagePickerWidget> {
         .pickImage(source: ImageSource.gallery)
         .whenComplete(() {
       // setState(() {});
+      // fixme nanti ganti dengan provider yg lebih umum
+      if (widget.fotoUrlRiverpod != null)
+        ref.invalidate(profileImageUrlProvider);
     });
 
     print("pickedFile path : ${pickedFile?.path}");
@@ -153,6 +161,10 @@ class _MyImagePickerWidgetState extends ConsumerState<MyImagePickerWidget> {
             ? ref.watch(profileEditMode)
             : cubitState.isEnabled;
 
+        final imageURL = widget.fotoUrlRiverpod != null
+            ? ref.watch<String?>(widget.fotoUrlRiverpod!)
+            : cubitState.imageURL;
+
         if (!cubitState.isInitialized) {
           cubitInst.initLocalImagePickerState(
             // storedImage: storedImage,
@@ -171,7 +183,7 @@ class _MyImagePickerWidgetState extends ConsumerState<MyImagePickerWidget> {
                   // _pickFile();
                 }
               : null,
-          child: (cubitState.imageURL == null)
+          child: (imageURL == null)
               ? cubitState.storedImage == null
                   ? widget.defaultImagePlaceholder ??
                       const _DefaultIconPlaceholder()
@@ -179,29 +191,29 @@ class _MyImagePickerWidgetState extends ConsumerState<MyImagePickerWidget> {
                       errorBuilder: (BuildContext context, Object exception,
                           StackTrace? stackTrace) {
                       // setState(() {
-                      cubitState.imageURL = null;
+                      // imageURL = null;
                       // });
                       return widget.defaultImagePlaceholder ??
                           const _DefaultIconPlaceholder();
                     })
-              : (cubitState.localImageURL != cubitState.imageURL &&
+              : (cubitState.localImageURL != imageURL &&
                       cubitState.localImageURL != null &&
                       cubitState.storedImage != null)
                   ? Image.file(File(cubitState.storedImage?.path ?? ""),
                       errorBuilder: (BuildContext context, Object exception,
                           StackTrace? stackTrace) {
                       // setState(() {
-                      cubitState.imageURL = null;
+                      // cubitState.imageURL = null;
                       // });
                       return widget.defaultImagePlaceholder ??
                           const _DefaultIconPlaceholder();
                     })
                   : Image.network(
-                      cubitState.imageURL!,
+                      imageURL,
                       errorBuilder: (BuildContext context, Object exception,
                           StackTrace? stackTrace) {
                         // setState(() {
-                        cubitState.imageURL = null;
+                        // cubitState.imageURL = null;
                         // });
                         return widget.defaultImagePlaceholder ??
                             const _DefaultIconPlaceholder();

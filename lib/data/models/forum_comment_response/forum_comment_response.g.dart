@@ -74,19 +74,11 @@ _$_ForumCommentModel _$$_ForumCommentModelFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['created_at'] as String),
       createdBy: json['created_by'] as String?,
-      updatedAt: json['udpated_at'] == null
-          ? null
-          : DateTime.parse(json['udpated_at'] as String),
-      updatedBy: json['updated_by'] as String?,
-      bannedAt: json['banned_at'] == null
-          ? null
-          : DateTime.parse(json['banned_at'] as String),
-      bannedBy: json['banned_by'] as String?,
-      unbannedAt: json['unbanned_at'] == null
-          ? null
-          : DateTime.parse(json['unbanned_at'] as String),
-      unbannedBy: json['unbanned_by'] as String?,
-      isBanned: json['is_banned'] as bool?,
+      totalRead: json['total_read'] as int?,
+      totalLike: json['total_like'] as int?,
+      childReply: (json['child_reply'] as List<dynamic>?)
+          ?.map((e) => ForumCommentModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_ForumCommentModelToJson(
@@ -100,11 +92,7 @@ Map<String, dynamic> _$$_ForumCommentModelToJson(
       'member_id': instance.memberId,
       'created_at': instance.createdAt?.toIso8601String(),
       'created_by': instance.createdBy,
-      'udpated_at': instance.updatedAt?.toIso8601String(),
-      'updated_by': instance.updatedBy,
-      'banned_at': instance.bannedAt?.toIso8601String(),
-      'banned_by': instance.bannedBy,
-      'unbanned_at': instance.unbannedAt?.toIso8601String(),
-      'unbanned_by': instance.unbannedBy,
-      'is_banned': instance.isBanned,
+      'total_read': instance.totalRead,
+      'total_like': instance.totalLike,
+      'child_reply': instance.childReply,
     };

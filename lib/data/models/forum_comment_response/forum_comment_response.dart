@@ -5,7 +5,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
-import '../diskusi_response/diskusi_response.dart';
+import '../dashboard_response/dashboard_response.dart';
 
 part 'forum_comment_response.freezed.dart';
 part 'forum_comment_response.g.dart';
@@ -54,13 +54,9 @@ class ForumCommentModel with _$ForumCommentModel {
     @JsonKey(name: "member_id") int? memberId,
     @JsonKey(name: "created_at") DateTime? createdAt,
     @JsonKey(name: "created_by") String? createdBy,
-    @JsonKey(name: "udpated_at") DateTime? updatedAt,
-    @JsonKey(name: "updated_by") String? updatedBy,
-    @JsonKey(name: "banned_at") DateTime? bannedAt,
-    @JsonKey(name: "banned_by") String? bannedBy,
-    @JsonKey(name: "unbanned_at") DateTime? unbannedAt,
-    @JsonKey(name: "unbanned_by") String? unbannedBy,
-    @JsonKey(name: "is_banned") bool? isBanned,
+    @JsonKey(name: "total_read") int? totalRead,
+    @JsonKey(name: "total_like") int? totalLike,
+    @JsonKey(name: "child_reply") List<ForumCommentModel>? childReply,
   }) = _ForumCommentModel;
 
   factory ForumCommentModel.fromJson(Map<String, dynamic> json) =>

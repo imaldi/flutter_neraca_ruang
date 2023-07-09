@@ -648,20 +648,12 @@ mixin _$ForumCommentModel {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: "created_by")
   String? get createdBy => throw _privateConstructorUsedError;
-  @JsonKey(name: "udpated_at")
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: "updated_by")
-  String? get updatedBy => throw _privateConstructorUsedError;
-  @JsonKey(name: "banned_at")
-  DateTime? get bannedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: "banned_by")
-  String? get bannedBy => throw _privateConstructorUsedError;
-  @JsonKey(name: "unbanned_at")
-  DateTime? get unbannedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: "unbanned_by")
-  String? get unbannedBy => throw _privateConstructorUsedError;
-  @JsonKey(name: "is_banned")
-  bool? get isBanned => throw _privateConstructorUsedError;
+  @JsonKey(name: "total_read")
+  int? get totalRead => throw _privateConstructorUsedError;
+  @JsonKey(name: "total_like")
+  int? get totalLike => throw _privateConstructorUsedError;
+  @JsonKey(name: "child_reply")
+  List<ForumCommentModel>? get childReply => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -684,13 +676,9 @@ abstract class $ForumCommentModelCopyWith<$Res> {
       @JsonKey(name: "member_id") int? memberId,
       @JsonKey(name: "created_at") DateTime? createdAt,
       @JsonKey(name: "created_by") String? createdBy,
-      @JsonKey(name: "udpated_at") DateTime? updatedAt,
-      @JsonKey(name: "updated_by") String? updatedBy,
-      @JsonKey(name: "banned_at") DateTime? bannedAt,
-      @JsonKey(name: "banned_by") String? bannedBy,
-      @JsonKey(name: "unbanned_at") DateTime? unbannedAt,
-      @JsonKey(name: "unbanned_by") String? unbannedBy,
-      @JsonKey(name: "is_banned") bool? isBanned});
+      @JsonKey(name: "total_read") int? totalRead,
+      @JsonKey(name: "total_like") int? totalLike,
+      @JsonKey(name: "child_reply") List<ForumCommentModel>? childReply});
 }
 
 /// @nodoc
@@ -714,13 +702,9 @@ class _$ForumCommentModelCopyWithImpl<$Res, $Val extends ForumCommentModel>
     Object? memberId = freezed,
     Object? createdAt = freezed,
     Object? createdBy = freezed,
-    Object? updatedAt = freezed,
-    Object? updatedBy = freezed,
-    Object? bannedAt = freezed,
-    Object? bannedBy = freezed,
-    Object? unbannedAt = freezed,
-    Object? unbannedBy = freezed,
-    Object? isBanned = freezed,
+    Object? totalRead = freezed,
+    Object? totalLike = freezed,
+    Object? childReply = freezed,
   }) {
     return _then(_value.copyWith(
       replyId: freezed == replyId
@@ -755,34 +739,18 @@ class _$ForumCommentModelCopyWithImpl<$Res, $Val extends ForumCommentModel>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedBy: freezed == updatedBy
-          ? _value.updatedBy
-          : updatedBy // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bannedAt: freezed == bannedAt
-          ? _value.bannedAt
-          : bannedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      bannedBy: freezed == bannedBy
-          ? _value.bannedBy
-          : bannedBy // ignore: cast_nullable_to_non_nullable
-              as String?,
-      unbannedAt: freezed == unbannedAt
-          ? _value.unbannedAt
-          : unbannedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      unbannedBy: freezed == unbannedBy
-          ? _value.unbannedBy
-          : unbannedBy // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isBanned: freezed == isBanned
-          ? _value.isBanned
-          : isBanned // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      totalRead: freezed == totalRead
+          ? _value.totalRead
+          : totalRead // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalLike: freezed == totalLike
+          ? _value.totalLike
+          : totalLike // ignore: cast_nullable_to_non_nullable
+              as int?,
+      childReply: freezed == childReply
+          ? _value.childReply
+          : childReply // ignore: cast_nullable_to_non_nullable
+              as List<ForumCommentModel>?,
     ) as $Val);
   }
 }
@@ -804,13 +772,9 @@ abstract class _$$_ForumCommentModelCopyWith<$Res>
       @JsonKey(name: "member_id") int? memberId,
       @JsonKey(name: "created_at") DateTime? createdAt,
       @JsonKey(name: "created_by") String? createdBy,
-      @JsonKey(name: "udpated_at") DateTime? updatedAt,
-      @JsonKey(name: "updated_by") String? updatedBy,
-      @JsonKey(name: "banned_at") DateTime? bannedAt,
-      @JsonKey(name: "banned_by") String? bannedBy,
-      @JsonKey(name: "unbanned_at") DateTime? unbannedAt,
-      @JsonKey(name: "unbanned_by") String? unbannedBy,
-      @JsonKey(name: "is_banned") bool? isBanned});
+      @JsonKey(name: "total_read") int? totalRead,
+      @JsonKey(name: "total_like") int? totalLike,
+      @JsonKey(name: "child_reply") List<ForumCommentModel>? childReply});
 }
 
 /// @nodoc
@@ -832,13 +796,9 @@ class __$$_ForumCommentModelCopyWithImpl<$Res>
     Object? memberId = freezed,
     Object? createdAt = freezed,
     Object? createdBy = freezed,
-    Object? updatedAt = freezed,
-    Object? updatedBy = freezed,
-    Object? bannedAt = freezed,
-    Object? bannedBy = freezed,
-    Object? unbannedAt = freezed,
-    Object? unbannedBy = freezed,
-    Object? isBanned = freezed,
+    Object? totalRead = freezed,
+    Object? totalLike = freezed,
+    Object? childReply = freezed,
   }) {
     return _then(_$_ForumCommentModel(
       replyId: freezed == replyId
@@ -873,34 +833,18 @@ class __$$_ForumCommentModelCopyWithImpl<$Res>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedBy: freezed == updatedBy
-          ? _value.updatedBy
-          : updatedBy // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bannedAt: freezed == bannedAt
-          ? _value.bannedAt
-          : bannedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      bannedBy: freezed == bannedBy
-          ? _value.bannedBy
-          : bannedBy // ignore: cast_nullable_to_non_nullable
-              as String?,
-      unbannedAt: freezed == unbannedAt
-          ? _value.unbannedAt
-          : unbannedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      unbannedBy: freezed == unbannedBy
-          ? _value.unbannedBy
-          : unbannedBy // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isBanned: freezed == isBanned
-          ? _value.isBanned
-          : isBanned // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      totalRead: freezed == totalRead
+          ? _value.totalRead
+          : totalRead // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalLike: freezed == totalLike
+          ? _value.totalLike
+          : totalLike // ignore: cast_nullable_to_non_nullable
+              as int?,
+      childReply: freezed == childReply
+          ? _value._childReply
+          : childReply // ignore: cast_nullable_to_non_nullable
+              as List<ForumCommentModel>?,
     ));
   }
 }
@@ -917,13 +861,10 @@ class _$_ForumCommentModel implements _ForumCommentModel {
       @JsonKey(name: "member_id") this.memberId,
       @JsonKey(name: "created_at") this.createdAt,
       @JsonKey(name: "created_by") this.createdBy,
-      @JsonKey(name: "udpated_at") this.updatedAt,
-      @JsonKey(name: "updated_by") this.updatedBy,
-      @JsonKey(name: "banned_at") this.bannedAt,
-      @JsonKey(name: "banned_by") this.bannedBy,
-      @JsonKey(name: "unbanned_at") this.unbannedAt,
-      @JsonKey(name: "unbanned_by") this.unbannedBy,
-      @JsonKey(name: "is_banned") this.isBanned});
+      @JsonKey(name: "total_read") this.totalRead,
+      @JsonKey(name: "total_like") this.totalLike,
+      @JsonKey(name: "child_reply") final List<ForumCommentModel>? childReply})
+      : _childReply = childReply;
 
   factory _$_ForumCommentModel.fromJson(Map<String, dynamic> json) =>
       _$$_ForumCommentModelFromJson(json);
@@ -953,30 +894,25 @@ class _$_ForumCommentModel implements _ForumCommentModel {
   @JsonKey(name: "created_by")
   final String? createdBy;
   @override
-  @JsonKey(name: "udpated_at")
-  final DateTime? updatedAt;
+  @JsonKey(name: "total_read")
+  final int? totalRead;
   @override
-  @JsonKey(name: "updated_by")
-  final String? updatedBy;
+  @JsonKey(name: "total_like")
+  final int? totalLike;
+  final List<ForumCommentModel>? _childReply;
   @override
-  @JsonKey(name: "banned_at")
-  final DateTime? bannedAt;
-  @override
-  @JsonKey(name: "banned_by")
-  final String? bannedBy;
-  @override
-  @JsonKey(name: "unbanned_at")
-  final DateTime? unbannedAt;
-  @override
-  @JsonKey(name: "unbanned_by")
-  final String? unbannedBy;
-  @override
-  @JsonKey(name: "is_banned")
-  final bool? isBanned;
+  @JsonKey(name: "child_reply")
+  List<ForumCommentModel>? get childReply {
+    final value = _childReply;
+    if (value == null) return null;
+    if (_childReply is EqualUnmodifiableListView) return _childReply;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'ForumCommentModel(replyId: $replyId, replyContent: $replyContent, threadId: $threadId, replyAt: $replyAt, replyBy: $replyBy, memberId: $memberId, createdAt: $createdAt, createdBy: $createdBy, updatedAt: $updatedAt, updatedBy: $updatedBy, bannedAt: $bannedAt, bannedBy: $bannedBy, unbannedAt: $unbannedAt, unbannedBy: $unbannedBy, isBanned: $isBanned)';
+    return 'ForumCommentModel(replyId: $replyId, replyContent: $replyContent, threadId: $threadId, replyAt: $replyAt, replyBy: $replyBy, memberId: $memberId, createdAt: $createdAt, createdBy: $createdBy, totalRead: $totalRead, totalLike: $totalLike, childReply: $childReply)';
   }
 
   @override
@@ -997,20 +933,12 @@ class _$_ForumCommentModel implements _ForumCommentModel {
                 other.createdAt == createdAt) &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            (identical(other.updatedBy, updatedBy) ||
-                other.updatedBy == updatedBy) &&
-            (identical(other.bannedAt, bannedAt) ||
-                other.bannedAt == bannedAt) &&
-            (identical(other.bannedBy, bannedBy) ||
-                other.bannedBy == bannedBy) &&
-            (identical(other.unbannedAt, unbannedAt) ||
-                other.unbannedAt == unbannedAt) &&
-            (identical(other.unbannedBy, unbannedBy) ||
-                other.unbannedBy == unbannedBy) &&
-            (identical(other.isBanned, isBanned) ||
-                other.isBanned == isBanned));
+            (identical(other.totalRead, totalRead) ||
+                other.totalRead == totalRead) &&
+            (identical(other.totalLike, totalLike) ||
+                other.totalLike == totalLike) &&
+            const DeepCollectionEquality()
+                .equals(other._childReply, _childReply));
   }
 
   @JsonKey(ignore: true)
@@ -1025,13 +953,9 @@ class _$_ForumCommentModel implements _ForumCommentModel {
       memberId,
       createdAt,
       createdBy,
-      updatedAt,
-      updatedBy,
-      bannedAt,
-      bannedBy,
-      unbannedAt,
-      unbannedBy,
-      isBanned);
+      totalRead,
+      totalLike,
+      const DeepCollectionEquality().hash(_childReply));
 
   @JsonKey(ignore: true)
   @override
@@ -1050,21 +974,28 @@ class _$_ForumCommentModel implements _ForumCommentModel {
 
 abstract class _ForumCommentModel implements ForumCommentModel {
   const factory _ForumCommentModel(
-      {@JsonKey(name: "reply_id") final int? replyId,
-      @JsonKey(name: "reply_content") final String? replyContent,
-      @JsonKey(name: "thread_id") final int? threadId,
-      @JsonKey(name: "reply_at") final DateTime? replyAt,
-      @JsonKey(name: "reply_by") final String? replyBy,
-      @JsonKey(name: "member_id") final int? memberId,
-      @JsonKey(name: "created_at") final DateTime? createdAt,
-      @JsonKey(name: "created_by") final String? createdBy,
-      @JsonKey(name: "udpated_at") final DateTime? updatedAt,
-      @JsonKey(name: "updated_by") final String? updatedBy,
-      @JsonKey(name: "banned_at") final DateTime? bannedAt,
-      @JsonKey(name: "banned_by") final String? bannedBy,
-      @JsonKey(name: "unbanned_at") final DateTime? unbannedAt,
-      @JsonKey(name: "unbanned_by") final String? unbannedBy,
-      @JsonKey(name: "is_banned") final bool? isBanned}) = _$_ForumCommentModel;
+      {@JsonKey(name: "reply_id")
+          final int? replyId,
+      @JsonKey(name: "reply_content")
+          final String? replyContent,
+      @JsonKey(name: "thread_id")
+          final int? threadId,
+      @JsonKey(name: "reply_at")
+          final DateTime? replyAt,
+      @JsonKey(name: "reply_by")
+          final String? replyBy,
+      @JsonKey(name: "member_id")
+          final int? memberId,
+      @JsonKey(name: "created_at")
+          final DateTime? createdAt,
+      @JsonKey(name: "created_by")
+          final String? createdBy,
+      @JsonKey(name: "total_read")
+          final int? totalRead,
+      @JsonKey(name: "total_like")
+          final int? totalLike,
+      @JsonKey(name: "child_reply")
+          final List<ForumCommentModel>? childReply}) = _$_ForumCommentModel;
 
   factory _ForumCommentModel.fromJson(Map<String, dynamic> json) =
       _$_ForumCommentModel.fromJson;
@@ -1094,26 +1025,14 @@ abstract class _ForumCommentModel implements ForumCommentModel {
   @JsonKey(name: "created_by")
   String? get createdBy;
   @override
-  @JsonKey(name: "udpated_at")
-  DateTime? get updatedAt;
+  @JsonKey(name: "total_read")
+  int? get totalRead;
   @override
-  @JsonKey(name: "updated_by")
-  String? get updatedBy;
+  @JsonKey(name: "total_like")
+  int? get totalLike;
   @override
-  @JsonKey(name: "banned_at")
-  DateTime? get bannedAt;
-  @override
-  @JsonKey(name: "banned_by")
-  String? get bannedBy;
-  @override
-  @JsonKey(name: "unbanned_at")
-  DateTime? get unbannedAt;
-  @override
-  @JsonKey(name: "unbanned_by")
-  String? get unbannedBy;
-  @override
-  @JsonKey(name: "is_banned")
-  bool? get isBanned;
+  @JsonKey(name: "child_reply")
+  List<ForumCommentModel>? get childReply;
   @override
   @JsonKey(ignore: true)
   _$$_ForumCommentModelCopyWith<_$_ForumCommentModel> get copyWith =>

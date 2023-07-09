@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/assets.dart';
+import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/consts/urls.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -94,17 +95,18 @@ class SocialMediaPanelWidget extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
             "neracaruang@neracaruang.com",
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(decoration: TextDecoration.underline),
+            style: TextStyle(
+                color: Color(isGreenMode ? greenModeColor : primaryColor),
+                decoration: TextDecoration.underline),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
             "Copyright © PT. Semesta Teknologi Indonesia",
-            style: Theme.of(context).textTheme.bodySmall,
+            style: TextStyle(
+              color: Color(isGreenMode ? greenModeColor : primaryColor),
+            ),
           ),
         ),
       ],
