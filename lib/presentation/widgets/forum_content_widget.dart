@@ -33,8 +33,8 @@ class ForumContentWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var contentId = ref.watch(selectedContentIdProvider);
-    var selectedSlug = ref.watch(selectedContentSlugProvider);
+    var contentId = ref.watch(selectedForumIdProvider);
+    var selectedSlug = ref.watch(selectedForumSlugProvider);
     var isLiked = content.localLike ?? false;
     var isLogin = ref.watch(authStatusProvider).value != null;
     return Column(
@@ -127,7 +127,7 @@ class ForumContentWidget extends ConsumerWidget {
               InkWell(
                 onTap: contentId != content.threadId
                     ? () {
-                        ref.read(selectedContentIdProvider.notifier).state =
+                        ref.read(selectedForumIdProvider.notifier).state =
                             content.threadId ?? 0;
                         ref
                             .read(activeForumsProvider.notifier)
@@ -200,9 +200,9 @@ class ForumContentWidget extends ConsumerWidget {
               InkWell(
                 onTap: contentId != content.threadId
                     ? () async {
-                        ref.read(selectedContentIdProvider.notifier).state =
+                        ref.read(selectedForumIdProvider.notifier).state =
                             content.threadId ?? 0;
-                        ref.read(selectedContentSlugProvider.notifier).state =
+                        ref.read(selectedForumSlugProvider.notifier).state =
                             content.threadSlug ?? "";
                         // await ref
                         //     .read(forumCommentsProvider.notifier)

@@ -39,7 +39,7 @@ class ForumComments extends _$ForumComments {
 
   Future<List<ForumCommentModel>> fetchCommentFromAPI() async {
     state = const AsyncValue.loading();
-    String selectedSlug = ref.watch(selectedContentSlugProvider);
+    String selectedSlug = ref.watch(selectedForumSlugProvider);
 
     String token =
         "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";

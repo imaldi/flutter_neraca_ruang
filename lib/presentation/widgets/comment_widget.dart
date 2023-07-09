@@ -5,6 +5,7 @@ import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/comment_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/consts/sizes.dart';
 import '../../data/models/comment_response/comment_response.dart';
@@ -88,15 +89,28 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
+                                            RichText(
+                                                text: TextSpan(
+                                                    text: "",
+                                                    style: DefaultTextStyle.of(
+                                                            context)
+                                                        .style,
+                                                    children: [
+                                                  TextSpan(
+                                                      text:
+                                                          "${(data[i] as CommentModel).username ?? "Anonim"}",
+                                                      style: TextStyle(
+                                                          fontSize: medium,
+                                                          color: Colors.black87,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  TextSpan(
+                                                    text:
+                                                        " | ${(data[i] as CommentModel).komentarAt != null ? DateFormat("d MMMM yyyy hh:mm", 'id').format((data[i] as CommentModel).komentarAt!) : ""}",
+                                                  ),
+                                                ])),
                                             Text(
                                               "${(data[i] as CommentModel).komentar}",
-                                              style:
-                                                  TextStyle(fontSize: medium),
-                                            ),
-                                            Text(
-                                              "by: ${(data[i] as CommentModel).username ?? "-"}",
-                                              style: TextStyle(
-                                                  color: Color(primaryColor)),
                                             ),
                                           ]),
                                     );

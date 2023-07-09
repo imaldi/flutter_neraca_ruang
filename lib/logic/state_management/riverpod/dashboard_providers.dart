@@ -191,6 +191,13 @@ final selectedContentSlugProvider = StateProvider<String>((ref) {
   //
   return "";
 });
+final selectedForumIdProvider = StateProvider<int>((ref) => 0);
+
+final selectedForumSlugProvider = StateProvider<String>((ref) {
+  // var selectedId = ref.watch(selectedContentIdProvider);
+  //
+  return "";
+});
 
 final pageNumberProvider = StateProvider<int>(
   (ref) => 1,
