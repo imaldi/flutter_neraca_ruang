@@ -632,28 +632,42 @@ ForumCommentModel _$ForumCommentModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ForumCommentModel {
+  @HiveField(0)
   @JsonKey(name: "reply_id")
   int? get replyId => throw _privateConstructorUsedError;
+  @HiveField(1)
   @JsonKey(name: "reply_content")
   String? get replyContent => throw _privateConstructorUsedError;
+  @HiveField(2)
   @JsonKey(name: "thread_id")
   int? get threadId => throw _privateConstructorUsedError;
+  @HiveField(3)
   @JsonKey(name: "reply_at")
   DateTime? get replyAt => throw _privateConstructorUsedError;
+  @HiveField(4)
   @JsonKey(name: "reply_by")
   String? get replyBy => throw _privateConstructorUsedError;
+  @HiveField(5)
   @JsonKey(name: "member_id")
   int? get memberId => throw _privateConstructorUsedError;
+  @HiveField(6)
   @JsonKey(name: "created_at")
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  @HiveField(7)
   @JsonKey(name: "created_by")
   String? get createdBy => throw _privateConstructorUsedError;
+  @HiveField(8)
   @JsonKey(name: "total_read")
   int? get totalRead => throw _privateConstructorUsedError;
+  @HiveField(9)
   @JsonKey(name: "total_like")
   int? get totalLike => throw _privateConstructorUsedError;
+  @HiveField(10)
   @JsonKey(name: "child_reply")
   List<ForumCommentModel>? get childReply => throw _privateConstructorUsedError;
+  @HiveField(11)
+  @JsonKey(name: "local_like")
+  bool get localLike => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -668,17 +682,42 @@ abstract class $ForumCommentModelCopyWith<$Res> {
       _$ForumCommentModelCopyWithImpl<$Res, ForumCommentModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: "reply_id") int? replyId,
-      @JsonKey(name: "reply_content") String? replyContent,
-      @JsonKey(name: "thread_id") int? threadId,
-      @JsonKey(name: "reply_at") DateTime? replyAt,
-      @JsonKey(name: "reply_by") String? replyBy,
-      @JsonKey(name: "member_id") int? memberId,
-      @JsonKey(name: "created_at") DateTime? createdAt,
-      @JsonKey(name: "created_by") String? createdBy,
-      @JsonKey(name: "total_read") int? totalRead,
-      @JsonKey(name: "total_like") int? totalLike,
-      @JsonKey(name: "child_reply") List<ForumCommentModel>? childReply});
+      {@HiveField(0)
+      @JsonKey(name: "reply_id")
+          int? replyId,
+      @HiveField(1)
+      @JsonKey(name: "reply_content")
+          String? replyContent,
+      @HiveField(2)
+      @JsonKey(name: "thread_id")
+          int? threadId,
+      @HiveField(3)
+      @JsonKey(name: "reply_at")
+          DateTime? replyAt,
+      @HiveField(4)
+      @JsonKey(name: "reply_by")
+          String? replyBy,
+      @HiveField(5)
+      @JsonKey(name: "member_id")
+          int? memberId,
+      @HiveField(6)
+      @JsonKey(name: "created_at")
+          DateTime? createdAt,
+      @HiveField(7)
+      @JsonKey(name: "created_by")
+          String? createdBy,
+      @HiveField(8)
+      @JsonKey(name: "total_read")
+          int? totalRead,
+      @HiveField(9)
+      @JsonKey(name: "total_like")
+          int? totalLike,
+      @HiveField(10)
+      @JsonKey(name: "child_reply")
+          List<ForumCommentModel>? childReply,
+      @HiveField(11)
+      @JsonKey(name: "local_like")
+          bool localLike});
 }
 
 /// @nodoc
@@ -705,6 +744,7 @@ class _$ForumCommentModelCopyWithImpl<$Res, $Val extends ForumCommentModel>
     Object? totalRead = freezed,
     Object? totalLike = freezed,
     Object? childReply = freezed,
+    Object? localLike = null,
   }) {
     return _then(_value.copyWith(
       replyId: freezed == replyId
@@ -751,6 +791,10 @@ class _$ForumCommentModelCopyWithImpl<$Res, $Val extends ForumCommentModel>
           ? _value.childReply
           : childReply // ignore: cast_nullable_to_non_nullable
               as List<ForumCommentModel>?,
+      localLike: null == localLike
+          ? _value.localLike
+          : localLike // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -764,17 +808,42 @@ abstract class _$$_ForumCommentModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "reply_id") int? replyId,
-      @JsonKey(name: "reply_content") String? replyContent,
-      @JsonKey(name: "thread_id") int? threadId,
-      @JsonKey(name: "reply_at") DateTime? replyAt,
-      @JsonKey(name: "reply_by") String? replyBy,
-      @JsonKey(name: "member_id") int? memberId,
-      @JsonKey(name: "created_at") DateTime? createdAt,
-      @JsonKey(name: "created_by") String? createdBy,
-      @JsonKey(name: "total_read") int? totalRead,
-      @JsonKey(name: "total_like") int? totalLike,
-      @JsonKey(name: "child_reply") List<ForumCommentModel>? childReply});
+      {@HiveField(0)
+      @JsonKey(name: "reply_id")
+          int? replyId,
+      @HiveField(1)
+      @JsonKey(name: "reply_content")
+          String? replyContent,
+      @HiveField(2)
+      @JsonKey(name: "thread_id")
+          int? threadId,
+      @HiveField(3)
+      @JsonKey(name: "reply_at")
+          DateTime? replyAt,
+      @HiveField(4)
+      @JsonKey(name: "reply_by")
+          String? replyBy,
+      @HiveField(5)
+      @JsonKey(name: "member_id")
+          int? memberId,
+      @HiveField(6)
+      @JsonKey(name: "created_at")
+          DateTime? createdAt,
+      @HiveField(7)
+      @JsonKey(name: "created_by")
+          String? createdBy,
+      @HiveField(8)
+      @JsonKey(name: "total_read")
+          int? totalRead,
+      @HiveField(9)
+      @JsonKey(name: "total_like")
+          int? totalLike,
+      @HiveField(10)
+      @JsonKey(name: "child_reply")
+          List<ForumCommentModel>? childReply,
+      @HiveField(11)
+      @JsonKey(name: "local_like")
+          bool localLike});
 }
 
 /// @nodoc
@@ -799,6 +868,7 @@ class __$$_ForumCommentModelCopyWithImpl<$Res>
     Object? totalRead = freezed,
     Object? totalLike = freezed,
     Object? childReply = freezed,
+    Object? localLike = null,
   }) {
     return _then(_$_ForumCommentModel(
       replyId: freezed == replyId
@@ -845,62 +915,104 @@ class __$$_ForumCommentModelCopyWithImpl<$Res>
           ? _value._childReply
           : childReply // ignore: cast_nullable_to_non_nullable
               as List<ForumCommentModel>?,
+      localLike: null == localLike
+          ? _value.localLike
+          : localLike // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@HiveType(typeId: forumCommentTypeId, adapterName: 'ForumCommentModelAdapter')
+@JsonSerializable(explicitToJson: true)
 class _$_ForumCommentModel implements _ForumCommentModel {
   const _$_ForumCommentModel(
-      {@JsonKey(name: "reply_id") this.replyId,
-      @JsonKey(name: "reply_content") this.replyContent,
-      @JsonKey(name: "thread_id") this.threadId,
-      @JsonKey(name: "reply_at") this.replyAt,
-      @JsonKey(name: "reply_by") this.replyBy,
-      @JsonKey(name: "member_id") this.memberId,
-      @JsonKey(name: "created_at") this.createdAt,
-      @JsonKey(name: "created_by") this.createdBy,
-      @JsonKey(name: "total_read") this.totalRead,
-      @JsonKey(name: "total_like") this.totalLike,
-      @JsonKey(name: "child_reply") final List<ForumCommentModel>? childReply})
+      {@HiveField(0)
+      @JsonKey(name: "reply_id")
+          this.replyId,
+      @HiveField(1)
+      @JsonKey(name: "reply_content")
+          this.replyContent,
+      @HiveField(2)
+      @JsonKey(name: "thread_id")
+          this.threadId,
+      @HiveField(3)
+      @JsonKey(name: "reply_at")
+          this.replyAt,
+      @HiveField(4)
+      @JsonKey(name: "reply_by")
+          this.replyBy,
+      @HiveField(5)
+      @JsonKey(name: "member_id")
+          this.memberId,
+      @HiveField(6)
+      @JsonKey(name: "created_at")
+          this.createdAt,
+      @HiveField(7)
+      @JsonKey(name: "created_by")
+          this.createdBy,
+      @HiveField(8)
+      @JsonKey(name: "total_read")
+          this.totalRead,
+      @HiveField(9)
+      @JsonKey(name: "total_like")
+          this.totalLike,
+      @HiveField(10)
+      @JsonKey(name: "child_reply")
+          final List<ForumCommentModel>? childReply,
+      @HiveField(11)
+      @JsonKey(name: "local_like")
+          this.localLike = false})
       : _childReply = childReply;
 
   factory _$_ForumCommentModel.fromJson(Map<String, dynamic> json) =>
       _$$_ForumCommentModelFromJson(json);
 
   @override
+  @HiveField(0)
   @JsonKey(name: "reply_id")
   final int? replyId;
   @override
+  @HiveField(1)
   @JsonKey(name: "reply_content")
   final String? replyContent;
   @override
+  @HiveField(2)
   @JsonKey(name: "thread_id")
   final int? threadId;
   @override
+  @HiveField(3)
   @JsonKey(name: "reply_at")
   final DateTime? replyAt;
   @override
+  @HiveField(4)
   @JsonKey(name: "reply_by")
   final String? replyBy;
   @override
+  @HiveField(5)
   @JsonKey(name: "member_id")
   final int? memberId;
   @override
+  @HiveField(6)
   @JsonKey(name: "created_at")
   final DateTime? createdAt;
   @override
+  @HiveField(7)
   @JsonKey(name: "created_by")
   final String? createdBy;
   @override
+  @HiveField(8)
   @JsonKey(name: "total_read")
   final int? totalRead;
   @override
+  @HiveField(9)
   @JsonKey(name: "total_like")
   final int? totalLike;
   final List<ForumCommentModel>? _childReply;
   @override
+  @HiveField(10)
   @JsonKey(name: "child_reply")
   List<ForumCommentModel>? get childReply {
     final value = _childReply;
@@ -911,8 +1023,13 @@ class _$_ForumCommentModel implements _ForumCommentModel {
   }
 
   @override
+  @HiveField(11)
+  @JsonKey(name: "local_like")
+  final bool localLike;
+
+  @override
   String toString() {
-    return 'ForumCommentModel(replyId: $replyId, replyContent: $replyContent, threadId: $threadId, replyAt: $replyAt, replyBy: $replyBy, memberId: $memberId, createdAt: $createdAt, createdBy: $createdBy, totalRead: $totalRead, totalLike: $totalLike, childReply: $childReply)';
+    return 'ForumCommentModel(replyId: $replyId, replyContent: $replyContent, threadId: $threadId, replyAt: $replyAt, replyBy: $replyBy, memberId: $memberId, createdAt: $createdAt, createdBy: $createdBy, totalRead: $totalRead, totalLike: $totalLike, childReply: $childReply, localLike: $localLike)';
   }
 
   @override
@@ -938,7 +1055,9 @@ class _$_ForumCommentModel implements _ForumCommentModel {
             (identical(other.totalLike, totalLike) ||
                 other.totalLike == totalLike) &&
             const DeepCollectionEquality()
-                .equals(other._childReply, _childReply));
+                .equals(other._childReply, _childReply) &&
+            (identical(other.localLike, localLike) ||
+                other.localLike == localLike));
   }
 
   @JsonKey(ignore: true)
@@ -955,7 +1074,8 @@ class _$_ForumCommentModel implements _ForumCommentModel {
       createdBy,
       totalRead,
       totalLike,
-      const DeepCollectionEquality().hash(_childReply));
+      const DeepCollectionEquality().hash(_childReply),
+      localLike);
 
   @JsonKey(ignore: true)
   @override
@@ -974,65 +1094,94 @@ class _$_ForumCommentModel implements _ForumCommentModel {
 
 abstract class _ForumCommentModel implements ForumCommentModel {
   const factory _ForumCommentModel(
-      {@JsonKey(name: "reply_id")
+      {@HiveField(0)
+      @JsonKey(name: "reply_id")
           final int? replyId,
+      @HiveField(1)
       @JsonKey(name: "reply_content")
           final String? replyContent,
+      @HiveField(2)
       @JsonKey(name: "thread_id")
           final int? threadId,
+      @HiveField(3)
       @JsonKey(name: "reply_at")
           final DateTime? replyAt,
+      @HiveField(4)
       @JsonKey(name: "reply_by")
           final String? replyBy,
+      @HiveField(5)
       @JsonKey(name: "member_id")
           final int? memberId,
+      @HiveField(6)
       @JsonKey(name: "created_at")
           final DateTime? createdAt,
+      @HiveField(7)
       @JsonKey(name: "created_by")
           final String? createdBy,
+      @HiveField(8)
       @JsonKey(name: "total_read")
           final int? totalRead,
+      @HiveField(9)
       @JsonKey(name: "total_like")
           final int? totalLike,
+      @HiveField(10)
       @JsonKey(name: "child_reply")
-          final List<ForumCommentModel>? childReply}) = _$_ForumCommentModel;
+          final List<ForumCommentModel>? childReply,
+      @HiveField(11)
+      @JsonKey(name: "local_like")
+          final bool localLike}) = _$_ForumCommentModel;
 
   factory _ForumCommentModel.fromJson(Map<String, dynamic> json) =
       _$_ForumCommentModel.fromJson;
 
   @override
+  @HiveField(0)
   @JsonKey(name: "reply_id")
   int? get replyId;
   @override
+  @HiveField(1)
   @JsonKey(name: "reply_content")
   String? get replyContent;
   @override
+  @HiveField(2)
   @JsonKey(name: "thread_id")
   int? get threadId;
   @override
+  @HiveField(3)
   @JsonKey(name: "reply_at")
   DateTime? get replyAt;
   @override
+  @HiveField(4)
   @JsonKey(name: "reply_by")
   String? get replyBy;
   @override
+  @HiveField(5)
   @JsonKey(name: "member_id")
   int? get memberId;
   @override
+  @HiveField(6)
   @JsonKey(name: "created_at")
   DateTime? get createdAt;
   @override
+  @HiveField(7)
   @JsonKey(name: "created_by")
   String? get createdBy;
   @override
+  @HiveField(8)
   @JsonKey(name: "total_read")
   int? get totalRead;
   @override
+  @HiveField(9)
   @JsonKey(name: "total_like")
   int? get totalLike;
   @override
+  @HiveField(10)
   @JsonKey(name: "child_reply")
   List<ForumCommentModel>? get childReply;
+  @override
+  @HiveField(11)
+  @JsonKey(name: "local_like")
+  bool get localLike;
   @override
   @JsonKey(ignore: true)
   _$$_ForumCommentModelCopyWith<_$_ForumCommentModel> get copyWith =>

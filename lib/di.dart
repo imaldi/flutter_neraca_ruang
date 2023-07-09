@@ -7,6 +7,8 @@ import 'data/models/auth_response/auth_response.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+import 'data/models/forum_comment_response/forum_comment_response.dart';
+
 final sl = GetIt.instance;
 Future<void> init() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,16 +22,20 @@ Future<void> init() async {
   Hive.registerAdapter(AuthResponseAdapter());
   Hive.registerAdapter(MemberDataAdapter());
   Hive.registerAdapter(MemberAdapter());
+  Hive.registerAdapter(ForumCommentModelAdapter());
   // final authBox = await Hive.openBox<LoginResponse>(authBoxKey);
   final authBox = await Hive.openBox<AuthResponse>(authBoxKey);
   // final userBox = await Hive.openBox<Members>(userDataKey);
   final likedContent = await Hive.openBox<String>(likedContentBoxKey);
+  final likedForumComment =
+      await Hive.openBox<ForumCommentModel>(forumCommentsBoxKey);
   sl.registerLazySingleton<GlobalKey<ScaffoldState>>(
       () => GlobalKey<ScaffoldState>());
   sl.registerLazySingleton<ScrollController>(() => ScrollController());
   sl.registerLazySingleton<Box<AuthResponse>>(() => authBox);
   // sl.registerLazySingleton<Box<Members>>(() => userBox);
   sl.registerLazySingleton<Box<String>>(() => likedContent);
+  sl.registerLazySingleton<Box<ForumCommentModel>>(() => likedForumComment);
 
   /// Permission
   var statusCamera = await Permission.camera.status;

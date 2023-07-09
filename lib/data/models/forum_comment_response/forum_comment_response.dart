@@ -2,7 +2,9 @@
 //
 //     final forumCommentResponse = forumCommentResponseFromJson(jsonString);
 
+import 'package:flutter_neraca_ruang/core/consts/hive_type_id.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 import 'dart:convert';
 
 import '../dashboard_response/dashboard_response.dart';
@@ -45,18 +47,23 @@ class ForumCommentData with _$ForumCommentData {
 
 @freezed
 class ForumCommentModel with _$ForumCommentModel {
+  @HiveType(typeId: forumCommentTypeId, adapterName: 'ForumCommentModelAdapter')
+  @JsonSerializable(explicitToJson: true)
   const factory ForumCommentModel({
-    @JsonKey(name: "reply_id") int? replyId,
-    @JsonKey(name: "reply_content") String? replyContent,
-    @JsonKey(name: "thread_id") int? threadId,
-    @JsonKey(name: "reply_at") DateTime? replyAt,
-    @JsonKey(name: "reply_by") String? replyBy,
-    @JsonKey(name: "member_id") int? memberId,
-    @JsonKey(name: "created_at") DateTime? createdAt,
-    @JsonKey(name: "created_by") String? createdBy,
-    @JsonKey(name: "total_read") int? totalRead,
-    @JsonKey(name: "total_like") int? totalLike,
-    @JsonKey(name: "child_reply") List<ForumCommentModel>? childReply,
+    @HiveField(0) @JsonKey(name: "reply_id") int? replyId,
+    @HiveField(1) @JsonKey(name: "reply_content") String? replyContent,
+    @HiveField(2) @JsonKey(name: "thread_id") int? threadId,
+    @HiveField(3) @JsonKey(name: "reply_at") DateTime? replyAt,
+    @HiveField(4) @JsonKey(name: "reply_by") String? replyBy,
+    @HiveField(5) @JsonKey(name: "member_id") int? memberId,
+    @HiveField(6) @JsonKey(name: "created_at") DateTime? createdAt,
+    @HiveField(7) @JsonKey(name: "created_by") String? createdBy,
+    @HiveField(8) @JsonKey(name: "total_read") int? totalRead,
+    @HiveField(9) @JsonKey(name: "total_like") int? totalLike,
+    @HiveField(10)
+    @JsonKey(name: "child_reply")
+    List<ForumCommentModel>? childReply,
+    @HiveField(11) @JsonKey(name: "local_like") @Default(false) bool localLike,
   }) = _ForumCommentModel;
 
   factory ForumCommentModel.fromJson(Map<String, dynamic> json) =>

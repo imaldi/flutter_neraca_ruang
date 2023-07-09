@@ -75,6 +75,54 @@ class ForumComments extends _$ForumComments {
     // return [];
   }
 
+  Future<void> likeComment(ForumCommentModel commentModel) async {
+    /// kirim query untuk like content
+    /// TODO perbaiki nih token yang berantakan di mana mana ini!!!
+    // String token =
+    //     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+
+    /// simpan data ke persistence / box
+    var box = sl<Box<String>>();
+    var commentBox = sl<Box<ForumCommentModel>>();
+    var dataFromBox = commentBox
+        .get("${commentModel.replyId ?? 0}_${commentModel.replyAt ?? "00:00"}");
+    var isLiked = dataFromBox?.localLike ?? false;
+    var totalLike = dataFromBox?.totalLike ?? 0;
+
+    try {
+      var url = Uri.https(baseUrl,
+          "$updateLikeForumCommentUrl/${commentModel.replyId.toString() ?? ""}");
+
+      // final json = await http.get(url);
+      final response = await http.patch(url, headers: {
+        // 'Authorization': token,
+        'Accept': 'application/json',
+      });
+      print("URL like comment forum: $url");
+      log("result JSON: ${jsonDecode(response.body)}");
+      if (response.statusCode != 200) throw Exception();
+
+      /// ubah juga secara lokal
+      await commentBox.put(
+          "${commentModel.replyId ?? 0}_${commentModel.replyAt ?? "00:00"}",
+          dataFromBox?.copyWith(localLike: true, totalLike: totalLike++) ??
+              ForumCommentModel());
+      state = AsyncValue.data([
+        for (final (stateContent as ForumCommentModel) in state.value ?? [])
+          if (stateContent.replyId == commentModel.replyId)
+            stateContent.copyWith(
+                localLike: true, totalLike: (stateContent.totalLike ?? 0) + 1)
+          else
+            stateContent,
+      ]);
+    } catch (_) {
+      state = AsyncValue.error(Error(), StackTrace.current);
+      box.delete(
+          "${commentModel.replyId ?? 0}_${commentModel.replyAt ?? "00:00"}");
+      // throw Exception()
+    }
+  }
+
   Future<void> postCommentAsMember(String slug, String komentar,
       {required Function() onSuccess,
       required Function(String) onFailure}) async {

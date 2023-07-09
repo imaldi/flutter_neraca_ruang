@@ -8,6 +8,7 @@ const updateMemberUrl = "/api/member/update";
 const changePasswordUrl = "/api/member/changepassword";
 const dashboardList = "/api/portal/content";
 const updateLikeUrl = "/api/portal/updatelike";
+const updateLikeForumCommentUrl = "/api/forum/komentar/updatelike";
 const updateUnlikeUrl = "/api/portal/updateunlike";
 const tagsListUrl = "/api/master/gettagging";
 const storageUrl = "$baseUrl/storage";

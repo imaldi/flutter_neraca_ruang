@@ -3,6 +3,77 @@
 part of 'forum_comment_response.dart';
 
 // **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class ForumCommentModelAdapter extends TypeAdapter<_$_ForumCommentModel> {
+  @override
+  final int typeId = 7;
+
+  @override
+  _$_ForumCommentModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$_ForumCommentModel(
+      replyId: fields[0] as int?,
+      replyContent: fields[1] as String?,
+      threadId: fields[2] as int?,
+      replyAt: fields[3] as DateTime?,
+      replyBy: fields[4] as String?,
+      memberId: fields[5] as int?,
+      createdAt: fields[6] as DateTime?,
+      createdBy: fields[7] as String?,
+      totalRead: fields[8] as int?,
+      totalLike: fields[9] as int?,
+      childReply: (fields[10] as List?)?.cast<ForumCommentModel>(),
+      localLike: fields[11] as bool,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$_ForumCommentModel obj) {
+    writer
+      ..writeByte(12)
+      ..writeByte(0)
+      ..write(obj.replyId)
+      ..writeByte(1)
+      ..write(obj.replyContent)
+      ..writeByte(2)
+      ..write(obj.threadId)
+      ..writeByte(3)
+      ..write(obj.replyAt)
+      ..writeByte(4)
+      ..write(obj.replyBy)
+      ..writeByte(5)
+      ..write(obj.memberId)
+      ..writeByte(6)
+      ..write(obj.createdAt)
+      ..writeByte(7)
+      ..write(obj.createdBy)
+      ..writeByte(8)
+      ..write(obj.totalRead)
+      ..writeByte(9)
+      ..write(obj.totalLike)
+      ..writeByte(11)
+      ..write(obj.localLike)
+      ..writeByte(10)
+      ..write(obj.childReply);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ForumCommentModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
@@ -79,6 +150,7 @@ _$_ForumCommentModel _$$_ForumCommentModelFromJson(Map<String, dynamic> json) =>
       childReply: (json['child_reply'] as List<dynamic>?)
           ?.map((e) => ForumCommentModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      localLike: json['local_like'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_ForumCommentModelToJson(
@@ -94,5 +166,6 @@ Map<String, dynamic> _$$_ForumCommentModelToJson(
       'created_by': instance.createdBy,
       'total_read': instance.totalRead,
       'total_like': instance.totalLike,
-      'child_reply': instance.childReply,
+      'child_reply': instance.childReply?.map((e) => e.toJson()).toList(),
+      'local_like': instance.localLike,
     };

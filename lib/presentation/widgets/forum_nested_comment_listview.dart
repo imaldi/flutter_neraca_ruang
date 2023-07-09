@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/data/models/forum_comment_response/forum_comment_response.dart';
+import 'package:flutter_neraca_ruang/logic/state_management/riverpod/forum_comment_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/consts/assets.dart';
 import '../../core/consts/colors.dart';
+import '../../core/consts/hive_const.dart';
 import '../../core/consts/sizes.dart';
+import '../../di.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 
 class ForumNestedCommentListview extends ConsumerWidget {
@@ -24,6 +29,10 @@ class ForumNestedCommentListview extends ConsumerWidget {
         itemCount: currentReplies?.length ?? 0,
         itemBuilder: (c, i) {
           var currentReply = currentReplies?[i];
+          var commentBox = sl<Box<ForumCommentModel>>();
+          var dataFromBox = commentBox.get(
+              "${currentReply?.replyId ?? 0}_${currentReply?.replyAt ?? "00:00"}");
+          var isLiked = dataFromBox?.localLike ?? false;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,9 +72,25 @@ class ForumNestedCommentListview extends ConsumerWidget {
                       ),
                       Row(
                         children: [
-                          IconWidget(
-                            iconSuka,
-                            size: huge,
+                          InkWell(
+                            onTap: isLiked
+                                ? null
+                                : () {
+                                    ref
+                                        .read(forumCommentsProvider.notifier)
+                                        .likeComment(currentReply ??
+                                            ForumCommentModel());
+                                  },
+                            child: isLiked
+                                ? Icon(
+                                    Icons.thumb_up,
+                                    size: medium,
+                                    color: Color(primaryColor),
+                                  )
+                                : IconWidget(
+                                    iconSuka,
+                                    size: huge,
+                                  ),
                           ),
                           Text(" ${currentReply?.totalLike ?? 0} "),
                           Text("like"),
