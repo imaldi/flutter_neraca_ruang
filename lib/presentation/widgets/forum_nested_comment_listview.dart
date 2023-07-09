@@ -29,10 +29,7 @@ class ForumNestedCommentListview extends ConsumerWidget {
         itemCount: currentReplies?.length ?? 0,
         itemBuilder: (c, i) {
           var currentReply = currentReplies?[i];
-          var commentBox = sl<Box<ForumCommentModel>>();
-          var dataFromBox = commentBox.get(
-              "${currentReply?.replyId ?? 0}_${currentReply?.replyAt ?? "00:00"}");
-          var isLiked = dataFromBox?.localLike ?? false;
+          var isLiked = currentReply?.localLike ?? false;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,6 +69,22 @@ class ForumNestedCommentListview extends ConsumerWidget {
                       ),
                       Row(
                         children: [
+                          IconWidget(
+                            iconDibaca,
+                            size: medium + normal,
+                          ),
+                          SizedBox(
+                            width: normal,
+                          ),
+                          Row(
+                            children: [
+                              Text("${currentReply?.totalRead ?? "0"} "),
+                              const Text("Reads"),
+                            ],
+                          ),
+                          SizedBox(
+                            width: medium,
+                          ),
                           InkWell(
                             onTap: isLiked
                                 ? () {
@@ -97,8 +110,18 @@ class ForumNestedCommentListview extends ConsumerWidget {
                                     size: medium + normal,
                                   ),
                           ),
+                          SizedBox(
+                            width: small,
+                          ),
                           Text(" ${currentReply?.totalLike ?? 0} "),
                           Text("like"),
+                          SizedBox(
+                            width: medium,
+                          ),
+                          IconWidget(
+                            iconCommments,
+                            size: medium + normal,
+                          ),
                           SizedBox(
                             width: normal,
                           ),
@@ -115,7 +138,14 @@ class ForumNestedCommentListview extends ConsumerWidget {
                                         .state =
                                     "@${currentReply?.replyBy ?? "@Anonim"} : \"${(currentReply?.replyContent?.length ?? 0) > 20 ? "${currentReply?.replyContent?.substring(0, 20)}..." : currentReply?.replyContent}\"";
                               },
-                              child: Text("reply"))
+                              child: Text("reply")),
+                          SizedBox(
+                            width: medium,
+                          ),
+                          IconWidget(
+                            iconTeruskan,
+                            size: huge,
+                          ),
                         ],
                       )
                     ],
