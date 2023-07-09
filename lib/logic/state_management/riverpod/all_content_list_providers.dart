@@ -306,6 +306,8 @@ void setContentListParams(
   ref.invalidate(limitProvider);
   ref.invalidate(kotaIdProvider);
   ref.invalidate(tagsIdProvider);
+  ref.invalidate(tagsNameProvider);
+  ref.invalidate(tagsIconLinkProvider);
   ref.invalidate(keywordKontenProvider);
   ref.invalidate(tagsOtonom);
   ref.invalidate(tagsPihak);

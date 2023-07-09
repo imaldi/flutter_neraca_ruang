@@ -15,6 +15,7 @@ import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/button_load_more.dart';
 import '../widgets/content_widget.dart';
+import '../widgets/main_drawer.dart';
 import '../widgets/social_media_panel_widget.dart';
 
 @RoutePage()
@@ -37,6 +38,7 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
   //   basicResetStates(context, ref);
   //   super.dispose();
   // }
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +59,11 @@ class _JurnalPageState extends ConsumerState<JurnalPage> {
         length: mainTabLength,
         child: SafeArea(
           child: Scaffold(
+            key: scaffoldKey,
+            drawer: MainDrawer(),
             appBar: appBarWidget(context,
                 ref: ref,
+                scaffoldKey: scaffoldKey,
                 appbarTitle: appbarTitle,
                 appbarBackgroundImage: Opacity(
                   opacity: 0.3,

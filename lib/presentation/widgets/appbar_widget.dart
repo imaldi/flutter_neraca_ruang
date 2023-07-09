@@ -21,6 +21,7 @@ appBarWidget(BuildContext context,
     Widget? appbarBackgroundImage,
     Function? resetStates,
     List<Widget>? tabsChild,
+    GlobalKey<ScaffoldState>? scaffoldKey,
     bool isGreenMode = false}) {
   final TabBar _tabBar = TabBar(
     isScrollable: !isGreenMode,
@@ -115,7 +116,7 @@ appBarWidget(BuildContext context,
       if (appbarTitle != null && appbarTitle.isNotEmpty)
         InkWell(
           onTap: () {
-            Scaffold.of(context).openDrawer();
+            scaffoldKey?.currentState?.openDrawer();
           },
           child: IconWidget(
             iconBurger,

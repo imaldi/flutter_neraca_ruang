@@ -8,12 +8,14 @@ import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
+import '../../di.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/IconWidget.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/button_load_more.dart';
 import '../widgets/content_widget.dart';
+import '../widgets/main_drawer.dart';
 
 @RoutePage()
 class VideoPage extends ConsumerStatefulWidget {
@@ -24,6 +26,8 @@ class VideoPage extends ConsumerStatefulWidget {
 }
 
 class _VideoPageState extends ConsumerState<VideoPage> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     var videoTerbaru = ref.watch(contentsProvider);
@@ -40,8 +44,11 @@ class _VideoPageState extends ConsumerState<VideoPage> {
       length: mainTabLength,
       child: SafeArea(
         child: Scaffold(
+          key: sl<GlobalKey<ScaffoldState>>(),
+          drawer: MainDrawer(),
           appBar: appBarWidget(context,
               ref: ref,
+              scaffoldKey: scaffoldKey,
               appbarTitle: appbarTitle,
               appbarBackgroundImage: Opacity(
                 opacity: 0.3,

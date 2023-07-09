@@ -18,6 +18,7 @@ import '../../di.dart';
 import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
+import '../widgets/main_drawer.dart';
 import '../widgets/social_media_panel_widget.dart';
 import '../widgets/tab_menu_item.dart';
 
@@ -41,6 +42,7 @@ class GreenPageState extends ConsumerState<GreenPage> {
   //   basicResetStates(context, ref);
   //   super.dispose();
   // }
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +65,11 @@ class GreenPageState extends ConsumerState<GreenPage> {
         },
         child: SafeArea(
           child: Scaffold(
+            key: scaffoldKey,
+            drawer: MainDrawer(),
             appBar: appBarWidget(context,
                 ref: ref,
+                scaffoldKey: scaffoldKey,
                 appbarTitle: appbarTitle,
                 appbarBackgroundImage: Center(
                   child: Row(

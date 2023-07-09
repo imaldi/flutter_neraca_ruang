@@ -40,6 +40,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
   //   basicResetStates(context, ref);
   //   super.dispose();
   // }
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +58,10 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
         },
         child: SafeArea(
           child: Scaffold(
+            key: scaffoldKey,
             appBar: appBarWidget(
               context, ref: ref,
+              scaffoldKey: scaffoldKey,
               // appbarTitle: appbarTitle,
               // appbarBackgroundImage: Center(
               //   child: Row(
