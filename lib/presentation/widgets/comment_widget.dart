@@ -48,6 +48,7 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
         ref.watch(widget.isForum ? forumCommentsProvider : commentsProvider);
     final TextEditingController textEditingController = TextEditingController();
     var widgetColor = widget.isGreenPage ? greenModeColor : primaryColor;
+    var replierName = ref.watch(selectedForumCommentReplierProvider);
 
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -57,12 +58,18 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Komentar",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: Color(widgetColor),
-                      fontSize: huge,
-                      fontWeight: FontWeight.bold)),
+              InkWell(
+                onTap: () {
+                  ref.invalidate(selectedForumCommentIdProvider);
+                  ref.invalidate(selectedForumCommentReplierProvider);
+                },
+                child: Text("Komentar",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: Color(widgetColor),
+                        fontSize: huge,
+                        fontWeight: FontWeight.bold)),
+              ),
               Divider(
                 thickness: 2,
               ),
@@ -135,7 +142,9 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                   children: [
                     RoundedTextFormField(
                       key: textFormKey,
-                      hint: "Komentar di sini",
+                      hint: replierName != null
+                          ? "Reply $replierName"
+                          : "Komentar di sini",
                       maxLines: 3,
                       controller: textEditingController,
                       validator: (val) {

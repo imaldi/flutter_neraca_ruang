@@ -191,6 +191,9 @@ final selectedContentSlugProvider = StateProvider<String>((ref) {
   //
   return "";
 });
+final selectedForumCommentIdProvider = StateProvider<int>((ref) => 0);
+final selectedForumCommentReplierProvider =
+    StateProvider<String?>((ref) => null);
 final selectedForumIdProvider = StateProvider<int>((ref) => 0);
 
 final selectedForumSlugProvider = StateProvider<String>((ref) {

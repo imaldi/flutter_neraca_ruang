@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/green_mode_appbar_widget.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/social_media_panel_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/colors.dart';
@@ -92,42 +93,7 @@ class _AlbumFotoPageState extends ConsumerState<AlbumFotoPage> {
                           return ContentWidget(contentList[i]);
                         }),
                     ButtonLoadMore(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset("assets/images/icon_facebook.png"),
-                              Image.asset("assets/images/icon_ig.png"),
-                              Image.asset("assets/images/icon_twitter.png"),
-                              Image.asset("assets/images/icon_tiktok.png"),
-                              Image.asset("assets/images/icon_youtube.png"),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Text(
-                            "neracaruang@neracaruang.com",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                    decoration: TextDecoration.underline),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Text(
-                            "Copyright © PT. Semesta Teknologi Indonesia",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ),
-                      ],
-                    ),
+                    SocialMediaPanelWidget()
                   ],
                 ),
               ),

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/data/models/forum_comment_response/forum_comment_response.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../../core/consts/assets.dart';
 import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
+import '../../logic/state_management/riverpod/dashboard_providers.dart';
 
 class ForumNestedCommentListview extends ConsumerWidget {
   // final int currentIndex;
@@ -51,9 +54,41 @@ class ForumNestedCommentListview extends ConsumerWidget {
                         ),
                       ])),
 
-                  subtitle: Text(
-                    currentReply?.replyContent ?? "",
-                    style: TextStyle(color: Color(primaryTextColor)),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        currentReply?.replyContent ?? "",
+                        style: TextStyle(color: Color(primaryTextColor)),
+                      ),
+                      Row(
+                        children: [
+                          IconWidget(
+                            iconSuka,
+                            size: huge,
+                          ),
+                          Text(" ${currentReply?.totalLike ?? 0} "),
+                          Text("like"),
+                          SizedBox(
+                            width: normal,
+                          ),
+                          InkWell(
+                              onTap: () {
+                                ref
+                                    .read(
+                                        selectedForumCommentIdProvider.notifier)
+                                    .state = currentReply?.replyId ?? 0;
+                                ref
+                                        .read(
+                                            selectedForumCommentReplierProvider
+                                                .notifier)
+                                        .state =
+                                    "@${currentReply?.replyBy ?? "@Anonim"} : \"${(currentReply?.replyContent?.length ?? 0) > 20 ? "${currentReply?.replyContent?.substring(0, 20)}..." : currentReply?.replyContent}\"";
+                              },
+                              child: Text("reply"))
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ),
