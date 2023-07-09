@@ -41,7 +41,7 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    String selectedSlug = ref.watch(selectedContentSlugProvider);
+    String selectedSlug = ref.watch(selectedForumSlugProvider);
     var isLogin = ref.watch(authStatusProvider).value != null;
 
     var commentList =
@@ -180,6 +180,8 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                                     .read(forumCommentsProvider.notifier)
                                     .postCommentAsMember(selectedSlug,
                                         textEditingController.text.trim(),
+                                        replyId: ref.read(
+                                            selectedForumCommentIdProvider),
                                         onSuccess: () {
                                   /// lol kocak
                                   textEditingController.text =

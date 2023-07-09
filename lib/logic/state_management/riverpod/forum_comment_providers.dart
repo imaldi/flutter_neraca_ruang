@@ -172,7 +172,8 @@ class ForumComments extends _$ForumComments {
   }
 
   Future<void> postCommentAsMember(String slug, String komentar,
-      {required Function() onSuccess,
+      {int? replyId,
+      required Function() onSuccess,
       required Function(String) onFailure}) async {
     try {
       // var authBox = sl<Box<AuthResponse>>();
@@ -188,6 +189,11 @@ class ForumComments extends _$ForumComments {
         "thread_slug": slug,
         "reply_content": komentar,
       };
+      if (replyId != null && replyId != 0) {
+        bodyParameters["reply_id"] = replyId.toString();
+        // bodyParameters.remove("thread_slug");
+      }
+      print("bodyParams forum comment: $bodyParameters");
       var url = Uri.https(
         baseUrl,
         forumCommentPostUrl,
@@ -208,6 +214,8 @@ class ForumComments extends _$ForumComments {
         onFailure(response.body);
         throw Error();
       } else {
+        ref.invalidate(selectedForumSlugProvider);
+        ref.read(selectedForumSlugProvider.notifier).state = slug;
         myToast("Sukses Menambahkan Komentar");
         onSuccess();
       }

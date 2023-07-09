@@ -25,7 +25,7 @@ class ForumNestedCommentListview extends ConsumerWidget {
     return ListView.builder(
         padding: const EdgeInsets.only(left: normal),
         shrinkWrap: true,
-        // physics: NeverScrollableScrollPhysics(),
+        physics: ClampingScrollPhysics(),
         itemCount: currentReplies?.length ?? 0,
         itemBuilder: (c, i) {
           var currentReply = currentReplies?[i];
