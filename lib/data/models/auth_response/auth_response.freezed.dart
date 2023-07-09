@@ -463,7 +463,7 @@ mixin _$Members {
   @JsonKey(name: "photo_path")
   @HiveField(16)
   String? get photoPath => throw _privateConstructorUsedError;
-  @JsonKey(name: "foto_moderator")
+  @JsonKey(name: "photo")
   @HiveField(17)
   String? get photoUrl => throw _privateConstructorUsedError;
   @JsonKey(name: "propinsi_name")
@@ -501,7 +501,7 @@ abstract class $MembersCopyWith<$Res> {
       @JsonKey(name: "last_login_at") @HiveField(14) DateTime? lastloginAt,
       @JsonKey(name: "kode_pos") @HiveField(15) String? kodePos,
       @JsonKey(name: "photo_path") @HiveField(16) String? photoPath,
-      @JsonKey(name: "foto_moderator") @HiveField(17) String? photoUrl,
+      @JsonKey(name: "photo") @HiveField(17) String? photoUrl,
       @JsonKey(name: "propinsi_name") @HiveField(18) String? propinsiName,
       @JsonKey(name: "kota_name") @HiveField(19) String? kotaName});
 }
@@ -650,7 +650,7 @@ abstract class _$$_MembersCopyWith<$Res> implements $MembersCopyWith<$Res> {
       @JsonKey(name: "last_login_at") @HiveField(14) DateTime? lastloginAt,
       @JsonKey(name: "kode_pos") @HiveField(15) String? kodePos,
       @JsonKey(name: "photo_path") @HiveField(16) String? photoPath,
-      @JsonKey(name: "foto_moderator") @HiveField(17) String? photoUrl,
+      @JsonKey(name: "photo") @HiveField(17) String? photoUrl,
       @JsonKey(name: "propinsi_name") @HiveField(18) String? propinsiName,
       @JsonKey(name: "kota_name") @HiveField(19) String? kotaName});
 }
@@ -794,7 +794,7 @@ class _$_Members implements _Members {
       @JsonKey(name: "last_login_at") @HiveField(14) this.lastloginAt,
       @JsonKey(name: "kode_pos") @HiveField(15) this.kodePos,
       @JsonKey(name: "photo_path") @HiveField(16) this.photoPath,
-      @JsonKey(name: "foto_moderator") @HiveField(17) this.photoUrl,
+      @JsonKey(name: "photo") @HiveField(17) this.photoUrl,
       @JsonKey(name: "propinsi_name") @HiveField(18) this.propinsiName,
       @JsonKey(name: "kota_name") @HiveField(19) this.kotaName});
 
@@ -867,7 +867,7 @@ class _$_Members implements _Members {
   @HiveField(16)
   final String? photoPath;
   @override
-  @JsonKey(name: "foto_moderator")
+  @JsonKey(name: "photo")
   @HiveField(17)
   final String? photoUrl;
   @override
@@ -1017,7 +1017,7 @@ abstract class _Members implements Members {
       @JsonKey(name: "photo_path")
       @HiveField(16)
           final String? photoPath,
-      @JsonKey(name: "foto_moderator")
+      @JsonKey(name: "photo")
       @HiveField(17)
           final String? photoUrl,
       @JsonKey(name: "propinsi_name")
@@ -1095,7 +1095,7 @@ abstract class _Members implements Members {
   @HiveField(16)
   String? get photoPath;
   @override
-  @JsonKey(name: "foto_moderator")
+  @JsonKey(name: "photo")
   @HiveField(17)
   String? get photoUrl;
   @override

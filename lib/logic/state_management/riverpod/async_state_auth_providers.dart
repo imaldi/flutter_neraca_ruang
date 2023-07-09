@@ -452,13 +452,16 @@ class AuthStatus extends _$AuthStatus {
       // final json = await http.get(url);
       final response = await http.Response.fromStream(await request.send());
       print("URL update member: $url");
+      var newPhotoUrl = jsonDecode(response.body)["data"]["photo"];
       log("result JSON: ${jsonDecode(response.body)}");
+      ref.read(profileImageUrlProvider.notifier).state = newPhotoUrl;
       // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
 
       if (response.statusCode == 201) {
         var newMemberData = dataFromBox?.data?.members?.copyWith(
           fullname: bodyParameters['fullname'],
           email: bodyParameters['email'],
+          photoUrl: newPhotoUrl,
           noHp: bodyParameters['no_hp'],
           kodePos: bodyParameters['kode_pos'],
           tanggalLahir: bodyParameters['tanggal_lahir'],

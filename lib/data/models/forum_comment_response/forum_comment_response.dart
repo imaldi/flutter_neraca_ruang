@@ -33,7 +33,7 @@ class ForumCommentData with _$ForumCommentData {
     List<Link>? links,
     @JsonKey(name: "next_page_url") String? nextPageUrl,
     String? path,
-    @JsonKey(name: "per_page") String? perPage,
+    @JsonKey(name: "per_page") int? perPage,
     @JsonKey(name: "prev_page_url") String? prevPageUrl,
     int? to,
     int? total,

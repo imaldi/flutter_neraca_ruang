@@ -37,7 +37,7 @@ _$_ForumCommentData _$$_ForumCommentDataFromJson(Map<String, dynamic> json) =>
           .toList(),
       nextPageUrl: json['next_page_url'] as String?,
       path: json['path'] as String?,
-      perPage: json['per_page'] as String?,
+      perPage: json['per_page'] as int?,
       prevPageUrl: json['prev_page_url'] as String?,
       to: json['to'] as int?,
       total: json['total'] as int?,

@@ -204,9 +204,9 @@ class ForumContentWidget extends ConsumerWidget {
                             content.threadId ?? 0;
                         ref.read(selectedContentSlugProvider.notifier).state =
                             content.threadSlug ?? "";
-                        await ref
-                            .read(forumCommentsProvider.notifier)
-                            .fetchCommentFromAPI();
+                        // await ref
+                        //     .read(forumCommentsProvider.notifier)
+                        //     .fetchCommentFromAPI();
 
                         // ref
                         //     .read(contentsProvider.notifier)

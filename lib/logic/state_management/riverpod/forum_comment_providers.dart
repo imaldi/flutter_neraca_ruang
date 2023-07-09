@@ -20,7 +20,7 @@ part 'forum_comment_providers.g.dart';
 class ForumComments extends _$ForumComments {
   @override
   FutureOr<List<ForumCommentModel>> build() async {
-    return [];
+    return await fetchCommentFromAPI();
     // return await _fetchDummyData();
   }
 
@@ -37,7 +37,7 @@ class ForumComments extends _$ForumComments {
   //   }
   // }
 
-  Future<void> fetchCommentFromAPI() async {
+  Future<List<ForumCommentModel>> fetchCommentFromAPI() async {
     state = const AsyncValue.loading();
     String selectedSlug = ref.watch(selectedContentSlugProvider);
 
@@ -53,13 +53,16 @@ class ForumComments extends _$ForumComments {
         'Accept': 'application/json',
       });
       log("fetch comment forum resp code: ${response.statusCode}");
-      log("fetch comment forum resp body: ${response.body}");
       if (response.statusCode == 200) {
-        state = await AsyncValue.guard(() async =>
+        var forumCommentList =
             ForumCommentResponse.fromJson(jsonDecode(response.body))
-                .data
-                ?.data ??
-            <ForumCommentModel>[]);
+                    .data
+                    ?.data ??
+                <ForumCommentModel>[];
+        state = await AsyncValue.guard(() async => forumCommentList);
+        log("fetch comment forum resp body: ${forumCommentList}");
+
+        return forumCommentList;
       } else {
         throw Error();
       }
@@ -67,6 +70,7 @@ class ForumComments extends _$ForumComments {
       log("error in comment: ${e.toString()}");
 
       state = AsyncValue.error(Error(), StackTrace.current);
+      return [];
     }
     // return [];
   }

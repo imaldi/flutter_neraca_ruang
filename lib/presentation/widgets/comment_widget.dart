@@ -13,6 +13,7 @@ import '../../di.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../../logic/state_management/riverpod/forum_comment_providers.dart';
+import 'forum_nested_comment_listview.dart';
 import 'my_scrollable_nested_widget.dart';
 
 class CommentWidget extends ConsumerStatefulWidget {
@@ -66,34 +67,40 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
               ),
               commentList.when(
                   data: (data) {
+                    // print(
+                    //     "Data komen: ${data.toString()} (${data.runtimeType})");
                     if (data.length > 0) {
                       // return Text("Data komen: ${data.toString()}");
                       return Container(
                         height: 200,
                         child: MyScrollableNestedWidget(
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: data.length,
-                              // physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (c, i) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${widget.isForum ? (data[i] as ForumCommentModel).replyContent : (data[i] as CommentModel).komentar}",
-                                          style: TextStyle(fontSize: medium),
-                                        ),
-                                        Text(
-                                          "by: ${widget.isForum ? (data[i] as ForumCommentModel).replyBy ?? "-" : (data[i] as CommentModel).username ?? "-"}",
-                                          style: TextStyle(
-                                              color: Color(primaryColor)),
-                                        ),
-                                      ]),
-                                );
-                              }),
+                          child: widget.isForum
+                              ? ForumNestedCommentListview(
+                                  data as List<ForumCommentModel>)
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: data.length,
+                                  // physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (c, i) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "${(data[i] as CommentModel).komentar}",
+                                              style:
+                                                  TextStyle(fontSize: medium),
+                                            ),
+                                            Text(
+                                              "by: ${(data[i] as CommentModel).username ?? "-"}",
+                                              style: TextStyle(
+                                                  color: Color(primaryColor)),
+                                            ),
+                                          ]),
+                                    );
+                                  }),
                         ),
                       );
                     }
@@ -157,9 +164,9 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                                   textEditingController.selection =
                                       TextSelection.fromPosition(
                                           TextPosition(offset: 0));
-                                  ref
-                                      .read(forumCommentsProvider.notifier)
-                                      .fetchCommentFromAPI();
+                                  // ref
+                                  //     .read(forumCommentsProvider.notifier)
+                                  //     .fetchCommentFromAPI();
                                 }, onFailure: (errorMessage) {
                                   print("response body: $errorMessage");
                                 });

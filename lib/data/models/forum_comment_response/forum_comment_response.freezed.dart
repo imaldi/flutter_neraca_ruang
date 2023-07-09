@@ -208,7 +208,7 @@ mixin _$ForumCommentData {
   String? get nextPageUrl => throw _privateConstructorUsedError;
   String? get path => throw _privateConstructorUsedError;
   @JsonKey(name: "per_page")
-  String? get perPage => throw _privateConstructorUsedError;
+  int? get perPage => throw _privateConstructorUsedError;
   @JsonKey(name: "prev_page_url")
   String? get prevPageUrl => throw _privateConstructorUsedError;
   int? get to => throw _privateConstructorUsedError;
@@ -236,7 +236,7 @@ abstract class $ForumCommentDataCopyWith<$Res> {
       List<Link>? links,
       @JsonKey(name: "next_page_url") String? nextPageUrl,
       String? path,
-      @JsonKey(name: "per_page") String? perPage,
+      @JsonKey(name: "per_page") int? perPage,
       @JsonKey(name: "prev_page_url") String? prevPageUrl,
       int? to,
       int? total});
@@ -309,7 +309,7 @@ class _$ForumCommentDataCopyWithImpl<$Res, $Val extends ForumCommentData>
       perPage: freezed == perPage
           ? _value.perPage
           : perPage // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       prevPageUrl: freezed == prevPageUrl
           ? _value.prevPageUrl
           : prevPageUrl // ignore: cast_nullable_to_non_nullable
@@ -344,7 +344,7 @@ abstract class _$$_ForumCommentDataCopyWith<$Res>
       List<Link>? links,
       @JsonKey(name: "next_page_url") String? nextPageUrl,
       String? path,
-      @JsonKey(name: "per_page") String? perPage,
+      @JsonKey(name: "per_page") int? perPage,
       @JsonKey(name: "prev_page_url") String? prevPageUrl,
       int? to,
       int? total});
@@ -415,7 +415,7 @@ class __$$_ForumCommentDataCopyWithImpl<$Res>
       perPage: freezed == perPage
           ? _value.perPage
           : perPage // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       prevPageUrl: freezed == prevPageUrl
           ? _value.prevPageUrl
           : prevPageUrl // ignore: cast_nullable_to_non_nullable
@@ -496,7 +496,7 @@ class _$_ForumCommentData implements _ForumCommentData {
   final String? path;
   @override
   @JsonKey(name: "per_page")
-  final String? perPage;
+  final int? perPage;
   @override
   @JsonKey(name: "prev_page_url")
   final String? prevPageUrl;
@@ -579,7 +579,7 @@ abstract class _ForumCommentData implements ForumCommentData {
       final List<Link>? links,
       @JsonKey(name: "next_page_url") final String? nextPageUrl,
       final String? path,
-      @JsonKey(name: "per_page") final String? perPage,
+      @JsonKey(name: "per_page") final int? perPage,
       @JsonKey(name: "prev_page_url") final String? prevPageUrl,
       final int? to,
       final int? total}) = _$_ForumCommentData;
@@ -612,7 +612,7 @@ abstract class _ForumCommentData implements ForumCommentData {
   String? get path;
   @override
   @JsonKey(name: "per_page")
-  String? get perPage;
+  int? get perPage;
   @override
   @JsonKey(name: "prev_page_url")
   String? get prevPageUrl;

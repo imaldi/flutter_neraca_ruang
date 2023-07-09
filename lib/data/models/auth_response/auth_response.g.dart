@@ -238,7 +238,7 @@ _$_Members _$$_MembersFromJson(Map<String, dynamic> json) => _$_Members(
           : DateTime.parse(json['last_login_at'] as String),
       kodePos: json['kode_pos'] as String?,
       photoPath: json['photo_path'] as String?,
-      photoUrl: json['foto_moderator'] as String?,
+      photoUrl: json['photo'] as String?,
       propinsiName: json['propinsi_name'] as String?,
       kotaName: json['kota_name'] as String?,
     );
@@ -262,7 +262,7 @@ Map<String, dynamic> _$$_MembersToJson(_$_Members instance) =>
       'last_login_at': instance.lastloginAt?.toIso8601String(),
       'kode_pos': instance.kodePos,
       'photo_path': instance.photoPath,
-      'foto_moderator': instance.photoUrl,
+      'photo': instance.photoUrl,
       'propinsi_name': instance.propinsiName,
       'kota_name': instance.kotaName,
     };
