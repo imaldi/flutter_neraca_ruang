@@ -507,13 +507,12 @@ class ContentWidget extends ConsumerWidget {
                 isGreenMode ? iconDibaca2 : iconDibaca,
                 size: huge,
               ),
-              FittedBox(
-                  child: Row(
+              Wrap(
                 children: [
                   Text("${content.totalRead ?? "0"} "),
                   const Text("Reads"),
                 ],
-              )),
+              ),
               InkWell(
                 onTap: isLiked
                     ? null
@@ -534,13 +533,11 @@ class ContentWidget extends ConsumerWidget {
                         size: huge,
                       ),
               ),
-              FittedBox(
-                child: Row(
-                  children: [
-                    Text("${content.totalLike ?? "0"} "),
-                    Text("Likes"),
-                  ],
-                ),
+              Wrap(
+                children: [
+                  Text("${content.totalLike ?? "0"} "),
+                  Text("Likes"),
+                ],
               ),
               InkWell(
                 onTap: contentId != content.id
@@ -566,17 +563,13 @@ class ContentWidget extends ConsumerWidget {
                   size: huge,
                 ),
               ),
-              FittedBox(
-                child: Row(
-                  children: [
-                    Text("${content.totalComment ?? "0"} "),
-                    const FittedBox(
-                      child: Text(
-                        "Comments",
-                      ),
-                    ),
-                  ],
-                ),
+              Wrap(
+                children: [
+                  Text("${content.totalComment ?? "0"} "),
+                  Text(
+                    "Comments",
+                  ),
+                ],
               ),
               IconWidget(
                 isGreenMode ? iconTeruskan2 : iconTeruskan,

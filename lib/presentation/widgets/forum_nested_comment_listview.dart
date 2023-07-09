@@ -79,7 +79,7 @@ class ForumNestedCommentListview extends ConsumerWidget {
                           Row(
                             children: [
                               Text("${currentReply?.totalRead ?? "0"} "),
-                              const Text("Reads"),
+                              const Text("reads"),
                             ],
                           ),
                           SizedBox(
@@ -114,31 +114,34 @@ class ForumNestedCommentListview extends ConsumerWidget {
                             width: small,
                           ),
                           Text(" ${currentReply?.totalLike ?? 0} "),
-                          Text("like"),
+                          Text("likes"),
                           SizedBox(
                             width: medium,
                           ),
-                          IconWidget(
-                            iconCommments,
-                            size: medium + normal,
-                          ),
-                          SizedBox(
-                            width: normal,
-                          ),
                           InkWell(
-                              onTap: () {
-                                ref
-                                    .read(
-                                        selectedForumCommentIdProvider.notifier)
-                                    .state = currentReply?.replyId ?? 0;
-                                ref
-                                        .read(
-                                            selectedForumCommentReplierProvider
-                                                .notifier)
-                                        .state =
-                                    "@${currentReply?.replyBy ?? "@Anonim"} : \"${(currentReply?.replyContent?.length ?? 0) > 20 ? "${currentReply?.replyContent?.substring(0, 20)}..." : currentReply?.replyContent}\"";
-                              },
-                              child: Text("reply")),
+                            onTap: () {
+                              ref
+                                  .read(selectedForumCommentIdProvider.notifier)
+                                  .state = currentReply?.replyId ?? 0;
+                              ref
+                                      .read(selectedForumCommentReplierProvider
+                                          .notifier)
+                                      .state =
+                                  "@${currentReply?.replyBy ?? "@Anonim"} : \"${(currentReply?.replyContent?.length ?? 0) > 20 ? "${currentReply?.replyContent?.substring(0, 20)}..." : currentReply?.replyContent}\"";
+                            },
+                            child: Row(
+                              children: [
+                                IconWidget(
+                                  iconCommments,
+                                  size: medium + normal,
+                                ),
+                                SizedBox(
+                                  width: normal,
+                                ),
+                                Text("reply"),
+                              ],
+                            ),
+                          ),
                           SizedBox(
                             width: medium,
                           ),

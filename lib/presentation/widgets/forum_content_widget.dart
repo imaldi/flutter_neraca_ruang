@@ -163,13 +163,12 @@ class ForumContentWidget extends ConsumerWidget {
                 iconDibaca,
                 size: huge,
               ),
-              FittedBox(
-                  child: Row(
+              Wrap(
                 children: [
                   Text("${content.totalRead ?? "0"} "),
                   const Text("Reads"),
                 ],
-              )),
+              ),
               InkWell(
                 onTap: isLiked
                     ? null
@@ -189,13 +188,11 @@ class ForumContentWidget extends ConsumerWidget {
                         size: huge,
                       ),
               ),
-              FittedBox(
-                child: Row(
-                  children: [
-                    Text("${content.totalLike ?? "0"} "),
-                    Text("Likes"),
-                  ],
-                ),
+              Wrap(
+                children: [
+                  Text("${content.totalLike ?? "0"} "),
+                  Text("Likes"),
+                ],
               ),
               InkWell(
                 onTap: contentId != content.threadId
@@ -218,17 +215,13 @@ class ForumContentWidget extends ConsumerWidget {
                   size: huge,
                 ),
               ),
-              FittedBox(
-                child: Row(
-                  children: [
-                    Text("${content.totalKomentar.toString()} "),
-                    const FittedBox(
-                      child: Text(
-                        "Comments",
-                      ),
-                    ),
-                  ],
-                ),
+              Wrap(
+                children: [
+                  Text("${content.totalKomentar.toString()} "),
+                  Text(
+                    "Comments",
+                  ),
+                ],
               ),
               IconWidget(
                 iconTeruskan,
