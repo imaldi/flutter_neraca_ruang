@@ -54,7 +54,7 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
       width: MediaQuery.of(context).size.width,
       child: Card(
         child: Container(
-          padding: const EdgeInsets.all(normal),
+          padding: const EdgeInsets.all(medium),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
