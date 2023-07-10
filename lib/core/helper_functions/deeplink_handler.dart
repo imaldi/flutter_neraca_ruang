@@ -34,7 +34,7 @@ void handleDeepLink(
   // myToast(deepLink.toString());
   ref.read(callbackLinkProvider.notifier).state = deepLink.toString();
   ref.read(authStatusProvider.notifier).loginOAuth(successCallback: () {
-    context.router.replace(LandingRoute());
+    context.router.pop();
     myToast("$message Success");
   });
 }

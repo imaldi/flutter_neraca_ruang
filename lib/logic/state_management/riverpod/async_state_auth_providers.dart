@@ -145,6 +145,8 @@ class AuthStatus extends _$AuthStatus {
     // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
     try {
       final result = AuthResponse.fromJson(jsonDecode(response.body));
+      ref.read(profileImageUrlProvider.notifier).state =
+          result.data?.members?.photoUrl ?? "";
       var authBox = sl<Box<AuthResponse>>();
       await authBox.put(userDataKey, result);
       var dataFromBox = authBox.get(userDataKey);
