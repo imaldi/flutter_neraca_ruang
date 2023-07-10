@@ -67,89 +67,102 @@ class ForumNestedCommentListview extends ConsumerWidget {
                         currentReply?.replyContent ?? "",
                         style: TextStyle(color: Color(primaryTextColor)),
                       ),
-                      Row(
-                        children: [
-                          IconWidget(
-                            iconDibaca,
-                            size: medium + normal,
-                          ),
-                          SizedBox(
-                            width: normal,
-                          ),
-                          Row(
-                            children: [
-                              Text("${currentReply?.totalRead ?? "0"} "),
-                              const Text("reads"),
-                            ],
-                          ),
-                          SizedBox(
-                            width: medium,
-                          ),
-                          InkWell(
-                            onTap: isLiked
-                                ? () {
-                                    ref
-                                        .read(forumCommentsProvider.notifier)
-                                        .unlikeComment(currentReply ??
-                                            ForumCommentModel());
-                                  }
-                                : () {
-                                    ref
-                                        .read(forumCommentsProvider.notifier)
-                                        .likeComment(currentReply ??
-                                            ForumCommentModel());
-                                  },
-                            child: isLiked
-                                ? Icon(
-                                    Icons.thumb_up,
-                                    size: medium,
-                                    color: Color(primaryColor),
-                                  )
-                                : IconWidget(
-                                    iconSuka,
-                                    size: medium + normal,
-                                  ),
-                          ),
-                          SizedBox(
-                            width: small,
-                          ),
-                          Text(" ${currentReply?.totalLike ?? 0} "),
-                          Text("likes"),
-                          SizedBox(
-                            width: medium,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              ref
-                                  .read(selectedForumCommentIdProvider.notifier)
-                                  .state = currentReply?.replyId ?? 0;
-                              ref
-                                      .read(selectedForumCommentReplierProvider
-                                          .notifier)
-                                      .state =
-                                  "@${currentReply?.replyBy ?? "@Anonim"} : \"${(currentReply?.replyContent?.length ?? 0) > 20 ? "${currentReply?.replyContent?.substring(0, 20)}..." : currentReply?.replyContent}\"";
-                            },
-                            child: Row(
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            IconWidget(
+                              iconDibaca,
+                              size: medium + normal,
+                            ),
+                            SizedBox(
+                              width: normal,
+                            ),
+                            Row(
                               children: [
-                                IconWidget(
-                                  iconCommments,
-                                  size: medium + normal,
-                                ),
-                                SizedBox(
-                                  width: normal,
-                                ),
-                                Text("reply"),
+                                Text("${currentReply?.totalRead ?? "0"} "),
+                                const Text("reads"),
                               ],
                             ),
-                          ),
-                          SizedBox(
-                            width: medium,
-                          ),
-                          IconWidget(
-                            iconTeruskan,
-                            size: huge,
-                          ),
-                        ],
+                            SizedBox(
+                              width: medium,
+                            ),
+                            InkWell(
+                              onTap: isLiked
+                                  ? () {
+                                      ref
+                                          .read(forumCommentsProvider.notifier)
+                                          .unlikeComment(currentReply ??
+                                              ForumCommentModel());
+                                    }
+                                  : () {
+                                      ref
+                                          .read(forumCommentsProvider.notifier)
+                                          .likeComment(currentReply ??
+                                              ForumCommentModel());
+                                    },
+                              child: isLiked
+                                  ? Icon(
+                                      Icons.thumb_up,
+                                      size: medium,
+                                      color: Color(primaryColor),
+                                    )
+                                  : IconWidget(
+                                      iconSuka,
+                                      size: medium + normal,
+                                    ),
+                            ),
+                            SizedBox(
+                              width: small,
+                            ),
+                            Text(" ${currentReply?.totalLike ?? 0} "),
+                            Text("likes"),
+                            SizedBox(
+                              width: medium,
+                            ),
+                            FittedBox(
+                              child: Row(
+                                children: [
+                                  IconWidget(
+                                    iconCommments,
+                                    size: medium + normal,
+                                  ),
+                                  SizedBox(
+                                    width: normal,
+                                  ),
+                                  Wrap(
+                                    children: [
+                                      Text(
+                                          "${currentReply?.childReply?.length ?? 0} "),
+                                      Text("comments"),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: medium,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                ref
+                                    .read(
+                                        selectedForumCommentIdProvider.notifier)
+                                    .state = currentReply?.replyId ?? 0;
+                                ref
+                                        .read(
+                                            selectedForumCommentReplierProvider
+                                                .notifier)
+                                        .state =
+                                    "@${currentReply?.replyBy ?? "@Anonim"} : \"${(currentReply?.replyContent?.length ?? 0) > 20 ? "${currentReply?.replyContent?.substring(0, 20)}..." : currentReply?.replyContent}\"";
+                              },
+                              child: IconWidget(
+                                iconTeruskan,
+                                size: huge,
+                              ),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   ),

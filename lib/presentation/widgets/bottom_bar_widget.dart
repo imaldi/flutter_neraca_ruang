@@ -7,26 +7,29 @@ class BottomBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: bgColor,
-      items: [
-        BottomNavigationBarItem(
-          label: "",
-          icon: Container(
-              margin: const EdgeInsets.symmetric(horizontal: normal),
-              child: Image.asset("assets/images/oto.png")),
-        ),
-        BottomNavigationBarItem(
-          label: "",
-          icon: Image.asset("assets/images/kons.png"),
-        ),
-        BottomNavigationBarItem(
-          label: "",
-          icon: Container(
-              margin: const EdgeInsets.symmetric(horizontal: normal),
-              child: Image.asset("assets/images/mada.png")),
-        ),
-      ],
+    return IgnorePointer(
+      ignoring: true,
+      child: BottomNavigationBar(
+        backgroundColor: bgColor,
+        items: [
+          BottomNavigationBarItem(
+            label: "",
+            icon: Container(
+                margin: const EdgeInsets.symmetric(horizontal: normal),
+                child: Image.asset("assets/images/oto.png")),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: Image.asset("assets/images/kons.png"),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: Container(
+                margin: const EdgeInsets.symmetric(horizontal: normal),
+                child: Image.asset("assets/images/mada.png")),
+          ),
+        ],
+      ),
     );
   }
 }
