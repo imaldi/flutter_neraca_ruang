@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
+import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 
 class GreenModeBottomBar extends ConsumerWidget {
   const GreenModeBottomBar({Key? key}) : super(key: key);
@@ -27,8 +28,11 @@ class GreenModeBottomBar extends ConsumerWidget {
         children: [
           InkWell(
             onTap: () {
+              setContentListParams(
+                ref,
+                tipe: "kabar",
+              );
               context.router.replace(const KabarRoute());
-              basicResetStates(context, ref);
             },
             child: RoundedContainer(
               medium,
@@ -42,8 +46,11 @@ class GreenModeBottomBar extends ConsumerWidget {
           ),
           InkWell(
             onTap: () {
+              setContentListParams(
+                ref,
+                tipe: "jurnal",
+              );
               context.router.replace(const JurnalRoute());
-              basicResetStates(context, ref);
             },
             child: RoundedContainer(
               medium,
@@ -57,8 +64,11 @@ class GreenModeBottomBar extends ConsumerWidget {
           ),
           InkWell(
             onTap: () {
+              setContentListParams(
+                ref,
+                tipe: "infografis",
+              );
               context.router.replace(const InfografisRoute());
-              basicResetStates(context, ref);
             },
             child: RoundedContainer(medium,
                 margin: margin,
@@ -70,8 +80,11 @@ class GreenModeBottomBar extends ConsumerWidget {
           ),
           InkWell(
             onTap: () {
+              setContentListParams(
+                ref,
+                tipe: "video",
+              );
               context.router.replace(const VideoRoute());
-              basicResetStates(context, ref);
             },
             child: RoundedContainer(medium,
                 margin: margin,
@@ -83,8 +96,11 @@ class GreenModeBottomBar extends ConsumerWidget {
           ),
           InkWell(
             onTap: () {
+              setContentListParams(
+                ref,
+                tipe: "foto",
+              );
               context.router.replace(const AlbumFotoRoute());
-              basicResetStates(context, ref);
             },
             child: RoundedContainer(medium,
                 margin: margin,
@@ -96,8 +112,11 @@ class GreenModeBottomBar extends ConsumerWidget {
           ),
           InkWell(
             onTap: () {
+              setContentListParams(
+                ref,
+                tipe: "diskusi",
+              );
               context.router.replace(const DiskusiRoute());
-              basicResetStates(context, ref);
             },
             child: RoundedContainer(medium,
                 margin: margin,

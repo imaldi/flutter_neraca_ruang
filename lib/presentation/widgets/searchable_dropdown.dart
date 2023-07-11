@@ -126,7 +126,7 @@ class _SearchableDropdownState extends ConsumerState<SearchableDropdown> {
                 searchInnerWidgetHeight: 50,
                 searchInnerWidget: Container(
                   height: 50,
-                  padding: const EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     top: 8,
                     bottom: 4,
                     right: 8,

@@ -129,6 +129,9 @@ class ForumContentWidget extends ConsumerWidget {
                     ? () {
                         ref.read(selectedForumIdProvider.notifier).state =
                             content.threadId ?? 0;
+                        ref.read(selectedForumSlugProvider.notifier).state =
+                            content.threadSlug ?? "";
+                        // ref.invalidate(selectedForumSlugProvider);
                         ref
                             .read(activeForumsProvider.notifier)
                             .markDiskusiAsRed(content.threadSlug ?? "");

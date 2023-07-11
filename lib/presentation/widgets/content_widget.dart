@@ -23,7 +23,7 @@ import '../../logic/state_management/riverpod/comment_providers.dart';
 import 'IconWidget.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
-class ContentWidget extends ConsumerWidget {
+class ContentWidget extends ConsumerStatefulWidget {
   final Datum content;
   // final bool isFoto;
   final bool isGreenMode;
@@ -39,13 +39,29 @@ class ContentWidget extends ConsumerWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ContentWidget> createState() => _ContentWidgetState();
+}
+
+class _ContentWidgetState extends ConsumerState<ContentWidget> {
+  late YoutubePlayerController youtubePlayerController;
+
+  @override
+  void initState() {
+    super.initState();
+    youtubePlayerController = YoutubePlayerController(
+        initialVideoId:
+            YoutubePlayer.convertUrlToId(widget.content.videoUrl ?? "") ?? "",
+        flags: const YoutubePlayerFlags(autoPlay: false));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     var contentId = ref.watch(selectedContentIdProvider);
     var selectedSlug = ref.watch(selectedContentSlugProvider);
-    var isVideo = content.tipe == "video";
-    var isFoto = content.tipe == "foto";
-    var isInfografis = content.tipe == "infografis";
-    var isLiked = content.localLike ?? false;
+    var isVideo = widget.content.tipe == "video";
+    var isFoto = widget.content.tipe == "foto";
+    var isInfografis = widget.content.tipe == "infografis";
+    var isLiked = widget.content.localLike ?? false;
     var isLogin = ref.watch(authStatusProvider).value != null;
     var commentList = ref.watch(commentsProvider);
     return Column(
@@ -62,24 +78,23 @@ class ContentWidget extends ConsumerWidget {
             ),
             child: isVideo
                 ? YoutubePlayer(
-                    controller: YoutubePlayerController(
-                        initialVideoId: YoutubePlayer.convertUrlToId(
-                            content.videoUrl ?? "")!,
-                        flags: const YoutubePlayerFlags(autoPlay: false)),
+                    controlsTimeOut: Duration(seconds: 5),
+                    controller: youtubePlayerController,
                     showVideoProgressIndicator: true,
                   )
                 : isInfografis
                     ? ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: content.listMedia?.length ?? 0,
+                        itemCount: widget.content.listMedia?.length ?? 0,
                         itemBuilder: (c, i) {
                           return SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              child: content.listMedia?[i].images != null
+                              child: widget.content.listMedia?[i].images != null
                                   ? FittedBox(
                                       fit: BoxFit.fitHeight,
                                       child: Image.network(
-                                        content.listMedia?[i].images ?? "",
+                                        widget.content.listMedia?[i].images ??
+                                            "",
                                         errorBuilder: (c, o, s) {
                                           return const IconWidget(iconError);
                                         },
@@ -93,14 +108,15 @@ class ContentWidget extends ConsumerWidget {
                           // isUsingThumbnail
                           //     ? "https://$thumbnailUrl/${content.thumbnail}"
                           //     :
-                          "https://$contentUrl/${content.images}",
+                          "https://$contentUrl/${widget.content.images}",
                           fit: BoxFit.cover,
                           errorBuilder: (bc, o, st) {
                             return Icon(
                               Icons.broken_image_outlined,
                               size: 2 * extra,
-                              color: Color(
-                                  isGreenMode ? greenModeColor : primaryColor),
+                              color: Color(widget.isGreenMode
+                                  ? greenModeColor
+                                  : primaryColor),
                             );
                             // Text(content.images ?? "Image not Found");
                           },
@@ -120,23 +136,23 @@ class ContentWidget extends ConsumerWidget {
                   onTap: () {
                     /// FIXME ga tau kenapa disini ada pesan error
                     // ref.read(tagsIconLinkProvider.notifier).state =
-                    var cityIcon =
-                        content.petaKota?.kotaIcon2?.replaceAll(" ", "%20") ??
-                            "";
+                    var cityIcon = widget.content.petaKota?.kotaIcon2
+                            ?.replaceAll(" ", "%20") ??
+                        "";
 
                     print(
-                        "Link Kota 2: ${content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
+                        "Link Kota 2: ${widget.content.petaKota?.kotaIcon2?.replaceAll(" ", "%20")}");
                     // ref.read(kotaIdProvider.notifier).state =
                     //     content.kotaId ?? 0;
                     setContentListParams(
                       ref,
-                      kotaId: content.kotaId ?? 0,
+                      kotaId: widget.content.kotaId ?? 0,
                       cityIconLink: cityIcon,
                       resetTipe: true,
                     );
 
                     ref.read(kotaNameProvider.notifier).state =
-                        content.kotaName ?? "No City";
+                        widget.content.kotaName ?? "No City";
                     // ref.read(kota.notifier).state =
                     //     content.petaKota.kotaIcon2 ?? "No City";
                     // ref.read(contentsProvider.notifier).fetchContent(
@@ -148,12 +164,13 @@ class ContentWidget extends ConsumerWidget {
                     ref.invalidate(tagsNameProvider);
                     context.router.replace(const GreenRoute());
                   },
-                  child: isGreenMode
+                  child: widget.isGreenMode
                       ? InkWell(
                           onTap: () {
-                            setContentListParams(ref, tipe: content.tipe ?? "");
-                            context.router
-                                .replace(routeChooser(content.tipe ?? ""));
+                            setContentListParams(ref,
+                                tipe: widget.content.tipe ?? "");
+                            context.router.replace(
+                                routeChooser(widget.content.tipe ?? ""));
                           },
                           child: Row(
                             children: [
@@ -161,8 +178,8 @@ class ContentWidget extends ConsumerWidget {
                                 // color: Colors.green,
                                 height: tagsIconHeightFromFigma,
                                 child: IconWidget(
-                                  menuIconNameChooser(content.tipe ?? "",
-                                      isGreenMode: isGreenMode),
+                                  menuIconNameChooser(widget.content.tipe ?? "",
+                                      isGreenMode: widget.isGreenMode),
                                   // isOnlineSource: true,
                                 ),
                               ),
@@ -176,7 +193,7 @@ class ContentWidget extends ConsumerWidget {
                               height: mapIconHeightFromFigma,
                               child: Image.network(
                                 // 'assets/icons/icon_daerah/${content.kotaName?.toLowerCase().replaceAll(" ", "_")}_4.png',
-                                content.petaKota?.kotaIcon4
+                                widget.content.petaKota?.kotaIcon4
                                         ?.replaceAll(" ", "%20") ??
                                     "",
                                 // isOnlineSource: true,
@@ -189,7 +206,7 @@ class ContentWidget extends ConsumerWidget {
                                         color: Color(primaryColor),
                                       ),
                                       Text(
-                                        content.kotaName ?? "No City",
+                                        widget.content.kotaName ?? "No City",
                                         style: const TextStyle(
                                             fontSize: normal,
                                             color: Color(primaryColor)),
@@ -214,27 +231,27 @@ class ContentWidget extends ConsumerWidget {
                       backgroundColor: Colors.white,
                       borderRadius: BorderRadius.zero,
                       // preferredDirection: AxisDirection.up,
-                      content: Text(content.tagsPihak?.tagsName ?? ""),
+                      content: Text(widget.content.tagsPihak?.tagsName ?? ""),
                       child: IconWidget(
                         // isGreenMode
                         //     ? content.tagsPihak?.tagsIcon2 ?? ""
                         //     :
-                        isGreenMode
-                            ? content.tagsPihak?.tagsIcon2 ??
-                                content.tagsPihak?.tagsIcon1 ??
+                        widget.isGreenMode
+                            ? widget.content.tagsPihak?.tagsIcon2 ??
+                                widget.content.tagsPihak?.tagsIcon1 ??
                                 ""
-                            : content.tagsPihak?.tagsIcon1 ?? "",
+                            : widget.content.tagsPihak?.tagsIcon1 ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
                           setContentListParams(ref,
-                              tipe: content.tipe ?? "",
-                              tagsId: content.tagsPihak?.tagsId ?? 0);
+                              tipe: widget.content.tipe ?? "",
+                              tagsId: widget.content.tagsPihak?.tagsId ?? 0);
 
                           ref.read(tagsNameProvider.notifier).state =
-                              content.tagsPihak?.tagsName ?? "";
+                              widget.content.tagsPihak?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
-                              content.tagsPihak?.tagsIcon1 ?? "";
+                              widget.content.tagsPihak?.tagsIcon1 ?? "";
                           // ref.read(contentsProvider.notifier).fetchContent(
                           //     "Tag Pihak",
                           //     type: content.tipe ?? "",
@@ -242,7 +259,7 @@ class ContentWidget extends ConsumerWidget {
                           // ref.invalidate(kotaIdProvider);
                           // ref.invalidate(kotaNameProvider);
                           context.router
-                              .replace(routeChooser(content.tipe ?? ""));
+                              .replace(routeChooser(widget.content.tipe ?? ""));
                         },
                       ),
                     ),
@@ -252,27 +269,27 @@ class ContentWidget extends ConsumerWidget {
                       elevation: 0,
                       backgroundColor: Colors.white,
                       borderRadius: BorderRadius.zero,
-                      content: Text(content.tagsTopik?.tagsName ?? ""),
+                      content: Text(widget.content.tagsTopik?.tagsName ?? ""),
                       child: IconWidget(
                         // isGreenMode
                         //     ? content.tagsTopik?.tagsIcon2 ?? ""
                         //     :
-                        isGreenMode
-                            ? content.tagsTopik?.tagsIcon2 ??
-                                content.tagsTopik?.tagsIcon1 ??
+                        widget.isGreenMode
+                            ? widget.content.tagsTopik?.tagsIcon2 ??
+                                widget.content.tagsTopik?.tagsIcon1 ??
                                 ""
-                            : content.tagsTopik?.tagsIcon1 ?? "",
+                            : widget.content.tagsTopik?.tagsIcon1 ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
                           setContentListParams(ref,
-                              tipe: content.tipe ?? "",
-                              tagsId: content.tagsTopik?.tagsId ?? 0);
+                              tipe: widget.content.tipe ?? "",
+                              tagsId: widget.content.tagsTopik?.tagsId ?? 0);
 
                           ref.read(tagsNameProvider.notifier).state =
-                              content.tagsTopik?.tagsName ?? "";
+                              widget.content.tagsTopik?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
-                              content.tagsTopik?.tagsIcon1 ?? "";
+                              widget.content.tagsTopik?.tagsIcon1 ?? "";
                           // ref.read(contentsProvider.notifier).fetchContent(
                           //     "tags topik",
                           //     type: content.tipe ?? "",
@@ -281,7 +298,7 @@ class ContentWidget extends ConsumerWidget {
                           // ref.invalidate(kotaIdProvider);
                           // ref.invalidate(kotaNameProvider);
                           context.router
-                              .replace(routeChooser(content.tipe ?? ""));
+                              .replace(routeChooser(widget.content.tipe ?? ""));
                         },
                       ),
                     ),
@@ -291,27 +308,27 @@ class ContentWidget extends ConsumerWidget {
                       elevation: 0,
                       backgroundColor: Colors.white,
                       borderRadius: BorderRadius.zero,
-                      content: Text(content.tagsOtonomi?.tagsName ?? ""),
+                      content: Text(widget.content.tagsOtonomi?.tagsName ?? ""),
                       child: IconWidget(
                         // isGreenMode
                         //     ? content.tagsOtonomi?.tagsIcon2 ?? ""
                         //     :
-                        isGreenMode
-                            ? content.tagsOtonomi?.tagsIcon2 ??
-                                content.tagsOtonomi?.tagsIcon1 ??
+                        widget.isGreenMode
+                            ? widget.content.tagsOtonomi?.tagsIcon2 ??
+                                widget.content.tagsOtonomi?.tagsIcon1 ??
                                 ""
-                            : content.tagsOtonomi?.tagsIcon1 ?? "",
+                            : widget.content.tagsOtonomi?.tagsIcon1 ?? "",
                         margin: const EdgeInsets.symmetric(horizontal: small),
                         isOnlineSource: true,
                         onTap: () {
                           setContentListParams(ref,
-                              tipe: content.tipe ?? "",
-                              tagsId: content.tagsOtonomi?.tagsId ?? 0);
+                              tipe: widget.content.tipe ?? "",
+                              tagsId: widget.content.tagsOtonomi?.tagsId ?? 0);
 
                           ref.read(tagsNameProvider.notifier).state =
-                              content.tagsOtonomi?.tagsName ?? "";
+                              widget.content.tagsOtonomi?.tagsName ?? "";
                           ref.read(tagsIconLinkProvider.notifier).state =
-                              content.tagsOtonomi?.tagsIcon1 ?? "";
+                              widget.content.tagsOtonomi?.tagsIcon1 ?? "";
                           // ref.read(contentsProvider.notifier).fetchContent(
                           //     "tags otonomi",
                           //     type: content.tipe ?? "",
@@ -320,7 +337,7 @@ class ContentWidget extends ConsumerWidget {
                           // ref.invalidate(kotaIdProvider);
                           // ref.invalidate(kotaNameProvider);
                           context.router
-                              .replace(routeChooser(content.tipe ?? ""));
+                              .replace(routeChooser(widget.content.tipe ?? ""));
                         },
                       ),
                     ),
@@ -345,8 +362,8 @@ class ContentWidget extends ConsumerWidget {
               Visibility(
                 visible: !(isInfografis || isFoto),
                 child: Text(
-                  '${content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
-                  style: isGreenMode
+                  '${widget.content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                  style: widget.isGreenMode
                       ? Theme.of(context)
                           .textTheme
                           .bodySmall
@@ -355,22 +372,22 @@ class ContentWidget extends ConsumerWidget {
                 ),
               ),
               InkWell(
-                onTap: contentId != content.id
+                onTap: contentId != widget.content.id
                     ? () {
                         ref.read(selectedContentIdProvider.notifier).state =
-                            content.id ?? 0;
+                            widget.content.id ?? 0;
                         ref.read(selectedContentSlugProvider.notifier).state =
-                            content.slug ?? "";
+                            widget.content.slug ?? "";
                         ref
                             .read(contentsProvider.notifier)
-                            .markContentAsRed(content.slug ?? "");
+                            .markContentAsRed(widget.content.slug ?? "");
                       }
                     : null,
                 child: Container(
                   margin: const EdgeInsets.only(top: normal, bottom: medium),
                   child: Text(
-                    '${content.judul}',
-                    style: isGreenMode
+                    '${widget.content.judul}',
+                    style: widget.isGreenMode
                         ? Theme.of(context)
                             .textTheme
                             .headlineSmall
@@ -385,8 +402,8 @@ class ContentWidget extends ConsumerWidget {
                 child: Container(
                   margin: EdgeInsets.only(bottom: medium),
                   child: Text(
-                    '${content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
-                    style: isGreenMode
+                    '${widget.content.sourceName ?? ""} 26/05/2023, 12:00 WIB',
+                    style: widget.isGreenMode
                         ? Theme.of(context)
                             .textTheme
                             .bodySmall
@@ -409,11 +426,12 @@ class ContentWidget extends ConsumerWidget {
                       ? ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: content.listMedia?.length ?? 0,
+                          itemCount: widget.content.listMedia?.length ?? 0,
                           itemBuilder: (c, i) {
                             return SizedBox(
                                 width: MediaQuery.of(context).size.width,
-                                child: content.listMedia?[i].images != null
+                                child: widget.content.listMedia?[i].images !=
+                                        null
                                     ? Center(
                                         child: Column(
                                           // crossAxisAlignment:
@@ -426,7 +444,7 @@ class ContentWidget extends ConsumerWidget {
                                                 child: FittedBox(
                                                   fit: BoxFit.fitHeight,
                                                   child: Image.network(
-                                                    content.listMedia?[i]
+                                                    widget.content.listMedia?[i]
                                                             .images ??
                                                         "",
                                                     errorBuilder: (c, o, s) {
@@ -445,7 +463,7 @@ class ContentWidget extends ConsumerWidget {
                                                   // left: normal,
                                                   right: huge),
                                               child: Text(
-                                                "${(content.listMedia?[i].captions?.length ?? 0) > 100 ? "${content.listMedia?[i].captions?.substring(0, 100)}..." : content.listMedia?[i].captions}",
+                                                "${(widget.content.listMedia?[i].captions?.length ?? 0) > 100 ? "${widget.content.listMedia?[i].captions?.substring(0, 100)}..." : widget.content.listMedia?[i].captions}",
                                                 textAlign: TextAlign.center,
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
@@ -462,13 +480,13 @@ class ContentWidget extends ConsumerWidget {
                             // isUsingThumbnail
                             //     ? "https://$thumbnailUrl/${content.thumbnail}"
                             //     :
-                            "https://$contentUrl/${content.images}",
+                            "https://$contentUrl/${widget.content.images}",
                             fit: BoxFit.cover,
                             errorBuilder: (bc, o, st) {
                               return Icon(
                                 Icons.broken_image_outlined,
                                 size: 2 * extra,
-                                color: Color(isGreenMode
+                                color: Color(widget.isGreenMode
                                     ? greenModeColor
                                     : primaryColor),
                               );
@@ -481,7 +499,7 @@ class ContentWidget extends ConsumerWidget {
               Visibility(
                 visible: !(isInfografis || isFoto),
                 child: Container(
-                  constraints: contentId == (content.id ?? -1)
+                  constraints: contentId == (widget.content.id ?? -1)
                       ? null
                       : const BoxConstraints(maxHeight: 200),
                   child: SingleChildScrollView(
@@ -489,12 +507,12 @@ class ContentWidget extends ConsumerWidget {
                     child:
                         // Text("${content.keterangan}"),
                         HtmlWidget(
-                      "${content.keterangan}",
+                      "${widget.content.keterangan}",
                       textStyle: const TextStyle(color: Colors.black),
                       onLoadingBuilder: (bc, e, d) => Center(
                           child: CircularProgressIndicator(
-                        color:
-                            Color(isGreenMode ? greenModeColor : primaryColor),
+                        color: Color(
+                            widget.isGreenMode ? greenModeColor : primaryColor),
                       )),
                     ),
                   ),
@@ -509,12 +527,12 @@ class ContentWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconWidget(
-                isGreenMode ? iconDibaca2 : iconDibaca,
+                widget.isGreenMode ? iconDibaca2 : iconDibaca,
                 size: huge,
               ),
               Wrap(
                 children: [
-                  Text("${content.totalRead ?? "0"} "),
+                  Text("${widget.content.totalRead ?? "0"} "),
                   const Text("Reads"),
                 ],
               ),
@@ -524,35 +542,35 @@ class ContentWidget extends ConsumerWidget {
                     : () {
                         ref
                             .read(contentsProvider.notifier)
-                            .likeContent(content);
+                            .likeContent(widget.content);
                         // myToast("the slug: ${content.slug}");
                       },
                 child: isLiked
                     ? Icon(
                         Icons.thumb_up,
-                        color:
-                            Color(isGreenMode ? greenModeColor : primaryColor),
+                        color: Color(
+                            widget.isGreenMode ? greenModeColor : primaryColor),
                       )
                     : IconWidget(
-                        isGreenMode ? iconSuka2 : iconSuka,
+                        widget.isGreenMode ? iconSuka2 : iconSuka,
                         size: huge,
                       ),
               ),
               Wrap(
                 children: [
-                  Text("${content.totalLike ?? "0"} "),
+                  Text("${widget.content.totalLike ?? "0"} "),
                   Text("Likes"),
                 ],
               ),
               InkWell(
-                onTap: contentId != content.id
+                onTap: contentId != widget.content.id
                     ? () {
                         // ref.read(selectedContentIdProvider.notifier).state =
                         //     content.id ?? 0;
 
                         /// Hanya menampilkan komentar, tidak menambah jumlah read / melihat detail
                         ref.read(selectedContentSlugProvider.notifier).state =
-                            content.slug ?? "";
+                            widget.content.slug ?? "";
                         // myToast("Content ID: $contentId");
                         ref
                             .read(commentsProvider.notifier)
@@ -564,28 +582,28 @@ class ContentWidget extends ConsumerWidget {
                       }
                     : null,
                 child: IconWidget(
-                  isGreenMode ? iconCommments2 : iconCommments,
+                  widget.isGreenMode ? iconCommments2 : iconCommments,
                   size: huge,
                 ),
               ),
               Wrap(
                 children: [
-                  Text("${content.totalComment ?? "0"} "),
+                  Text("${widget.content.totalComment ?? "0"} "),
                   Text(
                     "Comments",
                   ),
                 ],
               ),
               IconWidget(
-                isGreenMode ? iconTeruskan2 : iconTeruskan,
+                widget.isGreenMode ? iconTeruskan2 : iconTeruskan,
                 size: huge,
                 onTap: () async {
                   await Share.share(
-                      'Neraca Ruang at: https://neracaruang.com/${content.tipe ?? ""}/${content.slug}');
+                      'Neraca Ruang at: https://neracaruang.com/${widget.content.tipe ?? ""}/${widget.content.slug}');
                   // .then((v) => );
                   ref
                       .read(contentsProvider.notifier)
-                      .addShareCount(content.slug ?? "");
+                      .addShareCount(widget.content.slug ?? "");
                 },
               ),
             ]
@@ -597,9 +615,9 @@ class ContentWidget extends ConsumerWidget {
         ),
         // ref.watch(commentProvider)
         Visibility(
-            visible:
-                selectedSlug.isNotEmpty && selectedSlug == (content.slug ?? ""),
-            child: CommentWidget(isGreenPage: isGreenMode)),
+            visible: selectedSlug.isNotEmpty &&
+                selectedSlug == (widget.content.slug ?? ""),
+            child: CommentWidget(isGreenPage: widget.isGreenMode)),
         SizedBox(height: huge),
       ],
     );
