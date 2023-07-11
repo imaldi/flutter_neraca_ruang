@@ -388,8 +388,10 @@ class AuthStatus extends _$AuthStatus {
 
     Map<String, String> bodyParameters = {};
     var tanggalLahir = ref.watch(tanggalLahirParamProvider);
-    var kotaId = ref.watch(kotaIdProvider);
-    var provId = ref.watch(provIdProvider);
+    var kotaId = ref.watch(kotaIdParamProvider);
+    var provId = ref.watch(provIdParamProvider);
+    var kotaName = ref.watch(kotaNameProvider);
+    var provName = ref.watch(provNameProvider);
     print("tanggalLahir: $tanggalLahir");
     var authBox = sl<Box<AuthResponse>>();
     var dataFromBox = authBox.get(userDataKey);
@@ -473,6 +475,8 @@ class AuthStatus extends _$AuthStatus {
           tanggalLahir: bodyParameters['tanggal_lahir'],
           propinsiId: int.tryParse(bodyParameters['propinsi_id'] ?? "0"),
           kotaId: int.tryParse(bodyParameters['kota_id'] ?? "0"),
+          propinsiName: provName,
+          kotaName: kotaName,
         );
         var newData = dataFromBox?.copyWith.data?.call(members: newMemberData);
         await authBox.delete(userDataKey);

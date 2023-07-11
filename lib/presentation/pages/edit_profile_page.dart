@@ -40,9 +40,9 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     var teleponController =
         TextEditingController(text: userData.value?.data?.members?.noHp);
     // nanti adakan provider buat kota name
-    var provName = ref.watch(provNameProfileProvider);
-    var kotaName = ref.watch(kotaNameProfileProvider);
-    var kotaKabController = TextEditingController(text: kotaName.value);
+    var provName = userData.value?.data?.members?.propinsiName;
+    var kotaName = userData.value?.data?.members?.kotaName;
+    var kotaKabController = TextEditingController(text: kotaName);
     var kodePosController =
         TextEditingController(text: userData.value?.data?.members?.kodePos);
     final provinceList = ref.watch(provinceListProvider);
@@ -66,10 +66,10 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
         ref.read(kotaIdParamProvider.notifier).state =
             userData.value?.data?.members?.kotaId ?? 0;
         // ini untuk set nilai dropdown
-        ref.read(provIdProvider.notifier).state =
-            userData.value?.data?.members?.propinsiId ?? 0;
-        ref.read(kotaIdProvider.notifier).state =
-            userData.value?.data?.members?.kotaId ?? 0;
+        // ref.read(provIdProvider.notifier).state =
+        //     userData.value?.data?.members?.propinsiId ?? 0;
+        // ref.read(kotaIdProvider.notifier).state =
+        //     userData.value?.data?.members?.kotaId ?? 0;
       }
     });
     ref.listen(kabKotaListProvider, (prev, next) {
@@ -78,25 +78,25 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
           ref.read(kotaNameProvider.notifier).state = null;
           ref.read(kotaIdParamProvider.notifier).state =
               userData.value?.data?.members?.kotaId ?? 0;
-          ref.read(kotaIdProvider.notifier).state =
-              userData.value?.data?.members?.kotaId ?? 0;
+          // ref.read(kotaIdProvider.notifier).state =
+          //     userData.value?.data?.members?.kotaId ?? 0;
         }
       }
     });
-    ref.listen(provNameProfileProvider, (previous, next) {
-      if (next.hasValue) {
-        print("Prov Name next value: ${next}");
-        ref.read(provNameProvider.notifier).state = next.value;
-        ref.read(kotaNameProvider.notifier).state = null;
-      }
-    });
+    // ref.listen(provNameProfileProvider, (previous, next) {
+    //   if (next.hasValue) {
+    //     print("Prov Name next value: ${next}");
+    //     ref.read(provNameProvider.notifier).state = next.value;
+    //     ref.read(kotaNameProvider.notifier).state = null;
+    //   }
+    // });
 
-    ref.listen(kotaNameProfileProvider, (previous, next) {
-      print("Kota Name next value: ${next}");
-      if (next.hasValue && isEnabled) {
-        ref.read(kotaNameProvider.notifier).state = next.value;
-      }
-    });
+    // ref.listen(kotaNameProfileProvider, (previous, next) {
+    //   print("Kota Name next value: ${next}");
+    //   if (next.hasValue && isEnabled) {
+    //     ref.read(kotaNameProvider.notifier).state = next.value;
+    //   }
+    // });
     return DefaultTabController(
       length: mainTabLength,
       child: Scaffold(
@@ -164,6 +164,8 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                       "")
                                                                   .toSet(),
                                                               provNameProvider,
+                                                              defaultValue:
+                                                                  provName,
                                                               hintText:
                                                                   "Provinsi",
                                                               borderRadius:
@@ -174,16 +176,14 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                       medium),
                                                               onItemTapped:
                                                                   (val) {
-                                                                ref
-                                                                    .read(kotaNameProvider
-                                                                        .notifier)
-                                                                    .state = null;
+                                                                ref.invalidate(
+                                                                    kotaNameProvider);
                                                                 ref
                                                                     .read(provNameProvider
                                                                         .notifier)
                                                                     .state = val;
                                                                 ref
-                                                                    .read(provIdProvider
+                                                                    .read(provIdParamProvider
                                                                         .notifier)
                                                                     .state = data
                                                                         .firstWhere((element) =>
@@ -218,7 +218,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                               dataKab.map((e) => e.name ?? "").toSet(),
                                                                               kotaNameProvider,
                                                                               borderRadius: medium,
-                                                                              defaultValue: kotaName.value,
+                                                                              defaultValue: kotaName,
                                                                               hintText: "Kabupaten / Kota",
                                                                               contentPadding: const EdgeInsets.all(medium),
                                                                               onItemTapped: (val) {
@@ -227,7 +227,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                                                                 //         .notifier)
                                                                                 //     .state = null;
                                                                                 ref.read(kotaNameProvider.notifier).state = val;
-                                                                                ref.read(kotaIdProvider.notifier).state = dataKab.firstWhere((element) => (element.name ?? "") == val, orElse: () => KotaKabupaten(id: 0)).id ?? 0;
+                                                                                ref.read(kotaIdParamProvider.notifier).state = dataKab.firstWhere((element) => (element.name ?? "") == val, orElse: () => KotaKabupaten(id: 0)).id ?? 0;
                                                                               },
                                                                             )
                                                                           ],
