@@ -8,6 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
+import 'async_state_auth_providers.dart';
 import 'dashboard_providers.dart';
 
 part 'current_location_providers.g.dart';
@@ -17,8 +18,11 @@ class CurrentLocation extends _$CurrentLocation {
   @override
   FutureOr<OpenStreetMapResponse> build() async {
     var currentLocation = await getCurrentLocation();
-    return await getCurrentAddress(
-        currentLocation.latitude, currentLocation.longitude);
+    var isDetectingLocation = ref.watch(isDetectLokasi);
+    return isDetectingLocation
+        ? await getCurrentAddress(
+            currentLocation.latitude, currentLocation.longitude)
+        : OpenStreetMapResponse();
   }
 
   Future<Position> getCurrentLocation() async {
@@ -95,8 +99,13 @@ class CurrentLocation extends _$CurrentLocation {
         for (var kataNama in namaCitySplitted) {
           if (provinsi.name?.contains(kataNama) ?? false) {
             ref.read(provNameProvider.notifier).state = provinsi.name;
-            ref.read(provIdProvider.notifier).state = provinsi.id ?? 0;
+            ref.read(provIdParamProvider.notifier).state = provinsi.id ?? 0;
+            // ref.read(provIdProvider.notifier).state = provinsi.id ?? 0;
           }
+          // else {
+          //   /// untuk stop redetect
+          //   ref.invalidate(isDetectLokasi);
+          // }
         }
       }
 
@@ -112,9 +121,12 @@ class CurrentLocation extends _$CurrentLocation {
             0;
 
         ref.read(provIdParamProvider.notifier).state = selectedProvId;
-        ref.read(provIdProvider.notifier).state = selectedProvId;
+        // ref.read(provIdProvider.notifier).state = selectedProvId;
         // ref.read(provNameProfileProvider.notifier).state = resultObject.address?.city;
       }
+      // else {
+      //   ref.invalidate(isDetectLokasi);
+      // }
 
       /// ini nyari nama kota, kalau ada yg cocok gaskan, kalau nggak ya sudah
       if ((cityList ?? [])
@@ -130,11 +142,13 @@ class CurrentLocation extends _$CurrentLocation {
                 .id ??
             0;
         ref.read(kotaIdParamProvider.notifier).state = selectedCityId;
-        ref.read(kotaIdProvider.notifier).state = selectedCityId;
+        // ref.read(kotaIdProvider.notifier).state = selectedCityId;
         // myToast("Ketemu");
 
         // ref.read(kotaNameProfileProvider.notifier).state =
         //     resultObject.address?.cityDistrict;
+        /// stop redetect
+        // ref.invalidate(isDetectLokasi);
       }
 
       return resultObject;

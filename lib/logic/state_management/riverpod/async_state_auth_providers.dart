@@ -268,6 +268,7 @@ class AuthStatus extends _$AuthStatus {
     required String password,
     String cPassword = "",
     // String tanggalLahir = "",
+    String kodePos = "",
     int kotaId = 0,
     int provId = 0,
     String noHp = "",
@@ -314,6 +315,9 @@ class AuthStatus extends _$AuthStatus {
     }
     if (kotaId != 0) {
       bodyParameters['kota_id'] = kotaId.toString();
+    }
+    if (kodePos.isNotEmpty) {
+      bodyParameters['kode_pos'] = kodePos.toString();
     }
 
     var url = Uri.https(

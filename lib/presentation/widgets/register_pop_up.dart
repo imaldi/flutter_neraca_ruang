@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/consts/assets.dart';
 import '../../core/consts/colors.dart';
+import '../../core/consts/regex_pattern.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
 import '../../core/helper_functions/deeplink_handler.dart';
@@ -40,7 +41,7 @@ class RegisterPopUp extends ConsumerWidget {
     final textStyle = TextStyle(color: hintColor);
     final provinceList = ref.watch(provinceListProvider);
     final kabKotaList = ref.watch(kabKotaListProvider);
-    final provinceId = ref.watch(provIdProvider);
+    final provinceId = ref.watch(provIdParamProvider);
     final provinceName = ref.watch(provNameProvider);
     final kabKotaId = ref.watch(kotaIdParamProvider);
     final kabKotaName = ref.watch(kotaNameProvider);
@@ -49,6 +50,8 @@ class RegisterPopUp extends ConsumerWidget {
     var detectLokasi = ref.watch(isDetectLokasi);
     var locationState =
         detectLokasi ? ref.watch(currentLocationProvider) : null;
+    final regex = RegExp(passwordPattern);
+
     return Center(
       child: IntrinsicHeight(
         child: InkWell(
@@ -208,7 +211,8 @@ class RegisterPopUp extends ConsumerWidget {
                                                       provNameProvider.notifier)
                                                   .state = val;
                                               ref
-                                                  .read(provIdProvider.notifier)
+                                                  .read(provIdParamProvider
+                                                      .notifier)
                                                   .state = data
                                                       .firstWhere((element) =>
                                                           (element.name ??
@@ -216,6 +220,7 @@ class RegisterPopUp extends ConsumerWidget {
                                                           val)
                                                       .id ??
                                                   0;
+                                              ref.invalidate(isDetectLokasi);
                                             },
                                           )
                                         ],
@@ -263,7 +268,7 @@ class RegisterPopUp extends ConsumerWidget {
                                                                       .notifier)
                                                                   .state = val;
                                                               ref
-                                                                  .read(kotaIdProvider
+                                                                  .read(kotaIdParamProvider
                                                                       .notifier)
                                                                   .state = dataKab
                                                                       .firstWhere(
@@ -274,6 +279,8 @@ class RegisterPopUp extends ConsumerWidget {
                                                                               KotaKabupaten(id: 0))
                                                                       .id ??
                                                                   0;
+                                                              ref.invalidate(
+                                                                  isDetectLokasi);
                                                             },
                                                           )
                                                         ],
@@ -338,8 +345,20 @@ class RegisterPopUp extends ConsumerWidget {
                   RoundedTextFormField(
                     hint: "Kata Sandi",
                     isObscureText: true,
-                    onChanged: (val) {
-                      ref.read(passwordProvider.notifier).state = val;
+                    // onChanged: (val) {
+                    //   ref.read(passwordProvider.notifier).state = val;
+                    // },
+                    controller: kataSandiCtlr,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (val) {
+                      if ((val ?? "").length < 8) {
+                        return "Kata Sandi minimal 8 karakter";
+                      }
+                      if (!regex.hasMatch(kataSandiCtlr.text)) {
+                        return "Kata sandi Anda harus lebih dari delapan karakter dan berisi kombinasi angka, huruf, dan karakter khusus (:;!@#\$%^&*()_+-=,.<>/?\'\")";
+                      }
+
+                      return null;
                     },
                     decoration: InputDecoration(
                       hintStyle: textStyle,
@@ -348,8 +367,15 @@ class RegisterPopUp extends ConsumerWidget {
                   RoundedTextFormField(
                     hint: "Konfirmasi Kata Sandi",
                     isObscureText: true,
-                    onChanged: (val) {
-                      ref.read(confPasswordProvider.notifier).state = val;
+                    // onChanged: (val) {
+                    //   ref.read(confPasswordProvider.notifier).state = val;
+                    // },
+                    controller: konfKtSandiCtlr,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (val) {
+                      if ((val ?? "") != kataSandiCtlr.text) {
+                        return "Password Konfirmasi tidak cocok";
+                      }
                     },
                     decoration: InputDecoration(
                       hintStyle: textStyle,
@@ -386,6 +412,7 @@ class RegisterPopUp extends ConsumerWidget {
                                 noHp: teleponCtlr.text,
                                 provId: provinceId,
                                 kotaId: kabKotaId,
+                                kodePos: kodePosCtlr.text,
                                 successCallback: () {
                                   myToast("Register Success");
                                   context.router.pop();

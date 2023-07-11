@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/colors.dart';
 import '../../core/consts/num_consts.dart';
+import '../../core/consts/regex_pattern.dart';
 import '../../core/consts/sizes.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../widgets/appbar_widget.dart';
@@ -26,9 +27,8 @@ class ChangePasswordPage extends ConsumerWidget {
     final boxDecoration = BoxDecoration(border: Border.all(color: textColor));
     final newPasswordCtrl = TextEditingController();
     final confNewPasswordCtrl = TextEditingController();
-    final pattern =
-        r'''^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[:;!@#\$%^&*()_+\-=,<>\?\'"]).*''';
-    final regex = RegExp(pattern);
+
+    final regex = RegExp(passwordPattern);
     return DefaultTabController(
       length: mainTabLength,
       child: Scaffold(

@@ -68,11 +68,21 @@ class LoginPopUp extends ConsumerWidget {
                     RoundedTextFormField(
                       hint: "Nama",
                       controller: usernameController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (val) {
+                        if ((val ?? "").isEmpty) return "Username Wajib di Isi";
+                        return null;
+                      },
                     ),
                     RoundedTextFormField(
                       hint: "Kata Sandi",
                       controller: passwordController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       isObscureText: true,
+                      validator: (val) {
+                        if ((val ?? "").isEmpty) return "Password Wajib di Isi";
+                        return null;
+                      },
                     ),
                     Container(
                       color: Colors.grey[100],
@@ -88,7 +98,13 @@ class LoginPopUp extends ConsumerWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(huge))),
                           clipBehavior: Clip.antiAlias,
-                          onPressed: () {
+                          // TODO make validation, don't let user try login when input is empty
+                          onPressed:
+                              // usernameController.text.isEmpty ||
+                              //         passwordController.text.isEmpty
+                              //     ? null
+                              //     :
+                              () {
                             // ref
                             //     .read(usernameProvider.notifier)
                             //     .update((state) => usernameController.text);

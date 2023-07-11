@@ -391,7 +391,7 @@ final provinceListProvider = FutureProvider<List<ProvinceModel>>((ref) async {
 
 final kabKotaListProvider = FutureProvider<List<KotaKabupaten>>((ref) async {
   try {
-    var selectedProvId = ref.watch(provIdProvider);
+    var selectedProvId = ref.watch(provIdParamProvider);
     String token = ref.read(userTokenProvider);
     var url = Uri.https(baseUrl, "$kabKotaListUrl/$selectedProvId");
 

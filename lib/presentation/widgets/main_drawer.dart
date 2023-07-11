@@ -64,6 +64,7 @@ class MainDrawer extends ConsumerWidget {
                           successCallback: () {
                         myToast("Log Out Success");
                         context.router.pop();
+                        context.router.replace(const LandingRoute());
                       });
                       // context.router.replace(const LoginRoute());
                     }
