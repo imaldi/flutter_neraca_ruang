@@ -184,6 +184,7 @@ final tagsIdProvider = StateProvider<int>(
 
 final tagsNameProvider = StateProvider((ref) => "");
 final tagsIconLinkProvider = StateProvider((ref) => "");
+final cityIconLinkProvider = StateProvider((ref) => "");
 
 final selectedContentIdProvider = StateProvider<int>((ref) => 0);
 final selectedContentSlugProvider = StateProvider<String>((ref) {

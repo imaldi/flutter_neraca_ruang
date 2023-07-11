@@ -119,7 +119,8 @@ class ContentWidget extends ConsumerWidget {
                 child: InkWell(
                   onTap: () {
                     /// FIXME ga tau kenapa disini ada pesan error
-                    ref.read(tagsIconLinkProvider.notifier).state =
+                    // ref.read(tagsIconLinkProvider.notifier).state =
+                    var cityIcon =
                         content.petaKota?.kotaIcon2?.replaceAll(" ", "%20") ??
                             "";
 
@@ -130,10 +131,14 @@ class ContentWidget extends ConsumerWidget {
                     setContentListParams(
                       ref,
                       kotaId: content.kotaId ?? 0,
+                      cityIconLink: cityIcon,
                       resetTipe: true,
                     );
+
                     ref.read(kotaNameProvider.notifier).state =
                         content.kotaName ?? "No City";
+                    // ref.read(kota.notifier).state =
+                    //     content.petaKota.kotaIcon2 ?? "No City";
                     // ref.read(contentsProvider.notifier).fetchContent(
                     //       "Kota Icon",
                     //       type: "",

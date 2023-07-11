@@ -297,6 +297,8 @@ void setContentListParams(
   int? tagOtonomId,
   int? tagTopikId,
   int? tagPihakId,
+  String? iconLink,
+  String? cityIconLink,
   String? tipe,
   String? keyword,
   // bool resetState = true,
@@ -304,10 +306,10 @@ void setContentListParams(
 }) {
   // if (resetState) {
   ref.invalidate(limitProvider);
-  ref.invalidate(kotaIdProvider);
   ref.invalidate(tagsIdProvider);
   ref.invalidate(tagsNameProvider);
-  ref.invalidate(tagsIconLinkProvider);
+  // if (iconLink == null || iconLink.isEmpty)
+  // ref.invalidate(tagsIconLinkProvider);
   ref.invalidate(keywordKontenProvider);
   ref.invalidate(tagsOtonom);
   ref.invalidate(tagsPihak);
@@ -320,6 +322,12 @@ void setContentListParams(
   // if (limit != 0) {
   //   ref.read(limitProvider.notifier).state = limit ?? 5;
   // }
+  if (cityIconLink != null && cityIconLink.isNotEmpty) {
+    ref.read(cityIconLinkProvider.notifier).state = cityIconLink;
+  } else {
+    ref.invalidate(cityIconLinkProvider);
+  }
+
   if (tagsId != null && tagsId != 0) {
     ref.read(tagsIdProvider.notifier).state = tagsId;
   }
@@ -334,6 +342,8 @@ void setContentListParams(
   }
   if (kotaId != null && kotaId != 0) {
     ref.read(kotaIdProvider.notifier).state = kotaId ?? 5;
+  } else {
+    ref.invalidate(kotaIdProvider);
   }
   if (tipe != null) {
     ref.read(tipeKontenProvider.notifier).state = tipe;

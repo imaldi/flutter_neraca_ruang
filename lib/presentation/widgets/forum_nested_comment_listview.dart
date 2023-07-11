@@ -156,10 +156,7 @@ class ForumNestedCommentListview extends ConsumerWidget {
                                         .state =
                                     "@${currentReply?.replyBy ?? "@Anonim"} : \"${(currentReply?.replyContent?.length ?? 0) > 20 ? "${currentReply?.replyContent?.substring(0, 20)}..." : currentReply?.replyContent}\"";
                               },
-                              child: IconWidget(
-                                iconTeruskan,
-                                size: huge,
-                              ),
+                              child: Text("reply"),
                             ),
                           ],
                         ),
