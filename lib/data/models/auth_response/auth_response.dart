@@ -16,6 +16,7 @@ class AuthResponse with _$AuthResponse {
   const factory AuthResponse({
     @HiveField(0) String? message,
     @HiveField(1) MemberData? data,
+    @JsonKey(name: "is_by_o_auth") @HiveField(2) @Default(false) bool isByOAuth,
   }) = _AuthResponse;
 
   factory AuthResponse.fromJson(Map<String, dynamic> json) =>

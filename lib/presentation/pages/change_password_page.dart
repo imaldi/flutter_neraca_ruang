@@ -27,6 +27,8 @@ class ChangePasswordPage extends ConsumerWidget {
     final boxDecoration = BoxDecoration(border: Border.all(color: textColor));
     final newPasswordCtrl = TextEditingController();
     final confNewPasswordCtrl = TextEditingController();
+    var authData = ref.watch(authStatusProvider);
+    var isLoginByOAuth = authData.value?.isByOAuth ?? false;
 
     final regex = RegExp(passwordPattern);
     return DefaultTabController(
@@ -52,11 +54,14 @@ class ChangePasswordPage extends ConsumerWidget {
                 SizedBox(
                   height: huge,
                 ),
-                RoundedTextFormField(
-                  isObscureText: true,
-                  padding: const EdgeInsets.symmetric(vertical: medium),
-                  hint: "Kata sandi saat ini",
-                  borderRadius: medium,
+                Visibility(
+                  visible: !isLoginByOAuth,
+                  child: RoundedTextFormField(
+                    isObscureText: true,
+                    padding: const EdgeInsets.symmetric(vertical: medium),
+                    hint: "Kata sandi saat ini",
+                    borderRadius: medium,
+                  ),
                 ),
                 RoundedTextFormField(
                   isObscureText: true,

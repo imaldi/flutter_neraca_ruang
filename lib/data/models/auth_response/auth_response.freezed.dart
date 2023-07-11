@@ -24,6 +24,9 @@ mixin _$AuthResponse {
   String? get message => throw _privateConstructorUsedError;
   @HiveField(1)
   MemberData? get data => throw _privateConstructorUsedError;
+  @JsonKey(name: "is_by_o_auth")
+  @HiveField(2)
+  bool get isByOAuth => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +40,10 @@ abstract class $AuthResponseCopyWith<$Res> {
           AuthResponse value, $Res Function(AuthResponse) then) =
       _$AuthResponseCopyWithImpl<$Res, AuthResponse>;
   @useResult
-  $Res call({@HiveField(0) String? message, @HiveField(1) MemberData? data});
+  $Res call(
+      {@HiveField(0) String? message,
+      @HiveField(1) MemberData? data,
+      @JsonKey(name: "is_by_o_auth") @HiveField(2) bool isByOAuth});
 
   $MemberDataCopyWith<$Res>? get data;
 }
@@ -57,6 +63,7 @@ class _$AuthResponseCopyWithImpl<$Res, $Val extends AuthResponse>
   $Res call({
     Object? message = freezed,
     Object? data = freezed,
+    Object? isByOAuth = null,
   }) {
     return _then(_value.copyWith(
       message: freezed == message
@@ -67,6 +74,10 @@ class _$AuthResponseCopyWithImpl<$Res, $Val extends AuthResponse>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as MemberData?,
+      isByOAuth: null == isByOAuth
+          ? _value.isByOAuth
+          : isByOAuth // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -91,7 +102,10 @@ abstract class _$$_AuthResponseCopyWith<$Res>
       __$$_AuthResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@HiveField(0) String? message, @HiveField(1) MemberData? data});
+  $Res call(
+      {@HiveField(0) String? message,
+      @HiveField(1) MemberData? data,
+      @JsonKey(name: "is_by_o_auth") @HiveField(2) bool isByOAuth});
 
   @override
   $MemberDataCopyWith<$Res>? get data;
@@ -110,6 +124,7 @@ class __$$_AuthResponseCopyWithImpl<$Res>
   $Res call({
     Object? message = freezed,
     Object? data = freezed,
+    Object? isByOAuth = null,
   }) {
     return _then(_$_AuthResponse(
       message: freezed == message
@@ -120,6 +135,10 @@ class __$$_AuthResponseCopyWithImpl<$Res>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as MemberData?,
+      isByOAuth: null == isByOAuth
+          ? _value.isByOAuth
+          : isByOAuth // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -129,7 +148,10 @@ class __$$_AuthResponseCopyWithImpl<$Res>
 @HiveType(typeId: authResponseTypeId, adapterName: 'AuthResponseAdapter')
 @JsonSerializable(explicitToJson: true)
 class _$_AuthResponse implements _AuthResponse {
-  const _$_AuthResponse({@HiveField(0) this.message, @HiveField(1) this.data});
+  const _$_AuthResponse(
+      {@HiveField(0) this.message,
+      @HiveField(1) this.data,
+      @JsonKey(name: "is_by_o_auth") @HiveField(2) this.isByOAuth = false});
 
   factory _$_AuthResponse.fromJson(Map<String, dynamic> json) =>
       _$$_AuthResponseFromJson(json);
@@ -140,10 +162,14 @@ class _$_AuthResponse implements _AuthResponse {
   @override
   @HiveField(1)
   final MemberData? data;
+  @override
+  @JsonKey(name: "is_by_o_auth")
+  @HiveField(2)
+  final bool isByOAuth;
 
   @override
   String toString() {
-    return 'AuthResponse(message: $message, data: $data)';
+    return 'AuthResponse(message: $message, data: $data, isByOAuth: $isByOAuth)';
   }
 
   @override
@@ -152,12 +178,14 @@ class _$_AuthResponse implements _AuthResponse {
         (other.runtimeType == runtimeType &&
             other is _$_AuthResponse &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.data, data) || other.data == data));
+            (identical(other.data, data) || other.data == data) &&
+            (identical(other.isByOAuth, isByOAuth) ||
+                other.isByOAuth == isByOAuth));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, message, data);
+  int get hashCode => Object.hash(runtimeType, message, data, isByOAuth);
 
   @JsonKey(ignore: true)
   @override
@@ -175,8 +203,10 @@ class _$_AuthResponse implements _AuthResponse {
 
 abstract class _AuthResponse implements AuthResponse {
   const factory _AuthResponse(
-      {@HiveField(0) final String? message,
-      @HiveField(1) final MemberData? data}) = _$_AuthResponse;
+          {@HiveField(0) final String? message,
+          @HiveField(1) final MemberData? data,
+          @JsonKey(name: "is_by_o_auth") @HiveField(2) final bool isByOAuth}) =
+      _$_AuthResponse;
 
   factory _AuthResponse.fromJson(Map<String, dynamic> json) =
       _$_AuthResponse.fromJson;
@@ -187,6 +217,10 @@ abstract class _AuthResponse implements AuthResponse {
   @override
   @HiveField(1)
   MemberData? get data;
+  @override
+  @JsonKey(name: "is_by_o_auth")
+  @HiveField(2)
+  bool get isByOAuth;
   @override
   @JsonKey(ignore: true)
   _$$_AuthResponseCopyWith<_$_AuthResponse> get copyWith =>

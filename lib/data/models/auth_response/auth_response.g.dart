@@ -19,17 +19,20 @@ class AuthResponseAdapter extends TypeAdapter<_$_AuthResponse> {
     return _$_AuthResponse(
       message: fields[0] as String?,
       data: fields[1] as MemberData?,
+      isByOAuth: fields[2] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_AuthResponse obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.message)
       ..writeByte(1)
-      ..write(obj.data);
+      ..write(obj.data)
+      ..writeByte(2)
+      ..write(obj.isByOAuth);
   }
 
   @override
@@ -184,12 +187,14 @@ _$_AuthResponse _$$_AuthResponseFromJson(Map<String, dynamic> json) =>
       data: json['data'] == null
           ? null
           : MemberData.fromJson(json['data'] as Map<String, dynamic>),
+      isByOAuth: json['is_by_o_auth'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_AuthResponseToJson(_$_AuthResponse instance) =>
     <String, dynamic>{
       'message': instance.message,
       'data': instance.data?.toJson(),
+      'is_by_o_auth': instance.isByOAuth,
     };
 
 _$_MemberData _$$_MemberDataFromJson(Map<String, dynamic> json) =>
