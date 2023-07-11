@@ -75,7 +75,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     ref.listen(kabKotaListProvider, (prev, next) {
       if (next.hasValue) {
         if (next.value?.every((element) => element != kotaName) ?? false) {
-          ref.read(kotaNameProvider.notifier).state = null;
+          // ref.read(kotaNameProvider.notifier).state = null;
           ref.read(kotaIdParamProvider.notifier).state =
               userData.value?.data?.members?.kotaId ?? 0;
           // ref.read(kotaIdProvider.notifier).state =
