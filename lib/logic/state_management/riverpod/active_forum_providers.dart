@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_neraca_ruang/data/models/diskusi_response/diskusi_response.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +13,10 @@ import '../../../data/models/auth_response/auth_response.dart';
 import '../../../di.dart';
 import '../../../presentation/widgets/my_toast.dart';
 part 'active_forum_providers.g.dart';
+
+final enableKirimButtonUsulanDiskusi = StateProvider<bool>((ref) {
+  return false;
+});
 
 @riverpod
 class ActiveForums extends _$ActiveForums {
@@ -32,8 +37,18 @@ class ActiveForums extends _$ActiveForums {
         'Accept': 'application/json',
       });
       log("forum list response: ${response.body}");
+      var listBoxKey = sl<Box<String>>();
+
       if (response.statusCode == 200) {
-        return DiskusiResponse.fromJson(jsonDecode(response.body)).data?.data ??
+        return DiskusiResponse.fromJson(jsonDecode(response.body))
+                .data
+                ?.data
+                ?.map((e) {
+              if (listBoxKey.containsKey(e.threadSlug)) {
+                return e.copyWith(localLike: true);
+              }
+              return e;
+            }).toList() ??
             [];
       }
     } catch (e) {
@@ -54,7 +69,7 @@ class ActiveForums extends _$ActiveForums {
     await box.put(content.threadSlug ?? "", content.threadSlug ?? "");
     try {
       var url =
-          Uri.https(baseUrl, "$updateLikeUrl/${content.threadSlug ?? ""}");
+          Uri.https(baseUrl, "$updateForumLikeUrl/${content.threadSlug ?? ""}");
 
       // final json = await http.get(url);
       final response = await http.patch(url, headers: {
@@ -117,15 +132,15 @@ class ActiveForums extends _$ActiveForums {
       required Function() onSuccess,
       required Function(String) onFailure}) async {
     try {
-      // var authBox = sl<Box<AuthResponse>>();
-      // var dataFromBox = authBox.get(userDataKey);
-      // MemberData userData =
-      //     dataFromBox?.data?.copyWith(token: "") ?? MemberData();
-      // print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
-      // var token = "Bearer ${userData.token ?? " "}";
+      var authBox = sl<Box<AuthResponse>>();
+      var dataFromBox = authBox.get(userDataKey);
+      MemberData userData =
+          dataFromBox?.data?.copyWith(token: "") ?? MemberData();
+      print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
+      var token = "Bearer ${userData.token ?? " "}";
       // FIXME ini sharusnya pakai token user, bukan portal
-      String token =
-          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2EtcnVhbmciLCJzdWIiOiI0MTcxMzIwMDg5ODk4OTExIiwiaWF0IjoxNjg3OTg0NzQ2LCJleHAiOjE2OTA1NzY3NDZ9.-uOeTVWqRoWCh7aJqEWg0XxKne0PR9-HH96uu7gZXwc";
+      // String token =
+      //     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2EtcnVhbmciLCJzdWIiOiI0MTcxMzIwMDg5ODk4OTExIiwiaWF0IjoxNjg3OTg0NzQ2LCJleHAiOjE2OTA1NzY3NDZ9.-uOeTVWqRoWCh7aJqEWg0XxKne0PR9-HH96uu7gZXwc";
       var bodyParameters = {
         "topik": topikDiskusi,
         "abstrak": abstraksiSingkat,
@@ -155,6 +170,8 @@ class ActiveForums extends _$ActiveForums {
       }
     } catch (e) {
       log("error in forum usulan: ${e.toString()}");
+      onFailure(e.toString());
+
       AsyncValue.error(Error(), StackTrace.current);
     }
   }

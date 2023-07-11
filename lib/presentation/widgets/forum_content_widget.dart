@@ -176,6 +176,9 @@ class ForumContentWidget extends ConsumerWidget {
                 onTap: isLiked
                     ? null
                     : () {
+                        ref
+                            .read(activeForumsProvider.notifier)
+                            .likeDiskusi(content);
                         // This is just from like content
                         //     .read(activeForumsProvider.notifier)
                         //     .likeDiskusi(content);

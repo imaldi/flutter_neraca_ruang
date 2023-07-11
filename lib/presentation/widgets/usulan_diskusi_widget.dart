@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/consts/colors.dart';
 import '../../core/consts/sizes.dart';
+import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 
 class UsulanDiskusiWidget extends ConsumerStatefulWidget {
   const UsulanDiskusiWidget({Key? key}) : super(key: key);
@@ -19,8 +20,13 @@ class _UsulanDiskusiWidgetState extends ConsumerState<UsulanDiskusiWidget> {
   final TextEditingController topikCtrl = TextEditingController();
   final TextEditingController abstractCtrl = TextEditingController();
   var isShowingDetail = false;
+
   @override
   Widget build(BuildContext context) {
+    var authData = ref.watch(authStatusProvider);
+    var isLogin = authData.value != null;
+    var isEnabled = ref.watch(enableKirimButtonUsulanDiskusi);
+
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(medium),
@@ -54,7 +60,14 @@ class _UsulanDiskusiWidgetState extends ConsumerState<UsulanDiskusiWidget> {
                   borderRadius: 0,
                   hint: '',
                   controller: topikCtrl,
+                  onChanged: (val) {
+                    ref.read(enableKirimButtonUsulanDiskusi.notifier).state =
+                        val.isNotEmpty && abstractCtrl.text.isNotEmpty;
+                  },
                   validator: (val) {
+                    if ((val ?? "").isEmpty) {
+                      return null;
+                    }
                     if ((val?.length ?? 0) < 10) {
                       return "Topik minimal 10 karakter";
                     }
@@ -76,7 +89,14 @@ class _UsulanDiskusiWidgetState extends ConsumerState<UsulanDiskusiWidget> {
                   hint: "",
                   maxLines: 3,
                   controller: abstractCtrl,
+                  onChanged: (val) {
+                    ref.read(enableKirimButtonUsulanDiskusi.notifier).state =
+                        val.isNotEmpty && topikCtrl.text.isNotEmpty;
+                  },
                   validator: (val) {
+                    if ((val ?? "").isEmpty) {
+                      return null;
+                    }
                     if ((val?.length ?? 0) < 20) {
                       return "Abstrak minimal 20 karakter";
                     }
@@ -94,54 +114,67 @@ class _UsulanDiskusiWidgetState extends ConsumerState<UsulanDiskusiWidget> {
                             backgroundColor: Color(primaryColor),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(huge))),
-                        onPressed: () {
-                          abstractCtrl.text = abstractCtrl.text.trim();
-                          abstractCtrl.selection = TextSelection.fromPosition(
-                              TextPosition(offset: abstractCtrl.text.length));
-                          ref
-                              .read(activeForumsProvider.notifier)
-                              .addUsulanDiskusi(
-                                  topikDiskusi: topikCtrl.text.trim(),
-                                  abstraksiSingkat: abstractCtrl.text.trim(),
-                                  onSuccess: () {
-                                    myToast("Sukses menambahkan usulan");
-                                    topikCtrl.text =
-                                        "                            ";
-                                    topikCtrl.selection =
-                                        TextSelection.fromPosition(
-                                            TextPosition(offset: 0));
+                        onPressed: isEnabled
+                            ? isLogin
+                                ? () {
                                     abstractCtrl.text =
-                                        "                            ";
+                                        abstractCtrl.text.trim();
                                     abstractCtrl.selection =
-                                        TextSelection.fromPosition(
-                                            TextPosition(offset: 0));
-                                  },
-                                  onFailure: (errMsg) {
-                                    myToast("Gagal menambahkan usulan");
-                                  });
-                          // if (textFormKey.currentState != null &&
-                          //     textFormKey.currentState!.validate()) {
+                                        TextSelection.fromPosition(TextPosition(
+                                            offset: abstractCtrl.text.length));
+                                    ref
+                                        .read(activeForumsProvider.notifier)
+                                        .addUsulanDiskusi(
+                                            topikDiskusi: topikCtrl.text.trim(),
+                                            abstraksiSingkat:
+                                                abstractCtrl.text.trim(),
+                                            onSuccess: () {
+                                              myToast(
+                                                  "Sukses menambahkan usulan");
+                                              topikCtrl.clear();
+                                              // topikCtrl.text =
+                                              //     "                            ";
+                                              // topikCtrl.selection =
+                                              //     TextSelection.fromPosition(
+                                              //         TextPosition(offset: 0));
+                                              abstractCtrl.clear();
+                                              // abstractCtrl.text =
+                                              //     "                            ";
+                                              // abstractCtrl.selection =
+                                              //     TextSelection.fromPosition(
+                                              //         TextPosition(offset: 0));
+                                            },
+                                            onFailure: (errMsg) {
+                                              myToast(
+                                                  "Gagal menambahkan usulan");
+                                            });
+                                    // if (textFormKey.currentState != null &&
+                                    //     textFormKey.currentState!.validate()) {
 
-                          // ref
-                          //     .read(commentsProvider.notifier)
-                          //     .postCommentAsMember(selectedSlug,
-                          //         textEditingController.text.trim(),
-                          //         onSuccess: () {
-                          //   /// lol kocak
-                          //   textEditingController.text =
-                          //       "                            ";
-                          //   textEditingController.selection =
-                          //       TextSelection.fromPosition(
-                          //           TextPosition(offset: 0));
-                          //   ref
-                          //       .read(commentsProvider.notifier)
-                          //       .fetchCommentFromAPI();
-                          // }, onFailure: (errorMessage) {
-                          //   print("response body: $errorMessage");
-                          // });
+                                    // ref
+                                    //     .read(commentsProvider.notifier)
+                                    //     .postCommentAsMember(selectedSlug,
+                                    //         textEditingController.text.trim(),
+                                    //         onSuccess: () {
+                                    //   /// lol kocak
+                                    //   textEditingController.text =
+                                    //       "                            ";
+                                    //   textEditingController.selection =
+                                    //       TextSelection.fromPosition(
+                                    //           TextPosition(offset: 0));
+                                    //   ref
+                                    //       .read(commentsProvider.notifier)
+                                    //       .fetchCommentFromAPI();
+                                    // }, onFailure: (errorMessage) {
+                                    //   print("response body: $errorMessage");
+                                    // });
 
-                          // }
-                        },
+                                    // }
+                                  }
+                                : () {
+                                    myToast("Silahkan Login Dulu");
+                                  }
+                            : null,
                         child: Text("Kirim")),
                   ],
                 )
