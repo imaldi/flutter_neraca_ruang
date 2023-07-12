@@ -726,11 +726,16 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                   IconWidget(
                                     data.banner ?? "",
                                     isOnlineSource: true,
-                                    size: 250,
+                                    // size: 250,
+                                    customOnErrorWidget: Container(
+                                      height: extra,
+                                      color: Color(primaryColor),
+                                      child: Text("No Ads"),
+                                    ),
                                   )
                                 ],
                                 removeArrows: true,
-                                height: extra,
+                                // height: extra,
                                 fit: BoxFit.fitWidth,
                               );
 
