@@ -145,8 +145,9 @@ class CurrentLocation extends _$CurrentLocation {
         // ref.read(kotaIdProvider.notifier).state = selectedCityId;
         // myToast("Ketemu");
 
-        // ref.read(kotaNameProfileProvider.notifier).state =
-        //     resultObject.address?.cityDistrict;
+        ref.read(kotaNameProvider.notifier).state =
+            resultObject.address?.cityDistrict;
+
         /// stop redetect
         // ref.invalidate(isDetectLokasi);
       }

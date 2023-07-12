@@ -23,6 +23,7 @@ void basicResetStates(BuildContext context, WidgetRef ref) {
   ref.invalidate(provIdParamProvider);
   ref.invalidate(kotaIdParamProvider);
   ref.invalidate(kotaNameProvider);
+  ref.invalidate(kotaNameProfileProvider);
   ref.invalidate(tagsIdProvider);
   ref.invalidate(tagsNameProvider);
   ref.invalidate(tagsIconLinkProvider);
