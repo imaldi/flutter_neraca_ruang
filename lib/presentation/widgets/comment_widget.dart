@@ -11,6 +11,7 @@ import '../../core/consts/sizes.dart';
 import '../../data/models/comment_response/comment_response.dart';
 import '../../data/models/forum_comment_response/forum_comment_response.dart';
 import '../../di.dart';
+import '../../logic/state_management/riverpod/active_forum_providers.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../../logic/state_management/riverpod/forum_comment_providers.dart';
@@ -49,6 +50,7 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
     final TextEditingController textEditingController = TextEditingController();
     var widgetColor = widget.isGreenPage ? greenModeColor : primaryColor;
     var replierName = ref.watch(selectedForumCommentReplierProvider);
+    var isAllowedToComment = ref.watch(allowedToComment);
 
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -148,13 +150,21 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                       maxLines: 3,
                       controller: textEditingController,
                       validator: (val) {
+                        if ((val ?? "").isEmpty) {
+                          return null;
+                        }
                         if ((val?.length ?? 0) < 28) {
                           return "Komentar minimal 28 karakter";
                         }
                         return null;
                       },
-                      // onChanged: (val) {
-                      // },
+                      onChanged: (val) {
+                        if ((val ?? "").isNotEmpty) {
+                          ref.read(allowedToComment.notifier).state = true;
+                        } else {
+                          ref.read(allowedToComment.notifier).state = false;
+                        }
+                      },
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
                     Row(
@@ -165,58 +175,70 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                                 backgroundColor: Color(widgetColor),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(huge))),
-                            onPressed: () {
-                              textEditingController.text =
-                                  textEditingController.text.trim();
-                              textEditingController.selection =
-                                  TextSelection.fromPosition(TextPosition(
-                                      offset:
-                                          textEditingController.text.length));
+                            onPressed: isAllowedToComment
+                                ? () {
+                                    textEditingController.text =
+                                        textEditingController.text.trim();
+                                    textEditingController.selection =
+                                        TextSelection.fromPosition(TextPosition(
+                                            offset: textEditingController
+                                                .text.length));
 
-                              // if (textFormKey.currentState != null &&
-                              //     textFormKey.currentState!.validate()) {
-                              if (widget.isForum) {
-                                ref
-                                    .read(forumCommentsProvider.notifier)
-                                    .postCommentAsMember(selectedSlug,
-                                        textEditingController.text.trim(),
-                                        replyId: ref.read(
-                                            selectedForumCommentIdProvider),
-                                        onSuccess: () {
-                                  /// lol kocak
-                                  textEditingController.text =
-                                      "                            ";
-                                  textEditingController.selection =
-                                      TextSelection.fromPosition(
-                                          TextPosition(offset: 0));
-                                  // ref
-                                  //     .read(forumCommentsProvider.notifier)
-                                  //     .fetchCommentFromAPI();
-                                }, onFailure: (errorMessage) {
-                                  print("response body: $errorMessage");
-                                });
-                              } else {
-                                ref
-                                    .read(commentsProvider.notifier)
-                                    .postCommentAsMember(selectedSlug,
-                                        textEditingController.text.trim(),
-                                        onSuccess: () {
-                                  /// lol kocak
-                                  textEditingController.text =
-                                      "                            ";
-                                  textEditingController.selection =
-                                      TextSelection.fromPosition(
-                                          TextPosition(offset: 0));
-                                  ref
-                                      .read(commentsProvider.notifier)
-                                      .fetchCommentFromAPI();
-                                }, onFailure: (errorMessage) {
-                                  print("response body: $errorMessage");
-                                });
-                              }
+                                    // if (textFormKey.currentState != null &&
+                                    //     textFormKey.currentState!.validate()) {
+                                    if (widget.isForum) {
+                                      ref
+                                          .read(activeForumsProvider.notifier)
+                                          .markDiskusiCommentAsRed(selectedSlug,
+                                              replyId: ref.read(
+                                                  selectedForumCommentIdProvider),
+                                              onSuccess: () {
+                                        ref
+                                            .read(
+                                                forumCommentsProvider.notifier)
+                                            .postCommentAsMember(
+                                                selectedSlug,
+                                                textEditingController.text
+                                                    .trim(),
+                                                replyId: ref.read(
+                                                    selectedForumCommentIdProvider),
+                                                onSuccess: () {
+                                          /// lol kocak
+                                          textEditingController.text =
+                                              "                            ";
+                                          textEditingController.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(offset: 0));
+                                          // ref
+                                          //     .read(forumCommentsProvider.notifier)
+                                          //     .fetchCommentFromAPI();
+                                        }, onFailure: (errorMessage) {
+                                          print("response body: $errorMessage");
+                                        });
+                                      });
+                                    } else {
+                                      ref
+                                          .read(commentsProvider.notifier)
+                                          .postCommentAsMember(selectedSlug,
+                                              textEditingController.text.trim(),
+                                              onSuccess: () {
+                                        /// lol kocak
+                                        textEditingController.text =
+                                            "                            ";
+                                        textEditingController.selection =
+                                            TextSelection.fromPosition(
+                                                TextPosition(offset: 0));
+                                        ref
+                                            .read(commentsProvider.notifier)
+                                            .fetchCommentFromAPI();
+                                      }, onFailure: (errorMessage) {
+                                        print("response body: $errorMessage");
+                                      });
+                                    }
 
-                              // }
-                            },
+                                    // }
+                                  }
+                                : null,
                             child: Text("Kirim")),
                       ],
                     )

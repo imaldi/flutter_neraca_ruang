@@ -126,6 +126,53 @@ class ActiveForums extends _$ActiveForums {
     }
   }
 
+  Future<void> markDiskusiCommentAsRed(
+    String diskusiSlug, {
+    int? replyId,
+    Function()? onSuccess,
+    Function(String)? onFailed,
+  }) async {
+    // state = const AsyncValue.loading();
+
+    state = AsyncValue.data([
+      for (final (stateContent as DiskusiModel) in state.value ?? [])
+        if (stateContent.threadSlug == diskusiSlug)
+          stateContent.copyWith(totalRead: (stateContent.totalRead ?? 0) + 1)
+        else
+          stateContent,
+    ]);
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+
+    try {
+      var url = Uri.https(baseUrl, "$updateReadsForumCommentUrl");
+
+      // final json = await http.get(url);
+      var bodyParams = {
+        "thread_slug": diskusiSlug,
+      };
+      if (replyId != null && replyId != 0) {
+        bodyParams["reply_id"] = replyId.toString();
+      }
+      final response = await http.patch(
+        url,
+        headers: {
+          'Authorization': token,
+          'Accept': 'application/json',
+        },
+        body: bodyParams,
+      );
+      print("URL mark as read forum coment from active forum provider: $url");
+      log("result JSON: ${jsonDecode(response.body)}");
+      if (onSuccess != null) onSuccess();
+      if (response.statusCode != 200) throw Exception();
+    } catch (e) {
+      if (onFailed != null) onFailed(e.toString());
+      state = AsyncValue.error(Error(), StackTrace.current);
+      print("There is an Error");
+    }
+  }
+
   Future<void> addUsulanDiskusi(
       {required String topikDiskusi,
       required String abstraksiSingkat,

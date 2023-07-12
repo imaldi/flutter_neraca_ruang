@@ -16,6 +16,8 @@ import '../../../di.dart';
 import 'dashboard_providers.dart';
 part 'forum_comment_providers.g.dart';
 
+final allowedToComment = StateProvider((ref) => false);
+
 @riverpod
 class ForumComments extends _$ForumComments {
   @override

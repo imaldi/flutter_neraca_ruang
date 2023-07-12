@@ -12,6 +12,7 @@ const updateForumLikeUrl = "/api/forum/updatelike";
 const updateForumUnlikeUrl = "/api/forum/updateunlike";
 const updateLikeForumCommentUrl = "/api/forum/komentar/updatelike";
 const updateUnlikeForumCommentUrl = "/api/forum/komentar/updateunlike";
+const updateReadsForumCommentUrl = "/api/forum/komentar/reads";
 const updateUnlikeUrl = "/api/portal/updateunlike";
 const tagsListUrl = "/api/master/gettagging";
 const storageUrl = "$baseUrl/storage";

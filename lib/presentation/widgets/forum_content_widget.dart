@@ -203,10 +203,15 @@ class ForumContentWidget extends ConsumerWidget {
               InkWell(
                 onTap: contentId != content.threadId
                     ? () async {
-                        ref.read(selectedForumIdProvider.notifier).state =
-                            content.threadId ?? 0;
-                        ref.read(selectedForumSlugProvider.notifier).state =
-                            content.threadSlug ?? "";
+                        ref
+                            .read(activeForumsProvider.notifier)
+                            .markDiskusiCommentAsRed(content.threadSlug ?? "",
+                                onSuccess: () {
+                          ref.read(selectedForumIdProvider.notifier).state =
+                              content.threadId ?? 0;
+                          ref.read(selectedForumSlugProvider.notifier).state =
+                              content.threadSlug ?? "";
+                        });
                         // await ref
                         //     .read(forumCommentsProvider.notifier)
                         //     .fetchCommentFromAPI();
