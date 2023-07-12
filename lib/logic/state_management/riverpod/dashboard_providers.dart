@@ -358,7 +358,7 @@ class Repository {
       });
 
       print("URL adsense: $url");
-      // log("Response body: ${response.body}");
+      log("Response body adsense: ${response.body}");
 
       return AdsenseResponse.fromJson(jsonDecode(response.body)).data ??
           Adsense();

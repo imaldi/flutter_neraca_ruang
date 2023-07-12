@@ -181,8 +181,7 @@ class ActiveForums extends _$ActiveForums {
     try {
       var authBox = sl<Box<AuthResponse>>();
       var dataFromBox = authBox.get(userDataKey);
-      MemberData userData =
-          dataFromBox?.data?.copyWith(token: "") ?? MemberData();
+      MemberData userData = dataFromBox?.data?.copyWith() ?? MemberData();
       print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
       var token = "Bearer ${userData.token ?? " "}";
       // FIXME ini sharusnya pakai token user, bukan portal

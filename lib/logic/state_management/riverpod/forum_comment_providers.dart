@@ -43,8 +43,11 @@ class ForumComments extends _$ForumComments {
     state = const AsyncValue.loading();
     String selectedSlug = ref.watch(selectedForumSlugProvider);
 
-    String token =
-        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
+    var authBox = sl<Box<AuthResponse>>();
+    var dataFromBox = authBox.get(userDataKey);
+    MemberData userData = dataFromBox?.data?.copyWith() ?? MemberData();
+    print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
+    var token = "Bearer ${userData.token ?? ""}";
     var url = Uri.https(baseUrl, "$forumCommentListUrl/$selectedSlug");
 
     print("url fetch comment: $url");
@@ -178,15 +181,11 @@ class ForumComments extends _$ForumComments {
       required Function() onSuccess,
       required Function(String) onFailure}) async {
     try {
-      // var authBox = sl<Box<AuthResponse>>();
-      // var dataFromBox = authBox.get(userDataKey);
-      // MemberData userData =
-      //     dataFromBox?.data?.copyWith(token: "") ?? MemberData();
-      // print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
-      // var token = userData.token ?? "";
-      // FIXME ini sharusnya pakai token user, bukan portal
-      String token =
-          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2EtcnVhbmciLCJzdWIiOiJhbGRpMTkiLCJpYXQiOjE2ODc3MzMxMDIsImV4cCI6MTY5MDMyNTEwMn0.NeO58NdKNvcV3kD5J0aRFarTiBeEypM337OR0WPWM6I";
+      var authBox = sl<Box<AuthResponse>>();
+      var dataFromBox = authBox.get(userDataKey);
+      MemberData userData = dataFromBox?.data?.copyWith() ?? MemberData();
+      print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
+      var token = "Bearer ${userData.token ?? ""}";
       var bodyParameters = {
         "thread_slug": slug,
         "reply_content": komentar,

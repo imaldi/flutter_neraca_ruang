@@ -34,6 +34,7 @@ class IconWidget extends StatelessWidget {
               ? Image.network(
                   srcPath,
                   errorBuilder: (bc, o, st) {
+                    print("Error iklan: ${st}");
                     return customOnErrorWidget ?? Image.asset(iconError);
                   },
                 )
