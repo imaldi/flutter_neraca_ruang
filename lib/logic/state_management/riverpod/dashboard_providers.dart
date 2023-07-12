@@ -345,12 +345,11 @@ class Repository {
   }
 
   Future<Adsense> fetchAdsense() async {
-    String token =
-        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMxMjkyNzksImV4cCI6MTgzODY0OTI3OX0.TcUp9g0SpOxZ6Im4YYiUurvdRgBRos2V_SboOF8wXyM";
+    String token = "Bearer 80|LECLFT9MecjdZfVUGV1ie1xOi3ZocOWKE5FMhhf8";
     // ref.read(userTokenProvider);
     var today = DateTime.now().toString().substring(0, 10);
     try {
-      var url = Uri.https(baseUrl, adsenseUrl, {'tanggal': today});
+      var url = Uri.https(baseUrl, adsenseUrl, {"is_mobile": "1"});
 
       final response = await http.get(url, headers: {
         'Authorization': token,
@@ -360,8 +359,9 @@ class Repository {
       print("URL adsense: $url");
       log("Response body adsense: ${response.body}");
 
-      return AdsenseResponse.fromJson(jsonDecode(response.body)).data ??
-          Adsense();
+      /// TODO Fix dengan endpoint yang sesuai, dan return list of ads, bukan cuma single
+      return Adsense.fromJson(
+          jsonDecode(response.body)["data"]["data"].first ?? [{}]);
     } catch (e) {
       throw Error();
     }

@@ -18,7 +18,9 @@ const tagsListUrl = "/api/master/gettagging";
 const storageUrl = "$baseUrl/storage";
 const contentUrl = "$storageUrl/content";
 const thumbnailUrl = "$storageUrl/thumbnail";
-const adsenseUrl = "/api/portal/adsmobiles";
+
+/// Fixme ini cuma sementara, supaya tampil saja dlu
+const adsenseUrl = "/api/admin/adsense";
 const provinceListUrl = "/api/portal/getpropinsi";
 const kabKotaListUrl = "/api/portal/getkota";
 const addLike = "/api/portal/updatelike";

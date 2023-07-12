@@ -721,28 +721,30 @@ class LandingPageState extends ConsumerState<LandingPage> {
                             ),
                             adsense.when(data: (data) {
                               // return Text("Ads Banner: ${data.banner}");
-                              return Column(
-                                children: [
-                                  ScrollableHorizontalImage(
-                                    [
-                                      IconWidget(
-                                        data.banner ?? "",
-                                        isOnlineSource: true,
-                                        // size: 250,
-                                        customOnErrorWidget: Container(
-                                          height: extra,
-                                          color: Color(primaryColor),
-                                          child: Text("No Ads"),
-                                        ),
-                                      )
-                                    ],
-                                    removeArrows: true,
-                                    // height: extra,
-                                    fit: BoxFit.fitWidth,
+                              return
+                                  // ScrollableHorizontalImage(
+                                  // [
+                                  Container(
+                                width: double.infinity,
+                                child: FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: IconWidget(
+                                    data.banner ?? "",
+                                    isOnlineSource: true,
+                                    // size: 250,
+                                    customOnErrorWidget: Container(
+                                      height: extra,
+                                      color: Color(primaryColor),
+                                      child: Text("No Ads"),
+                                    ),
                                   ),
-                                ],
+                                ),
                               );
-
+                              //   ],
+                              //   removeArrows: true,
+                              //   // height: extra,
+                              //   fit: BoxFit.fitWidth,
+                              // );
                               // Text("Ada Data: ${data.toString()}");
                             }, error: (o, st) {
                               return Text("Ada Error");
