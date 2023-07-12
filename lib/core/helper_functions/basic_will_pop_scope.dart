@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../router/app_router.dart';
 
@@ -20,6 +21,7 @@ void basicResetStates(BuildContext context, WidgetRef ref) {
   ref.invalidate(pageNumberProvider);
   ref.invalidate(kotaIdProvider);
   // ref.read(kotaIdProvider.notifier).state = 0;
+  ref.invalidate(temporaryImNotRobotProvider);
   ref.invalidate(provIdParamProvider);
   ref.invalidate(kotaIdParamProvider);
   ref.invalidate(kotaNameProvider);

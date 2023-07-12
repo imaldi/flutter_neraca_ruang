@@ -13,6 +13,7 @@ import '../../core/consts/urls.dart';
 import '../../core/helper_functions/deeplink_handler.dart';
 import '../../core/router/app_router.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
+import 'i_am_not_robot.dart';
 import 'my_toast.dart';
 
 class LoginPopUp extends ConsumerWidget {
@@ -84,10 +85,7 @@ class LoginPopUp extends ConsumerWidget {
                         return null;
                       },
                     ),
-                    Container(
-                      color: Colors.grey[100],
-                      child: Text("Saya Bukan Robot"),
-                    ),
+                    IAmNotRobot(),
                     RoundedContainer(
                       extra,
                       margin: const EdgeInsets.all(0),

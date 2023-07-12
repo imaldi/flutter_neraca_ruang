@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neraca_ruang/presentation/widgets/i_am_not_robot.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_container.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_field.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/searchable_dropdown.dart';
@@ -371,15 +372,7 @@ class RegisterPopUp extends ConsumerWidget {
                   ),
                 ),
 
-                Container(
-                  color: Colors.grey[100],
-                  child: Row(
-                    children: [
-                      Checkbox(value: false, onChanged: (val) {}),
-                      Text("Saya Bukan Robot"),
-                    ],
-                  ),
-                ),
+                IAmNotRobot(),
                 RoundedContainer(
                   extra,
                   margin: const EdgeInsets.all(0),

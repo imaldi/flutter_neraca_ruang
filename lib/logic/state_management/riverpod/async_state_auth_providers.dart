@@ -33,6 +33,7 @@ var registerEvent = StateProvider<bool>((ref) => false);
 var loginEvent = StateProvider<bool>((ref) => false);
 var isChangePasswordSuccess = StateProvider<bool?>((ref) => null);
 var callbackLinkProvider = StateProvider<String?>((ref) => null);
+var temporaryImNotRobotProvider = StateProvider<bool?>((ref) => false);
 // var callbackResponseProvider = FutureProvider<String>((ref) async {
 //   var linkCallback = ref.watch(callbackLinkProvider);
 //   String token =
