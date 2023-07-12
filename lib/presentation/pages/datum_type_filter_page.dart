@@ -22,6 +22,7 @@ import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../../logic/state_management/riverpod/comment_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/appbar_widget.dart';
+import '../widgets/button_load_more.dart';
 import '../widgets/comment_widget.dart';
 import '../widgets/my_toast.dart';
 import '../widgets/social_media_panel_widget.dart';
@@ -685,23 +686,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                               ],
                             );
                           }),
-                      InkWell(
-                        onTap: () {
-                          ref.read(limitProvider.notifier).state++;
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(medium),
-                          margin: const EdgeInsets.symmetric(vertical: medium),
-                          decoration: const BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(extra))),
-                          child: Text(
-                            "LOAD MORE",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
+                      ButtonLoadMore(),
                       SocialMediaPanelWidget(),
                     ],
                   ),

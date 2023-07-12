@@ -18,6 +18,7 @@ part 'all_content_list_providers.g.dart';
 final tipeKontenProvider = StateProvider((ref) => "");
 final keywordKontenProvider = StateProvider((ref) => "");
 final commentTextSizeProvider = StateProvider((ref) => 0);
+final showLoadMoreButton = StateProvider((ref) => false);
 // final myContentListProvider = FutureProvider<void>((ref) async {
 //   // final myNotifier = ref.watch(contentsProvider.future);
 //   await myNotifier.initialize();
@@ -107,7 +108,9 @@ class Contents extends _$Contents {
       log("result JSON status code: ${response.statusCode}");
       log("result JSON: ${response.body}");
       // log("result JSON: ${DashboardResponse.fromJson(jsonDecode(response.body)).toJson().toString()}");
-
+      final total =
+          DashboardResponse.fromJson(jsonDecode(response.body)).data?.total ??
+              0;
       final result = DashboardResponse.fromJson(jsonDecode(response.body))
           .data
           ?.data
@@ -117,6 +120,11 @@ class Contents extends _$Contents {
         }
         return e;
       }).toList();
+      if ((limit ?? 0) >= (total)) {
+        ref.read(showLoadMoreButton.notifier).state = false;
+      } else {
+        ref.read(showLoadMoreButton.notifier).state = true;
+      }
       state = await AsyncValue.guard(() async {
         return result;
       });
