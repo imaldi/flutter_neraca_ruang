@@ -16,18 +16,26 @@ import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import 'i_am_not_robot.dart';
 import 'my_toast.dart';
 
-class LoginPopUp extends ConsumerWidget {
+class LoginPopUp extends ConsumerStatefulWidget {
   const LoginPopUp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var usernameController = TextEditingController(text: '');
-    var passwordController = TextEditingController(text: '');
+  ConsumerState<LoginPopUp> createState() => _LoginPopUpState();
+}
+
+class _LoginPopUpState extends ConsumerState<LoginPopUp> {
+  var _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    // var username = ref.watch(nameProvider);
+    // var password = ref.watch(passwordProvider);
+    var usernameController = TextEditingController();
+    var passwordController = TextEditingController();
     var isAllowedToLoginV = ref.watch(isAllowedToLogin);
     return Center(
       child: IntrinsicHeight(
-        child: InkWell(
-          onTap: () {},
+        child: Form(
+          key: _formKey,
           child: Container(
             // padding: const EdgeInsets.all(huge),
             decoration: BoxDecoration(
@@ -75,26 +83,34 @@ class LoginPopUp extends ConsumerWidget {
                         if ((val ?? "").isEmpty) return "Username Wajib di Isi";
                         return null;
                       },
-                      onChanged: (val) {
-                        if ((val ?? "").isNotEmpty) {
-                          ref.read(isAllowedToLogin.notifier).state = true;
-                        } else {
-                          ref.read(isAllowedToLogin.notifier).state = false;
-                        }
-                      },
+                      // onEditingComplete: () {
+                      //   if ((usernameController.text ?? "").isNotEmpty &&
+                      //       (passwordController.text ?? "").isNotEmpty) {
+                      //     ref.read(isAllowedToLogin.notifier).state = true;
+                      //   } else {
+                      //     ref.read(isAllowedToLogin.notifier).state = false;
+                      //   }
+                      //   ref.read(nameProvider.notifier).state = val;
+                      //   // usernameController.selection =
+                      //   //     TextSelection.fromPosition(TextPosition(
+                      //   //         offset: usernameController.text.length));
+                      // },
                     ),
                     RoundedTextFormField(
                       hint: "Kata Sandi",
                       controller: passwordController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       isObscureText: true,
-                      onChanged: (val) {
-                        if ((val ?? "").isNotEmpty) {
-                          ref.read(isAllowedToLogin.notifier).state = true;
-                        } else {
-                          ref.read(isAllowedToLogin.notifier).state = false;
-                        }
-                      },
+                      // onChanged: (val) {
+                      //   if (usernameController.text.isNotEmpty &&
+                      //       passwordController.text.isNotEmpty) {
+                      //     ref.read(isAllowedToLogin.notifier).state = true;
+                      //   } else {
+                      //     ref.read(isAllowedToLogin.notifier).state = false;
+                      //   }
+                      //   ref.read(passwordProvider.notifier).state = val;
+                      //   // passwordController.text = val;
+                      // },
                       validator: (val) {
                         if ((val ?? "").isEmpty) return "Password Wajib di Isi";
                         return null;
@@ -117,30 +133,39 @@ class LoginPopUp extends ConsumerWidget {
                               //         passwordController.text.isEmpty
                               //     ? null
                               //     :
-                              isAllowedToLoginV
-                                  ? () {
-                                      // ref
-                                      //     .read(usernameProvider.notifier)
-                                      //     .update((state) => usernameController.text);
-                                      // ref
-                                      //     .read(passwordProvider.notifier)
-                                      //     .update((state) => passwordController.text);
-                                      // ref.read(loginEvent.notifier).state = true;
-                                      ref
-                                          .read(authStatusProvider.notifier)
-                                          .login(
-                                            username: usernameController.text,
-                                            password: passwordController.text,
-                                            successCallback: () {
-                                              myToast("Log In Success");
-                                              context.router.pop();
-                                            },
-                                            failureCallback: () {
-                                              myToast("Log In Failed");
-                                            },
-                                          );
-                                    }
-                                  : null,
+                              // isAllowedToLoginV
+                              //     ?
+                              () {
+                            // ref
+                            //     .read(usernameProvider.notifier)
+                            //     .update((state) => usernameController.text);
+                            // ref
+                            //     .read(passwordProvider.notifier)
+                            //     .update((state) => passwordController.text);
+                            // ref.read(loginEvent.notifier).state = true;
+                            if (_formKey.currentState?.validate() ?? false) {
+                              ref.read(authStatusProvider.notifier).login(
+                                    username: usernameController.text,
+                                    password: passwordController.text,
+                                    successCallback: () {
+                                      myToast("Log In Success");
+                                      ref.invalidate(
+                                          temporaryImNotRobotProvider);
+                                      context.router.pop();
+                                    },
+                                    failureCallback: () {
+                                      ref.invalidate(
+                                          temporaryImNotRobotProvider);
+
+                                      myToast("Log In Failed");
+                                    },
+                                  );
+                            }
+                            // else {
+                            //   myToast("Gagal Validate");
+                            // }
+                          },
+                          // : null,
                           child: Text("MASUK")),
                     ),
                     Text("Belum memiliki akun?"),

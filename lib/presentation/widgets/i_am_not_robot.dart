@@ -45,10 +45,8 @@ class _IAmNotRobotState extends ConsumerState<IAmNotRobot> {
                       });
                     }
                     // if (!(val ?? true)) {
-                    //   ref
-                    //       .read(
-                    //       temporaryImNotRobotProvider.notifier)
-                    //       .state = false;
+                    //   ref.read(temporaryImNotRobotProvider.notifier).state =
+                    //       false;
                     // }
                   }),
           Text("Saya Bukan Robot"),

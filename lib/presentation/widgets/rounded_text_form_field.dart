@@ -16,15 +16,19 @@ class RoundedTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final double? borderRadius;
   final Function(String)? onChanged;
+  final Function()? onEditingComplete;
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
   final EdgeInsets? padding;
+  final GlobalKey<FormState>? fieldKey;
   const RoundedTextFormField(
       {this.decoration,
       this.controller,
+      this.fieldKey,
       this.hint,
       this.padding,
       this.autovalidateMode,
+      this.onEditingComplete,
       this.maxLines = 1,
       this.maxLength,
       this.errorMaxLines = 1,
@@ -45,27 +49,25 @@ class RoundedTextFormField extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? huge)));
     return Padding(
       padding: padding ?? const EdgeInsets.symmetric(vertical: 8.0),
-      child: Form(
-        key: key,
-        child: TextFormField(
-            maxLength: maxLength,
-            readOnly: readOnly,
-            enabled: isEnabled,
-            controller: controller,
-            obscureText: isObscureText,
-            keyboardType: keyboardType,
-            onChanged: onChanged,
-            maxLines: maxLines,
-            validator: validator,
-            autovalidateMode: autovalidateMode,
-            decoration: (decoration ?? const InputDecoration()).copyWith(
-                contentPadding: const EdgeInsets.all(medium),
-                enabledBorder: _basicBorder,
-                disabledBorder: _basicBorder,
-                focusedBorder: _basicBorder,
-                errorMaxLines: errorMaxLines,
-                hintText: hint ?? "Nama")),
-      ),
+      child: TextFormField(
+          maxLength: maxLength,
+          readOnly: readOnly,
+          enabled: isEnabled,
+          controller: controller,
+          obscureText: isObscureText,
+          keyboardType: keyboardType,
+          onChanged: onChanged,
+          maxLines: maxLines,
+          validator: validator,
+          autovalidateMode: autovalidateMode,
+          onEditingComplete: onEditingComplete,
+          decoration: (decoration ?? const InputDecoration()).copyWith(
+              contentPadding: const EdgeInsets.all(medium),
+              enabledBorder: _basicBorder,
+              disabledBorder: _basicBorder,
+              focusedBorder: _basicBorder,
+              errorMaxLines: errorMaxLines,
+              hintText: hint ?? "Nama")),
     );
   }
 }

@@ -396,10 +396,14 @@ class RegisterPopUp extends ConsumerWidget {
                               kotaId: kabKotaId,
                               kodePos: kodePosCtlr.text,
                               successCallback: () {
+                                ref.invalidate(temporaryImNotRobotProvider);
+
                                 myToast("Register Success");
                                 context.router.pop();
                               },
                               failureCallback: (message) {
+                                ref.invalidate(temporaryImNotRobotProvider);
+
                                 myToast("Register Failed: $message");
                               },
                             );

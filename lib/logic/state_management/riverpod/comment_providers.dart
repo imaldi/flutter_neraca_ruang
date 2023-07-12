@@ -87,32 +87,36 @@ class Comments extends _$Comments {
       {required Function() onSuccess,
       required Function(String) onFailure}) async {
     try {
-      // var authBox = sl<Box<AuthResponse>>();
-      // var dataFromBox = authBox.get(userDataKey);
-      // MemberData userData =
-      //     dataFromBox?.data?.copyWith(token: "") ?? MemberData();
-      // print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
-      // var token = "Bearer ${userData.token ?? " "}";
+      var authBox = sl<Box<AuthResponse>>();
+      var dataFromBox = authBox.get(userDataKey);
+      MemberData userData = dataFromBox?.data?.copyWith() ?? MemberData();
+      print("dataFromBox (postComment): ${dataFromBox?.toJson()}");
+      var token = "Bearer ${userData.token ?? ""}";
       // FIXME ini sharusnya pakai token user, bukan portal
-      String token =
-          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2EtcnVhbmciLCJzdWIiOiJhbGRpMTkiLCJpYXQiOjE2ODc3MzMxMDIsImV4cCI6MTY5MDMyNTEwMn0.NeO58NdKNvcV3kD5J0aRFarTiBeEypM337OR0WPWM6I";
+      // String token =
+      //     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2EtcnVhbmciLCJzdWIiOiJhbGRpMTkiLCJpYXQiOjE2ODc3MzMxMDIsImV4cCI6MTY5MDMyNTEwMn0.NeO58NdKNvcV3kD5J0aRFarTiBeEypM337OR0WPWM6I";
       var bodyParameters = {
         "slug": slug,
         "komentar": komentar,
+        // "nik": userData.members.,
+        "username": userData.members?.username ?? "",
+        "email": userData.members?.email ?? ""
       };
       var url = Uri.https(
         baseUrl,
         postCommentUrl,
       );
       print("Post Comment URL :$url");
+      print("Post Comment params: $slug");
 
       // final json = await http.get(url);
       final response = await http.post(url,
           headers: {
-            'Authorization': "Bearer $token",
-            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+            // 'Content-Type': 'application/json',
           },
-          body: bodyParameters);
+          body: jsonEncode(bodyParameters));
       log("post comment resp code: ${response.statusCode}");
       log("post comment resp body: ${response.body}");
       if (response.statusCode != 201) {
