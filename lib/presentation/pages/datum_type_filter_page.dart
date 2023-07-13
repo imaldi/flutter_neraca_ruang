@@ -600,12 +600,9 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                         iconDibaca,
                                         size: huge,
                                       ),
-                                      Wrap(
-                                        children: [
-                                          Text("${content.totalRead ?? "0"} "),
-                                          const Text("Reads"),
-                                        ],
-                                      ),
+                                      FittedBox(
+                                          child: Text(
+                                              "${content.totalRead ?? "0"} Reads")),
                                       InkWell(
                                         onTap: isLiked
                                             ? null
@@ -626,12 +623,9 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                                 size: huge,
                                               ),
                                       ),
-                                      Wrap(
-                                        children: [
-                                          Text("${content.totalLike ?? "0"} "),
-                                          Text("Likes"),
-                                        ],
-                                      ),
+                                      FittedBox(
+                                          child: Text(
+                                              "${content.totalLike ?? "0"} Likes")),
                                       InkWell(
                                         onTap: contentId != content.id
                                             ? () {
@@ -655,14 +649,9 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                           size: huge,
                                         ),
                                       ),
-                                      Wrap(
-                                        children: [
-                                          Text(
-                                              "${content.totalComment ?? "0"} "),
-                                          Text(
-                                            "Comments",
-                                          ),
-                                        ],
+                                      FittedBox(
+                                        child: Text(
+                                            "${content.totalComment ?? "0"} Comments"),
                                       ),
                                       IconWidget(
                                         iconTeruskan,

@@ -530,12 +530,8 @@ class _ContentWidgetState extends ConsumerState<ContentWidget> {
                 widget.isGreenMode ? iconDibaca2 : iconDibaca,
                 size: huge,
               ),
-              Wrap(
-                children: [
-                  Text("${widget.content.totalRead ?? "0"} "),
-                  const Text("Reads"),
-                ],
-              ),
+              FittedBox(
+                  child: Text("${widget.content.totalRead ?? "0"} Reads")),
               InkWell(
                 onTap: isLiked
                     ? null
@@ -556,12 +552,8 @@ class _ContentWidgetState extends ConsumerState<ContentWidget> {
                         size: huge,
                       ),
               ),
-              Wrap(
-                children: [
-                  Text("${widget.content.totalLike ?? "0"} "),
-                  Text("Likes"),
-                ],
-              ),
+              FittedBox(
+                  child: Text("${widget.content.totalLike ?? "0"} Likes")),
               InkWell(
                 onTap: contentId != widget.content.id
                     ? () {
@@ -586,14 +578,9 @@ class _ContentWidgetState extends ConsumerState<ContentWidget> {
                   size: huge,
                 ),
               ),
-              Wrap(
-                children: [
-                  Text("${widget.content.totalComment ?? "0"} "),
-                  Text(
-                    "Comments",
-                  ),
-                ],
-              ),
+              FittedBox(
+                  child:
+                      Text("${widget.content.totalComment ?? "0"} Comments")),
               IconWidget(
                 widget.isGreenMode ? iconTeruskan2 : iconTeruskan,
                 size: huge,
