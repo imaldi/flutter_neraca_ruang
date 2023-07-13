@@ -25,7 +25,7 @@ import '../../../data/models/province_response/province_response.dart';
 
 // FIXME: JANGAN SIMPAN TOKENNYA DI SINI!!! (JANGAN COMMIT INI) // udah terlanjur hadeh,
 final userTokenProvider = StateProvider<String>((ref) =>
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc");
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMxMjkyNzksImV4cCI6MTgzODY0OTI3OX0.TcUp9g0SpOxZ6Im4YYiUurvdRgBRos2V_SboOF8wXyM");
 
 final repositoryProvider = Provider((ref) => Repository(ref));
 
@@ -99,7 +99,7 @@ var dashBoardProvider = FutureProvider<List<Datum>>((ref) async {
     ..add(infografis.data?.data?.first ?? Datum())
     ..add(video.data?.data?.first ?? Datum())
     ..add(foto.data?.data?.first ?? Datum());
-  log("Dashboard Result: ${theList}");
+  // log("Dashboard Result: ${theList}");
   return await Future<List<Datum>>(() => theList);
 });
 
@@ -259,7 +259,7 @@ class Repository {
     String token = ref.read(userTokenProvider);
 
     var pageNumber = ref.watch(pageNumberProvider);
-    var limit = ref.watch(limitProvider);
+    var limit = 1;
     var tagsId = ref.watch(tagsIdProvider);
     var kotaId = ref.watch(kotaIdProvider);
     var selectedContentId = ref.watch(selectedContentIdProvider);
@@ -345,11 +345,12 @@ class Repository {
   }
 
   Future<Adsense> fetchAdsense() async {
-    String token = "Bearer 80|LECLFT9MecjdZfVUGV1ie1xOi3ZocOWKE5FMhhf8";
+    String token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMxMjkyNzksImV4cCI6MTgzODY0OTI3OX0.TcUp9g0SpOxZ6Im4YYiUurvdRgBRos2V_SboOF8wXyM";
     // ref.read(userTokenProvider);
     var today = DateTime.now().toString().substring(0, 10);
     try {
-      var url = Uri.https(baseUrl, adsenseUrl, {"is_mobile": "1"});
+      var url = Uri.https(baseUrl, adsenseUrl, {"tipe": "2"});
 
       final response = await http.get(url, headers: {
         'Authorization': token,
@@ -360,8 +361,8 @@ class Repository {
       log("Response body adsense: ${response.body}");
 
       /// TODO Fix dengan endpoint yang sesuai, dan return list of ads, bukan cuma single
-      return Adsense.fromJson(
-          jsonDecode(response.body)["data"]["data"].first ?? [{}]);
+      return AdsenseResponse.fromJson(jsonDecode(response.body)).data ??
+          Adsense();
     } catch (e) {
       throw Error();
     }

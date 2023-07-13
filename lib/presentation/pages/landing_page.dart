@@ -724,21 +724,11 @@ class LandingPageState extends ConsumerState<LandingPage> {
                               return
                                   // ScrollableHorizontalImage(
                                   // [
-                                  Container(
-                                width: double.infinity,
-                                child: FittedBox(
-                                  fit: BoxFit.fitWidth,
-                                  child: IconWidget(
-                                    data.banner ?? "",
-                                    isOnlineSource: true,
-                                    // size: 250,
-                                    customOnErrorWidget: Container(
-                                      height: extra,
-                                      color: Color(primaryColor),
-                                      child: Text("No Ads"),
-                                    ),
-                                  ),
-                                ),
+                                  Column(
+                                children: [
+                                  // Text(data.banner ?? ""),
+                                  Image.network(data.banner ?? ""),
+                                ],
                               );
                               //   ],
                               //   removeArrows: true,

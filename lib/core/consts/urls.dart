@@ -20,7 +20,7 @@ const contentUrl = "$storageUrl/content";
 const thumbnailUrl = "$storageUrl/thumbnail";
 
 /// Fixme ini cuma sementara, supaya tampil saja dlu
-const adsenseUrl = "/api/admin/adsense";
+const adsenseUrl = "/api/portal/adsmobiles";
 const provinceListUrl = "/api/portal/getpropinsi";
 const kabKotaListUrl = "/api/portal/getkota";
 const addLike = "/api/portal/updatelike";
