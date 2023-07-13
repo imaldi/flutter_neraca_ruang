@@ -583,7 +583,7 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                           child: HtmlWidget(
                                             "${content.keterangan}",
                                             textStyle: const TextStyle(
-                                                color: Colors.black),
+                                                color: Colors.grey),
                                           ),
                                         ),
                                       ),

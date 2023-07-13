@@ -508,7 +508,7 @@ class _ContentWidgetState extends ConsumerState<ContentWidget> {
                         // Text("${content.keterangan}"),
                         HtmlWidget(
                       "${widget.content.keterangan}",
-                      textStyle: const TextStyle(color: Colors.black),
+                      textStyle: const TextStyle(color: Colors.grey),
                       onLoadingBuilder: (bc, e, d) => Center(
                           child: CircularProgressIndicator(
                         color: Color(
