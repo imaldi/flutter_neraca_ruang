@@ -357,163 +357,170 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
                                           height: tagsIconHeightFromFigma,
 
                                           /// sebelumnya ada error disini karena row di bungkus dengan fitted box, jangan pakai begitu lagi
-                                          child: Row(
-                                            children: [
-                                              JustTheTooltip(
-                                                tailBaseWidth: 0,
-                                                tailLength: 0,
-                                                elevation: 0,
-                                                backgroundColor: Colors.white,
-                                                borderRadius: BorderRadius.zero,
-                                                content: Text(content
-                                                        .tagsPihak?.tagsName ??
-                                                    ""),
-                                                child: IconWidget(
-                                                  content.tagsPihak
-                                                          ?.tagsIcon1 ??
-                                                      "",
-                                                  margin: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: small),
-                                                  isOnlineSource: true,
-                                                  onTap: () {
-                                                    setContentListParams(ref,
-                                                        tipe:
-                                                            content.tipe ?? "",
-                                                        tagsId: content
-                                                                .tagsPihak
-                                                                ?.tagsId ??
-                                                            0);
-                                                    ref
-                                                        .read(tagsNameProvider
-                                                            .notifier)
-                                                        .state = content
-                                                            .tagsPihak
-                                                            ?.tagsName ??
-                                                        "";
-                                                    ref
-                                                        .read(
-                                                            tagsIconLinkProvider
-                                                                .notifier)
-                                                        .state = content
-                                                            .tagsPihak
+                                          child: FittedBox(
+                                            child: Row(
+                                              children: [
+                                                JustTheTooltip(
+                                                  tailBaseWidth: 0,
+                                                  tailLength: 0,
+                                                  elevation: 0,
+                                                  backgroundColor: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.zero,
+                                                  content: Text(content
+                                                          .tagsPihak
+                                                          ?.tagsName ??
+                                                      ""),
+                                                  child: IconWidget(
+                                                    content.tagsPihak
                                                             ?.tagsIcon1 ??
-                                                        "";
-                                                    // ref.invalidate(
-                                                    //     kotaIdProvider);
-                                                    ref.invalidate(
-                                                        kotaNameProvider);
-                                                    context.router.replace(
-                                                        routeChooser(
-                                                            content.tipe ??
-                                                                ""));
-                                                  },
+                                                        "",
+                                                    margin: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: small),
+                                                    isOnlineSource: true,
+                                                    onTap: () {
+                                                      setContentListParams(ref,
+                                                          tipe: content.tipe ??
+                                                              "",
+                                                          tagsId: content
+                                                                  .tagsPihak
+                                                                  ?.tagsId ??
+                                                              0);
+                                                      ref
+                                                          .read(tagsNameProvider
+                                                              .notifier)
+                                                          .state = content
+                                                              .tagsPihak
+                                                              ?.tagsName ??
+                                                          "";
+                                                      ref
+                                                          .read(
+                                                              tagsIconLinkProvider
+                                                                  .notifier)
+                                                          .state = content
+                                                              .tagsPihak
+                                                              ?.tagsIcon1 ??
+                                                          "";
+                                                      // ref.invalidate(
+                                                      //     kotaIdProvider);
+                                                      ref.invalidate(
+                                                          kotaNameProvider);
+                                                      context.router.replace(
+                                                          routeChooser(
+                                                              content.tipe ??
+                                                                  ""));
+                                                    },
+                                                  ),
                                                 ),
-                                              ),
-                                              JustTheTooltip(
-                                                tailBaseWidth: 0,
-                                                tailLength: 0,
-                                                elevation: 0,
-                                                backgroundColor: Colors.white,
-                                                borderRadius: BorderRadius.zero,
-                                                content: Text(content
-                                                        .tagsTopik?.tagsName ??
-                                                    ""),
-                                                child: IconWidget(
-                                                  content.tagsTopik
-                                                          ?.tagsIcon1 ??
-                                                      "",
-                                                  margin: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: small),
-                                                  isOnlineSource: true,
-                                                  onTap: () {
-                                                    setContentListParams(ref,
-                                                        tipe:
-                                                            content.tipe ?? "",
-                                                        tagsId: content
-                                                                .tagsTopik
-                                                                ?.tagsId ??
-                                                            0);
-                                                    ref
-                                                        .read(tagsNameProvider
-                                                            .notifier)
-                                                        .state = content
-                                                            .tagsTopik
-                                                            ?.tagsName ??
-                                                        "";
-                                                    ref
-                                                        .read(
-                                                            tagsIconLinkProvider
-                                                                .notifier)
-                                                        .state = content
-                                                            .tagsTopik
+                                                JustTheTooltip(
+                                                  tailBaseWidth: 0,
+                                                  tailLength: 0,
+                                                  elevation: 0,
+                                                  backgroundColor: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.zero,
+                                                  content: Text(content
+                                                          .tagsTopik
+                                                          ?.tagsName ??
+                                                      ""),
+                                                  child: IconWidget(
+                                                    content.tagsTopik
                                                             ?.tagsIcon1 ??
-                                                        "";
-                                                    // ref.invalidate(
-                                                    //     kotaIdProvider);
-                                                    ref.invalidate(
-                                                        kotaNameProvider);
-                                                    context.router.replace(
-                                                        routeChooser(
-                                                            content.tipe ??
-                                                                ""));
-                                                  },
+                                                        "",
+                                                    margin: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: small),
+                                                    isOnlineSource: true,
+                                                    onTap: () {
+                                                      setContentListParams(ref,
+                                                          tipe: content.tipe ??
+                                                              "",
+                                                          tagsId: content
+                                                                  .tagsTopik
+                                                                  ?.tagsId ??
+                                                              0);
+                                                      ref
+                                                          .read(tagsNameProvider
+                                                              .notifier)
+                                                          .state = content
+                                                              .tagsTopik
+                                                              ?.tagsName ??
+                                                          "";
+                                                      ref
+                                                          .read(
+                                                              tagsIconLinkProvider
+                                                                  .notifier)
+                                                          .state = content
+                                                              .tagsTopik
+                                                              ?.tagsIcon1 ??
+                                                          "";
+                                                      // ref.invalidate(
+                                                      //     kotaIdProvider);
+                                                      ref.invalidate(
+                                                          kotaNameProvider);
+                                                      context.router.replace(
+                                                          routeChooser(
+                                                              content.tipe ??
+                                                                  ""));
+                                                    },
+                                                  ),
                                                 ),
-                                              ),
-                                              JustTheTooltip(
-                                                tailBaseWidth: 0,
-                                                tailLength: 0,
-                                                elevation: 0,
-                                                backgroundColor: Colors.white,
-                                                borderRadius: BorderRadius.zero,
-                                                content: Text(content
-                                                        .tagsOtonomi
-                                                        ?.tagsName ??
-                                                    ""),
-                                                child: IconWidget(
-                                                  content.tagsOtonomi
-                                                          ?.tagsIcon1 ??
-                                                      "",
-                                                  margin: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: small),
-                                                  isOnlineSource: true,
-                                                  onTap: () {
-                                                    setContentListParams(ref,
-                                                        tipe:
-                                                            content.tipe ?? "",
-                                                        tagsId: content
-                                                                .tagsOtonomi
-                                                                ?.tagsId ??
-                                                            0);
-                                                    ref
-                                                        .read(tagsNameProvider
-                                                            .notifier)
-                                                        .state = content
-                                                            .tagsOtonomi
-                                                            ?.tagsName ??
-                                                        "";
-                                                    ref
-                                                        .read(
-                                                            tagsIconLinkProvider
-                                                                .notifier)
-                                                        .state = content
-                                                            .tagsOtonomi
+                                                JustTheTooltip(
+                                                  tailBaseWidth: 0,
+                                                  tailLength: 0,
+                                                  elevation: 0,
+                                                  backgroundColor: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.zero,
+                                                  content: Text(content
+                                                          .tagsOtonomi
+                                                          ?.tagsName ??
+                                                      ""),
+                                                  child: IconWidget(
+                                                    content.tagsOtonomi
                                                             ?.tagsIcon1 ??
-                                                        "";
-                                                    // ref.invalidate(
-                                                    //     kotaIdProvider);
-                                                    ref.invalidate(
-                                                        kotaNameProvider);
-                                                    context.router.replace(
-                                                        routeChooser(
-                                                            content.tipe ??
-                                                                ""));
-                                                  },
+                                                        "",
+                                                    margin: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: small),
+                                                    isOnlineSource: true,
+                                                    onTap: () {
+                                                      setContentListParams(ref,
+                                                          tipe: content.tipe ??
+                                                              "",
+                                                          tagsId: content
+                                                                  .tagsOtonomi
+                                                                  ?.tagsId ??
+                                                              0);
+                                                      ref
+                                                          .read(tagsNameProvider
+                                                              .notifier)
+                                                          .state = content
+                                                              .tagsOtonomi
+                                                              ?.tagsName ??
+                                                          "";
+                                                      ref
+                                                          .read(
+                                                              tagsIconLinkProvider
+                                                                  .notifier)
+                                                          .state = content
+                                                              .tagsOtonomi
+                                                              ?.tagsIcon1 ??
+                                                          "";
+                                                      // ref.invalidate(
+                                                      //     kotaIdProvider);
+                                                      ref.invalidate(
+                                                          kotaNameProvider);
+                                                      context.router.replace(
+                                                          routeChooser(
+                                                              content.tipe ??
+                                                                  ""));
+                                                    },
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
