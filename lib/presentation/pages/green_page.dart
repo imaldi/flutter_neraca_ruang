@@ -14,6 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
+import '../../data/models/dashboard_response/dashboard_response.dart';
 import '../../di.dart';
 import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../widgets/appbar_widget.dart';
@@ -110,16 +111,19 @@ class GreenPageState extends ConsumerState<GreenPage> {
               children: [
                 greenContent.when(data: (data) {
                   var contentList = data;
-                  if (contentList != null && contentList.isEmpty) {
-                    return const Center(
-                      child: Text("Data Tidak ditemukan"),
-                    );
-                  }
-                  if (contentList == null) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: Color(greenModeColor),
-                      ),
+                  if (contentList == null || contentList.length == 0) {
+                    return Stack(
+                      children: [
+                        const Center(
+                          child: Text("Data Tidak ditemukan"),
+                        ),
+                        Positioned(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: medium),
+                            child: SocialMediaPanelWidget(),
+                          ),
+                        )
+                      ],
                     );
                   }
                   return SingleChildScrollView(
@@ -131,11 +135,10 @@ class GreenPageState extends ConsumerState<GreenPage> {
                           ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: contentList.length,
+                              itemCount: contentList?.length ?? 0,
                               itemBuilder: (c, i) {
                                 return ContentWidget(
-                                  contentList[i],
-                                  isGreenMode: true,
+                                  contentList?[i] ?? Datum(),
                                 );
                               }),
                           ButtonLoadMore(),

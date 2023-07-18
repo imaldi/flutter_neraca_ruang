@@ -8,6 +8,7 @@ import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
+import '../../data/models/dashboard_response/dashboard_response.dart';
 import '../../di.dart';
 import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../widgets/IconWidget.dart';
@@ -77,18 +78,28 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
           }),
           body: infografisTerbaru.when(data: (data) {
             var contentList = data;
-            if (contentList != null && contentList.isEmpty) {
-              return const Center(
-                child: Text("Data Tidak ditemukan"),
+            if (contentList == null || contentList.length == 0) {
+              return Stack(
+                children: [
+                  const Center(
+                    child: Text("Data Tidak ditemukan"),
+                  ),
+                  Positioned(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: medium),
+                      child: SocialMediaPanelWidget(),
+                    ),
+                  )
+                ],
               );
             }
-            if (contentList == null) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Color(primaryColor),
-                ),
-              );
-            }
+            // if (contentList == null) {
+            //   return const Center(
+            //     child: CircularProgressIndicator(
+            //       color: Color(primaryColor),
+            //     ),
+            //   );
+            // }
             return SingleChildScrollView(
               controller: sl<ScrollController>(),
               child: Padding(
@@ -98,10 +109,10 @@ class _InfografisPageState extends ConsumerState<InfografisPage> {
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: contentList.length,
+                        itemCount: contentList?.length ?? 0,
                         itemBuilder: (c, i) {
                           return ContentWidget(
-                            contentList[i],
+                            contentList?[i] ?? Datum(),
                           );
                         }),
                     ButtonLoadMore(),

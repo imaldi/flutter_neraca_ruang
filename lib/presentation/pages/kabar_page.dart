@@ -89,18 +89,21 @@ class _KabarPageState extends ConsumerState<KabarPage> {
           }),
           body: kabarTerbaru.when(data: (data) {
             var contentList = data;
-            if (contentList != null && contentList.isEmpty) {
-              return const Center(
-                child: Text("Data Tidak ditemukan"),
+            if (contentList == null || contentList.length == 0) {
+              return Stack(
+                children: [
+                  const Center(
+                    child: Text("Data Tidak ditemukan"),
+                  ),
+                  Positioned(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: medium),
+                      child: SocialMediaPanelWidget(),
+                    ),
+                  )
+                ],
               );
             }
-            // if (contentList == null) {
-            //   return const Center(
-            //     child: CircularProgressIndicator(
-            //       color: Color(primaryColor),
-            //     ),
-            //   );
-            // }
             return SingleChildScrollView(
               controller: sl<ScrollController>(),
               child: Padding(

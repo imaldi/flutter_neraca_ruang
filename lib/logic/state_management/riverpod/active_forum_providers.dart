@@ -145,7 +145,7 @@ class ActiveForums extends _$ActiveForums {
         "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXJhY2FydWFuZy1wb3J0YWwiLCJpYXQiOjE2ODMyOTIzNTZ9.BN1wbCp2HTxXVwmz9QtQXscHzv5INWPO6n5xTZDTDhc";
 
     try {
-      var url = Uri.https(baseUrl, "$updateReadsForumCommentUrl");
+      var url = Uri.https(baseUrl, updateReadsForumCommentUrl);
 
       // final json = await http.get(url);
       var bodyParams = {
@@ -154,6 +154,7 @@ class ActiveForums extends _$ActiveForums {
       if (replyId != null && replyId != 0) {
         bodyParams["reply_id"] = replyId.toString();
       }
+      print("Read comment Body Params: ${bodyParams.toString()}");
       final response = await http.patch(
         url,
         headers: {
@@ -165,7 +166,10 @@ class ActiveForums extends _$ActiveForums {
       print("URL mark as read forum coment from active forum provider: $url");
       log("result JSON: ${jsonDecode(response.body)}");
       if (onSuccess != null) onSuccess();
-      if (response.statusCode != 200) throw Exception();
+      // if (response.statusCode == 200 || response.statusCode == 400) {
+      // } else {
+      //   throw Exception();
+      // }
     } catch (e) {
       if (onFailed != null) onFailed(e.toString());
       state = AsyncValue.error(Error(), StackTrace.current);

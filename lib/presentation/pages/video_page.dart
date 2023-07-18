@@ -9,6 +9,7 @@ import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../core/router/app_router.dart';
+import '../../data/models/dashboard_response/dashboard_response.dart';
 import '../../di.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/IconWidget.dart';
@@ -63,16 +64,19 @@ class _VideoPageState extends ConsumerState<VideoPage> {
           }),
           body: videoTerbaru.when(data: (data) {
             var contentList = data;
-            if (contentList != null && contentList.isEmpty) {
-              return const Center(
-                child: Text("Data Tidak ditemukan"),
-              );
-            }
-            if (contentList == null) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Color(primaryColor),
-                ),
+            if (contentList == null || contentList.length == 0) {
+              return Stack(
+                children: [
+                  const Center(
+                    child: Text("Data Tidak ditemukan"),
+                  ),
+                  Positioned(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: medium),
+                      child: SocialMediaPanelWidget(),
+                    ),
+                  )
+                ],
               );
             }
             return SafeArea(
@@ -84,10 +88,10 @@ class _VideoPageState extends ConsumerState<VideoPage> {
                       ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: contentList.length,
+                          itemCount: contentList?.length ?? 0,
                           itemBuilder: (c, i) {
                             return ContentWidget(
-                              contentList[i],
+                              contentList?[i] ?? Datum(),
                             );
                           }),
                       ButtonLoadMore(),
