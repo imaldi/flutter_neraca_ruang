@@ -162,13 +162,25 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                           }
                           return null;
                         },
-                        onChanged: (val) {
-                          if ((val ?? "").isNotEmpty) {
-                            ref.read(allowedToComment.notifier).state = true;
-                          } else {
-                            ref.read(allowedToComment.notifier).state = false;
-                          }
-                        },
+                        // onEditingComplete: (){
+                        //   if ((textEditingController.text).isNotEmpty) {
+                        //     ref.read(allowedToComment.notifier).state = true;
+                        //   } else {
+                        //     ref.read(allowedToComment.notifier).state = false;
+                        //   }
+                        // },
+                        // onChanged: (val) {
+                        //   // ref.read(allowedToComment.notifier).state = true;
+                        //   if(textEditingController.text.isEmpty && val.isNotEmpty) {
+                        //     ref.read(allowedToComment.notifier).state = true;
+                        //
+                        //   }
+                        //   if ((textEditingController.text).isNotEmpty) {
+                        //     ref.read(allowedToComment.notifier).state = true;
+                        //   } else {
+                        //     ref.read(allowedToComment.notifier).state = false;
+                        //   }
+                        // },
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
                     ),
@@ -180,8 +192,10 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
                                 backgroundColor: Color(widgetColor),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(huge))),
-                            onPressed: isAllowedToComment
-                                ? () {
+                            onPressed:
+                            // isAllowedToComment
+                            //     ?
+                                () {
                                     textEditingController.text =
                                         textEditingController.text.trim();
                                     textEditingController.selection =
@@ -249,7 +263,8 @@ class _CommentWidgetState extends ConsumerState<CommentWidget> {
 
                                     // }
                                   }
-                                : null,
+                                // : null
+                            ,
                             child: Text("Kirim")),
                       ],
                     )

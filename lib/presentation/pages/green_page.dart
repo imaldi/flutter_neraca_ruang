@@ -135,10 +135,11 @@ class GreenPageState extends ConsumerState<GreenPage> {
                           ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: contentList?.length ?? 0,
+                              itemCount: contentList.length,
                               itemBuilder: (c, i) {
                                 return ContentWidget(
-                                  contentList?[i] ?? Datum(),
+                                  contentList[i],
+                                  isGreenMode: true,
                                 );
                               }),
                           ButtonLoadMore(),
