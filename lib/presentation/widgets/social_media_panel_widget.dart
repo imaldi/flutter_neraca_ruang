@@ -102,6 +102,19 @@ class SocialMediaPanelWidget extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
+          child: InkWell(
+            onTap: (){},
+            child: Text(
+              "Privacy Policy of Neraca Ruang",
+              style: TextStyle(
+              decoration: TextDecoration.underline,
+                color: Color(isGreenMode ? greenModeColor : primaryColor),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
             "Copyright © PT. Semesta Teknologi Indonesia",
             style: TextStyle(

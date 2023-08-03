@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_neraca_ruang/presentation/pages/album_foto_page.dart';
+import 'package:flutter_neraca_ruang/presentation/pages/privacy_policy_page.dart';
 
 import '../../presentation/pages/change_password_page.dart';
 import '../../presentation/pages/datum_type_filter_page.dart';
@@ -39,5 +40,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: ProfileRoute.page),
         AutoRoute(page: EditProfileRoute.page),
         AutoRoute(page: ChangePasswordRoute.page),
+        // AutoRoute(page: PrivacyPolicyRoute.page),
       ];
 }
