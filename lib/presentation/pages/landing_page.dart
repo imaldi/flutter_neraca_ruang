@@ -727,7 +727,11 @@ class LandingPageState extends ConsumerState<LandingPage> {
                                   Column(
                                 children: [
                                   // Text(data.banner ?? ""),
-                                  Image.network(data.banner ?? ""),
+                                  Image.network(data.banner ?? "",errorBuilder: (bc,o,st){
+                                    return Container(
+                                      padding: const EdgeInsets.all(normal),
+                                      child: Center(child: Text("No Ads"),),);
+                                  },),
                                 ],
                               );
                               //   ],

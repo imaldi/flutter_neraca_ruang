@@ -13,9 +13,10 @@ class PrivacyPolicyPage extends StatelessWidget {
       appBar: AppBar(title: Text("Privacy Policy"),),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(normal),
-          child: Text(
-            '''
+          padding: const EdgeInsets.all(medium),
+          child: SingleChildScrollView(
+            child: Text(
+              '''
 Kebijakan Privasi
 
 Neraca Ruang berkomitmen untuk melindungi data pribadi / perusahaan pelanggan. Dengan menggunakan layanan kami, Anda dianggap telah menyetujui Kebijakan Privasi ini.
@@ -43,7 +44,8 @@ Data dianggap bukan data rahasia dan Neraca Ruang dibebaskan dari kewajiban untu
 
 Untuk user yang tidak aktif, dapat mengirimkan email ke info@neracaruang.com menggunakan email yang terdaftar untuk meminta penghapusan akun beserta seluruh data yang ada di dalamnya. Namun bagaimanapun juga neraca ruang harus tunduk pada aturan perundangan yang berlaku apabila suatu saat terdapat peraturan perundangan mengenai penghapusan data pelanggan.
 
-            '''
+              '''
+            ),
           ),
         ),
       ),

@@ -40,6 +40,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: ProfileRoute.page),
         AutoRoute(page: EditProfileRoute.page),
         AutoRoute(page: ChangePasswordRoute.page),
-        // AutoRoute(page: PrivacyPolicyRoute.page),
+        AutoRoute(page: PrivacyPolicyRoute.page),
       ];
 }

@@ -6,7 +6,7 @@ part of 'all_content_list_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$contentsHash() => r'76256d63d8e86fe49e6f16cdbd2ba8284ac76ccb';
+String _$contentsHash() => r'79ef3549d572449fc5fca2ed1136359cbd32ed27';
 
 /// NOTE penting, jadi, kalau mau pakai (Async)NotifierProvider, kalau butuh "parameter" di
 /// build method nya,

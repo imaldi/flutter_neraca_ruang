@@ -6,7 +6,7 @@ part of 'forum_comment_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$forumCommentsHash() => r'5ae322aab41f1ebd051001178659f76835e02dc4';
+String _$forumCommentsHash() => r'0cbc7dcb441e20ae44b567ffe27452bfd72b7828';
 
 /// See also [ForumComments].
 @ProviderFor(ForumComments)

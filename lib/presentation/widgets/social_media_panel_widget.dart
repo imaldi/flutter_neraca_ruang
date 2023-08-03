@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/assets.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/consts/urls.dart';
+import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/IconWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -101,9 +103,11 @@ class SocialMediaPanelWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
+          padding: const EdgeInsets.all(normal),
           child: InkWell(
-            onTap: (){},
+            onTap: (){
+              context.router.push(PrivacyPolicyRoute());
+            },
             child: Text(
               "Privacy Policy of Neraca Ruang",
               style: TextStyle(
