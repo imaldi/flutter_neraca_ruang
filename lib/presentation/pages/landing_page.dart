@@ -61,7 +61,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
         showDialog(context: context, builder: (c){
           return AlertDialog(
             title: Text("Privacy Policy",style: TextStyle(fontWeight: FontWeight.bold),),
-            content: Text(privacyPolicy),
+            content: SingleChildScrollView(child: Text(privacyPolicy)),
             actions: [
               ElevatedButton(onPressed: (){
                 var policyBox = sl<Box<bool>>();

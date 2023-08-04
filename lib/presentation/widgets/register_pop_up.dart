@@ -320,7 +320,7 @@ class RegisterPopUp extends ConsumerWidget {
                                   // if(next.value == true){
                                   await showDialog(context: context, builder: (c){
                                     return AlertDialog(
-                                      title: Text("Privacy Policy",style: TextStyle(fontWeight: FontWeight.bold),),
+                                      title: SingleChildScrollView(child: Text("Privacy Policy",style: TextStyle(fontWeight: FontWeight.bold),)),
                                       content: Text(privacyPolicy),
                                       actions: [
                                         ElevatedButton(onPressed: (){
