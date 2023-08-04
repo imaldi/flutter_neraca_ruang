@@ -25,6 +25,7 @@ Future<void> init() async {
   Hive.registerAdapter(ForumCommentModelAdapter());
   // final authBox = await Hive.openBox<LoginResponse>(authBoxKey);
   final authBox = await Hive.openBox<AuthResponse>(authBoxKey);
+  final policyBox = await Hive.openBox<bool>(policyBoxKey);
   // final userBox = await Hive.openBox<Members>(userDataKey);
   final likedContent = await Hive.openBox<String>(likedContentBoxKey);
   final likedForumComment =
@@ -33,6 +34,7 @@ Future<void> init() async {
       () => GlobalKey<ScaffoldState>());
   sl.registerLazySingleton<ScrollController>(() => ScrollController());
   sl.registerLazySingleton<Box<AuthResponse>>(() => authBox);
+  sl.registerLazySingleton<Box<bool>>(() => policyBox);
   // sl.registerLazySingleton<Box<Members>>(() => userBox);
   sl.registerLazySingleton<Box<String>>(() => likedContent);
   sl.registerLazySingleton<Box<ForumCommentModel>>(() => likedForumComment);

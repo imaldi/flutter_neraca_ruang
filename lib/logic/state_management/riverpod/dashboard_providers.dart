@@ -4,17 +4,20 @@ import 'dart:developer';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neraca_ruang/core/consts/datum_type.dart';
+import 'package:flutter_neraca_ruang/core/consts/hive_const.dart';
 import 'package:flutter_neraca_ruang/core/consts/urls.dart';
 import 'package:flutter_neraca_ruang/data/models/kota_kabupaten_response/kota_kabupaten_response.dart';
 import 'package:flutter_neraca_ruang/data/models/simple_dashboard_response/simple_dashboard_response.dart';
 import 'package:flutter_neraca_ruang/data/models/tags_response/tags_response.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../data/models/adsense_response/adsense_response.dart';
 import '../../../data/models/dashboard_response/dashboard_response.dart';
 import '../../../data/models/kota_kabupaten_response/kota_kabupaten_single_response.dart';
 import '../../../data/models/province_response/province_response.dart';
+import '../../../di.dart';
 
 // TODO: Buat FutureProvider untuk fetch semua konten yang tampil di dashboard
 // var kabarProvider;
@@ -238,6 +241,12 @@ final tagsTopikList = FutureProvider<List<Tags>>((ref) async {
   final response = await repo.fetchTagsByType("topik");
   log("Response Tags: ${response.toString()}");
   return response;
+});
+
+final isUserAcceptingPolicy = FutureProvider<bool?>((ref) async {
+  var policyBox = sl<Box<bool>>();
+  var dataFromBox = policyBox.get(policyBoxKey);
+  return dataFromBox;
 });
 
 final startSearchingByTag = StateProvider<bool>((ref) => false);

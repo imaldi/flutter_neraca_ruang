@@ -5,17 +5,21 @@ import 'package:flutter_neraca_ruang/presentation/widgets/rounded_container.dart
 import 'package:flutter_neraca_ruang/presentation/widgets/rounded_text_form_field.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/searchable_dropdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/consts/assets.dart';
 import '../../core/consts/colors.dart';
+import '../../core/consts/hive_const.dart';
+import '../../core/consts/privacy_policy.dart';
 import '../../core/consts/regex_pattern.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
 import '../../core/helper_functions/deeplink_handler.dart';
 import '../../core/router/app_router.dart';
 import '../../data/models/kota_kabupaten_response/kota_kabupaten_response.dart';
+import '../../di.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../../logic/state_management/riverpod/current_location_providers.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
@@ -53,6 +57,7 @@ class RegisterPopUp extends ConsumerWidget {
     var locationState =
         detectLokasi ? ref.watch(currentLocationProvider) : null;
     final regex = RegExp(passwordPattern);
+    var isAcceptPrivacyPolicy = ref.watch(isUserAcceptingPolicy);
 
     return Center(
       child: SingleChildScrollView(
@@ -305,14 +310,48 @@ class RegisterPopUp extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
-                        onTap: () {
+                        onTap: () async {
                           // ref.watch(currentLocationProvider);
-                          myConfirmDialog(context,
+                          await myConfirmDialog(context,
                               title: "Aktifkan Lokasi?",
                               positiveButtonText: "Ya",
-                              negativeButtonText: "Batal", positiveButton: () {
-                            ref.read(isDetectLokasi.notifier).state = true;
-                            myToast("GPS Diaktifkan");
+                              negativeButtonText: "Batal", positiveButton: () async {
+                                if(isAcceptPrivacyPolicy.value == null || isAcceptPrivacyPolicy.value == false){
+                                  // if(next.value == true){
+                                  await showDialog(context: context, builder: (c){
+                                    return AlertDialog(
+                                      title: Text("Privacy Policy",style: TextStyle(fontWeight: FontWeight.bold),),
+                                      content: Text(privacyPolicy),
+                                      actions: [
+                                        ElevatedButton(onPressed: (){
+                                          var policyBox = sl<Box<bool>>();
+                                          // var dataFromBox = policyBox.get(policyBoxKey);
+
+                                          policyBox.put(policyBoxKey, false);
+                                          context.router.pop();
+                                          // context.router.pop();
+                                        }, child: Text("Decline")),
+                                        ElevatedButton(onPressed: (){
+                                          var policyBox = sl<Box<bool>>();
+                                          // var dataFromBox = policyBox.get(policyBoxKey);
+
+                                          policyBox.put(policyBoxKey, true);
+                                          ref.read(isDetectLokasi.notifier).state = true;
+                                          myToast("GPS Diaktifkan");
+                                          context.router.pop();
+
+                                        }, child: Text("Accept")),
+                                      ],
+                                    );
+                                  });
+                                } else {
+                                  ref.read(isDetectLokasi.notifier).state = true;
+                                  myToast("GPS Diaktifkan");
+                                  context.router.pop();
+
+                                }
+
+
                           }, negativeButton: () {
                             context.router.pop();
                           });

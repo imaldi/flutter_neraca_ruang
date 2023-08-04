@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/consts/num_consts.dart';
+import 'package:flutter_neraca_ruang/core/consts/privacy_policy.dart';
 import 'package:flutter_neraca_ruang/core/helper_functions/basic_will_pop_scope.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/data/models/adsense_response/adsense_response.dart';
@@ -15,11 +16,14 @@ import 'package:flutter_neraca_ruang/presentation/widgets/main_drawer.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_toast.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:hive/hive.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../core/consts/assets.dart';
+import '../../core/consts/hive_const.dart';
 import '../../core/consts/sizes.dart';
 import '../../core/consts/urls.dart';
+import '../../di.dart';
 import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../widgets/drawer_content.dart';
@@ -48,6 +52,47 @@ class LandingPageState extends ConsumerState<LandingPage> {
     var authData = ref.watch(authStatusProvider);
     var isLogin = authData.value != null;
     var forumList = ref.watch(activeForumsProvider);
+    var isAcceptPrivacyPolicy = ref.watch(isUserAcceptingPolicy);
+
+    ref.listen(isUserAcceptingPolicy, (previous, next) {
+      if(next.value == null || next.value == false){
+      // if(next.value == true){
+        myToast("Previous: $previous");
+        showDialog(context: context, builder: (c){
+          return AlertDialog(
+            title: Text("Privacy Policy",style: TextStyle(fontWeight: FontWeight.bold),),
+            content: Text(privacyPolicy),
+            actions: [
+              ElevatedButton(onPressed: (){
+                var policyBox = sl<Box<bool>>();
+                // var dataFromBox = policyBox.get(policyBoxKey);
+
+                policyBox.put(policyBoxKey, false);
+                context.router.popForced();
+                // context.router.pop();
+              }, child: Text("Decline")),
+              ElevatedButton(onPressed: (){
+                var policyBox = sl<Box<bool>>();
+                // var dataFromBox = policyBox.get(policyBoxKey);
+
+                policyBox.put(policyBoxKey, true);
+                context.router.pop();
+              }, child: Text("Accept")),
+            ],
+          );
+        });
+      }
+      // myToast("Is Accepted: ${next.value}");
+      // if(previous == null){
+      //   myToast("Previous: $previous");
+      //   myToast("Next: $next");
+        // showDialog(context: context, builder: (c){
+        //   return AlertDialog(
+        //     title: Text("Privacy Policy",style: TextStyle(fontWeight: FontWeight.bold),),
+        //     content: Text(privacyPolicy),);
+        // });
+      // }
+    });
 
     return DefaultTabController(
       length: mainTabLength,

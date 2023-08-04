@@ -82,8 +82,8 @@ Future myConfirmDialog(
                       backgroundColor: Color(primaryColor),
                       side: const BorderSide(color: Color(primaryColor)),
                     ),
-                    onPressed: () {
-                      positiveButton!();
+                    onPressed: () async {
+                      await positiveButton!();
                       // Navigator.of(context).pop();
                       Navigator.of(context).pop();
                     },
