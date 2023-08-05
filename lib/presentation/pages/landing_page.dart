@@ -57,7 +57,7 @@ class LandingPageState extends ConsumerState<LandingPage> {
     ref.listen(isUserAcceptingPolicy, (previous, next) {
       if(next.value == null || next.value == false){
       // if(next.value == true){
-        myToast("Previous: $previous");
+      //   myToast("Previous: $previous");
         showDialog(context: context, builder: (c){
           return AlertDialog(
             title: Text("Privacy Policy",style: TextStyle(fontWeight: FontWeight.bold),),
