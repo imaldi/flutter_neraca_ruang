@@ -15,15 +15,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../widgets/appbar_widget.dart';
+import '../widgets/eits_bayar_dulu.dart';
 import '../widgets/kembali_button.dart';
 import '../widgets/my_toast.dart';
 
 @RoutePage()
-class ProfilePage extends ConsumerWidget {
+class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends ConsumerState<ProfilePage> {
+  @override
+  void initState() {
+    showBayarDialog(context);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final textColor = Color(primaryColor);
     final textStyle =
         TextStyle(color: textColor, fontSize: big, fontWeight: FontWeight.w500);

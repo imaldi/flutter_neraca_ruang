@@ -24,6 +24,7 @@ import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/button_load_more.dart';
 import '../widgets/comment_widget.dart';
+import '../widgets/eits_bayar_dulu.dart';
 import '../widgets/my_toast.dart';
 import '../widgets/social_media_panel_widget.dart';
 
@@ -43,6 +44,11 @@ class _DatumTypeFilterPageState extends ConsumerState<DatumTypeFilterPage> {
   // }
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
+  @override
+  void initState() {
+    showBayarDialog(context);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var list = ref.watch(contentsProvider);

@@ -16,6 +16,7 @@ import '../../di.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/button_load_more.dart';
 import '../widgets/content_widget.dart';
+import '../widgets/eits_bayar_dulu.dart';
 import '../widgets/forum_content_widget.dart';
 import '../widgets/main_drawer.dart';
 import '../widgets/social_media_panel_widget.dart';
@@ -30,6 +31,11 @@ class DiskusiPage extends ConsumerStatefulWidget {
 }
 
 class _DiskusiPageState extends ConsumerState<DiskusiPage> {
+  @override
+  void initState() {
+    showBayarDialog(context);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final textColor = Color(primaryColor);

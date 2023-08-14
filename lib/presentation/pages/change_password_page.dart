@@ -14,14 +14,25 @@ import '../../core/consts/sizes.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
+import '../widgets/eits_bayar_dulu.dart';
 import '../widgets/main_drawer.dart';
 
 @RoutePage()
-class ChangePasswordPage extends ConsumerWidget {
+class ChangePasswordPage extends ConsumerStatefulWidget {
   const ChangePasswordPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ChangePasswordPage> createState() => _ChangePasswordPageState();
+}
+
+class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
+  @override
+  void initState() {
+    showBayarDialog(context);
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     final textColor = Color(primaryColor);
     final textStyle = TextStyle(color: textColor);
     final boxDecoration = BoxDecoration(border: Border.all(color: textColor));

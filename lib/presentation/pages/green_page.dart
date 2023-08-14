@@ -19,6 +19,7 @@ import '../../di.dart';
 import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
+import '../widgets/eits_bayar_dulu.dart';
 import '../widgets/main_drawer.dart';
 import '../widgets/social_media_panel_widget.dart';
 import '../widgets/tab_menu_item.dart';
@@ -32,11 +33,11 @@ class GreenPage extends ConsumerStatefulWidget {
 }
 
 class GreenPageState extends ConsumerState<GreenPage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   ref.read(contentsProvider.notifier).fetchContent(type: "", limit: 3);
-  // }
+  @override
+  void initState() {
+    showBayarDialog(context);
+    super.initState();
+  }
   //
   // @override
   // void dispose() {

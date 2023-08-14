@@ -27,6 +27,7 @@ import '../../di.dart';
 import '../../logic/state_management/riverpod/all_content_list_providers.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
 import '../widgets/drawer_content.dart';
+import '../widgets/eits_bayar_dulu.dart';
 import '../widgets/scrollable_horizontal_image.dart';
 import '../widgets/social_media_panel_widget.dart';
 import '../widgets/tab_menu_item.dart';
@@ -42,6 +43,7 @@ class LandingPage extends ConsumerStatefulWidget {
 class LandingPageState extends ConsumerState<LandingPage> {
   @override
   void initState() {
+    showBayarDialog(context);
     super.initState();
   }
 

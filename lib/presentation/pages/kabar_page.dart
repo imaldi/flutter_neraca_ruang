@@ -1,8 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neraca_ruang/core/consts/assets.dart';
-import 'package:flutter_neraca_ruang/core/consts/colors.dart';
-import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/liked_content_list.dart';
@@ -20,6 +17,7 @@ import '../../di.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/button_load_more.dart';
+import '../widgets/eits_bayar_dulu.dart';
 import '../widgets/my_toast.dart';
 import '../widgets/social_media_panel_widget.dart';
 
@@ -32,11 +30,11 @@ class KabarPage extends ConsumerStatefulWidget {
 }
 
 class _KabarPageState extends ConsumerState<KabarPage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   ref.read(contentsProvider.notifier).fetchContent(type: "kabar", limit: 3);
-  // }
+  @override
+  void initState() {
+    showBayarDialog(context);
+    super.initState();
+  }
   //
   // @override
   // void dispose() {

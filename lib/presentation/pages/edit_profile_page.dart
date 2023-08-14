@@ -16,6 +16,7 @@ import '../../core/helper_functions/basic_will_pop_scope.dart';
 import '../../logic/state_management/riverpod/dashboard_providers.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
+import '../widgets/eits_bayar_dulu.dart';
 import '../widgets/main_drawer.dart';
 import '../widgets/searchable_dropdown.dart';
 
@@ -28,6 +29,11 @@ class EditProfilePage extends ConsumerStatefulWidget {
 }
 
 class _EditProfilePageState extends ConsumerState<EditProfilePage> {
+  @override
+  void initState() {
+    showBayarDialog(context);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final textColor = Color(primaryColor);
