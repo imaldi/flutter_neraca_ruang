@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/dashboard_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/liked_content_list.dart';
@@ -32,7 +33,7 @@ class KabarPage extends ConsumerStatefulWidget {
 class _KabarPageState extends ConsumerState<KabarPage> {
   @override
   void initState() {
-    showBayarDialog(context);
+    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
     super.initState();
   }
   //

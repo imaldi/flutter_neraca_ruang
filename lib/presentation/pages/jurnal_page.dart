@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_neraca_ruang/core/consts/num_consts.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
@@ -31,7 +32,7 @@ class JurnalPage extends ConsumerStatefulWidget {
 class _JurnalPageState extends ConsumerState<JurnalPage> {
   @override
   void initState() {
-    showBayarDialog(context);
+    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
     super.initState();
   }
   //

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/all_content_list_providers.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/social_media_panel_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,7 +34,7 @@ class _VideoPageState extends ConsumerState<VideoPage> {
 
   @override
   void initState() {
-    showBayarDialog(context);
+    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
     super.initState();
   }
 

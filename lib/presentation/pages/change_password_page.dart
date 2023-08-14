@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
 import 'package:flutter_neraca_ruang/presentation/pages/profile_page.dart';
 import 'package:flutter_neraca_ruang/presentation/widgets/my_button.dart';
@@ -28,7 +29,7 @@ class ChangePasswordPage extends ConsumerStatefulWidget {
 class _ChangePasswordPageState extends ConsumerState<ChangePasswordPage> {
   @override
   void initState() {
-    showBayarDialog(context);
+    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
     super.initState();
   }
   @override

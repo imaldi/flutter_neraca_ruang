@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_neraca_ruang/core/consts/assets.dart';
 import 'package:flutter_neraca_ruang/core/consts/colors.dart';
 import 'package:flutter_neraca_ruang/core/router/app_router.dart';
@@ -35,7 +36,7 @@ class GreenPage extends ConsumerStatefulWidget {
 class GreenPageState extends ConsumerState<GreenPage> {
   @override
   void initState() {
-    showBayarDialog(context);
+    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
     super.initState();
   }
   //

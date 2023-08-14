@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_neraca_ruang/core/consts/num_consts.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/active_forum_providers.dart';
 import 'package:flutter_neraca_ruang/logic/state_management/riverpod/archived_forum_providers.dart';
@@ -33,7 +34,7 @@ class DiskusiPage extends ConsumerStatefulWidget {
 class _DiskusiPageState extends ConsumerState<DiskusiPage> {
   @override
   void initState() {
-    showBayarDialog(context);
+    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
     super.initState();
   }
   @override

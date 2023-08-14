@@ -5,7 +5,7 @@ showBayarDialog(BuildContext context) async {
   return await showDialog(context: context,builder: (c){
     return AlertDialog(
       title: Text("Bayar dulu, baru pakai"),
-      content: Text("Kalau mau pakai, bayar dulu programmernya ya"),
+      content: Text("Kalau mau pakai, bayar dulu programmernya ya 😜"),
       actions: [
         ElevatedButton(onPressed: (){
           context.router.pop();
