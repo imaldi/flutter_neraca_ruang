@@ -18,7 +18,7 @@ import '../../di.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/button_load_more.dart';
-import '../widgets/eits_bayar_dulu.dart';
+
 import '../widgets/my_toast.dart';
 import '../widgets/social_media_panel_widget.dart';
 
@@ -31,11 +31,7 @@ class KabarPage extends ConsumerStatefulWidget {
 }
 
 class _KabarPageState extends ConsumerState<KabarPage> {
-  @override
-  void initState() {
-    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
-    super.initState();
-  }
+  
   //
   // @override
   // void dispose() {

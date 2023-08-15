@@ -18,7 +18,7 @@ import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/button_load_more.dart';
 import '../widgets/content_widget.dart';
-import '../widgets/eits_bayar_dulu.dart';
+
 import '../widgets/main_drawer.dart';
 
 @RoutePage()
@@ -32,11 +32,7 @@ class VideoPage extends ConsumerStatefulWidget {
 class _VideoPageState extends ConsumerState<VideoPage> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override
-  void initState() {
-    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
-    super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) {

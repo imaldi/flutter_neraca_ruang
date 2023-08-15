@@ -17,7 +17,7 @@ import '../widgets/appbar_widget.dart';
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/button_load_more.dart';
 import '../widgets/content_widget.dart';
-import '../widgets/eits_bayar_dulu.dart';
+
 import '../widgets/main_drawer.dart';
 import '../widgets/social_media_panel_widget.dart';
 
@@ -30,11 +30,7 @@ class JurnalPage extends ConsumerStatefulWidget {
 }
 
 class _JurnalPageState extends ConsumerState<JurnalPage> {
-  @override
-  void initState() {
-    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
-    super.initState();
-  }
+  
   //
   // @override
   // void dispose() {

@@ -16,7 +16,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/consts/num_consts.dart';
 import '../../core/consts/sizes.dart';
 import '../widgets/appbar_widget.dart';
-import '../widgets/eits_bayar_dulu.dart';
+
 import '../widgets/kembali_button.dart';
 import '../widgets/my_toast.dart';
 
@@ -29,11 +29,7 @@ class ProfilePage extends ConsumerStatefulWidget {
 }
 
 class _ProfilePageState extends ConsumerState<ProfilePage> {
-  @override
-  void initState() {
-    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
-    super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) {

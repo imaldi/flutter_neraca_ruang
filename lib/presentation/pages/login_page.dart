@@ -18,7 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/consts/assets.dart';
 import '../../core/helper_functions/deeplink_handler.dart';
 import '../../logic/state_management/riverpod/async_state_auth_providers.dart';
-import '../widgets/eits_bayar_dulu.dart';
+
 
 @RoutePage()
 class LoginPage extends ConsumerStatefulWidget {
@@ -33,11 +33,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   // var passwordController = TextEditingController(text: 'asdf_123');
 
   // var isLoginListener = ref
-  @override
-  void initState() {
-    SchedulerBinding.instance.addPostFrameCallback((_) => showBayarDialog(context));
-    super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
